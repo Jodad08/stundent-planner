@@ -3,6 +3,7 @@ import type { PlanResponse, RunRecord } from "../../../shared/types"
 import { api, type RunSummary } from "../api"
 import { useStore } from "../store"
 import { traceOf } from "./PlanModal"
+import { Thinking } from "./Thinking"
 
 /** Saved-run replay: re-opens a recorded plan with no model call. */
 export function RunsPanel() {
@@ -23,7 +24,7 @@ export function RunsPanel() {
         const resp = open.final_state as PlanResponse
         return (
           <div className="mt-4 rounded-lg border border-white/10 p-3">
-            <ol className="space-y-1 text-xs">{traceOf(open).map((t, i) => <li key={i} className={t.state === "fail" ? "text-red-300" : "text-emerald-300"}>{t.state === "fail" ? "✗" : "✓"} {t.label}</li>)}</ol>
+            <Thinking lines={traceOf(open)} speed={120} />
             <button className="mt-2 rounded bg-sf-gold px-3 py-1 text-xs font-semibold text-slate-900"
               onClick={() => st.addPlan({ ...resp.plan, id: resp.plan.id + "_replay_" + Date.now().toString(36), name: "Replay: " + resp.plan.name })}>Open this plan</button>
           </div>

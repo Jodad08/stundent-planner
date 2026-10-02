@@ -21,7 +21,11 @@ let client: GoogleGenAI | null = null
 export async function completeJson(system: string, user: string,
   opts: { purpose: Purpose; schema: object; mock: () => unknown }): Promise<CompleteResult> {
   const t0 = Date.now()
-  if (providerName() === "mock") return { json: opts.mock(), provider: "mock", model: "mock", ms: Date.now() - t0 }
+  if (providerName() === "mock") {
+    // simulated AI: short think time so the UI's reasoning view has something to show (no network call)
+    await new Promise(r => setTimeout(r, Number(process.env.MOCK_DELAY_MS ?? 1400)))
+    return { json: opts.mock(), provider: "mock", model: "simulated", ms: Date.now() - t0 }
+  }
   const model = process.env.GEMINI_MODEL
   if (!model) throw new Error("GEMINI_MODEL is not set")
   client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })

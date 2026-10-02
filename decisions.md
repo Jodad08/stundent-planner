@@ -298,3 +298,13 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Gemini key now returns 429 (quota) and 503; Auto Plan falls back to the engine planner and says so.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-026: Simulated AI by default, all SFSU majors listed, manual-plan option
+- Step: 10 (human request)
+- Decision: (a) `npm run dev` / `npm start` default to `AI_PROVIDER=mock` ("Simulated AI"): no API call; ~1.4 s think delay; the mock plan returns `thoughts` that narrate computed facts (goal → track, completed semesters, longest prerequisite chain, chosen electives with prerequisite-based reasons, unit target vs. the 19-unit cap) and seeds one CSC 340 mistake so the engine's repair loop shows; the mock evaluate writes the summary and direction text from `connections()` and the code scores. The UI shows the reasoning line by line and names the provider: "Simulated AI" vs "Gemini" (from `/api/health`). Live Gemini: `npm run dev:gemini`. (b) The major dropdown lists all 117 active SFSU bachelor's programs from `programs.json`; only B.S. CS (the mapped DAG) is selectable, others say "map coming soon". (c) The last onboarding step offers "I'll plan it myself" (completed semesters filled, rest empty) next to "✦ auto plan it".
+- Alternatives: present the simulation as Gemini (rejected: misleading to judges; GDG track requires Gemini as the core); keep calling the free-tier key (429/503 all afternoon).
+- Why: human instruction (free-tier key; simulate the AI; list all majors; manual option). Honest labeling keeps the demo defensible: Gemini integration exists and recorded real runs replay in the Runs panel.
+- Evidence: Gemini 429/503 at 14:55-15:00 (probe output); `data/sfsu/programs.json` (117 active B.* programs)
+- Risk / undo: Judges may discount simulated output; say plainly "simulation mode because of free-tier quota" and show a recorded real run.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

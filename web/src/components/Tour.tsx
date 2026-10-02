@@ -7,9 +7,9 @@ const STEPS: { target: string; title: string; body: string }[] = [
   { target: "[data-tour=board]", title: "These are prerequisites", body: "Faint lines connect a course to what it needs. Drag empty space to move the canvas, scroll to zoom. Drag a course before its prerequisite and the line turns red and glows." },
   { target: "[data-tour=courses]", title: "This is your course list", body: "Every B.S. Computer Science requirement from the 2026-27 Bulletin. Drag a course onto the canvas: the semester under it lights up." },
   { target: "[data-tour=status]", title: "The rules engine", body: "Every move is checked against the Bulletin rules: prerequisites, corequisites, standing and unit loads. No AI decides this." },
-  { target: "[data-tour=ai]", title: "This is AI Plan", body: "Tell Gemini your career goal. It proposes a plan, the engine checks it and sends mistakes back for repair, and nothing invalid reaches you." },
-  { target: "[data-tour=check]", title: "This is Check", body: "A full report: each broken rule with the Bulletin quote, missing requirements, career fit, and Gemini's suggestions (each re-checked)." },
-  { target: "[data-tour=proof]", title: "This is Proof", body: "Gemini vs. the engine's own planner vs. SFSU's official roadmap, scored by the same rules. Always confirm with your advisor." },
+  { target: "[data-tour=ai]", title: "This is Auto Plan", body: "One click fills your remaining semesters for your career goal. The AI proposes, the rules engine checks it and sends mistakes back for repair, and nothing invalid reaches you." },
+  { target: "[data-tour=check]", title: "This is Evaluate", body: "Scans your map: where it points (career direction), how it connects (your longest prerequisite chain and critical courses), and every broken rule with the Bulletin quote." },
+  { target: "[data-tour=proof]", title: "This is Proof", body: "The AI planner vs. the engine's own planner vs. SFSU's official roadmap, scored by the same rules. Always confirm with your advisor." },
 ]
 
 export function Tour({ onDone }: { onDone: () => void }) {

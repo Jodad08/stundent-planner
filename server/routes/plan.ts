@@ -2,7 +2,7 @@
 // trusted state -> prompt -> adapter -> parse -> sanitize -> engine -> repair (max 2) -> fallback -> saved run
 import { Router } from "express"
 import { careers, dag, policies } from "../../shared/data"
-import { DEFAULT_PROFILE, evaluatePlan, fillPlaceholders, isPlaceholder, pickElectives, sanitizeSemesters } from "../../shared/engine"
+import { connections, DEFAULT_PROFILE, evaluatePlan, fillPlaceholders, isPlaceholder, leaves, pickElectives, sanitizeSemesters } from "../../shared/engine"
 import { buildFallbackPlan } from "../../shared/fallbackPlanner"
 import { directionScores, guessTrack } from "../../shared/directionScores"
 import type { EngineReport, Plan, PlanRequest, PlanResponse } from "../../shared/types"
@@ -13,7 +13,7 @@ import { newRun } from "../runs"
 
 const MAX_REPAIRS = 2
 
-type RawPlan = { trackId?: unknown; semesters?: unknown; rationale?: unknown; electiveChoices?: unknown }
+type RawPlan = { trackId?: unknown; semesters?: unknown; rationale?: unknown; electiveChoices?: unknown; thoughts?: unknown }
 
 /** Problems that send a plan back for repair: engine errors, incomplete groups, standing. */
 export function blockingProblems(report: EngineReport): string[] {
@@ -21,20 +21,48 @@ export function blockingProblems(report: EngineReport): string[] {
     .map(i => i.message)
 }
 
-/** Deterministic mock: first answer has one seeded prerequisite error so the repair loop runs without a key. */
+/**
+ * Simulated AI (provider "mock", D-026): no model call. It narrates the planning it actually does with the
+ * deterministic engine, in a model-like voice, and seeds one prerequisite mistake on the first answer so the
+ * engine's catch-and-repair loop is visible. Every fact in the text is computed from the data.
+ */
 function mockPlan(req: PlanRequest, attempt: number): RawPlan {
   const { goalText, unitsPerSemester: units } = req
   const trackId = guessTrack(goalText)
+  const track = dag.tracks[trackId]
   const done = req.completedSemesters ?? 0
+  const taken = req.lockedPlacements.filter(l => l.semester <= done)
   const p = buildFallbackPlan(dag, { trackId, unitsPerSemester: units, profile: DEFAULT_PROFILE,
-    completed: req.lockedPlacements.filter(l => l.semester <= done), completedSemesters: done, unitsEarned: req.unitsEarned })
+    completed: taken, completedSemesters: done, unitsEarned: req.unitsEarned })
   const semesters = p.semesters.map(s => ({ index: s.index, courseIds: s.courseIds.filter(c => !isPlaceholder(c)) }))
-  if (attempt === 0) { // seeded mistake: CSC 340 one semester too early
+  const electives = semesters.flatMap(s => s.courseIds).filter(c => dag.requirements.some(r => r.type === "choose_units" && r.courses.includes(c)))
+  const conn = connections(p, dag)
+  const reasonFor = (c: string) => {
+    const n = dag.nodes[c]
+    const pre = leaves(n.prereq).map(l => l.code).filter(x => dag.nodes[x])
+    return `${n.title}${track.courses.includes(c) ? ` sits in the ${track.label} track` : " rounds out the CSC elective units"}${pre.length ? `, and it builds on ${pre.slice(0, 2).join(" and ")}` : ""}.`
+  }
+  if (attempt > 0) {
+    return { trackId, semesters, thoughts: [
+      "The rules engine rejected my draft: CSC 340 needs CSC 220 and CSC 230 completed first, and I had them in the same semester.",
+      "Moving CSC 340 one semester later. Nothing that depends on it shifts past the last semester, so graduation stays on time.",
+    ], rationale: `Repaired: CSC 340 now follows CSC 220 and CSC 230. Electives stay focused on ${track.label}.`,
+    electiveChoices: electives.map(c => ({ courseId: c, reason: reasonFor(c) })) } as RawPlan
+  }
+  if (attempt === 0) { // seeded mistake: CSC 340 one semester too early, so the engine catches it
     const from = semesters.find(s => s.courseIds.includes("CSC 340"))
     if (from && from.index > done + 1) { from.courseIds = from.courseIds.filter(c => c !== "CSC 340"); semesters[from.index - 2].courseIds.push("CSC 340") }
   }
-  return { trackId, semesters, rationale: `MOCK (no model call): electives taken from the ${dag.tracks[trackId].label} track.`,
-    electiveChoices: pickElectives(dag, { courses: [] }, trackId).map(c => ({ courseId: c, reason: `Listed in the ${dag.tracks[trackId].label} track.` })) }
+  const thoughts = [
+    `"${goalText}" lines up best with the department's ${track.label} track, so its electives come first.`,
+    done ? `${done} semester${done > 1 ? "s are" : " is"} already done (${taken.map(t => t.courseId).join(", ") || "GE only"}), so I'm planning from semester ${done + 1}.` : "Starting from semester 1 with calculus placement.",
+    conn.longestChain.length > 1 ? `The longest prerequisite chain is ${conn.longestChain.join(" → ")}, so ${conn.longestChain[0]} has to start early.` : "",
+    `Electives (${electives.reduce((u, c) => u + dag.nodes[c].units, 0)} units): ${electives.join(", ")}.`,
+    `Keeping each semester near ${units} units, under the ${policies.maxUnitsWithoutPermission.value}-unit priority-registration cap.`,
+  ].filter(Boolean)
+  return { trackId, semesters, thoughts,
+    rationale: `I matched "${goalText}" to ${track.label} and chose ${electives.slice(0, 3).map(c => dag.nodes[c].title).join(", ")} and more, because they build directly on your core courses and point at that career.`,
+    electiveChoices: electives.map(c => ({ courseId: c, reason: reasonFor(c) })) } as RawPlan
 }
 
 export function validateRequest(body: unknown): PlanRequest | string {

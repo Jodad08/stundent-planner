@@ -2,6 +2,7 @@ import { useState } from "react"
 import { api } from "../api"
 import { useActivePlan, useStore } from "../store"
 import { useReport } from "./Board"
+import { aiName } from "./Thinking"
 
 /** Minimal top bar: plan tabs, status, AI Plan, Check, Proof (D-022). */
 export function Toolbar({ onTour }: { onTour: () => void }) {
@@ -29,8 +30,8 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
       const r = await api.plan({ goalText: student.goal, programId: "bs-cs", unitsPerSemester: units, lockedPlacements: locked,
         completedSemesters: done, unitsEarned: student.unitsDone })
       useStore.setState(s => ({ plans: s.plans.map(p => (p.id === plan.id ? { ...r.plan, id: p.id, name: p.name } : p)), evaluation: null }))
-      st.setFlash(r.plan.source === "ai" ? `✦ Gemini planned your remaining semesters for "${student.goal}" · checked by the rules engine (${r.attempts} call${r.attempts > 1 ? "s" : ""})`
-        : "Gemini was busy, so the rules engine's own planner filled your semesters")
+      st.setFlash(r.plan.source === "ai" ? `✦ ${aiName(useStore.getState().health?.aiProvider)} planned your remaining semesters for "${student.goal}" · checked by the rules engine (${r.attempts} call${r.attempts > 1 ? "s" : ""})`
+        : "The AI was unavailable, so the rules engine's own planner filled your semesters")
     } catch (e) { st.setFlash((e as Error).message) }
     setPlanning(false)
   }

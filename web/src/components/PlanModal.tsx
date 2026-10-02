@@ -4,22 +4,27 @@ import type { PlanResponse, RunRecord } from "../../../shared/types"
 import { api } from "../api"
 import { buildFallbackPlan } from "../../../shared/fallbackPlanner"
 import { useActivePlan, useStore } from "../store"
+import { aiName, Thinking, type Stage } from "./Thinking"
+import { termName } from "../lib/derive"
 
-type Stage = { label: string; state: "wait" | "run" | "done" | "fail" }
 
 /** Turns a saved run record into the real stages it went through. */
 export function traceOf(run: RunRecord): Stage[] {
-  return run.steps.map(s => {
-    const d = s.detail as { problems?: string[]; dropped?: string[]; provider?: string; model?: string; ms?: number; reason?: string }
+  const dag = useStore.getState().dag
+  const names = (t: string) => dag ? t.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2))) : t
+  return run.steps.flatMap((s): Stage[] => {
+    const d = s.detail as { problems?: string[]; dropped?: string[]; provider?: string; model?: string; ms?: number; reason?: string; raw?: { thoughts?: unknown } }
+    const thoughts: Stage[] = Array.isArray(d.raw?.thoughts) ? (d.raw!.thoughts as unknown[]).filter(x => typeof x === "string").map(x => ({ label: x as string, state: "think" })) : []
+    const who = d.provider === "gemini" ? `Gemini (${d.model})` : "Simulated AI"
     if (s.name === "engine_check") {
       const n = d.problems?.length ?? 0
-      return { label: n ? `Rules engine: ${n} problem${n > 1 ? "s" : ""} found${d.dropped?.length ? ` (incl. ${d.dropped.length} invented ID${d.dropped.length > 1 ? "s" : ""})` : ""}` : "Rules engine: no problems, plan accepted", state: n ? "fail" : "done" }
+      return [{ label: n ? `Rules engine: ${n} problem${n > 1 ? "s" : ""} found${d.problems?.[0] ? `: ${d.problems[0]}` : ""}` : "Rules engine: no problems, plan accepted", state: n ? "fail" : "done" }].map(x => ({ ...x, label: names(x.label) }))
     }
-    if (s.name === "model_plan") return { label: `${d.provider === "mock" ? "Mock model" : `Gemini (${d.model})`} proposed a plan · ${((d.ms ?? 0) / 1000).toFixed(1)}s`, state: "done" }
-    if (s.name.startsWith("model_repair")) return { label: `${d.provider === "mock" ? "Mock model" : "Gemini"} repaired the plan from the engine's messages · ${((d.ms ?? 0) / 1000).toFixed(1)}s`, state: "done" }
-    if (s.name === "model_error") return { label: "Model call failed", state: "fail" }
-    if (s.name === "fallback") return { label: `Deterministic planner used (${d.reason})`, state: "done" }
-    return { label: s.name, state: "done" }
+    if (s.name === "model_plan") return [...thoughts, { label: `${who} proposed a plan · ${((d.ms ?? 0) / 1000).toFixed(1)}s`, state: "done" }]
+    if (s.name.startsWith("model_repair")) return [...thoughts, { label: `${who} repaired the plan from the engine's messages · ${((d.ms ?? 0) / 1000).toFixed(1)}s`, state: "done" }]
+    if (s.name === "model_error") return [{ label: "Model call failed", state: "fail" }]
+    if (s.name === "fallback") return [{ label: `Deterministic planner used (${d.reason})`, state: "done" }]
+    return [{ label: s.name, state: "done" }]
   })
 }
 
@@ -54,7 +59,7 @@ export function PlanModal() {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => !busy && st.setModal(false)}>
       <div className="w-[640px] rounded-xl border border-white/10 bg-white/[0.03] p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
         <div className="mb-1 text-xl font-semibold text-white">What do you want to do in life?</div>
-        <div className="mb-3 text-sm text-slate-400">Gemini proposes a plan. The rules engine checks it, sends problems back for repair (up to 2 times), and falls back to the deterministic planner if it still fails.</div>
+        <div className="mb-3 text-sm text-slate-400">The AI proposes a plan. The rules engine checks it, sends problems back for repair (up to 2 times), and falls back to the deterministic planner if it still fails.</div>
         <textarea value={goal} onChange={e => setGoal(e.target.value)} rows={3} maxLength={500} placeholder="e.g. Machine learning engineer at a health-tech startup"
           className="w-full rounded-md border border-white/10 bg-black p-2 text-sm outline-none focus:border-sf-gold" />
         <div className="mt-2 flex flex-wrap gap-2">
@@ -69,11 +74,9 @@ export function PlanModal() {
         {result && (
           <div className="mt-4 rounded-lg border border-white/10 bg-black p-3 text-sm">
             <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">What happened (saved run {result.resp.runId.slice(-6)})</div>
-            <ol className="space-y-1">
-              {result.trace.map((t, i) => <li key={i} className={t.state === "fail" ? "text-red-300" : "text-emerald-300"}>{t.state === "fail" ? "✗" : "✓"} {t.label}</li>)}
-            </ol>
-            <div className="mt-2 text-slate-300"><b>{result.resp.plan.source === "ai" ? "Gemini plan accepted" : "Engine fallback plan"}</b> after {result.resp.attempts} model call{result.resp.attempts > 1 ? "s" : ""} · {result.resp.report.issues.filter(i => i.severity === "error").length} rule errors · {result.resp.report.graduationReady ? "graduation-ready" : "incomplete"}</div>
-            {result.resp.rationale && <div className="mt-2 text-slate-300"><span className="text-[10px] uppercase text-violet-300">{result.resp.plan.source === "ai" ? "Generated by Gemini" : "Written by code"}</span><br />{result.resp.rationale}</div>}
+            <Thinking lines={result.trace} />
+            <div className="mt-2 text-slate-300"><b>{result.resp.plan.source === "ai" ? `${aiName(useStore.getState().health?.aiProvider)} plan accepted` : "Engine fallback plan"}</b> after {result.resp.attempts} model call{result.resp.attempts > 1 ? "s" : ""} · {result.resp.report.issues.filter(i => i.severity === "error").length} rule errors · {result.resp.report.graduationReady ? "graduation-ready" : "incomplete"}</div>
+            {result.resp.rationale && <div className="mt-2 text-slate-300"><span className="text-[10px] uppercase text-violet-300">{result.resp.plan.source === "ai" ? `Written by ${aiName(useStore.getState().health?.aiProvider)}` : "Written by code"}</span><br />{result.resp.rationale}</div>}
           </div>
         )}
         <div className="mt-4 flex justify-end gap-2">

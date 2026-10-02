@@ -3,12 +3,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k -n server,web \"tsx watch server/index.ts\" \"vite\"",
+    "dev": "AI_PROVIDER=${AI_PROVIDER:-mock} concurrently -k -n server,web \"tsx watch server/index.ts\" \"vite\"",
     "server": "tsx server/index.ts",
     "test": "vitest run --root .",
     "evals": "tsx evals/run_evals.ts",
     "build": "vite build",
-    "start": "NODE_ENV=production tsx server/index.ts"
+    "start": "AI_PROVIDER=${AI_PROVIDER:-mock} NODE_ENV=production tsx server/index.ts",
+    "dev:gemini": "AI_PROVIDER=gemini concurrently -k -n server,web \"tsx watch server/index.ts\" \"vite\"",
+    "start:gemini": "AI_PROVIDER=gemini NODE_ENV=production tsx server/index.ts"
   },
   "dependencies": {
     "@google/genai": "^2.27.0",

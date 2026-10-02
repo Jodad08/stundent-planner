@@ -14,3 +14,9 @@ export const repoRoot = root
 export const descriptions: Record<string, string> = Object.fromEntries(
   load<{ code: string; description: string | null }[]>("data/sfsu/courses.json")
     .filter(c => dag.nodes[c.code] && c.description).map(c => [c.code, c.description as string]))
+
+/** Every active SFSU bachelor's program from the scraped Bulletin; only the DAG's program is mapped (D-026). */
+export const majors = load<{ id: string; name: string; degree: string | null; status: string; url: string }[]>("data/sfsu/programs.json")
+  .filter(p => p.status === "Active" && /^B\./.test(p.degree ?? ""))
+  .map(p => ({ id: p.id, name: p.name, degree: p.degree as string, url: p.url, mapped: p.id === dag.program.id }))
+  .sort((a, b) => a.name.localeCompare(b.name))

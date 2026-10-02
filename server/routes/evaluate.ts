@@ -2,7 +2,7 @@
 import { Router } from "express"
 import { careers, dag, policies } from "../../shared/data"
 import { connections, DEFAULT_PROFILE, evaluatePlan, isPlaceholder, sanitizeSemesters } from "../../shared/engine"
-import { directionScores } from "../../shared/directionScores"
+import { directionScores, guessTrack } from "../../shared/directionScores"
 import type { EvaluateResponse, Plan, Suggestion } from "../../shared/types"
 import { completeJson, providerName } from "../gemini"
 import { buildEvaluateUser, EVALUATE_SCHEMA, EVALUATE_SYSTEM } from "../prompts"
@@ -36,8 +36,20 @@ export async function evaluate(planIn: Plan, goalText?: string): Promise<Evaluat
   try {
     const out = await completeJson(EVALUATE_SYSTEM, buildEvaluateUser(dag, planIn, report, scores, goalText, conn), {
       purpose: "evaluate", schema: EVALUATE_SCHEMA,
-      mock: () => ({ summary: `MOCK (no model call): the engine found ${report.issues.filter(i => i.severity === "error").length} error(s).`,
-        directionExplanation: `MOCK: highest code score is ${scores[0].label} (${scores[0].score}).`, suggestions: [] }),
+      mock: () => {
+        const errs = report.issues.filter(i => i.severity === "error")
+        const top = scores[0], second = scores[1]
+        const fits = careers.find(c => c.id === top.directionId)!.signalCourseIds.filter(c => planIn.semesters.some(s => s.courseIds.includes(c)))
+        const ch = conn.longestChain
+        return {
+          summary: `${ch.length > 1 ? `Your plan's backbone is a ${ch.length}-course chain, ${ch.join(" → ")}, ` : "Your plan "}with ${conn.links} prerequisite links between courses. `
+            + (errs.length ? `The rules engine found ${errs.length} problem${errs.length > 1 ? "s" : ""} to fix first, starting with: ${errs[0].message}`
+              : conn.critical.length ? `No rule errors. Watch ${conn.critical.slice(0, 3).join(", ")}: they have no slack, so delaying one delays graduation.` : "No rule errors, and every course has some slack."),
+          directionExplanation: top.score > 0
+            ? `It points most toward ${top.label} (${top.score}/100) because of ${fits.slice(0, 3).join(", ")}.${second && second.score > 0 ? ` ${second.label} is next at ${second.score}.` : ""}${goalText ? ` That ${top.label === careers.find(c => c.id === guessTrack(goalText))?.label ? "matches" : "differs from"} your goal, "${goalText}".` : ""}`
+            : "No electives are planned yet, so the plan doesn't point toward a direction. Add electives from your goal's track.",
+          suggestions: [] }
+      },
     })
     const raw = (out.json ?? {}) as { summary?: unknown; directionExplanation?: unknown; suggestions?: unknown }
     run.step("model_evaluate", { provider: out.provider, model: out.model, ms: out.ms, raw })

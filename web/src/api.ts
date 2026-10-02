@@ -25,6 +25,7 @@ export type EvalResults = Record<string, unknown>
 export const api = {
   health: () => call<Health>("/health"),
   program: () => call<Dag>("/programs/bs-cs"),
+  majors: () => call<{ id: string; name: string; degree: string; url: string; mapped: boolean }[]>("/majors"),
   descriptions: () => call<Record<string, string>>("/descriptions"),
   policies: () => call<Policies>("/policies"),
   careers: () => call<CareerDirection[]>("/career-directions"),

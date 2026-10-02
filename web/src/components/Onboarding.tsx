@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { guessTrack } from "../../../shared/directionScores"
 import type { CourseId, PlanResponse, RunRecord } from "../../../shared/types"
 import { api } from "../api"
@@ -6,11 +6,13 @@ import { termName } from "../lib/derive"
 import { useStore, type Student } from "../store"
 import { traceOf } from "./PlanModal"
 import { COLOR } from "./CourseNode"
+import { aiName, Thinking } from "./Thinking"
+import { emptySemesters } from "../../../shared/engine"
 import { category } from "../lib/derive"
 
 /**
  * First-visit questions (D-024): who you are, where you are in the degree, which courses you already took
- * (semester by semester), and your goal. Then Gemini + the rules engine plan the remaining semesters.
+ * (semester by semester), and your goal. Then the AI + rules engine plan the rest, or the student plans manually.
  */
 export function Onboarding({ onDone }: { onDone: () => void }) {
   const dag = useStore(s => s.dag)!
@@ -29,6 +31,8 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<{ resp: PlanResponse; trace: ReturnType<typeof traceOf> } | null>(null)
   const [err, setErr] = useState<string | null>(null)
+  const [majors, setMajors] = useState<Awaited<ReturnType<typeof api.majors>>>([])
+  useEffect(() => { api.majors().then(setMajors).catch(() => setMajors([])) }, [])
 
   const unitsPerSemester = Math.min(policies.maxUnitsWithoutPermission.value, Math.max(policies.minUnitsFullTime.value, coursesPerSemester * 3))
   const codes = useMemo(() => Object.keys(dag.nodes).sort(), [dag])
@@ -63,6 +67,17 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
     } catch (e) { setErr((e as Error).message) }
     setBusy(false)
   }
+  /** Manual path: completed semesters filled in, the rest left for the student to drag in. */
+  function finishManual() {
+    const semesters = emptySemesters()
+    taken.slice(0, doneSems).forEach((l, i) => { semesters[i].courseIds.push(...l) })
+    const student: Student = { name: name.trim() || "Student", major: "bs-cs", unitsDone, gradTerm: termName(dag, gradIndex),
+      coursesPerSemester, completedSemesters: doneSems, goal, trackId }
+    useStore.getState().setStudent(student)
+    useStore.setState({ plans: [{ id: "plan_me", name: `${student.name}'s plan`, programId: "bs-cs", goalText: goal, createdAt: new Date().toISOString(),
+      semesters, source: "manual", ...(doneSems ? { completedSemesters: doneSems } : {}) }], activePlanId: "plan_me", evaluation: null })
+    onDone()
+  }
   function finish() {
     if (!result) return
     const student: Student = { name: name.trim() || "Student", major: "bs-cs", unitsDone, gradTerm: termName(dag, gradIndex),
@@ -91,14 +106,16 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
 
         {step === 0 && <>
           <h1 className="text-2xl font-semibold text-white">Let's map your degree.</h1>
-          <p className="mt-1 text-sm text-zinc-500">A few questions, then the rules engine and Gemini lay out every semester.</p>
+          <p className="mt-1 text-sm text-zinc-500">A few questions, then lay out every semester: automatically, or by hand.</p>
           <label className={label}>your name</label>
           <input autoFocus className={input} value={name} onChange={e => setName(e.target.value)} placeholder="first name" onKeyDown={e => { if (e.key === "Enter" && name.trim()) setStep(1) }} />
           <label className={label}>major</label>
-          <select className={input} defaultValue="bs-cs">
-            <option value="bs-cs" className="bg-black">B.S. Computer Science (2026-27 Bulletin)</option>
-            <option disabled className="bg-black">More majors: same pipeline, not verified yet</option>
+          <select className={input} value={dag.program.id} onChange={() => { /* only the mapped major is selectable */ }}>
+            {majors.length === 0 && <option value={dag.program.id} className="bg-black">{dag.program.name}</option>}
+            {majors.map(m => <option key={m.id} value={m.id} disabled={!m.mapped} className="bg-black">
+              {m.name}{m.mapped ? "" : " · map coming soon"}</option>)}
           </select>
+          <p className="mt-1 font-mono text-[10px] text-zinc-600">{majors.length} SFSU bachelor's programs from the 2026-27 Bulletin · Computer Science is mapped and verified first</p>
           <div className="mt-6 flex justify-end">{next(!!name.trim())}</div>
         </>}
 
@@ -167,30 +184,34 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
                   {c} <span className="truncate font-sans text-zinc-500">{dag.nodes[c].title}</span>
                 </div>))}
             </div>
-            <p className="mt-2 text-[11px] text-zinc-600">From the department's own elective tracks. Gemini picks among them for your goal; the engine checks every rule.</p>
+            <p className="mt-2 text-[11px] text-zinc-600">From the department's own elective tracks. Auto plan picks among them for your goal; the engine checks every rule.</p>
           </>}
           <div className="mt-6 flex justify-between"><button className="font-mono text-xs text-zinc-500" onClick={() => setStep(step - 1)}>back</button>{next(!!goal.trim())}</div>
         </>}
 
         {step === buildStep && <>
-          <h1 className="text-2xl font-semibold text-white">{result ? "Your plan is ready." : "Ready to map it out?"}</h1>
+          <h1 className="text-2xl font-semibold text-white">{result ? "Your plan is ready." : "How do you want to plan?"}</h1>
           <div className="mt-3 space-y-1 font-mono text-[11px] text-zinc-500">
             <div>{name.trim()} · B.S. Computer Science · {unitsDone} units done · graduating {termName(dag, gradIndex)}</div>
             <div>{doneSems ? `${allTaken.length} major courses locked in ${doneSems} completed semester${doneSems > 1 ? "s" : ""}` : "starting fresh"} · ~{unitsPerSemester} units per semester</div>
             <div>goal: {goal}</div>
           </div>
-          {busy && <div className="mt-5 animate-pulse font-mono text-xs text-teal-300">Gemini is proposing a plan · the rules engine is checking every prerequisite…</div>}
           {err && <div className="mt-4 font-mono text-xs text-red-400">{err}</div>}
-          {result && (
-            <ol className="mt-5 space-y-1 font-mono text-[11px]">
-              {result.trace.map((t, i) => <li key={i} className={t.state === "fail" ? "text-red-400" : "text-teal-300"}>{t.state === "fail" ? "✗" : "✓"} {t.label}</li>)}
-              <li className="pt-1 text-zinc-300">{result.resp.plan.source === "ai" ? "Gemini plan accepted by the rules engine" : "Deterministic engine plan (Gemini unavailable)"} · {result.resp.report.issues.filter(i => i.severity === "error").length} rule errors</li>
-            </ol>
+          {(busy || result) && (
+            <div className="mt-5 rounded-lg border border-white/10 bg-white/[0.02] p-3">
+              <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-violet-300">{aiName(useStore.getState().health?.aiProvider)} · reasoning</div>
+              <Thinking pending={busy} lines={result ? [...result.trace, { label: `${result.resp.plan.source === "ai" ? "Plan accepted by the rules engine" : "Deterministic engine plan"} · ${result.resp.report.issues.filter(i => i.severity === "error").length} rule errors`, state: "done" }]
+                : [{ label: `Reading your ${allTaken.length} completed course${allTaken.length === 1 ? "" : "s"} and ${dag.requirements.length} requirement groups`, state: "think" },
+                   { label: `Loading ${Object.keys(dag.nodes).length} course prerequisites from the ${dag.program.bulletin} Bulletin`, state: "think" }]} />
+            </div>
           )}
           <div className="mt-6 flex justify-between">
             <button className="font-mono text-xs text-zinc-500" onClick={() => setStep(step - 1)} disabled={busy}>back</button>
             {result ? <button onClick={finish} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black">show me my map</button>
-              : <button onClick={build} disabled={busy} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">✦ build my plan</button>}
+              : <div className="flex gap-2">
+                  <button onClick={finishManual} disabled={busy} className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-xs text-zinc-200 hover:bg-white/10 disabled:opacity-40">I'll plan it myself</button>
+                  <button onClick={build} disabled={busy} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">✦ auto plan it</button>
+                </div>}
           </div>
         </>}
       </div>
