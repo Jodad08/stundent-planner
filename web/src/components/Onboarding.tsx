@@ -28,7 +28,8 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   const [step, setStep] = useState<Step>(saved ? "back" : "name")
   const [typing, setTyping] = useState(true)
   const [draft, setDraft] = useState("")
-  const [majors, setMajors] = useState(0)
+  const [majorList, setMajorList] = useState<string[]>([])
+  const majors = majorList.length
   // answers live in a ref so each reply sees the latest values
   const A = useRef({ name: saved?.name ?? "", sems: saved?.completedSemesters ?? 0, sem: 0, taken: Array.from({ length: 7 }, (_, i) =>
       i < (saved?.completedSemesters ?? 0) ? (savedPlan?.semesters[i]?.courseIds ?? []).filter(c => dag.nodes[c]) : [] as CourseId[]),
@@ -42,7 +43,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   const [err, setErr] = useState<string | null>(null)
   const [ready, setReady] = useState(false)
   const end = useRef<HTMLDivElement>(null)
-  useEffect(() => { api.majors().then(m => setMajors(m.length)).catch(() => setMajors(0)) }, [])
+  useEffect(() => { api.majors().then(m => setMajorList(m.map(x => x.name))).catch(() => setMajorList([])) }, [])
   useEffect(() => { end.current?.scrollIntoView({ behavior: "smooth" }) }, [msgs, typing, result, busy])
 
   /** PlanEd "types" one or more lines. */
@@ -79,7 +80,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
       }
       case "major":
         if (/comput|\bcs\b|\bcsc\b/.test(s)) return say(["CS, nice! 💻", "Semesters done?"], "sems")
-        return say([`Only CS is mapped so far${majors ? ` (${majors - 1} more coming)` : ""}. Using CS for now 💻`, "Semesters done?"], "sems")
+        return say([`${majorList.find(m => m.toLowerCase() === s) ?? "That major"} isn't mapped yet${majors ? ` (${majors - 1} coming)` : ""}. Using CS for now 💻`, "Semesters done?"], "sems")
       case "sems": {
         const n = parseSemesters(t)
         if (n == null) return say(['Try a number, like "2" 🙂'])
@@ -234,9 +235,11 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
               <div className="mb-2 flex min-h-7 flex-wrap gap-1.5">
                 {!typing && chips[step].map(c => <button key={c} onClick={() => reply(c)} className="rounded-full border border-white/15 px-3 py-1 text-[12px] text-zinc-200 hover:border-lime-300 hover:text-white">{c}</button>)}
               </div>
+              {/* all SFSU bachelor's programs; typing filters the dropdown (D-052) */}
+              <datalist id="pe-majors">{majorList.map(m => <option key={m} value={m} />)}</datalist>
               <div className="flex gap-2">
-                <input autoFocus value={draft} onChange={e => setDraft(e.target.value)} onKeyDown={e => { if (e.key === "Enter") reply(draft) }}
-                  placeholder={typing ? "…" : "Type your answer"} className="flex-1 rounded-full border border-white/10 bg-transparent px-4 py-2 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-lime-300/60" />
+                <input autoFocus list={step === "major" ? "pe-majors" : undefined} value={draft} onChange={e => setDraft(e.target.value)} onKeyDown={e => { if (e.key === "Enter") reply(draft) }}
+                  placeholder={typing ? "…" : step === "major" ? "Start typing your major" : "Type your answer"} className="flex-1 rounded-full border border-white/10 bg-transparent px-4 py-2 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-lime-300/60" />
                 <button onClick={() => reply(draft)} disabled={!draft.trim() || typing} className="rounded-full bg-lime-300 px-4 text-sm font-medium text-zinc-900 disabled:opacity-40">Send</button>
               </div>
             </div>

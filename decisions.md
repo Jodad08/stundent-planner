@@ -1,5 +1,8 @@
 # Decisions
 
+## D-052 Major question autocompletes all SFSU majors
+Onboarding major input uses a native datalist of the 117 active bachelor programs (/api/majors). Only B.S. CS is mapped; others say so and fall back to CS.
+
 Append-only log of every project decision. Format and rules: `prompt.md` Part C.
 Newest entries go at the bottom. To change a decision, add a new one and mark the old one superseded.
 
