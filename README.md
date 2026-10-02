@@ -12,7 +12,7 @@ SFSU's Student Center has a Degree Planner (suggested courses per term) and a De
 2. **Your degree as semester columns.** One card per course. Each card's "Needs" chips turn green when that prerequisite is planned earlier. Card color is the rules engine's verdict: green OK, red broken rule, amber warning. Credit totals per semester are colored by SFSU's unit-load rules. Drag cards between semesters, or press + in the course list. A **Graph** toggle shows every prerequisite as a line.
 3. **Auto Plan.** One click fills your remaining semesters for your goal. The AI proposes, the engine checks every rule and sends mistakes back for repair, and you see the reasoning step by step.
 4. **Evaluate.** Your plan from start to end (the longest prerequisite chain, semester by semester), where it's heading (career direction), career paths to consider, and the rule check with the Bulletin's own words.
-5. **Justification.** Why you can trust it: planted mistakes caught, SFSU's own sample roadmaps checked, planners compared.
+5. **The gator 🐊.** Tells you what to add next until your next semester has enough credits; click it for Auto plan, Evaluate, and Export for SFSU (a one-page plan to send to the university).
 
 ## Where AI is used, and what happens when it is wrong
 | | |
@@ -36,7 +36,7 @@ cp .env.example .env      # add GEMINI_API_KEY (works without it in mock mode)
 npm run dev               # simulated AI, no API calls (default); board http://localhost:5173, API :3000
 npm run dev:gemini        # live Gemini (needs GEMINI_API_KEY with quota)
 npm test                  # engine tests
-AI_PROVIDER=mock npm run evals   # writes evals/results.json (Justification panel)
+AI_PROVIDER=mock npm run evals   # writes evals/results.json
 npm run build && npm start   # single server on http://localhost:3000 (simulated AI; start:gemini for live)
 ```
 

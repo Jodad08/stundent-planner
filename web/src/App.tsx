@@ -9,7 +9,6 @@ import { Sidebar } from "./components/Sidebar"
 import { Toolbar } from "./components/Toolbar"
 import { PlanModal } from "./components/PlanModal"
 import { EvaluatePanel } from "./components/EvaluatePanel"
-import { ProofPanel } from "./components/ProofPanel"
 import { RunsPanel } from "./components/RunsPanel"
 import { Tour } from "./components/Tour"
 import { Onboarding } from "./components/Onboarding"
@@ -47,7 +46,6 @@ export function App() {
           <Sidebar />
           <main data-tour="board" className="relative min-w-0 flex-1">{view === "cards" ? <Columns /> : <Board />}<Pet /></main>
           {panel === "evaluate" && <EvaluatePanel />}
-          {panel === "proof" && <ProofPanel />}
           {panel === "runs" && <RunsPanel />}
         </div>
       </div>

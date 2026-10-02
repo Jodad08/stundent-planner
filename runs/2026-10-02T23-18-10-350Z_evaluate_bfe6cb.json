@@ -1,0 +1,369 @@
+{
+ "run_id": "2026-10-02T23-18-10-350Z_evaluate_bfe6cb",
+ "variant": "evaluate",
+ "input": {
+  "plan": {
+   "id": "plan_demo",
+   "name": "Test",
+   "programId": "bs-cs",
+   "goalText": "",
+   "createdAt": "2026-10-02T23:17:59.985Z",
+   "source": "manual",
+   "completedSemesters": 2,
+   "semesters": [
+    {
+     "index": 1,
+     "label": "Fall Year 1",
+     "season": "fall",
+     "courseIds": [
+      "CSC 101",
+      "MATH 226"
+     ]
+    },
+    {
+     "index": 2,
+     "label": "Spring Year 1",
+     "season": "spring",
+     "courseIds": [
+      "CSC 215",
+      "MATH 227"
+     ]
+    },
+    {
+     "index": 3,
+     "label": "Fall Year 2",
+     "season": "fall",
+     "courseIds": []
+    },
+    {
+     "index": 4,
+     "label": "Spring Year 2",
+     "season": "spring",
+     "courseIds": []
+    },
+    {
+     "index": 5,
+     "label": "Fall Year 3",
+     "season": "fall",
+     "courseIds": []
+    },
+    {
+     "index": 6,
+     "label": "Spring Year 3",
+     "season": "spring",
+     "courseIds": []
+    },
+    {
+     "index": 7,
+     "label": "Fall Year 4",
+     "season": "fall",
+     "courseIds": []
+    },
+    {
+     "index": 8,
+     "label": "Spring Year 4",
+     "season": "spring",
+     "courseIds": []
+    }
+   ]
+  }
+ },
+ "config": {
+  "provider": "mock",
+  "model": "gemini-3.8-flash"
+ },
+ "steps": [
+  {
+   "name": "engine",
+   "detail": {
+    "errors": 0,
+    "graduationReady": false
+   },
+   "at": "2026-10-02T23:18:10.350Z"
+  },
+  {
+   "name": "model_evaluate",
+   "detail": {
+    "provider": "mock",
+    "model": "simulated",
+    "ms": 1401,
+    "raw": {
+     "summary": "Your plan's backbone is a 2-course chain, CSC 101 → CSC 215, with 2 prerequisite links between courses. No rule errors, and every course has some slack.",
+     "directionExplanation": "No electives are planned yet, so the plan doesn't point toward a direction. Add electives from your goal's track.",
+     "suggestions": [],
+     "careerPaths": [
+      {
+       "title": "Security engineer",
+       "why": "Add electives from this track to build toward it."
+      },
+      {
+       "title": "Systems / infrastructure engineer",
+       "why": "Add electives from this track to build toward it."
+      },
+      {
+       "title": "Cloud and DevOps engineer",
+       "why": "Add electives from this track to build toward it."
+      }
+     ],
+     "thoughts": [
+      "Reading your 4 planned courses across 2 semesters.",
+      "Tracing prerequisites: 2 links between your courses; the longest path runs CSC 101 → CSC 215 (2 courses).",
+      "Scoring your electives against the department's tracks: Systems & Security 0, Web & Mobile 0, AI & Data 0, Theory & Graphics 0.",
+      "The rules engine reports no errors.",
+      "Matching Systems & Security to career paths."
+     ]
+    }
+   },
+   "at": "2026-10-02T23:18:11.751Z"
+  }
+ ],
+ "final_state": {
+  "report": {
+   "issues": [
+    {
+     "id": "UNITS_UNDER-0",
+     "severity": "warning",
+     "code": "UNITS_UNDER",
+     "message": "Fall Year 1 has 7 units, below 12 (Full time (financial aid)).",
+     "courseIds": [],
+     "semesterIndex": 1,
+     "sourceUrl": "https://bulletin.sfsu.edu/fees-financial-aid/student-financial-aid/",
+     "quote": "Enrollment requirement: full time = 12 units; three-quarter time = 9-11 units; half-time = 6-8 units."
+    },
+    {
+     "id": "UNITS_UNDER-1",
+     "severity": "warning",
+     "code": "UNITS_UNDER",
+     "message": "Spring Year 1 has 8 units, below 12 (Full time (financial aid)).",
+     "courseIds": [],
+     "semesterIndex": 2,
+     "sourceUrl": "https://bulletin.sfsu.edu/fees-financial-aid/student-financial-aid/",
+     "quote": "Enrollment requirement: full time = 12 units; three-quarter time = 9-11 units; half-time = 6-8 units."
+    },
+    {
+     "id": "REQ_GROUP_INCOMPLETE-2",
+     "severity": "warning",
+     "code": "REQ_GROUP_INCOMPLETE",
+     "message": "Mathematics and Physics is not complete. Missing: MATH 225, MATH 324, PHYS 220, PHYS 222, PHYS 230, PHYS 232.",
+     "courseIds": [
+      "MATH 225",
+      "MATH 324",
+      "PHYS 220",
+      "PHYS 222",
+      "PHYS 230",
+      "PHYS 232"
+     ],
+     "sourceUrl": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/"
+    },
+    {
+     "id": "REQ_GROUP_INCOMPLETE-3",
+     "severity": "warning",
+     "code": "REQ_GROUP_INCOMPLETE",
+     "message": "Core Computer Science Requirements is not complete. Missing: CSC 220, CSC 230, CSC 256, CSC 300GW, CSC 317, CSC 340, CSC 413.",
+     "courseIds": [
+      "CSC 220",
+      "CSC 230",
+      "CSC 256",
+      "CSC 300GW",
+      "CSC 317",
+      "CSC 340",
+      "CSC 413"
+     ],
+     "sourceUrl": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/"
+    },
+    {
+     "id": "REQ_GROUP_INCOMPLETE-4",
+     "severity": "warning",
+     "code": "REQ_GROUP_INCOMPLETE",
+     "message": "Advanced Computer Science Requirements is not complete. Missing: CSC 415, CSC 510, CSC 648.",
+     "courseIds": [
+      "CSC 415",
+      "CSC 510",
+      "CSC 648"
+     ],
+     "sourceUrl": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/"
+    },
+    {
+     "id": "REQ_GROUP_INCOMPLETE-5",
+     "severity": "warning",
+     "code": "REQ_GROUP_INCOMPLETE",
+     "message": "Electives is not complete. 0 of 15 elective units (at least 12 must be CSC).",
+     "courseIds": [],
+     "sourceUrl": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/"
+    },
+    {
+     "id": "TOTAL_UNITS_SHORT-6",
+     "severity": "warning",
+     "code": "TOTAL_UNITS_SHORT",
+     "message": "15 units planned. A bachelor's degree needs 120.",
+     "courseIds": [],
+     "sourceUrl": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/"
+    },
+    {
+     "id": "UNVERIFIED_DATA-7",
+     "severity": "info",
+     "code": "UNVERIFIED_DATA",
+     "message": "Course data is scraped from the 2026-27 Bulletin and machine-checked, not yet checked by a person. Confirm with an advisor.",
+     "courseIds": []
+    }
+   ],
+   "semesterStats": [
+    {
+     "index": 1,
+     "units": 7,
+     "status": "under"
+    },
+    {
+     "index": 2,
+     "units": 8,
+     "status": "under"
+    },
+    {
+     "index": 3,
+     "units": 0,
+     "status": "empty"
+    },
+    {
+     "index": 4,
+     "units": 0,
+     "status": "empty"
+    },
+    {
+     "index": 5,
+     "units": 0,
+     "status": "empty"
+    },
+    {
+     "index": 6,
+     "units": 0,
+     "status": "empty"
+    },
+    {
+     "index": 7,
+     "units": 0,
+     "status": "empty"
+    },
+    {
+     "index": 8,
+     "units": 0,
+     "status": "empty"
+    }
+   ],
+   "requirementStatus": [
+    {
+     "groupId": "mathematics_and_physics",
+     "title": "Mathematics and Physics",
+     "satisfied": false,
+     "missingCourseIds": [
+      "MATH 225",
+      "MATH 324",
+      "PHYS 220",
+      "PHYS 222",
+      "PHYS 230",
+      "PHYS 232"
+     ]
+    },
+    {
+     "groupId": "core_computer_science_requirements",
+     "title": "Core Computer Science Requirements",
+     "satisfied": false,
+     "missingCourseIds": [
+      "CSC 220",
+      "CSC 230",
+      "CSC 256",
+      "CSC 300GW",
+      "CSC 317",
+      "CSC 340",
+      "CSC 413"
+     ]
+    },
+    {
+     "groupId": "advanced_computer_science_requirements",
+     "title": "Advanced Computer Science Requirements",
+     "satisfied": false,
+     "missingCourseIds": [
+      "CSC 415",
+      "CSC 510",
+      "CSC 648"
+     ]
+    },
+    {
+     "groupId": "electives",
+     "title": "Electives",
+     "satisfied": false,
+     "missingCourseIds": [],
+     "unitsHave": 0,
+     "unitsNeed": 15
+    }
+   ],
+   "totalUnitsPlanned": 15,
+   "graduationReady": false
+  },
+  "connections": {
+   "links": 2,
+   "longestChain": [
+    "CSC 101",
+    "CSC 215"
+   ],
+   "critical": []
+  },
+  "directionScores": [
+   {
+    "directionId": "systems",
+    "label": "Systems & Security",
+    "score": 0
+   },
+   {
+    "directionId": "web",
+    "label": "Web & Mobile",
+    "score": 0
+   },
+   {
+    "directionId": "ai",
+    "label": "AI & Data",
+    "score": 0
+   },
+   {
+    "directionId": "theory",
+    "label": "Theory & Graphics",
+    "score": 0
+   }
+  ],
+  "ai": {
+   "summary": "Your plan's backbone is a 2-course chain, CSC 101 → CSC 215, with 2 prerequisite links between courses. No rule errors, and every course has some slack.",
+   "directionExplanation": "No electives are planned yet, so the plan doesn't point toward a direction. Add electives from your goal's track.",
+   "suggestions": [],
+   "careerPaths": [
+    {
+     "title": "Security engineer",
+     "why": "Add electives from this track to build toward it."
+    },
+    {
+     "title": "Systems / infrastructure engineer",
+     "why": "Add electives from this track to build toward it."
+    },
+    {
+     "title": "Cloud and DevOps engineer",
+     "why": "Add electives from this track to build toward it."
+    }
+   ],
+   "thoughts": [
+    "Reading your 4 planned courses across 2 semesters.",
+    "Tracing prerequisites: 2 links between your courses; the longest path runs CSC 101 → CSC 215 (2 courses).",
+    "Scoring your electives against the department's tracks: Systems & Security 0, Web & Mobile 0, AI & Data 0, Theory & Graphics 0.",
+    "The rules engine reports no errors.",
+    "Matching Systems & Security to career paths."
+   ]
+  },
+  "aiStatus": "ok",
+  "droppedSuggestions": 0,
+  "runId": "2026-10-02T23-18-10-350Z_evaluate_bfe6cb"
+ },
+ "scores": {
+  "errors": 0,
+  "graduationReady": false,
+  "droppedSuggestions": 0
+ },
+ "errors": [],
+ "created_at": "2026-10-02T23:18:10.350Z"
+}

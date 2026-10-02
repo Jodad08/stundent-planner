@@ -20,11 +20,6 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
 
   const [planning, setPlanning] = useState(false)
   /** Auto Plan (D-025): fill the remaining semesters for the student's saved goal; completed semesters stay locked. */
-  async function autoPlan() {
-    if (!student) { st.setModal(true); return }
-    if (!useStore.getState().petAsk) { st.setPetAsk(true); return } // the gator asks: next semester or whole degree (D-043)
-    await planWholeDegree()
-  }
   async function planWholeDegree() {
     if (!student) return
     setPlanning(true)
@@ -41,8 +36,12 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
     } catch (e) { st.setFlash((e as Error).message) }
     setPlanning(false)
   }
-  // the gator's "Whole degree" answer runs the full planner
-  useEffect(() => { const h = () => { planWholeDegree() }; window.addEventListener("planed:whole-degree", h); return () => window.removeEventListener("planed:whole-degree", h) })
+  // the gator's menu drives these (D-049)
+  useEffect(() => {
+    const whole = () => { planWholeDegree() }, ev = () => { check() }
+    window.addEventListener("planed:whole-degree", whole); window.addEventListener("planed:evaluate", ev)
+    return () => { window.removeEventListener("planed:whole-degree", whole); window.removeEventListener("planed:evaluate", ev) }
+  })
   async function check() {
     st.setPanel("evaluate"); st.setEvaluation(null)
     try { st.setEvaluation(await api.evaluate(plan, plan.goalText || undefined)) } catch (e) { st.setFlash(String((e as Error).message)) }
@@ -72,10 +71,7 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
       <span data-tour="status" className={`text-[12px] ${errors ? "text-red-600" : report?.graduationReady ? "text-lime-700" : "text-zinc-500"}`}>
         {errors ? `● ${errors} rule error${errors > 1 ? "s" : ""}` : report?.graduationReady ? "● Graduation-ready" : "● No rule errors"}
       </span>
-      <button data-tour="ai" disabled={planning} className={`${btn} bg-sf-gold text-black hover:brightness-110 disabled:animate-pulse`} onClick={autoPlan}
-        title={student ? `Fill the remaining semesters for: ${student.goal}` : "Plan from a career goal"}>{planning ? "Planning…" : "✦ Auto Plan"}</button>
-      <button data-tour="check" className={`${btn} ${panel === "evaluate" ? "bg-zinc-800 text-white" : "text-zinc-700 hover:bg-zinc-100"}`} onClick={check}>Evaluate</button>
-      <button data-tour="proof" className={`${btn} ${panel === "proof" ? "bg-zinc-800 text-white" : "text-zinc-700 hover:bg-zinc-100"}`} onClick={() => st.setPanel(panel === "proof" ? "none" : "proof")}>Justification</button>
+
       <div className="relative">
         <button className="px-1 font-mono text-zinc-500 hover:text-zinc-900" onClick={() => setMenu(!menu)}>⋯</button>
         {menu && (

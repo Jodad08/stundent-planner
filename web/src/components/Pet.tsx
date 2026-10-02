@@ -34,6 +34,7 @@ export function Pet() {
   const student = useStore(s => s.student)
   const report = useReport()!
   const [open, setOpen] = useState(true)
+  const [menu, setMenu] = useState(false)
   // drag the gator anywhere (offset from the bottom-right corner); a click without moving toggles its tips
   const [pos, setPos] = useState({ right: 16, bottom: 16 })
   const drag = useRef<{ x: number; y: number; right: number; bottom: number; moved: boolean } | null>(null)
@@ -91,7 +92,15 @@ export function Pet() {
   }, [units, isBroken, target])
 
   let msg: React.ReactNode, action: React.ReactNode = null
-  if (ask) {
+  const item = "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left hover:bg-zinc-100"
+  if (menu) {
+    msg = <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ What should I do?</div>
+    action = <div className="-mx-1 flex flex-col text-[13px]">
+      <button className={item} onClick={() => { setMenu(false); st.setPetAsk(true) }}><span>✦</span><span><b>Auto plan</b><span className="block text-[11px] text-zinc-500">Fill {termName(dag, sem)} or the whole degree</span></span></button>
+      <button className={item} onClick={() => { setMenu(false); window.dispatchEvent(new Event("planed:evaluate")) }}><span>🔍</span><span><b>Evaluate</b><span className="block text-[11px] text-zinc-500">Where your plan leads, careers, rule check</span></span></button>
+      <button className={item} onClick={() => { setMenu(false); exportSemester(plan, dag, sem, student?.name ?? "Student") }}><span>⬇</span><span><b>Export for SFSU</b><span className="block text-[11px] text-zinc-500">{termName(dag, sem)} as a one-page plan</span></span></button>
+    </div>
+  } else if (ask) {
     msg = <><div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ {ai}</div>What should I plan, {student?.name ?? "friend"}? 🐊</>
     action = <span className="flex gap-1.5">
       <button onClick={fillNext} className="rounded-full bg-zinc-900 px-3 py-1 text-white">{termName(dag, sem)}</button>
@@ -129,15 +138,15 @@ export function Pet() {
 
   return (
     <div className="pointer-events-none absolute z-30 flex items-end gap-1" style={{ right: pos.right, bottom: pos.bottom }}>
-      {(open || ask) && (
+      {(open || ask || menu) && (
         <div className="pointer-events-auto mb-10 max-w-[270px] rounded-2xl rounded-br-sm bg-white p-3 text-[13px] text-zinc-800 shadow-xl">
-          {thinking ? <div className="animate-pulse text-zinc-400">● ● ●</div> : <>
+          {thinking && !menu ? <div className="animate-pulse text-zinc-400">● ● ●</div> : <>
             <div>{msg}</div>
             {action && <div className="mt-2 text-[12px]">{action}</div>}
           </>}
         </div>
       )}
-      <button title="Drag me, or click to show or hide tips"
+      <button data-tour="pet" title="Click for Auto plan, Evaluate, Export. Drag me anywhere."
         onPointerDown={e => { (e.target as HTMLElement).setPointerCapture(e.pointerId); drag.current = { x: e.clientX, y: e.clientY, ...pos, moved: false } }}
         onPointerMove={e => {
           const d = drag.current; if (!d) return
@@ -145,7 +154,7 @@ export function Pet() {
           if (Math.abs(dx) + Math.abs(dy) > 4) d.moved = true
           if (d.moved) setPos({ right: Math.max(0, d.right - dx), bottom: Math.max(0, d.bottom - dy) })
         }}
-        onPointerUp={() => { if (drag.current && !drag.current.moved) setOpen(!open); drag.current = null }}
+        onPointerUp={() => { if (drag.current && !drag.current.moved) { setOpen(true); setMenu(!menu) } drag.current = null }}
         className="pointer-events-auto cursor-grab touch-none select-none text-7xl leading-none drop-shadow-xl transition-transform hover:scale-110 active:cursor-grabbing">
         <span key={mood} className={`inline-block gator-${mood}`}>🐊</span>
       </button>

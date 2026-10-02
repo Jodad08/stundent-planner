@@ -452,3 +452,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser (idle → hop on add; 0/15 → 3/15 "12 units to go"; Fill it for me → 15 units, wiggle, export prompt; Whole degree shows Fall 2026 … Spring 2030)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-049: Actions live in the gator; Justification panel removed
+- Step: 10 (human request)
+- Decision: Top bar keeps plan tabs, Cards/Graph and ⋯. Clicking the gator opens "What should I do?" with Auto plan (next semester or whole degree), Evaluate (opens the evaluation), Export for SFSU. The Justification panel is deleted from the UI; the evidence stays in `evals/results.json`, README and DEMO.md. Tour's AI/Evaluate/Justification steps became one gator step.
+- Why: human request 2026-10-02 ~16:18.
+- Evidence: browser (header shows only tabs/Cards/Graph/⋯; gator menu lists 3 actions; Evaluate opens the panel)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

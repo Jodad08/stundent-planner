@@ -7,9 +7,7 @@ const STEPS: { target: string; title: string; body: string }[] = [
   { target: "[data-tour=view]", title: "Cards or graph", body: "Switch to the graph to see every prerequisite as a line, the whole chain at once. Drag a course before its prerequisite and it turns red in both views." },
   { target: "[data-tour=courses]", title: "This is your course list", body: "Every B.S. Computer Science requirement from the 2026-27 Bulletin. Drag a course onto the canvas: the semester under it lights up." },
   { target: "[data-tour=status]", title: "The rules engine", body: "Every move is checked against the Bulletin rules: prerequisites, corequisites, standing and unit loads. No AI decides this." },
-  { target: "[data-tour=ai]", title: "This is Auto Plan", body: "One click fills your remaining semesters for your career goal. The AI proposes, the rules engine checks it and sends mistakes back for repair, and nothing invalid reaches you." },
-  { target: "[data-tour=check]", title: "This is Evaluate", body: "Scans your map: where it points (career direction), how it connects (your longest prerequisite chain and critical courses), and every broken rule with the Bulletin quote." },
-  { target: "[data-tour=proof]", title: "This is Justification", body: "The AI planner vs. the engine's own planner vs. SFSU's official roadmap, scored by the same rules. Always confirm with your advisor." },
+  { target: "[data-tour=pet]", title: "This is your gator", body: "It tells you what to add next until your semester has enough credits. Click it for Auto plan, Evaluate, and Export for SFSU. Drag it anywhere." },
 ]
 
 export function Tour({ onDone }: { onDone: () => void }) {
