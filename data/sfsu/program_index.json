@@ -843,7 +843,7 @@
     "status": "Active"
    },
    {
-    "label": "Minor ,",
+    "label": "Minor,",
     "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-civil-engineering/",
     "status": "Active"
    },
@@ -899,7 +899,7 @@
   "offerings": [
    {
     "label": "Master's Degree",
-    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling/",
     "status": "Active"
    }
   ]
@@ -1589,12 +1589,7 @@
     "status": "Active"
    },
    {
-    "label": "Minor",
-    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-civil-engineering/",
-    "status": "Active"
-   },
-   {
-    "label": ",",
+    "label": "Minor,",
     "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-civil-engineering/",
     "status": "Active"
    },
@@ -2163,7 +2158,7 @@
   "offerings": [
    {
     "label": "Minor",
-    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-global-peace-studies",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-global-peace-studies/",
     "status": "Active"
    }
   ]
@@ -2498,7 +2493,7 @@
   "offerings": [
    {
     "label": "Bachelor's Degree",
-    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/ba-journalism",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/ba-journalism/",
     "status": "Active"
    },
    {
@@ -2672,12 +2667,7 @@
   "name": "Literature in English",
   "offerings": [
    {
-    "label": ":",
-    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-english-american-literature/",
-    "status": "Active"
-   },
-   {
-    "label": "Minor",
+    "label": ":Minor",
     "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-english-american-literature/",
     "status": "Active"
    }
@@ -2859,7 +2849,7 @@
   "offerings": [
    {
     "label": "Master's Degree",
-    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling/",
     "status": "Active"
    }
   ]
@@ -2889,7 +2879,7 @@
   "offerings": [
    {
     "label": "Minor",
-    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-middle-east-islamic-studies",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-middle-east-islamic-studies/",
     "status": "Active"
    }
   ]
@@ -3256,12 +3246,7 @@
   "name": "Philosophy & Religion",
   "offerings": [
    {
-    "label": ":",
-    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ba-philosophy-religion/",
-    "status": "Active"
-   },
-   {
-    "label": "Bachelor's Degree",
+    "label": ":Bachelor's Degree",
     "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ba-philosophy-religion/",
     "status": "Temporarily Suspended"
    },
@@ -3565,7 +3550,7 @@
   "offerings": [
    {
     "label": "Bachelor's Degree",
-    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/ba-race-resistance",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/ba-race-resistance/",
     "status": "Active"
    },
    {
@@ -3761,7 +3746,7 @@
    },
    {
     "label": "Minor",
-    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/minor-sociology",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/minor-sociology/",
     "status": "Active"
    }
   ]
@@ -4009,11 +3994,6 @@
  {
   "name": "Urban Studies & Planning",
   "offerings": [
-   {
-    "label": ":",
-    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/urban-studies-planning/",
-    "status": "Active"
-   },
    {
     "label": "Bachelor's Degree",
     "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/urban-studies-planning/ba-urban-studies-planning/",

@@ -48278,9 +48278,9 @@
  "programs": {
   "all-university/interdisciplinary-studies-graduate": {
    "name": "Interdisciplinary Studies (Graduate)",
-   "degree": null,
-   "award_type": null,
-   "level": null,
+   "degree": "M.A./M.S.",
+   "award_type": "master",
+   "level": "graduate",
    "total_units": null,
    "status": "Active",
    "concentration": null,
@@ -48311,8 +48311,7 @@
     "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/adt15-roadmap/",
     "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/adt18-roadmap/",
     "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/roadmap-math-pathway/"
    ]
   },
   "business/accounting/certificate-accounting": {
@@ -48346,7 +48345,9 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/business/accounting/ms-acct-and-analytics/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/scholars-roadmap/"
+   ]
   },
   "business/business-administration/bs-business-administration-concentration-general-business": {
    "name": "Bachelor of Science in Business Administration: Concentration in General Business",
@@ -48377,23 +48378,12 @@
    "url": "https://bulletin.sfsu.edu/colleges/business/business-administration/minor-business-administration/",
    "roadmaps": []
   },
-  "business/business-certificates": {
-   "name": "Business Certificates",
-   "degree": "Certificate",
-   "award_type": "certificate",
-   "level": null,
-   "total_units": null,
-   "status": "Suspended",
-   "concentration": null,
-   "url": "https://bulletin.sfsu.edu/colleges/business/business-certificates/",
-   "roadmaps": []
-  },
   "business/business-graduate-programs": {
    "name": "Master of Business Administration",
    "degree": "M.B.A.",
    "award_type": "master",
    "level": "graduate",
-   "total_units": null,
+   "total_units": "30-57",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/business/business-graduate-programs/",
@@ -48489,8 +48479,7 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/roadmap-math-pathway/"
    ]
   },
   "business/economics/ma-economics": {
@@ -48502,7 +48491,9 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/business/economics/ma-economics/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/scholars-roadmap/"
+   ]
   },
   "business/economics/minor-economics": {
    "name": "Minor in Economics",
@@ -48890,6 +48881,17 @@
    "url": "https://bulletin.sfsu.edu/colleges/business/ms-business-analytics/",
    "roadmaps": []
   },
+  "business/world-development-studies": {
+   "name": "World Development Studies (Minor)",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "22",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/business/world-development-studies/",
+   "roadmaps": []
+  },
   "education/doctoral-program/community-college": {
    "name": "Doctor of Education in Educational Leadership – Community College",
    "degree": "Ed.D.",
@@ -49152,7 +49154,9 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/credential-sped-orientation-mobility/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/scholars-roadmap-sped/"
+   ]
   },
   "education/special-education/credential-sped-visual-impairment": {
    "name": "Visual Impairments Education Specialist Preliminary Credential",
@@ -49497,7 +49501,7 @@
    "name": "Teaching English to Speakers of Other Languages Graduate Pathway Program",
    "degree": "Pathway Program",
    "award_type": "pathway",
-   "level": null,
+   "level": "graduate",
    "total_units": "9",
    "status": "Active",
    "concentration": null,
@@ -49523,7 +49527,7 @@
    "award_type": "bachelor",
    "level": "undergraduate",
    "total_units": "42",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/ba-ethnic-studies/",
    "roadmaps": [
@@ -49659,7 +49663,7 @@
    "name": "International Relations Graduate Pathway Program",
    "degree": "Pathway Program",
    "award_type": "pathway",
-   "level": null,
+   "level": "graduate",
    "total_units": "9",
    "status": "Active",
    "concentration": null,
@@ -49682,7 +49686,7 @@
    "degree": "M.B.A.",
    "award_type": "master",
    "level": "graduate",
-   "total_units": "30–57",
+   "total_units": "30-57",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/mba/",
@@ -49693,7 +49697,7 @@
    "degree": "B.S.N.",
    "award_type": "bachelor",
    "level": "undergraduate",
-   "total_units": "28",
+   "total_units": "56",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/nursing-bs/",
@@ -49725,7 +49729,7 @@
    "name": "Pre-Nursing Post-Baccalaureate Certificate",
    "degree": "Certificate",
    "award_type": "certificate",
-   "level": "undergraduate",
+   "level": "graduate",
    "total_units": "30",
    "status": "Active",
    "concentration": null,
@@ -49747,7 +49751,7 @@
    "name": "University Pathway Program",
    "degree": "Pathway Program",
    "award_type": "pathway",
-   "level": null,
+   "level": "undergraduate",
    "total_units": "16-23",
    "status": "Active",
    "concentration": null,
@@ -49819,7 +49823,8 @@
    "concentration": "PK-3 Integrated Teacher Education Program",
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep/",
    "roadmaps": [
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep/roadmap/"
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep/roadmap/",
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/ecs-conc-pk3-itep-ece-adt-roadmap/"
    ]
   },
   "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade": {
@@ -49835,7 +49840,6 @@
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/ecs-conc-pk3-cad-adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/ecs-conc-pk3-ece-adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/ecs-conc-pk3-ete-adt-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/ecs-conc-pk3-itep-ece-adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/ecs-conc-pk3-psy-adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/roadmap/"
    ]
@@ -50094,7 +50098,6 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/scholars-roadmap-sped/",
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/scholars-roadmap/"
    ]
   },
@@ -50172,7 +50175,7 @@
    "award_type": "master",
    "level": "graduate",
    "total_units": "30",
-   "status": "Suspended",
+   "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/ms-kinesiology/",
    "roadmaps": []
@@ -50197,7 +50200,7 @@
    "degree": "B.S.N.",
    "award_type": "bachelor",
    "level": "undergraduate",
-   "total_units": "28",
+   "total_units": "56",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/bsn/",
@@ -50280,7 +50283,10 @@
    "status": "Active",
    "concentration": "Aging in Society",
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-administration/mpa-aging-in-society/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/scholar-roadmap/",
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/scholars-roadmap/"
+   ]
   },
   "health-social-sciences/public-administration/mpa": {
    "name": "Master of Public Administration",
@@ -50359,7 +50365,7 @@
    "degree": "Certificate",
    "award_type": "certificate",
    "level": "undergraduate",
-   "total_units": "30",
+   "total_units": "22",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/recreation-parks-tourism/certificate-holistic-health-studies/",
@@ -50431,8 +50437,7 @@
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/",
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/adt-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/scholar-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/roadmap-i-ii-eng/"
    ]
   },
   "health-social-sciences/social-work/gct-trauma-sw": {
@@ -50468,8 +50473,7 @@
    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/",
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/adt-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/roadmap-i-ii-eng/"
    ]
   },
   "health-social-sciences/sociology/minor-sociology": {
@@ -50788,6 +50792,17 @@
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/minor-classics/",
    "roadmaps": []
   },
+  "liberal-creative-arts/classics/minor-modern-greek-studies": {
+   "name": "Minor in Modern Greek Studies",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": null,
+   "status": "Suspended",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/minor-modern-greek-studies/",
+   "roadmaps": []
+  },
   "liberal-creative-arts/communication-studies/ba-communication-studies": {
    "name": "Bachelor of Arts in Communication Studies",
    "degree": "B.A.",
@@ -50946,8 +50961,7 @@
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/roadmap-i-ii-eng/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/scholar-ba-eng-educ-ma-comp-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/scholars-ba-educ-ma-linguistics-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/scholars-ba-eng-educ-ma-tesol-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/scholars-ba-educ-ma-linguistics-roadmap/"
    ]
   },
   "liberal-creative-arts/english/ba-english-concentration-linguistics": {
@@ -50963,7 +50977,6 @@
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/roadmap-i-ii-eng/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/scholars-ba-ma-composition-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/scholars-ba-ma-tesol-roadmap/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/scholars-ma-linguistics-roadmap/"
    ]
   },
@@ -50981,7 +50994,6 @@
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/roadmap-i-ii-eng/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/scholar-ba-lit-ma-linguistics-roadmap/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/scholars-ba-ma-composition-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/scholars-ba-ma-tesol-roadmap/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/scholars-roadmap/"
    ]
   },
@@ -50998,8 +51010,7 @@
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/roadmap-i-ii-eng/",
     "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/scholars-ba-ma-composition-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/scholars-ba-ma-linguistics-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/scholars-ba-ma-tesol-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/scholars-ba-ma-linguistics-roadmap/"
    ]
   },
   "liberal-creative-arts/english/certificate-immigrant-literacies": {
@@ -51022,7 +51033,12 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-special-study-tesol/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/scholars-ba-eng-educ-ma-tesol-roadmap/",
+    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/scholars-ba-ma-tesol-roadmap/",
+    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/scholars-ba-ma-tesol-roadmap/",
+    "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/scholars-ba-ma-tesol-roadmap/"
+   ]
   },
   "liberal-creative-arts/english/certificate-teaching-of-composition": {
    "name": "Graduate Certificate in the Teaching of Composition",
@@ -51325,7 +51341,7 @@
    "award_type": "bachelor",
    "level": "undergraduate",
    "total_units": "42",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-german/ba-german/",
    "roadmaps": [
@@ -51349,7 +51365,7 @@
    "award_type": "bachelor",
    "level": "undergraduate",
    "total_units": "30-44",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-italian/ba-italian/",
    "roadmaps": [
@@ -51521,7 +51537,7 @@
    "award_type": "bachelor",
    "level": "undergraduate",
    "total_units": "36",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ba-comparative-literature/",
    "roadmaps": [
@@ -51665,7 +51681,7 @@
    "name": "Certificate in Migration and Refugee Studies",
    "degree": "Certificate",
    "award_type": "certificate",
-   "level": "graduate",
+   "level": "undergraduate",
    "total_units": "14",
    "status": "Active",
    "concentration": null,
@@ -51705,6 +51721,17 @@
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-european-studies/",
    "roadmaps": []
   },
+  "liberal-creative-arts/international-relations/minor-global-peace-studies": {
+   "name": "Minor in Global Peace, Human Rights, and Justice Studies",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "15",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-global-peace-studies/",
+   "roadmaps": []
+  },
   "liberal-creative-arts/international-relations/minor-international-relations": {
    "name": "Minor in International Relations",
    "degree": "Minor",
@@ -51714,6 +51741,39 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-international-relations/",
+   "roadmaps": []
+  },
+  "liberal-creative-arts/international-relations/minor-latin-american-studies": {
+   "name": "Minor in Latin American Studies",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "21",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-latin-american-studies/",
+   "roadmaps": []
+  },
+  "liberal-creative-arts/international-relations/minor-middle-east-islamic-studies": {
+   "name": "Minor in Middle East and Islamic Studies",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "18",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-middle-east-islamic-studies/",
+   "roadmaps": []
+  },
+  "liberal-creative-arts/international-relations/minor-pacific-asian-studies": {
+   "name": "Minor in Pacific Asian Studies",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "18",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-pacific-asian-studies/",
    "roadmaps": []
   },
   "liberal-creative-arts/international-relations/minor-south-asian-studies": {
@@ -52147,6 +52207,17 @@
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/ma-political-science/",
    "roadmaps": []
   },
+  "liberal-creative-arts/political-science/minor-critical-social-thought": {
+   "name": "Minor in Critical Social Thought",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "15-19",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/minor-critical-social-thought/",
+   "roadmaps": []
+  },
   "liberal-creative-arts/political-science/minor-political-science": {
    "name": "Minor in Political Science",
    "degree": "Minor",
@@ -52156,6 +52227,17 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/minor-political-science/",
+   "roadmaps": []
+  },
+  "liberal-creative-arts/religious-studies": {
+   "name": "Minor in Religious Studies",
+   "degree": "Minor",
+   "award_type": "minor",
+   "level": "undergraduate",
+   "total_units": "15",
+   "status": "Active",
+   "concentration": null,
+   "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/religious-studies/",
    "roadmaps": []
   },
   "liberal-creative-arts/theatre-arts/ba-dance": {
@@ -52472,8 +52554,7 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/roadmap-math-pathway/"
    ]
   },
   "science-engineering/chemistry-biochemistry/bs-chemistry": {
@@ -52511,7 +52592,9 @@
    "status": "Active",
    "concentration": "Biochemistry",
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/ms-chemistry-concentration-biochemistry/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/scholars-roadmap/"
+   ]
   },
   "science-engineering/chemistry-biochemistry/ms-chemistry": {
    "name": "Master of Science in Chemistry",
@@ -52677,8 +52760,7 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/5-year-roadmap-i-ii/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/roadmap-math-pathway/"
    ]
   },
   "science-engineering/engineering/bs-electrical-engineering": {
@@ -52693,8 +52775,7 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/5-year-roadmap-i-ii/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/roadmap-math-pathway/"
    ]
   },
   "science-engineering/engineering/bs-mechanical-engineering": {
@@ -52777,7 +52858,10 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/ms-electrical-computer-engineering/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/scholars-roadmap/",
+    "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/scholars-roadmap/"
+   ]
   },
   "science-engineering/engineering/ms-mechanical-engineering": {
    "name": "Master of Science in Mechanical Engineering",
@@ -52830,8 +52914,7 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/adt-geology-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/roadmap-math-pathway/"
    ]
   },
   "science-engineering/environment/bs-environmental-science-concentration-natural-resource-management-conservation": {
@@ -52869,7 +52952,7 @@
    "award_type": "bachelor",
    "level": "undergraduate",
    "total_units": "65",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": "Natural Resource Management and Conservation",
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-environmental-studies-concentration-natural-resource-management-conservation/",
    "roadmaps": [
@@ -52905,7 +52988,7 @@
    "award_type": "master",
    "level": "graduate",
    "total_units": "30",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": "Resource Management and Environmental Planning",
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ma-geography-concentration-resource-management-environmental-planning/",
    "roadmaps": []
@@ -52927,7 +53010,7 @@
    "award_type": "master",
    "level": "graduate",
    "total_units": "30",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ma-geography/",
    "roadmaps": []
@@ -52937,7 +53020,7 @@
    "degree": "Minor",
    "award_type": "minor",
    "level": "undergraduate",
-   "total_units": "6",
+   "total_units": "15",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/minor-earth-sciences/",
@@ -52963,7 +53046,9 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ms-earth-and-environment/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/scholars-roadmap/"
+   ]
   },
   "science-engineering/environment/ms-geographic-information-science": {
    "name": "Master of Science in Geographic Information Science",
@@ -52982,7 +53067,7 @@
    "award_type": "master",
    "level": "graduate",
    "total_units": "30",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ms-geosciences/",
    "roadmaps": []
@@ -53056,7 +53141,8 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-applied-mathematics/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-applied-mathematics/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-applied-mathematics/roadmap-math-pathway/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-applied-mathematics/roadmap-math-pathway/",
+    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/scholars-roadmap-bs-applied-mathematics-ma-mathematics/"
    ]
   },
   "science-engineering/mathematics/bs-statistics": {
@@ -53071,8 +53157,7 @@
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/roadmap-math-pathway/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/scholars-roadmap-bs-statistics-ms-statistical-data/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/roadmap-math-pathway/"
    ]
   },
   "science-engineering/mathematics/ma-mathematics": {
@@ -53106,7 +53191,9 @@
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ms-statistical-data/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/scholars-roadmap-bs-statistics-ms-statistical-data/"
+   ]
   },
   "science-engineering/physics-astronomy/ba-physics-concentration-astronomy": {
    "name": "Bachelor of Arts in Physics: Concentration in Astronomy",
@@ -53160,13 +53247,14 @@
    "award_type": "bachelor",
    "level": "undergraduate",
    "total_units": "66",
-   "status": "Active",
+   "status": "Discontinued",
    "concentration": "Physics for Teaching",
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching/",
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching/roadmap-math-pathway/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching/roadmap-math-pathway/",
+    "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/adt-roadmap/"
    ]
   },
   "science-engineering/physics-astronomy/bs-physics": {
@@ -53179,7 +53267,6 @@
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/",
    "roadmaps": [
-    "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/adt-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/physics-bs-ms-scholars-roadmap/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/roadmap-i-ii-eng/",
     "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/roadmap-math-pathway/"
@@ -53190,7 +53277,7 @@
    "degree": "Minor",
    "award_type": "minor",
    "level": "undergraduate",
-   "total_units": "17",
+   "total_units": "20",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/minor-astronomy/",
@@ -53201,7 +53288,7 @@
    "degree": "Minor",
    "award_type": "minor",
    "level": "undergraduate",
-   "total_units": "15",
+   "total_units": "21",
    "status": "Active",
    "concentration": null,
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/minor-physics/",
@@ -53240,8 +53327,7 @@
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/",
    "roadmaps": [
     "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/adt-roadmap/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/roadmap-i-ii-eng/",
-    "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/scholars-roadmap/"
+    "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/roadmap-i-ii-eng/"
    ]
   },
   "science-engineering/psychology/ct-data-science-psychology": {
@@ -53275,7 +53361,9 @@
    "status": "Active",
    "concentration": "Developmental Psychology",
    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ma-psychological-science-concentration-developmental-psychology/",
-   "roadmaps": []
+   "roadmaps": [
+    "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/scholars-roadmap/"
+   ]
   },
   "science-engineering/psychology/ma-psychological-science-concentration-mind-brain-behavior": {
    "name": "Master of Arts in Psychological Science: Concentration in Mind, Brain & Behavior",
@@ -53345,417 +53433,1265 @@
   }
  },
  "program_names": {
-  "interdisciplinary studies (graduate)": "all-university/interdisciplinary-studies-graduate",
-  "special major": "all-university/special-major",
-  "bachelor of science in business administration: concentration in accounting": "business/accounting/bs-business-administration-concentration-accounting",
-  "graduate certificate in accounting": "business/accounting/certificate-accounting",
-  "minor in accounting": "business/accounting/minor-accounting",
-  "master of science in accounting and analytics": "business/accounting/ms-acct-and-analytics",
-  "bachelor of science in business administration: concentration in general business": "extended-learning/bs-business-administration-concentration-general-business",
-  "minor in business administration": "business/business-administration/minor-business-administration",
-  "business certificates": "business/business-certificates",
-  "master of business administration": "extended-learning/mba",
-  "graduate certificate in business principles": "business/business-graduate-programs/certificate-bridge-to-mba",
-  "bachelor of science in business administration: concentration in business analytics": "business/decision-sciences/bs-business-administration-concentration-business-analytics",
-  "bachelor of science in business administration: concentration in decision sciences": "business/decision-sciences/bs-business-administration-concentration-decision-sciences",
-  "graduate certificate in decision sciences": "business/decision-sciences/graduate-certificate-decision-sciences",
-  "minor in business analytics": "business/decision-sciences/minor-business-analytics",
-  "minor in decision sciences": "business/decision-sciences/minor-decision-sciences",
-  "bachelor of arts in economics": "business/economics/ba-economics",
-  "master of science in quantitative economics": "business/economics/ma-economics",
-  "minor in economics": "business/economics/minor-economics",
-  "bachelor of science in business administration: concentration in finance": "business/finance/bs-business-administration-concentration-finance",
-  "certificate in financial analytics": "business/finance/certificate-financial-analytics",
-  "certificate in fintech": "business/finance/certificate-fintech",
-  "certificate in real estate": "business/finance/certificate-real-estate",
-  "graduate certificate in finance": "business/finance/graduate-certificate-finance",
-  "minor in finance": "business/finance/minor-finance",
-  "bachelor of science in hospitality, tourism, and event management": "business/hospitality-tourism-management/bs-hospitality-tourism-management",
-  "minor in hospitality and tourism management": "business/hospitality-tourism-management/minor-hospitality-tourism-management",
-  "bachelor of science in business administration: concentration in information systems": "business/information-systems/bs-business-administration-concentration-information-systems",
-  "certificate in artificial intelligence (ai) for business technologies": "business/information-systems/certificate-ai-business-tech",
-  "certificate in cybersecurity management": "business/information-systems/certificate-cybersecurity-management",
-  "graduate certificate in enterprise information systems": "business/information-systems/certificate-enterprise-information-systems",
-  "certificate in information technology auditing": "business/information-systems/certificate-information-technology-auditing",
-  "graduate certificate in enterprise cybersecurity": "business/information-systems/gct-enterprise-cybersecurity",
-  "minor in artificial intelligence (ai) for business applications": "business/information-systems/minor-artificial-intelligence-business-applications",
-  "minor in information systems": "business/information-systems/minor-information-systems",
-  "bachelor of science in business administration: concentration in international business": "business/international-business/bs-business-administration-concentration-international-business",
-  "graduate certificate in international business and global leadership": "business/international-business/graduate-certificate-IBaGL",
-  "minor in international business": "business/international-business/minor-international-business",
-  "bachelor of arts in labor and employment studies": "business/labor-employment-studies/ba-labor-employment-studies",
-  "minor in labor and employment studies": "business/labor-employment-studies/minor-labor-employment-studies",
-  "bachelor of science in business administration: concentration in management": "business/management/bs-business-administration-concentration-management",
-  "graduate business certificate in ethics & compliance": "business/management/certificate-business-ethics-compliance",
-  "graduate certificate in sustainable business": "business/management/certificate-sustainable-business",
-  "minor in human resource management": "business/management/minor-human-resource-management",
-  "minor in management": "business/management/minor-management",
-  "bachelor of science in business administration: concentration in marketing": "business/marketing/bs-business-administration-concentration-marketing",
-  "graduate certificate in marketing in the digital economy": "business/marketing/graduate-certificate-marketing-digital-economy",
-  "minor in marketing": "business/marketing/minor-marketing",
-  "minor in entrepreneurship": "business/minor-entrepreneurship",
-  "master of science in business analytics": "business/ms-business-analytics",
-  "doctor of education in educational leadership – community college": "education/doctoral-program/community-college",
-  "doctor of education in educational leadership – p-12": "education/doctoral-program/p-12",
-  "pk-3 early childhood education specialist instruction credential": "education/elementary-education/ece-specialist-instruction-credential",
-  "master of arts in curriculum and instruction": "education/elementary-education/ma-curriculum-instruction",
-  "master of arts in early childhood education": "education/elementary-education/ma-early-childhood-education",
-  "multiple subject credential: chinese bilingual authorization": "education/elementary-education/multisubject-credential-chinese",
-  "multiple subject credential: bilingual educators for social transformation (best) spanish/english": "education/elementary-education/multisubject-credential-spanish",
-  "multiple subject credential program": "education/elementary-education/multisubject-credential",
-  "preliminary administrative services credential": "education/elsit/administrative-services-credential",
-  "graduate certificate in digital learning design": "education/elsit/certificate-training-systems-development",
-  "master of arts in education: concentration in special interest area": "education/elsit/ma-education-concentration-special-interest-area",
-  "master of arts in educational administration and leadership": "education/elsit/ma-educational-administration-leadership",
-  "master of arts in equity and social justice education": "education/elsit/ma-equity-social-justice-education",
-  "master of arts in instructional design and technology": "education/elsit/ma-instructional-design-technology",
-  "education minor program": "education/minor-program",
-  "master of arts in secondary teaching and learning": "education/secondary-education/ma-secondary-teaching",
-  "single subject credential program": "education/secondary-education/single-subject-credential",
-  "graduate certificate in autism studies": "education/special-education/certificate-autism-spectrum",
-  "graduate certificate in inclusive early childhood practices": "education/special-education/certificate-inclusive-early-childhood-practices",
-  "extensive support needs education specialist preliminary credential": "education/special-education/credential-spec-extensive-support-needs",
-  "early childhood special education specialist preliminary credential": "education/special-education/credential-sped-early-childhood",
-  "education specialist intern credential: special education": "education/special-education/credential-sped-education-specialists-intern",
-  "mild to moderate support needs education specialist preliminary credential": "education/special-education/credential-sped-mild-moderate-support-needs",
-  "orientation and mobility clinical rehabilitative services credential": "education/special-education/credential-sped-orientation-mobility",
-  "visual impairments education specialist preliminary credential": "education/special-education/credential-sped-visual-impairment",
-  "doctor of philosophy in education: concentration in special education": "education/special-education/doctor-of-philosophy-education-concentration-special-education",
-  "master of arts in special education": "education/special-education/ma-special-education",
-  "minor in deaf studies and american sign language": "education/special-education/minor-deaf-studies-asl",
-  "minor in special education": "education/special-education/minor-special-education",
-  "bachelor of science in speech, language, and hearing sciences": "education/speech-language-hearing-sciences/bs-speech-language-hearing",
-  "graduate certificate in augmentative and alternative communication": "education/speech-language-hearing-sciences/certificate-augmentative-alternative-communication",
-  "master of science in speech, language, and hearing sciences": "education/speech-language-hearing-sciences/ms-speech-language-hearing-disorders",
-  "speech-language pathology services credential: language, speech & hearing": "education/speech-language-hearing-sciences/speech-pathology-credential",
-  "bachelor of arts in africana studies": "ethnic-studies/africana-studies/ba-africana-studies",
-  "minor in africana studies": "ethnic-studies/africana-studies/minor-program-africana-studies",
-  "bachelor of arts in american indian studies": "ethnic-studies/american-indian-studies/ba-american-indian-studies",
-  "minor in american indian studies": "ethnic-studies/american-indian-studies/minor-american-indian-studies",
-  "bachelor of arts in asian american studies": "ethnic-studies/asian-american-studies/ba-asian-american-studies",
-  "master of arts in asian american studies": "ethnic-studies/asian-american-studies/ma-asian-american-studies",
-  "minor in asian american studies": "ethnic-studies/asian-american-studies/minor-asian-american-studies",
-  "bachelor of arts in race, ethnicity, and health": "ethnic-studies/ba-race-ethnicity-health",
-  "certificate in ethnic studies empowerment": "ethnic-studies/certificate-ethnic-studies-empowerment",
-  "critical mixed race studies": "ethnic-studies/critical-mixed-race-studies",
-  "graduate certificate in ethnic studies": "ethnic-studies/ethnic-studies/certificate-ethnic-studies",
-  "master of arts in ethnic studies": "ethnic-studies/ethnic-studies/ma-ethnic-studies",
-  "bachelor of arts in latina/latino studies": "ethnic-studies/latina-latino-studies/ba-latina-latino-studies",
-  "minor in latina/latino studies": "ethnic-studies/latina-latino-studies/minor-latina-latino-studies",
-  "bachelor of arts in race and resistance studies": "ethnic-studies/race-resistance-studies/ba-race-resistance",
-  "minor in arab and muslim ethnicities and diasporas studies": "ethnic-studies/race-resistance-studies/minor-arab-muslim-studies",
-  "minor in critical pacific islands & oceania studies": "ethnic-studies/race-resistance-studies/minor-critical-pacific-islands-oceania-studies",
-  "minor in queer and trans ethnic studies": "ethnic-studies/race-resistance-studies/minor-queer-ethnic-studies",
-  "minor in race and resistance studies": "ethnic-studies/race-resistance-studies/minor-race-resistance",
-  "teaching english to speakers of other languages graduate pathway program": "extended-learning/american-language-institute/tesol-graduate-pathway-program",
-  "bachelor of arts in criminal justice studies": "health-social-sciences/criminal-justice-studies/ba-criminal-justice-studies",
-  "bachelor of arts in ethnic studies": "extended-learning/ba-ethnic-studies",
-  "bachelor of arts in psychology": "science-engineering/psychology/ba-psychology",
-  "specialist in blood bank technology graduate certificate": "extended-learning/blood-bank-tech-cert",
-  "certificate in business analytics": "extended-learning/business-analytics-certificate",
-  "certificate in data science and machine learning for biotechnology professionals": "extended-learning/certificate-data-science-machine-learning-biotechnology-professionals",
-  "certificate in business administration": "extended-learning/certificate-pre-master-business-administration-foundations",
-  "certificate in the liberal and creative arts": "extended-learning/ct-liberal-creative-arts",
-  "certificate in digital marketing": "extended-learning/digital-marketing-certificate",
-  "graduate certificate in pk-12 climate justice education": "extended-learning/grad-cert-climate-justice-education",
-  "certificate in hospitality & tourism management": "extended-learning/hospitality-management",
-  "certificate in international business": "extended-learning/international-business",
-  "international relations graduate pathway program": "extended-learning/international-relations-graduate-pathway",
-  "master of arts in family and consumer sciences": "health-social-sciences/consumer-family-studies-dietetics/ma-family-consumer-sciences",
-  "bachelor of science in nursing (accelerated-prelicensure)": "extended-learning/nursing-bs",
-  "certificate in paralegal studies": "extended-learning/paralegal-studies",
-  "certificate in pre-health professions": "extended-learning/pre-health-professions",
-  "pre-nursing post-baccalaureate certificate": "extended-learning/pre-nursing",
-  "school nurse services credential": "extended-learning/school-nurse-credential",
-  "university pathway program": "extended-learning/university-pathway",
-  "bachelor of arts in child and adolescent development: concentration in community, health, and social services": "health-social-sciences/child-adolescent-development/ba-child-adolescent-development-concentration-community-health-social-services",
-  "bachelor of arts in child and adolescent development: concentration in elementary education teaching pre-credential": "health-social-sciences/child-adolescent-development/ba-child-adolescent-development-concentration-eed-precredential",
-  "bachelor of arts in early childhood studies: concentration in care and education": "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-care-education",
-  "bachelor of arts in early childhood studies: concentration in pk-3 integrated teacher education program": "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep",
-  "bachelor of arts in early childhood studies: concentration in pre-k to 3rd grade": "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade",
-  "bachelor of arts in early childhood studies: concentration in special education integrated teacher education program": "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-special-education-itep",
-  "minor in early childhood development": "health-social-sciences/child-adolescent-development/minor-early-childhood-development",
-  "bachelor of arts in family and community sciences": "health-social-sciences/consumer-family-studies-dietetics/ba-family-community-sciences",
-  "bachelor of science in apparel design and merchandising: concentration in design": "health-social-sciences/consumer-family-studies-dietetics/bs-apparel-design-merchandising-design",
-  "bachelor of science in apparel design and merchandising: concentration in merchandising": "health-social-sciences/consumer-family-studies-dietetics/bs-apparel-design-merchandising-merchandising",
-  "bachelor of science in nutrition and dietetics: concentration in foods and community nutrition": "health-social-sciences/consumer-family-studies-dietetics/bs-dietetics-conc-foods-community-nutrition",
-  "bachelor of science in nutrition and dietetics: concentration in dietetics and nutrition science": "health-social-sciences/consumer-family-studies-dietetics/bs-dietetics-conc-nutrition-science",
-  "bachelor of science in interior design and architecture": "health-social-sciences/consumer-family-studies-dietetics/bs-interior-design-architecture",
-  "certificate in dietetics": "health-social-sciences/consumer-family-studies-dietetics/certificate-dietetics",
-  "minor in counseling": "health-social-sciences/counseling/minor-in-counseling",
-  "master of science in clinical mental health counseling": "health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling",
-  "master of science in counseling: concentration in marriage, family, and child counseling": "health-social-sciences/counseling/ms-counseling-concentration-marriage-famiyl-child-counseling",
-  "master of science in counseling": "health-social-sciences/counseling/ms-counseling",
-  "pupil personnel services credential: school counseling designation – post-master’s level": "health-social-sciences/counseling/pupil-personnel-services-credential-school-counseling-designation-post-masters-level",
-  "minor in criminal justice studies": "health-social-sciences/criminal-justice-studies/minor-criminal-justice-studies",
-  "minor in juvenile justice": "health-social-sciences/criminal-justice-studies/minor-juvenile-justice",
-  "minor in prison reentry studies": "health-social-sciences/criminal-justice-studies/minor-prison-reentry-studies",
-  "master of arts in gerontology": "health-social-sciences/gerontology/ma-gerontology",
-  "bachelor of science in kinesiology: concentration in exercise and movement sciences": "health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences",
-  "bachelor of science in kinesiology: concentration in integrated teacher education program in physical education": "health-social-sciences/kinesiology/bs-kinesiology-concentration-physical-education",
-  "graduate certificate in exercise physiology": "health-social-sciences/kinesiology/ct-exercise-physiology",
-  "graduate certificate in movement science": "health-social-sciences/kinesiology/ct-movement-science",
-  "graduate certificate in physical activity: social scientific perspectives": "health-social-sciences/kinesiology/ct-physical-activity-social-scientific-perspectives",
-  "minor in athletic coaching": "health-social-sciences/kinesiology/minor-certificate-athletic-coaching",
-  "minor in empowerment self-defense": "health-social-sciences/kinesiology/minor-empowerment-self-defense",
-  "master of science in kinesiology": "health-social-sciences/kinesiology/ms-kinesiology",
-  "bachelor of science in nursing (adn-bsn)": "health-social-sciences/nursing/bs-rns",
-  "bachelor of science in nursing (prelicensure)": "health-social-sciences/nursing/bsn",
-  "master of science in nursing (entry level)": "health-social-sciences/nursing/elm",
-  "family nurse practitioner certificate": "health-social-sciences/nursing/family-nurse-practitioner-certificate",
-  "master of science in nursing: concentration in family nurse practitioner": "health-social-sciences/nursing/msn-concentration-family-nurse-practitioner",
-  "master of science in nursing": "health-social-sciences/nursing/msn",
-  "doctor of physical therapy": "health-social-sciences/physical-therapy-clinical-laboratory-science/doctor-of-physical-therapy",
-  "graduate certificate in clinical laboratory science": "health-social-sciences/physical-therapy-clinical-laboratory-science/graduate-certificate-clinical-laboratory-science",
-  "master of public administration: concentration in aging in society": "health-social-sciences/public-administration/mpa-aging-in-society",
-  "master of public administration": "health-social-sciences/public-administration/mpa",
-  "bachelor of science in public health": "health-social-sciences/public-health/bs-public-health",
-  "certificate in multilingual and public health competencies": "health-social-sciences/public-health/ct-multilingual-public-health",
-  "minor in public health": "health-social-sciences/public-health/minor-health-education",
-  "master of public health": "health-social-sciences/public-health/mph",
-  "bachelor of arts in recreation, parks, and tourism administration": "health-social-sciences/recreation-parks-tourism/ba-recreation-parks-tourism-administration",
-  "certificate in holistic health studies": "health-social-sciences/recreation-parks-tourism/certificate-holistic-health-studies",
-  "minor in holistic health studies": "health-social-sciences/recreation-parks-tourism/minor-holistic-health-studies",
-  "minor in recreation, parks, and tourism": "health-social-sciences/recreation-parks-tourism/minor-recreation",
-  "master of arts in human sexuality studies": "health-social-sciences/sexuality-studies/ma-human-sexuality-studies",
-  "minor in sexuality studies": "health-social-sciences/sexuality-studies/minor-human-sexuality-studies",
-  "minor in queer and trans studies": "health-social-sciences/sexuality-studies/minor-lesbian-gay-bisexual-transgender-studies",
-  "bachelor of arts in social work": "health-social-sciences/social-work/ba-social-work",
-  "graduate certificate in trauma-informed social work practice with children & families": "health-social-sciences/social-work/gct-trauma-sw",
-  "master of social work": "health-social-sciences/social-work/msw",
-  "bachelor of arts in sociology": "health-social-sciences/sociology/ba-sociology",
-  "minor in sociology": "health-social-sciences/sociology/minor-sociology",
-  "bachelor of arts in urban studies and planning": "health-social-sciences/urban-studies-planning/ba-urban-studies-planning",
-  "minor in urban studies and planning": "health-social-sciences/urban-studies-planning/minor-urban-studies-planning",
-  "bachelor of arts in anthropology": "liberal-creative-arts/anthropology/ba-anthropology",
-  "certificate in ethnography": "liberal-creative-arts/anthropology/certificate-ethnography",
-  "master of arts in anthropology": "liberal-creative-arts/anthropology/ma-anthropology",
-  "minor in anthropology": "liberal-creative-arts/anthropology/minor-anthropology",
-  "bachelor of arts in art: concentration in art history and studio art": "liberal-creative-arts/art/ba-art-concentration-art-history-studio-art",
-  "bachelor of arts in art history": "liberal-creative-arts/art/ba-art-concentration-art-history",
-  "bachelor of arts in studio art": "liberal-creative-arts/art/ba-studio-art",
-  "master of fine arts in art": "liberal-creative-arts/art/mfa-art",
-  "minor in art history": "liberal-creative-arts/art/minor-art-history",
-  "minor in studio art": "liberal-creative-arts/art/minor-art",
-  "bachelor of arts in broadcast and electronic communication arts": "liberal-creative-arts/broadcast-electronic-communication-arts/ba-broadcast-electronic-communication-arts",
-  "certificate in music/recording industry": "liberal-creative-arts/broadcast-electronic-communication-arts/certificate-music-recording-industry",
-  "master of arts in broadcast and electronic communication arts": "liberal-creative-arts/broadcast-electronic-communication-arts/ma-broadcast-electronic-communication-arts",
-  "master of fine arts in broadcast & electronic communication arts": "liberal-creative-arts/broadcast-electronic-communication-arts/ma-fine-arts-broadcast-electronic-communication-arts",
-  "minor in media literacy": "liberal-creative-arts/broadcast-electronic-communication-arts/minor-media-literacy",
-  "bachelor of arts in cinema": "liberal-creative-arts/cinema/ba-cinema",
-  "master of arts in cinema and media studies": "liberal-creative-arts/cinema/ma-cinema-studies",
-  "master of fine arts in cinema": "liberal-creative-arts/cinema/mfa-cinema",
-  "minor in animation": "liberal-creative-arts/cinema/minor-animation",
-  "minor in cinema": "liberal-creative-arts/cinema/minor-cinema",
-  "bachelor of arts in classics": "liberal-creative-arts/classics/ba-classics",
-  "master of arts in classics": "liberal-creative-arts/classics/ma-classics",
-  "minor in classics": "liberal-creative-arts/classics/minor-classics",
-  "bachelor of arts in communication studies": "liberal-creative-arts/communication-studies/ba-communication-studies",
-  "master of arts in communication studies": "liberal-creative-arts/communication-studies/ma-communication-studies",
-  "minor in communication studies": "liberal-creative-arts/communication-studies/minor-communication-studies",
-  "conflict transformation": "liberal-creative-arts/conflict-resolution",
-  "bachelor of arts in creative writing": "liberal-creative-arts/creative-writing/ba-creative-writing",
-  "master of arts in creative writing": "liberal-creative-arts/creative-writing/ma-creative-writing",
-  "master of fine arts in creative writing": "liberal-creative-arts/creative-writing/mfa-creative-writing",
-  "minor in creative writing": "liberal-creative-arts/creative-writing/minor-creative-writing",
-  "bachelor of science in industrial design: concentration in product design and development": "liberal-creative-arts/design-industry/bs-industrial-design-concentration-product-design-development",
-  "bachelor of science in visual communication design": "liberal-creative-arts/design-industry/bs-visual-communication-design",
-  "master of arts in design": "liberal-creative-arts/design-industry/ma-design",
-  "minor in design": "liberal-creative-arts/design-industry/minor-industrial-arts",
-  "bachelor of arts in english: concentration in english education": "liberal-creative-arts/english/ba-english-concentration-english-education-",
-  "bachelor of arts in english: concentration in linguistics": "liberal-creative-arts/english/ba-english-concentration-linguistics",
-  "bachelor of arts in english: concentration in literature": "liberal-creative-arts/english/ba-english-concentration-literature",
-  "bachelor of arts in english: concentration in professional writing and rhetoric": "liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric",
-  "certificate in immigrant literacies": "liberal-creative-arts/english/certificate-immigrant-literacies",
-  "certificate of special study in teaching english to speakers of other languages": "liberal-creative-arts/english/certificate-special-study-tesol",
-  "graduate certificate in the teaching of composition": "liberal-creative-arts/english/certificate-teaching-of-composition",
-  "certificate in teaching post-secondary reading": "liberal-creative-arts/english/certificate-teaching-post-secondary-reading",
-  "certificate in technical and professional writing": "liberal-creative-arts/english/certificate-technical-professional-writing",
-  "undergraduate certificate in computational linguistics": "liberal-creative-arts/english/certificiate-in-computational-linguistics",
-  "graduate certificate in computational linguistics": "liberal-creative-arts/english/graduate-certificate-computational-linguistics",
-  "graduate certificate in teaching english to speakers of other languages": "liberal-creative-arts/english/graduate-certificate-tesol",
-  "master of arts in english: concentration in composition": "liberal-creative-arts/english/ma-english-concentration-composition",
-  "master of arts in english: concentration in linguistics": "liberal-creative-arts/english/ma-english-concentration-linguistics",
-  "master of arts in english: concentration in teaching english to speakers of other languages": "liberal-creative-arts/english/ma-english-concentration-teaching-english-to-speakers-of-other-languages",
-  "master of arts in english literatures": "liberal-creative-arts/english/ma-english-literatures",
-  "minor in literature in english": "liberal-creative-arts/english/minor-english-american-literature",
-  "minor in linguistics": "liberal-creative-arts/english/minor-linguistics",
-  "minor in professional writing and rhetoric": "liberal-creative-arts/english/minor-technical-professional-writing",
-  "certificate in modern language learning and teaching": "liberal-creative-arts/foreign-language/certificate-modern-language-learning-teaching",
-  "certificate in multilingual and international business competencies": "liberal-creative-arts/foreign-language/certificate-multilingual-international-business-competencies",
-  "certificate in multilingual and international tourism competencies": "liberal-creative-arts/foreign-language/certificate-multilingual-international-tourism-competencies",
-  "minor in russian studies": "liberal-creative-arts/foreign-language/foreign-languages-and-literatures-russian/minor-russian-studies",
-  "bachelor of arts in chinese: concentration in chinese integrated teacher education program": "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-itep",
-  "bachelor of arts in chinese: concentration in chinese language": "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-language",
-  "bachelor of arts in chinese: concentration in chinese literature and linguistics": "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-literature-linguistics",
-  "master of arts in chinese": "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ma-chinese",
-  "minor in chinese language": "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/minor-chinese-language",
-  "minor in chinese literature and linguistics": "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/minor-chinese-literature-linguistics",
-  "bachelor of arts in french": "liberal-creative-arts/foreign-language/foreign-languages-literatures-french/ba-french",
-  "master of arts in french": "liberal-creative-arts/foreign-language/foreign-languages-literatures-french/ma-french",
-  "minor in french": "liberal-creative-arts/foreign-language/foreign-languages-literatures-french/minor-french",
-  "bachelor of arts in german": "liberal-creative-arts/foreign-language/foreign-languages-literatures-german/ba-german",
-  "minor in german": "liberal-creative-arts/foreign-language/foreign-languages-literatures-german/minor-german",
-  "bachelor of arts in italian": "liberal-creative-arts/foreign-language/foreign-languages-literatures-italian/ba-italian",
-  "minor in italian": "liberal-creative-arts/foreign-language/foreign-languages-literatures-italian/minor-italian",
-  "bachelor of arts in japanese": "liberal-creative-arts/foreign-language/foreign-languages-literatures-japanese/ba-japanese",
-  "minor in japanese": "liberal-creative-arts/foreign-language/foreign-languages-literatures-japanese/minor-japanese",
-  "minor in persian and iranian studies": "liberal-creative-arts/foreign-language/foreign-languages-literatures-persian/minor-persian-studies",
-  "bachelor of arts in spanish": "liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/ba-spanish",
-  "master of arts in spanish": "liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/ma-spanish",
-  "minor in spanish": "liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/minor-spanish",
-  "bachelor of arts in history": "liberal-creative-arts/history/ba-history",
-  "certificate in historical research (honors)": "liberal-creative-arts/history/certificate-historical-research",
-  "graduate certificate in history education": "liberal-creative-arts/history/graduate-certificate-history-education",
-  "master of arts in history": "liberal-creative-arts/history/ma-history",
-  "minor in history": "liberal-creative-arts/history/minor-history",
-  "bachelor of arts in american studies": "liberal-creative-arts/humanities-cwl/ba-american-studies",
-  "bachelor of arts in comparative and world literature": "liberal-creative-arts/humanities-cwl/ba-comparative-literature",
-  "bachelor of arts in humanities": "liberal-creative-arts/humanities-cwl/ba-humanities",
-  "bachelor of arts in video game studies": "liberal-creative-arts/humanities-cwl/ba-video-game-studies",
-  "master of arts in comparative literature": "liberal-creative-arts/humanities-cwl/ma-comparative-literature",
-  "master of arts in humanities": "liberal-creative-arts/humanities-cwl/ma-humanities",
-  "minor in american studies": "liberal-creative-arts/humanities-cwl/minor-american-studies",
-  "minor in comparative and world literature": "liberal-creative-arts/humanities-cwl/minor-comparative-literature",
-  "minor in humanities": "liberal-creative-arts/humanities-cwl/minor-humanities",
-  "minor in video game studies": "liberal-creative-arts/humanities-cwl/minor-video-game-studies",
-  "bachelor of arts in international relations": "liberal-creative-arts/international-relations/ba-international-relations",
-  "certificate in global health": "liberal-creative-arts/international-relations/cert-global-health",
-  "certificate in international risk analysis": "liberal-creative-arts/international-relations/cert-international-risk-analysis",
-  "certificate in migration and refugee studies": "liberal-creative-arts/international-relations/cert-migration-refugee-studies",
-  "master of arts in international relations": "liberal-creative-arts/international-relations/ma-international-relations",
-  "minor in africa and globalization": "liberal-creative-arts/international-relations/minor-african-studies",
-  "minor in european studies": "liberal-creative-arts/international-relations/minor-european-studies",
-  "minor in international relations": "liberal-creative-arts/international-relations/minor-international-relations",
-  "minor in south asian studies": "liberal-creative-arts/international-relations/minor-south-asian-studies",
-  "bachelor of arts in modern jewish studies": "liberal-creative-arts/jewish-studies/ba-modern-jewish-studies",
-  "minor in jewish studies": "liberal-creative-arts/jewish-studies/minor-jewish-studies",
-  "bachelor of arts in bilingual spanish journalism": "liberal-creative-arts/journalism/ba-bilingual-spanish-journalism",
-  "bachelor of arts in journalism: concentration in photojournalism and documentary photography": "liberal-creative-arts/journalism/ba-journalism-concentration-photojournalism-documentary-photography",
-  "bachelor of arts in journalism": "liberal-creative-arts/journalism/ba-journalism",
-  "minor in journalism": "liberal-creative-arts/journalism/minor-journalism",
-  "minor in bilingual spanish journalism": "liberal-creative-arts/journalism/mn-bilingual-spanish-journalism",
-  "bachelor of arts in liberal studies integrated teacher preparation": "liberal-creative-arts/liberal-studies/ba-liberal-studies-itp",
-  "bachelor of arts in liberal studies": "liberal-creative-arts/liberal-studies/ba-liberal-studies",
-  "certificate in creative nonfiction comics making": "liberal-creative-arts/liberal-studies/certificate-nonfiction-comics-making",
-  "minor in california studies": "liberal-creative-arts/liberal-studies/minor-california-studies",
-  "minor in comic studies": "liberal-creative-arts/liberal-studies/minor-comic-studies",
-  "master of arts in museum studies": "liberal-creative-arts/museum-studies/ma-museum-studies",
-  "minor in museum studies": "liberal-creative-arts/museum-studies/minor-museum-studies",
-  "bachelor of arts in music": "liberal-creative-arts/music/ba-music",
-  "bachelor of music: concentration in composition": "liberal-creative-arts/music/bm-conc-composition",
-  "bachelor of music: concentration in instrumental performance": "liberal-creative-arts/music/bm-conc-instrumental-performance",
-  "bachelor of music: concentration in jazz/ethnomusicology": "liberal-creative-arts/music/bm-conc-jazz-ethnomusicology",
-  "bachelor of music: concentration in music production": "liberal-creative-arts/music/bm-conc-music-production",
-  "bachelor of music: concentration in vocal performance": "liberal-creative-arts/music/bm-conc-vocal-performance",
-  "bachelor of music: concentration in music teacher preparation": "liberal-creative-arts/music/concentration-music-education",
-  "master of arts in music": "liberal-creative-arts/music/ma-music",
-  "minor in music": "liberal-creative-arts/music/minor-music",
-  "master of music": "liberal-creative-arts/music/mm",
-  "bachelor of arts in philosophy: concentration in philosophy and law": "liberal-creative-arts/philosphy/ba-philosophy-concentration-philosophy-law",
-  "bachelor of arts in philosophy and religion": "liberal-creative-arts/philosphy/ba-philosophy-religion",
-  "bachelor of arts in philosophy": "liberal-creative-arts/philosphy/ba-philosophy",
-  "master of arts in philosophy": "liberal-creative-arts/philosphy/ma-philosophy",
-  "minor in philosophy and religion": "liberal-creative-arts/philosphy/minor-philosoph-religion",
-  "minor in philosophy": "liberal-creative-arts/philosphy/minor-philosophy",
-  "bachelor of arts in political science": "liberal-creative-arts/political-science/ba-political-science",
-  "certificate in pre-law": "liberal-creative-arts/political-science/certificate-pre-law",
-  "master of arts in political science": "liberal-creative-arts/political-science/ma-political-science",
-  "minor in political science": "liberal-creative-arts/political-science/minor-political-science",
-  "bachelor of arts in dance": "liberal-creative-arts/theatre-arts/ba-dance",
-  "bachelor of arts in theatre arts": "liberal-creative-arts/theatre-arts/ba-theatre-arts",
-  "master of arts in theatre arts": "liberal-creative-arts/theatre-arts/ma-theatre-arts",
-  "minor in dance": "liberal-creative-arts/theatre-arts/minor-dance",
-  "minor in theatre arts": "liberal-creative-arts/theatre-arts/minor-theatre-arts",
-  "minor in global dance and music": "liberal-creative-arts/theatre-arts/minor-world-music-dance",
-  "bachelor of arts in women and gender studies": "liberal-creative-arts/women-gender-studies/ba-women-gender-studies",
-  "master of arts in women and gender studies": "liberal-creative-arts/women-gender-studies/ma-women-gender-studies",
-  "minor in disability studies": "liberal-creative-arts/women-gender-studies/minor-disability-studies",
-  "minor in women and gender studies": "liberal-creative-arts/women-gender-studies/minor-women-gender-studies",
-  "minor in feminist health justice": "liberal-creative-arts/women-gender-studies/minor-womens-health-issues",
-  "bachelor of arts in general biology": "science-engineering/biology/ba-general-biology",
-  "bachelor of science in biology: concentration in cell and molecular biology": "science-engineering/biology/bs-biology-concentration-cell-molecular-biology",
-  "bachelor of science in biology: concentration in ecology, evolution, and conservation biology": "science-engineering/biology/bs-biology-concentration-ecology-evolution-conservation-biology",
-  "bachelor of science in biology: concentration in marine science": "science-engineering/biology/bs-biology-concentration-marine-science",
-  "bachelor of science in biology: concentration in microbiology": "science-engineering/biology/bs-biology-concentration-microbiology",
-  "bachelor of science in biology: concentration in physiology": "science-engineering/biology/bs-biology-concentration-physiology",
-  "minor in general biology": "science-engineering/biology/minor-general-biology",
-  "master of science in biology: concentration in cell and molecular biology": "science-engineering/biology/ms-biology-concentration-cell-molecular-biology",
-  "master of science in biology: concentration in integrative biology": "science-engineering/biology/ms-biology-concentration-eecb",
-  "master of science in biology: concentration in physiology and behavioral biology": "science-engineering/biology/ms-biology-concentration-physiology-behavioral-biology",
-  "master of science in biomedical science: concentration in biotechnology": "science-engineering/biology/ms-biomedical-science-concentration-biotechnology",
-  "master of science in biomedical science: concentration in stem cell science": "science-engineering/biology/ms-biomedical-science-concentration-stem-cell-science",
-  "bachelor of arts in chemistry": "science-engineering/chemistry-biochemistry/ba-chemistry",
-  "bachelor of science in biochemistry": "science-engineering/chemistry-biochemistry/bs-biochemistry",
-  "bachelor of science in chemistry": "science-engineering/chemistry-biochemistry/bs-chemistry",
-  "minor in chemistry": "science-engineering/chemistry-biochemistry/minor-program-chemistry",
-  "master of science in chemistry: concentration in biochemistry": "science-engineering/chemistry-biochemistry/ms-chemistry-concentration-biochemistry",
-  "master of science in chemistry": "science-engineering/chemistry-biochemistry/ms-chemistry",
-  "bachelor of science in computer science": "science-engineering/computer-science/bs-computer-science",
-  "graduate certificate in cybersecurity": "science-engineering/computer-science/certificate-cybersecurity",
-  "graduate certificate in ethical artificial intelligence": "science-engineering/computer-science/certificate-ethical-artificial-intelligence",
-  "graduate certificate in software engineering": "science-engineering/computer-science/certificate-software-engineering",
-  "certificate in data science and machine learning for biotechnology": "science-engineering/computer-science/ct-data-science-machine-learning-for-biotechnology",
-  "certificate in generative artificial intelligence (genai) for computer scientists": "science-engineering/computer-science/ct-generative-artificial-intelligence-for-computer-scientists",
-  "minor in computer science": "science-engineering/computer-science/minor-computer-science",
-  "minor in computing applications": "science-engineering/computer-science/minor-computing-applications",
-  "master of science in computer science": "science-engineering/computer-science/ms-computer-science",
-  "master of science in data science and artificial intelligence": "science-engineering/computer-science/ms-data-science-artificial-intelligence",
-  "cooperative education": "science-engineering/cooperative-education",
-  "bachelor of science in civil engineering": "science-engineering/engineering/bs-civil-engineering",
-  "bachelor of science in computer engineering": "science-engineering/engineering/bs-computer-engineering",
-  "bachelor of science in electrical engineering": "science-engineering/engineering/bs-electrical-engineering",
-  "bachelor of science in mechanical engineering": "science-engineering/engineering/bs-mechanical-engineering",
-  "minor in civil engineering": "science-engineering/engineering/minor-civil-engineering",
-  "minor in computer engineering": "science-engineering/engineering/minor-computer-engineering",
-  "minor in electrical engineering": "science-engineering/engineering/minor-electrical-engineering",
-  "minor in mechanical engineering": "science-engineering/engineering/minor-mechanical-engineering",
-  "master of science in civil engineering": "science-engineering/engineering/ms-civil-engineering",
-  "master of science in electrical and computer engineering": "science-engineering/engineering/ms-electrical-computer-engineering",
-  "master of science in mechanical engineering": "science-engineering/engineering/ms-mechanical-engineering",
-  "bachelor of arts in environmental studies": "science-engineering/environment/ba-environmental-studies",
-  "bachelor of arts in geography": "science-engineering/environment/ba-geography",
-  "bachelor of science in earth sciences": "science-engineering/environment/bs-earth-sciences",
-  "bachelor of science in environmental science: concentration in natural resource management and conservation": "science-engineering/environment/bs-environmental-science-concentration-natural-resource-management-conservation",
-  "bachelor of science in environmental science": "science-engineering/environment/bs-environmental-science",
-  "bachelor of science in environmental studies: concentration in natural resource management and conservation": "science-engineering/environment/bs-environmental-studies-concentration-natural-resource-management-conservation",
-  "certificate in weather study": "science-engineering/environment/certificate-weather-study",
-  "certificate in climate change causes, impacts, and solutions": "science-engineering/environment/ct-climate-change",
-  "master of arts in geography: concentration in resource management and environmental planning": "science-engineering/environment/ma-geography-concentration-resource-management-environmental-planning",
-  "master of arts in geography, resource management, and environmental planning": "science-engineering/environment/ma-geography-resource-management-environmental-planning",
-  "master of arts in geography": "science-engineering/environment/ma-geography",
-  "minor in earth sciences": "science-engineering/environment/minor-earth-sciences",
-  "minor in geography": "science-engineering/environment/minor-geography",
-  "master of science in earth and environmental sciences": "science-engineering/environment/ms-earth-and-environment",
-  "master of science in geographic information science": "science-engineering/environment/ms-geographic-information-science",
-  "master of science in geosciences": "science-engineering/environment/ms-geosciences",
-  "graduate certificate in data science for biology and chemistry": "science-engineering/gct-data-science-biology-chemistry",
-  "bachelor of arts in mathematics: concentration in mathematics for liberal arts": "science-engineering/mathematics/ba-mathematics-concentration-liberal-arts",
-  "bachelor of arts in mathematics: concentration in mathematics for advanced study": "science-engineering/mathematics/ba-mathematics-concentration-mathematics-for-advanced-study",
-  "bachelor of arts in mathematics: concentration in teaching": "science-engineering/mathematics/ba-mathematics-concentration-teaching",
-  "bachelor of science in applied mathematics": "science-engineering/mathematics/bs-applied-mathematics",
-  "bachelor of science in statistics": "science-engineering/mathematics/bs-statistics",
-  "master of arts in mathematics": "science-engineering/mathematics/ma-mathematics",
-  "minor in mathematics": "science-engineering/mathematics/minor-mathematics",
-  "master of science in statistical data science": "science-engineering/mathematics/ms-statistical-data",
-  "bachelor of arts in physics: concentration in astronomy": "science-engineering/physics-astronomy/ba-physics-concentration-astronomy",
-  "bachelor of arts in physics": "science-engineering/physics-astronomy/ba-physics",
-  "bachelor of science in physics: concentration in astrophysics": "science-engineering/physics-astronomy/bs-physics-concentration-astrophysics",
-  "bachelor of science in physics: concentration in physics for teaching": "science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching",
-  "bachelor of science in physics": "science-engineering/physics-astronomy/bs-physics",
-  "minor in astronomy": "science-engineering/physics-astronomy/minor-astronomy",
-  "minor in physics": "science-engineering/physics-astronomy/minor-physics",
-  "master of science in astronomy & astrophysics": "science-engineering/physics-astronomy/ms-astronomy-astrophysics",
-  "master of science in physics": "science-engineering/physics-astronomy/ms-physics",
-  "certificate in data science for psychology": "science-engineering/psychology/ct-data-science-psychology",
-  "certificate in multilingual and psychology competencies": "science-engineering/psychology/ct-multilingual-psych-competencies",
-  "master of arts in psychological science: concentration in developmental psychology": "science-engineering/psychology/ma-psychological-science-concentration-developmental-psychology",
-  "master of arts in psychological science: concentration in mind, brain & behavior": "science-engineering/psychology/ma-psychological-science-concentration-mind-brain-behavior",
-  "master of arts in psychological science: concentration in social, personality, and affective science": "science-engineering/psychology/ma-psychological-science-concentration-social-psychology",
-  "master of science in industrial organizational psychology": "science-engineering/psychology/ms-industrial-organizational-psychology",
-  "master of science in psychology: concentration in clinical psychology": "science-engineering/psychology/ms-psychology-concentration-clinical-psychology",
-  "master of science in psychology: concentration in school psychology": "science-engineering/psychology/ms-psychology-concentration-school-psychology",
-  "pupil personnel services credential: school psychology designation": "science-engineering/psychology/pupil-personnel-services-credential-school-psychology-designation"
+  "minor in international relations": [
+   "liberal-creative-arts/international-relations/minor-international-relations"
+  ],
+  "minor in deaf studies and american sign language": [
+   "education/special-education/minor-deaf-studies-asl"
+  ],
+  "bachelor of arts in art: concentration in art history and studio art": [
+   "liberal-creative-arts/art/ba-art-concentration-art-history-studio-art"
+  ],
+  "minor in philosophy and religion": [
+   "liberal-creative-arts/philosphy/minor-philosoph-religion"
+  ],
+  "graduate certificate in history education": [
+   "liberal-creative-arts/history/graduate-certificate-history-education"
+  ],
+  "master of arts in philosophy": [
+   "liberal-creative-arts/philosphy/ma-philosophy"
+  ],
+  "bachelor of arts in english: concentration in professional writing and rhetoric": [
+   "liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric"
+  ],
+  "bachelor of arts in liberal studies": [
+   "liberal-creative-arts/liberal-studies/ba-liberal-studies"
+  ],
+  "master of arts in music": [
+   "liberal-creative-arts/music/ma-music"
+  ],
+  "certificate in information technology auditing": [
+   "business/information-systems/certificate-information-technology-auditing"
+  ],
+  "bachelor of science in biology: concentration in marine science": [
+   "science-engineering/biology/bs-biology-concentration-marine-science"
+  ],
+  "master of science in electrical and computer engineering": [
+   "science-engineering/engineering/ms-electrical-computer-engineering"
+  ],
+  "bachelor of science in nursing (prelicensure)": [
+   "health-social-sciences/nursing/bsn"
+  ],
+  "bachelor of science in nursing (adn-bsn)": [
+   "health-social-sciences/nursing/bs-rns"
+  ],
+  "bachelor of science in computer engineering": [
+   "science-engineering/engineering/bs-computer-engineering"
+  ],
+  "minor in spanish": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/minor-spanish"
+  ],
+  "master of business administration": [
+   "business/business-graduate-programs",
+   "extended-learning/mba"
+  ],
+  "master of science in geosciences": [
+   "science-engineering/environment/ms-geosciences"
+  ],
+  "bachelor of arts in german": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-german/ba-german"
+  ],
+  "bachelor of science in speech, language, and hearing sciences": [
+   "education/speech-language-hearing-sciences/bs-speech-language-hearing"
+  ],
+  "bachelor of science in visual communication design": [
+   "liberal-creative-arts/design-industry/bs-visual-communication-design"
+  ],
+  "bachelor of science in business administration: concentration in information systems": [
+   "business/information-systems/bs-business-administration-concentration-information-systems"
+  ],
+  "master of science in statistical data science": [
+   "science-engineering/mathematics/ms-statistical-data"
+  ],
+  "master of arts in broadcast and electronic communication arts": [
+   "liberal-creative-arts/broadcast-electronic-communication-arts/ma-broadcast-electronic-communication-arts"
+  ],
+  "minor in queer and trans ethnic studies": [
+   "ethnic-studies/race-resistance-studies/minor-queer-ethnic-studies"
+  ],
+  "mild to moderate support needs education specialist preliminary credential": [
+   "education/special-education/credential-sped-mild-moderate-support-needs"
+  ],
+  "minor in computing applications": [
+   "science-engineering/computer-science/minor-computing-applications"
+  ],
+  "graduate certificate in international business and global leadership": [
+   "business/international-business/graduate-certificate-IBaGL"
+  ],
+  "world development studies (minor)": [
+   "business/world-development-studies"
+  ],
+  "minor in french": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-french/minor-french"
+  ],
+  "minor in japanese": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-japanese/minor-japanese"
+  ],
+  "bachelor of arts in anthropology": [
+   "liberal-creative-arts/anthropology/ba-anthropology"
+  ],
+  "master of science in earth and environmental sciences": [
+   "science-engineering/environment/ms-earth-and-environment"
+  ],
+  "single subject credential program": [
+   "education/secondary-education/single-subject-credential"
+  ],
+  "bachelor of arts in art history": [
+   "liberal-creative-arts/art/ba-art-concentration-art-history"
+  ],
+  "university pathway program": [
+   "extended-learning/university-pathway"
+  ],
+  "bachelor of music: concentration in music production": [
+   "liberal-creative-arts/music/bm-conc-music-production"
+  ],
+  "bachelor of arts in psychology": [
+   "extended-learning/ba-psychology",
+   "science-engineering/psychology/ba-psychology"
+  ],
+  "certificate in multilingual and psychology competencies": [
+   "science-engineering/psychology/ct-multilingual-psych-competencies"
+  ],
+  "graduate certificate in software engineering": [
+   "science-engineering/computer-science/certificate-software-engineering"
+  ],
+  "bachelor of arts in child and adolescent development: concentration in elementary education teaching pre-credential": [
+   "health-social-sciences/child-adolescent-development/ba-child-adolescent-development-concentration-eed-precredential"
+  ],
+  "minor in journalism": [
+   "liberal-creative-arts/journalism/minor-journalism"
+  ],
+  "bachelor of science in electrical engineering": [
+   "science-engineering/engineering/bs-electrical-engineering"
+  ],
+  "cooperative education": [
+   "science-engineering/cooperative-education"
+  ],
+  "master of arts in english: concentration in linguistics": [
+   "liberal-creative-arts/english/ma-english-concentration-linguistics"
+  ],
+  "master of science in civil engineering": [
+   "science-engineering/engineering/ms-civil-engineering"
+  ],
+  "bachelor of arts in social work": [
+   "health-social-sciences/social-work/ba-social-work"
+  ],
+  "bachelor of science in public health": [
+   "health-social-sciences/public-health/bs-public-health"
+  ],
+  "master of arts in ethnic studies": [
+   "ethnic-studies/ethnic-studies/ma-ethnic-studies"
+  ],
+  "multiple subject credential: bilingual educators for social transformation (best) spanish/english": [
+   "education/elementary-education/multisubject-credential-spanish"
+  ],
+  "bachelor of science in apparel design and merchandising: concentration in merchandising": [
+   "health-social-sciences/consumer-family-studies-dietetics/bs-apparel-design-merchandising-merchandising"
+  ],
+  "bachelor of music: concentration in composition": [
+   "liberal-creative-arts/music/bm-conc-composition"
+  ],
+  "bachelor of arts in journalism": [
+   "liberal-creative-arts/journalism/ba-journalism"
+  ],
+  "bachelor of arts in international relations": [
+   "liberal-creative-arts/international-relations/ba-international-relations"
+  ],
+  "master of science in biology: concentration in physiology and behavioral biology": [
+   "science-engineering/biology/ms-biology-concentration-physiology-behavioral-biology"
+  ],
+  "minor in history": [
+   "liberal-creative-arts/history/minor-history"
+  ],
+  "bachelor of arts in philosophy": [
+   "liberal-creative-arts/philosphy/ba-philosophy"
+  ],
+  "minor in art history": [
+   "liberal-creative-arts/art/minor-art-history"
+  ],
+  "bachelor of science in business administration: concentration in general business": [
+   "business/business-administration/bs-business-administration-concentration-general-business",
+   "extended-learning/bs-business-administration-concentration-general-business"
+  ],
+  "minor in sociology": [
+   "health-social-sciences/sociology/minor-sociology"
+  ],
+  "master of arts in instructional design and technology": [
+   "education/elsit/ma-instructional-design-technology"
+  ],
+  "graduate certificate in teaching english to speakers of other languages": [
+   "liberal-creative-arts/english/graduate-certificate-tesol"
+  ],
+  "minor in hospitality and tourism management": [
+   "business/hospitality-tourism-management/minor-hospitality-tourism-management"
+  ],
+  "minor in accounting": [
+   "business/accounting/minor-accounting"
+  ],
+  "minor in public health": [
+   "health-social-sciences/public-health/minor-health-education"
+  ],
+  "certificate in multilingual and public health competencies": [
+   "health-social-sciences/public-health/ct-multilingual-public-health"
+  ],
+  "bachelor of arts in philosophy and religion": [
+   "liberal-creative-arts/philosphy/ba-philosophy-religion"
+  ],
+  "certificate in data science and machine learning for biotechnology": [
+   "science-engineering/computer-science/ct-data-science-machine-learning-for-biotechnology"
+  ],
+  "minor in disability studies": [
+   "liberal-creative-arts/women-gender-studies/minor-disability-studies"
+  ],
+  "minor in entrepreneurship": [
+   "business/minor-entrepreneurship"
+  ],
+  "minor in economics": [
+   "business/economics/minor-economics"
+  ],
+  "master of fine arts in creative writing": [
+   "liberal-creative-arts/creative-writing/mfa-creative-writing"
+  ],
+  "bachelor of science in applied mathematics": [
+   "science-engineering/mathematics/bs-applied-mathematics"
+  ],
+  "bachelor of arts in cinema": [
+   "liberal-creative-arts/cinema/ba-cinema"
+  ],
+  "minor in anthropology": [
+   "liberal-creative-arts/anthropology/minor-anthropology"
+  ],
+  "master of science in physics": [
+   "science-engineering/physics-astronomy/ms-physics"
+  ],
+  "master of science in counseling": [
+   "health-social-sciences/counseling/ms-counseling"
+  ],
+  "bachelor of arts in criminal justice studies": [
+   "extended-learning/ba-criminal-justice-studies",
+   "health-social-sciences/criminal-justice-studies/ba-criminal-justice-studies"
+  ],
+  "pupil personnel services credential: school psychology designation": [
+   "science-engineering/psychology/pupil-personnel-services-credential-school-psychology-designation"
+  ],
+  "certificate in immigrant literacies": [
+   "liberal-creative-arts/english/certificate-immigrant-literacies"
+  ],
+  "master of arts in english: concentration in composition": [
+   "liberal-creative-arts/english/ma-english-concentration-composition"
+  ],
+  "bachelor of arts in japanese": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-japanese/ba-japanese"
+  ],
+  "minor in arab and muslim ethnicities and diasporas studies": [
+   "ethnic-studies/race-resistance-studies/minor-arab-muslim-studies"
+  ],
+  "master of science in nursing": [
+   "health-social-sciences/nursing/msn"
+  ],
+  "minor in sexuality studies": [
+   "health-social-sciences/sexuality-studies/minor-human-sexuality-studies"
+  ],
+  "certificate in technical and professional writing": [
+   "liberal-creative-arts/english/certificate-technical-professional-writing"
+  ],
+  "master of arts in psychological science: concentration in social, personality, and affective science": [
+   "science-engineering/psychology/ma-psychological-science-concentration-social-psychology"
+  ],
+  "certificate in multilingual and international tourism competencies": [
+   "liberal-creative-arts/foreign-language/certificate-multilingual-international-tourism-competencies"
+  ],
+  "bachelor of arts in chinese: concentration in chinese literature and linguistics": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-literature-linguistics"
+  ],
+  "minor in chemistry": [
+   "science-engineering/chemistry-biochemistry/minor-program-chemistry"
+  ],
+  "certificate in pre-health professions": [
+   "extended-learning/pre-health-professions"
+  ],
+  "bachelor of science in environmental science: concentration in natural resource management and conservation": [
+   "science-engineering/environment/bs-environmental-science-concentration-natural-resource-management-conservation"
+  ],
+  "minor in german": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-german/minor-german"
+  ],
+  "certificate in global health": [
+   "liberal-creative-arts/international-relations/cert-global-health"
+  ],
+  "minor in special education": [
+   "education/special-education/minor-special-education"
+  ],
+  "bachelor of arts in english: concentration in literature": [
+   "liberal-creative-arts/english/ba-english-concentration-literature"
+  ],
+  "master of science in chemistry: concentration in biochemistry": [
+   "science-engineering/chemistry-biochemistry/ms-chemistry-concentration-biochemistry"
+  ],
+  "master of arts in political science": [
+   "liberal-creative-arts/political-science/ma-political-science"
+  ],
+  "minor in latin american studies": [
+   "liberal-creative-arts/international-relations/minor-latin-american-studies"
+  ],
+  "minor in california studies": [
+   "liberal-creative-arts/liberal-studies/minor-california-studies"
+  ],
+  "bachelor of science in civil engineering": [
+   "science-engineering/engineering/bs-civil-engineering"
+  ],
+  "visual impairments education specialist preliminary credential": [
+   "education/special-education/credential-sped-visual-impairment"
+  ],
+  "graduate certificate in computational linguistics": [
+   "liberal-creative-arts/english/graduate-certificate-computational-linguistics"
+  ],
+  "bachelor of science in nursing (accelerated-prelicensure)": [
+   "extended-learning/nursing-bs"
+  ],
+  "pk-3 early childhood education specialist instruction credential": [
+   "education/elementary-education/ece-specialist-instruction-credential"
+  ],
+  "bachelor of arts in chemistry": [
+   "science-engineering/chemistry-biochemistry/ba-chemistry"
+  ],
+  "minor in philosophy": [
+   "liberal-creative-arts/philosphy/minor-philosophy"
+  ],
+  "graduate certificate in decision sciences": [
+   "business/decision-sciences/graduate-certificate-decision-sciences"
+  ],
+  "minor in labor and employment studies": [
+   "business/labor-employment-studies/minor-labor-employment-studies"
+  ],
+  "minor in information systems": [
+   "business/information-systems/minor-information-systems"
+  ],
+  "minor in american studies": [
+   "liberal-creative-arts/humanities-cwl/minor-american-studies"
+  ],
+  "minor in business analytics": [
+   "business/decision-sciences/minor-business-analytics"
+  ],
+  "bachelor of science in business administration: concentration in marketing": [
+   "business/marketing/bs-business-administration-concentration-marketing"
+  ],
+  "minor in latina/latino studies": [
+   "ethnic-studies/latina-latino-studies/minor-latina-latino-studies"
+  ],
+  "minor in queer and trans studies": [
+   "health-social-sciences/sexuality-studies/minor-lesbian-gay-bisexual-transgender-studies"
+  ],
+  "certificate in ethnography": [
+   "liberal-creative-arts/anthropology/certificate-ethnography"
+  ],
+  "minor in global peace, human rights, and justice studies": [
+   "liberal-creative-arts/international-relations/minor-global-peace-studies"
+  ],
+  "bachelor of science in mechanical engineering": [
+   "science-engineering/engineering/bs-mechanical-engineering"
+  ],
+  "minor in computer science": [
+   "science-engineering/computer-science/minor-computer-science"
+  ],
+  "minor in critical pacific islands & oceania studies": [
+   "ethnic-studies/race-resistance-studies/minor-critical-pacific-islands-oceania-studies"
+  ],
+  "bachelor of arts in broadcast and electronic communication arts": [
+   "liberal-creative-arts/broadcast-electronic-communication-arts/ba-broadcast-electronic-communication-arts"
+  ],
+  "minor in africana studies": [
+   "ethnic-studies/africana-studies/minor-program-africana-studies"
+  ],
+  "special major": [
+   "all-university/special-major"
+  ],
+  "certificate in digital marketing": [
+   "extended-learning/digital-marketing-certificate"
+  ],
+  "certificate in climate change causes, impacts, and solutions": [
+   "science-engineering/environment/ct-climate-change"
+  ],
+  "certificate in financial analytics": [
+   "business/finance/certificate-financial-analytics"
+  ],
+  "certificate in artificial intelligence (ai) for business technologies": [
+   "business/information-systems/certificate-ai-business-tech"
+  ],
+  "graduate certificate in exercise physiology": [
+   "health-social-sciences/kinesiology/ct-exercise-physiology"
+  ],
+  "minor in chinese language": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/minor-chinese-language"
+  ],
+  "bachelor of arts in creative writing": [
+   "liberal-creative-arts/creative-writing/ba-creative-writing"
+  ],
+  "graduate certificate in enterprise information systems": [
+   "business/information-systems/certificate-enterprise-information-systems"
+  ],
+  "master of science in counseling: concentration in marriage, family, and child counseling": [
+   "health-social-sciences/counseling/ms-counseling-concentration-marriage-famiyl-child-counseling"
+  ],
+  "conflict transformation": [
+   "liberal-creative-arts/conflict-resolution"
+  ],
+  "minor in linguistics": [
+   "liberal-creative-arts/english/minor-linguistics"
+  ],
+  "minor in international business": [
+   "business/international-business/minor-international-business"
+  ],
+  "interdisciplinary studies (graduate)": [
+   "all-university/interdisciplinary-studies-graduate"
+  ],
+  "certificate in teaching post-secondary reading": [
+   "liberal-creative-arts/english/certificate-teaching-post-secondary-reading"
+  ],
+  "bachelor of science in nutrition and dietetics: concentration in dietetics and nutrition science": [
+   "health-social-sciences/consumer-family-studies-dietetics/bs-dietetics-conc-nutrition-science"
+  ],
+  "bachelor of arts in latina/latino studies": [
+   "ethnic-studies/latina-latino-studies/ba-latina-latino-studies"
+  ],
+  "bachelor of science in business administration: concentration in finance": [
+   "business/finance/bs-business-administration-concentration-finance"
+  ],
+  "master of arts in chinese": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ma-chinese"
+  ],
+  "master of science in kinesiology": [
+   "health-social-sciences/kinesiology/ms-kinesiology"
+  ],
+  "certificate in the liberal and creative arts": [
+   "extended-learning/ct-liberal-creative-arts"
+  ],
+  "master of arts in geography": [
+   "science-engineering/environment/ma-geography"
+  ],
+  "bachelor of music: concentration in music teacher preparation": [
+   "liberal-creative-arts/music/concentration-music-education"
+  ],
+  "certificate in international risk analysis": [
+   "liberal-creative-arts/international-relations/cert-international-risk-analysis"
+  ],
+  "bachelor of arts in physics": [
+   "science-engineering/physics-astronomy/ba-physics"
+  ],
+  "bachelor of arts in early childhood studies: concentration in special education integrated teacher education program": [
+   "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-special-education-itep"
+  ],
+  "graduate certificate in augmentative and alternative communication": [
+   "education/speech-language-hearing-sciences/certificate-augmentative-alternative-communication"
+  ],
+  "master of arts in french": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-french/ma-french"
+  ],
+  "minor in comic studies": [
+   "liberal-creative-arts/liberal-studies/minor-comic-studies"
+  ],
+  "bachelor of science in apparel design and merchandising: concentration in design": [
+   "health-social-sciences/consumer-family-studies-dietetics/bs-apparel-design-merchandising-design"
+  ],
+  "graduate certificate in digital learning design": [
+   "education/elsit/certificate-training-systems-development"
+  ],
+  "bachelor of arts in environmental studies": [
+   "science-engineering/environment/ba-environmental-studies"
+  ],
+  "bachelor of science in chemistry": [
+   "science-engineering/chemistry-biochemistry/bs-chemistry"
+  ],
+  "master of arts in human sexuality studies": [
+   "health-social-sciences/sexuality-studies/ma-human-sexuality-studies"
+  ],
+  "master of arts in design": [
+   "liberal-creative-arts/design-industry/ma-design"
+  ],
+  "early childhood special education specialist preliminary credential": [
+   "education/special-education/credential-sped-early-childhood"
+  ],
+  "school nurse services credential": [
+   "extended-learning/school-nurse-credential"
+  ],
+  "certificate in creative nonfiction comics making": [
+   "liberal-creative-arts/liberal-studies/certificate-nonfiction-comics-making"
+  ],
+  "master of public administration: concentration in aging in society": [
+   "health-social-sciences/public-administration/mpa-aging-in-society"
+  ],
+  "minor in prison reentry studies": [
+   "health-social-sciences/criminal-justice-studies/minor-prison-reentry-studies"
+  ],
+  "minor in bilingual spanish journalism": [
+   "liberal-creative-arts/journalism/mn-bilingual-spanish-journalism"
+  ],
+  "bachelor of arts in communication studies": [
+   "liberal-creative-arts/communication-studies/ba-communication-studies"
+  ],
+  "master of arts in classics": [
+   "liberal-creative-arts/classics/ma-classics"
+  ],
+  "minor in chinese literature and linguistics": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/minor-chinese-literature-linguistics"
+  ],
+  "preliminary administrative services credential": [
+   "education/elsit/administrative-services-credential"
+  ],
+  "minor in russian studies": [
+   "liberal-creative-arts/foreign-language/foreign-languages-and-literatures-russian/minor-russian-studies"
+  ],
+  "doctor of physical therapy": [
+   "health-social-sciences/physical-therapy-clinical-laboratory-science/doctor-of-physical-therapy"
+  ],
+  "bachelor of science in physics: concentration in physics for teaching": [
+   "science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching"
+  ],
+  "certificate in data science and machine learning for biotechnology professionals": [
+   "extended-learning/certificate-data-science-machine-learning-biotechnology-professionals"
+  ],
+  "minor in women and gender studies": [
+   "liberal-creative-arts/women-gender-studies/minor-women-gender-studies"
+  ],
+  "bachelor of arts in geography": [
+   "science-engineering/environment/ba-geography"
+  ],
+  "minor in empowerment self-defense": [
+   "health-social-sciences/kinesiology/minor-empowerment-self-defense"
+  ],
+  "bachelor of arts in music": [
+   "liberal-creative-arts/music/ba-music"
+  ],
+  "master of arts in psychological science: concentration in mind, brain & behavior": [
+   "science-engineering/psychology/ma-psychological-science-concentration-mind-brain-behavior"
+  ],
+  "certificate of special study in teaching english to speakers of other languages": [
+   "liberal-creative-arts/english/certificate-special-study-tesol"
+  ],
+  "master of science in nursing (entry level)": [
+   "health-social-sciences/nursing/elm"
+  ],
+  "master of arts in special education": [
+   "education/special-education/ma-special-education"
+  ],
+  "extensive support needs education specialist preliminary credential": [
+   "education/special-education/credential-spec-extensive-support-needs"
+  ],
+  "bachelor of arts in urban studies and planning": [
+   "health-social-sciences/urban-studies-planning/ba-urban-studies-planning"
+  ],
+  "graduate certificate in autism studies": [
+   "education/special-education/certificate-autism-spectrum"
+  ],
+  "minor in modern greek studies": [
+   "liberal-creative-arts/classics/minor-modern-greek-studies"
+  ],
+  "bachelor of arts in mathematics: concentration in mathematics for liberal arts": [
+   "science-engineering/mathematics/ba-mathematics-concentration-liberal-arts"
+  ],
+  "master of arts in humanities": [
+   "liberal-creative-arts/humanities-cwl/ma-humanities"
+  ],
+  "certificate in generative artificial intelligence (genai) for computer scientists": [
+   "science-engineering/computer-science/ct-generative-artificial-intelligence-for-computer-scientists"
+  ],
+  "master of arts in history": [
+   "liberal-creative-arts/history/ma-history"
+  ],
+  "bachelor of science in physics": [
+   "science-engineering/physics-astronomy/bs-physics"
+  ],
+  "bachelor of arts in chinese: concentration in chinese integrated teacher education program": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-itep"
+  ],
+  "education specialist intern credential: special education": [
+   "education/special-education/credential-sped-education-specialists-intern"
+  ],
+  "certificate in holistic health studies": [
+   "health-social-sciences/recreation-parks-tourism/certificate-holistic-health-studies"
+  ],
+  "master of arts in gerontology": [
+   "health-social-sciences/gerontology/ma-gerontology"
+  ],
+  "minor in earth sciences": [
+   "science-engineering/environment/minor-earth-sciences"
+  ],
+  "minor in museum studies": [
+   "liberal-creative-arts/museum-studies/minor-museum-studies"
+  ],
+  "bachelor of arts in mathematics: concentration in teaching": [
+   "science-engineering/mathematics/ba-mathematics-concentration-teaching"
+  ],
+  "bachelor of arts in family and community sciences": [
+   "health-social-sciences/consumer-family-studies-dietetics/ba-family-community-sciences"
+  ],
+  "graduate certificate in marketing in the digital economy": [
+   "business/marketing/graduate-certificate-marketing-digital-economy"
+  ],
+  "master of arts in geography, resource management, and environmental planning": [
+   "science-engineering/environment/ma-geography-resource-management-environmental-planning"
+  ],
+  "minor in studio art": [
+   "liberal-creative-arts/art/minor-art"
+  ],
+  "doctor of philosophy in education: concentration in special education": [
+   "education/special-education/doctor-of-philosophy-education-concentration-special-education"
+  ],
+  "minor in literature in english": [
+   "liberal-creative-arts/english/minor-english-american-literature"
+  ],
+  "master of arts in spanish": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/ma-spanish"
+  ],
+  "minor in religious studies": [
+   "liberal-creative-arts/religious-studies"
+  ],
+  "bachelor of arts in asian american studies": [
+   "ethnic-studies/asian-american-studies/ba-asian-american-studies"
+  ],
+  "pre-nursing post-baccalaureate certificate": [
+   "extended-learning/pre-nursing"
+  ],
+  "minor in italian": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-italian/minor-italian"
+  ],
+  "master of arts in women and gender studies": [
+   "liberal-creative-arts/women-gender-studies/ma-women-gender-studies"
+  ],
+  "bachelor of science in business administration: concentration in decision sciences": [
+   "business/decision-sciences/bs-business-administration-concentration-decision-sciences"
+  ],
+  "master of arts in equity and social justice education": [
+   "education/elsit/ma-equity-social-justice-education"
+  ],
+  "minor in artificial intelligence (ai) for business applications": [
+   "business/information-systems/minor-artificial-intelligence-business-applications"
+  ],
+  "bachelor of arts in classics": [
+   "liberal-creative-arts/classics/ba-classics"
+  ],
+  "minor in geography": [
+   "science-engineering/environment/minor-geography"
+  ],
+  "minor in political science": [
+   "liberal-creative-arts/political-science/minor-political-science"
+  ],
+  "certificate in pre-law": [
+   "liberal-creative-arts/political-science/certificate-pre-law"
+  ],
+  "master of fine arts in art": [
+   "liberal-creative-arts/art/mfa-art"
+  ],
+  "minor in animation": [
+   "liberal-creative-arts/cinema/minor-animation"
+  ],
+  "master of science in geographic information science": [
+   "science-engineering/environment/ms-geographic-information-science"
+  ],
+  "minor in holistic health studies": [
+   "health-social-sciences/recreation-parks-tourism/minor-holistic-health-studies"
+  ],
+  "bachelor of music: concentration in jazz/ethnomusicology": [
+   "liberal-creative-arts/music/bm-conc-jazz-ethnomusicology"
+  ],
+  "master of science in nursing: concentration in family nurse practitioner": [
+   "health-social-sciences/nursing/msn-concentration-family-nurse-practitioner"
+  ],
+  "bachelor of arts in video game studies": [
+   "liberal-creative-arts/humanities-cwl/ba-video-game-studies"
+  ],
+  "master of science in business analytics": [
+   "business/ms-business-analytics"
+  ],
+  "bachelor of arts in ethnic studies": [
+   "extended-learning/ba-ethnic-studies"
+  ],
+  "graduate certificate in finance": [
+   "business/finance/graduate-certificate-finance"
+  ],
+  "graduate certificate in ethnic studies": [
+   "ethnic-studies/ethnic-studies/certificate-ethnic-studies"
+  ],
+  "minor in creative writing": [
+   "liberal-creative-arts/creative-writing/minor-creative-writing"
+  ],
+  "graduate certificate in enterprise cybersecurity": [
+   "business/information-systems/gct-enterprise-cybersecurity"
+  ],
+  "certificate in dietetics": [
+   "health-social-sciences/consumer-family-studies-dietetics/certificate-dietetics"
+  ],
+  "bachelor of arts in early childhood studies: concentration in pk-3 integrated teacher education program": [
+   "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep"
+  ],
+  "minor in business administration": [
+   "business/business-administration/minor-business-administration"
+  ],
+  "minor in finance": [
+   "business/finance/minor-finance"
+  ],
+  "bachelor of science in biology: concentration in physiology": [
+   "science-engineering/biology/bs-biology-concentration-physiology"
+  ],
+  "bachelor of science in business administration: concentration in international business": [
+   "business/international-business/bs-business-administration-concentration-international-business"
+  ],
+  "minor in critical social thought": [
+   "liberal-creative-arts/political-science/minor-critical-social-thought"
+  ],
+  "master of science in psychology: concentration in school psychology": [
+   "science-engineering/psychology/ms-psychology-concentration-school-psychology"
+  ],
+  "master of science in biomedical science: concentration in stem cell science": [
+   "science-engineering/biology/ms-biomedical-science-concentration-stem-cell-science"
+  ],
+  "certificate in fintech": [
+   "business/finance/certificate-fintech"
+  ],
+  "bachelor of arts in physics: concentration in astronomy": [
+   "science-engineering/physics-astronomy/ba-physics-concentration-astronomy"
+  ],
+  "bachelor of music: concentration in vocal performance": [
+   "liberal-creative-arts/music/bm-conc-vocal-performance"
+  ],
+  "minor in professional writing and rhetoric": [
+   "liberal-creative-arts/english/minor-technical-professional-writing"
+  ],
+  "master of science in computer science": [
+   "science-engineering/computer-science/ms-computer-science"
+  ],
+  "minor in civil engineering": [
+   "science-engineering/engineering/minor-civil-engineering"
+  ],
+  "bachelor of science in kinesiology: concentration in integrated teacher education program in physical education": [
+   "health-social-sciences/kinesiology/bs-kinesiology-concentration-physical-education"
+  ],
+  "doctor of education in educational leadership – community college": [
+   "education/doctoral-program/community-college"
+  ],
+  "master of arts in psychological science: concentration in developmental psychology": [
+   "science-engineering/psychology/ma-psychological-science-concentration-developmental-psychology"
+  ],
+  "critical mixed race studies": [
+   "ethnic-studies/critical-mixed-race-studies"
+  ],
+  "minor in management": [
+   "business/management/minor-management"
+  ],
+  "graduate certificate in inclusive early childhood practices": [
+   "education/special-education/certificate-inclusive-early-childhood-practices"
+  ],
+  "minor in juvenile justice": [
+   "health-social-sciences/criminal-justice-studies/minor-juvenile-justice"
+  ],
+  "bachelor of arts in american studies": [
+   "liberal-creative-arts/humanities-cwl/ba-american-studies"
+  ],
+  "master of science in data science and artificial intelligence": [
+   "science-engineering/computer-science/ms-data-science-artificial-intelligence"
+  ],
+  "minor in physics": [
+   "science-engineering/physics-astronomy/minor-physics"
+  ],
+  "bachelor of science in environmental studies: concentration in natural resource management and conservation": [
+   "science-engineering/environment/bs-environmental-studies-concentration-natural-resource-management-conservation"
+  ],
+  "teaching english to speakers of other languages graduate pathway program": [
+   "extended-learning/american-language-institute/tesol-graduate-pathway-program"
+  ],
+  "minor in early childhood development": [
+   "health-social-sciences/child-adolescent-development/minor-early-childhood-development"
+  ],
+  "bachelor of science in kinesiology: concentration in exercise and movement sciences": [
+   "health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences"
+  ],
+  "doctor of education in educational leadership – p-12": [
+   "education/doctoral-program/p-12"
+  ],
+  "minor in race and resistance studies": [
+   "ethnic-studies/race-resistance-studies/minor-race-resistance"
+  ],
+  "certificate in historical research (honors)": [
+   "liberal-creative-arts/history/certificate-historical-research"
+  ],
+  "bachelor of arts in journalism: concentration in photojournalism and documentary photography": [
+   "liberal-creative-arts/journalism/ba-journalism-concentration-photojournalism-documentary-photography"
+  ],
+  "bachelor of science in statistics": [
+   "science-engineering/mathematics/bs-statistics"
+  ],
+  "bachelor of science in environmental science": [
+   "science-engineering/environment/bs-environmental-science"
+  ],
+  "multiple subject credential: chinese bilingual authorization": [
+   "education/elementary-education/multisubject-credential-chinese"
+  ],
+  "master of science in industrial organizational psychology": [
+   "science-engineering/psychology/ms-industrial-organizational-psychology"
+  ],
+  "bachelor of arts in studio art": [
+   "liberal-creative-arts/art/ba-studio-art"
+  ],
+  "certificate in modern language learning and teaching": [
+   "liberal-creative-arts/foreign-language/certificate-modern-language-learning-teaching"
+  ],
+  "master of arts in comparative literature": [
+   "liberal-creative-arts/humanities-cwl/ma-comparative-literature"
+  ],
+  "bachelor of arts in africana studies": [
+   "ethnic-studies/africana-studies/ba-africana-studies"
+  ],
+  "master of arts in asian american studies": [
+   "ethnic-studies/asian-american-studies/ma-asian-american-studies"
+  ],
+  "bachelor of science in hospitality, tourism, and event management": [
+   "business/hospitality-tourism-management/bs-hospitality-tourism-management"
+  ],
+  "minor in humanities": [
+   "liberal-creative-arts/humanities-cwl/minor-humanities"
+  ],
+  "bachelor of arts in general biology": [
+   "science-engineering/biology/ba-general-biology"
+  ],
+  "bachelor of science in biology: concentration in ecology, evolution, and conservation biology": [
+   "science-engineering/biology/bs-biology-concentration-ecology-evolution-conservation-biology"
+  ],
+  "master of science in mechanical engineering": [
+   "science-engineering/engineering/ms-mechanical-engineering"
+  ],
+  "bachelor of science in interior design and architecture": [
+   "health-social-sciences/consumer-family-studies-dietetics/bs-interior-design-architecture"
+  ],
+  "master of arts in curriculum and instruction": [
+   "education/elementary-education/ma-curriculum-instruction"
+  ],
+  "education minor program": [
+   "education/minor-program"
+  ],
+  "master of arts in educational administration and leadership": [
+   "education/elsit/ma-educational-administration-leadership"
+  ],
+  "bachelor of arts in french": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-french/ba-french"
+  ],
+  "master of arts in education: concentration in special interest area": [
+   "education/elsit/ma-education-concentration-special-interest-area"
+  ],
+  "bachelor of arts in political science": [
+   "liberal-creative-arts/political-science/ba-political-science"
+  ],
+  "family nurse practitioner certificate": [
+   "health-social-sciences/nursing/family-nurse-practitioner-certificate"
+  ],
+  "master of arts in geography: concentration in resource management and environmental planning": [
+   "science-engineering/environment/ma-geography-concentration-resource-management-environmental-planning"
+  ],
+  "bachelor of science in computer science": [
+   "science-engineering/computer-science/bs-computer-science"
+  ],
+  "master of fine arts in cinema": [
+   "liberal-creative-arts/cinema/mfa-cinema"
+  ],
+  "minor in middle east and islamic studies": [
+   "liberal-creative-arts/international-relations/minor-middle-east-islamic-studies"
+  ],
+  "master of arts in theatre arts": [
+   "liberal-creative-arts/theatre-arts/ma-theatre-arts"
+  ],
+  "bachelor of arts in italian": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-italian/ba-italian"
+  ],
+  "bachelor of science in business administration: concentration in management": [
+   "business/management/bs-business-administration-concentration-management"
+  ],
+  "bachelor of arts in bilingual spanish journalism": [
+   "liberal-creative-arts/journalism/ba-bilingual-spanish-journalism"
+  ],
+  "bachelor of arts in english: concentration in linguistics": [
+   "liberal-creative-arts/english/ba-english-concentration-linguistics"
+  ],
+  "graduate certificate in sustainable business": [
+   "business/management/certificate-sustainable-business"
+  ],
+  "graduate certificate in accounting": [
+   "business/accounting/certificate-accounting"
+  ],
+  "minor in european studies": [
+   "liberal-creative-arts/international-relations/minor-european-studies"
+  ],
+  "master of arts in family and consumer sciences": [
+   "extended-learning/ma-family-consumer-sciences",
+   "health-social-sciences/consumer-family-studies-dietetics/ma-family-consumer-sciences"
+  ],
+  "minor in jewish studies": [
+   "liberal-creative-arts/jewish-studies/minor-jewish-studies"
+  ],
+  "bachelor of arts in recreation, parks, and tourism administration": [
+   "health-social-sciences/recreation-parks-tourism/ba-recreation-parks-tourism-administration"
+  ],
+  "graduate certificate in data science for biology and chemistry": [
+   "science-engineering/gct-data-science-biology-chemistry"
+  ],
+  "minor in recreation, parks, and tourism": [
+   "health-social-sciences/recreation-parks-tourism/minor-recreation"
+  ],
+  "bachelor of arts in child and adolescent development: concentration in community, health, and social services": [
+   "health-social-sciences/child-adolescent-development/ba-child-adolescent-development-concentration-community-health-social-services"
+  ],
+  "bachelor of arts in labor and employment studies": [
+   "business/labor-employment-studies/ba-labor-employment-studies"
+  ],
+  "minor in mathematics": [
+   "science-engineering/mathematics/minor-mathematics"
+  ],
+  "master of arts in cinema and media studies": [
+   "liberal-creative-arts/cinema/ma-cinema-studies"
+  ],
+  "bachelor of science in business administration: concentration in accounting": [
+   "business/accounting/bs-business-administration-concentration-accounting"
+  ],
+  "minor in athletic coaching": [
+   "health-social-sciences/kinesiology/minor-certificate-athletic-coaching"
+  ],
+  "bachelor of arts in early childhood studies: concentration in care and education": [
+   "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-care-education"
+  ],
+  "master of science in biology: concentration in cell and molecular biology": [
+   "science-engineering/biology/ms-biology-concentration-cell-molecular-biology"
+  ],
+  "bachelor of science in business administration: concentration in business analytics": [
+   "business/decision-sciences/bs-business-administration-concentration-business-analytics"
+  ],
+  "bachelor of arts in english: concentration in english education": [
+   "liberal-creative-arts/english/ba-english-concentration-english-education-"
+  ],
+  "master of arts in international relations": [
+   "liberal-creative-arts/international-relations/ma-international-relations"
+  ],
+  "bachelor of arts in women and gender studies": [
+   "liberal-creative-arts/women-gender-studies/ba-women-gender-studies"
+  ],
+  "minor in communication studies": [
+   "liberal-creative-arts/communication-studies/minor-communication-studies"
+  ],
+  "minor in decision sciences": [
+   "business/decision-sciences/minor-decision-sciences"
+  ],
+  "certificate in business analytics": [
+   "extended-learning/business-analytics-certificate"
+  ],
+  "bachelor of arts in humanities": [
+   "liberal-creative-arts/humanities-cwl/ba-humanities"
+  ],
+  "bachelor of arts in race and resistance studies": [
+   "ethnic-studies/race-resistance-studies/ba-race-resistance"
+  ],
+  "minor in feminist health justice": [
+   "liberal-creative-arts/women-gender-studies/minor-womens-health-issues"
+  ],
+  "bachelor of arts in sociology": [
+   "health-social-sciences/sociology/ba-sociology"
+  ],
+  "undergraduate certificate in computational linguistics": [
+   "liberal-creative-arts/english/certificiate-in-computational-linguistics"
+  ],
+  "certificate in multilingual and international business competencies": [
+   "liberal-creative-arts/foreign-language/certificate-multilingual-international-business-competencies"
+  ],
+  "bachelor of science in physics: concentration in astrophysics": [
+   "science-engineering/physics-astronomy/bs-physics-concentration-astrophysics"
+  ],
+  "bachelor of arts in dance": [
+   "liberal-creative-arts/theatre-arts/ba-dance"
+  ],
+  "master of arts in anthropology": [
+   "liberal-creative-arts/anthropology/ma-anthropology"
+  ],
+  "minor in mechanical engineering": [
+   "science-engineering/engineering/minor-mechanical-engineering"
+  ],
+  "minor in video game studies": [
+   "liberal-creative-arts/humanities-cwl/minor-video-game-studies"
+  ],
+  "minor in comparative and world literature": [
+   "liberal-creative-arts/humanities-cwl/minor-comparative-literature"
+  ],
+  "bachelor of arts in american indian studies": [
+   "ethnic-studies/american-indian-studies/ba-american-indian-studies"
+  ],
+  "master of fine arts in broadcast & electronic communication arts": [
+   "liberal-creative-arts/broadcast-electronic-communication-arts/ma-fine-arts-broadcast-electronic-communication-arts"
+  ],
+  "minor in computer engineering": [
+   "science-engineering/engineering/minor-computer-engineering"
+  ],
+  "master of public health": [
+   "health-social-sciences/public-health/mph"
+  ],
+  "bachelor of arts in race, ethnicity, and health": [
+   "ethnic-studies/ba-race-ethnicity-health"
+  ],
+  "master of science in quantitative economics": [
+   "business/economics/ma-economics"
+  ],
+  "graduate certificate in business principles": [
+   "business/business-graduate-programs/certificate-bridge-to-mba"
+  ],
+  "minor in general biology": [
+   "science-engineering/biology/minor-general-biology"
+  ],
+  "pupil personnel services credential: school counseling designation – post-master’s level": [
+   "health-social-sciences/counseling/pupil-personnel-services-credential-school-counseling-designation-post-masters-level"
+  ],
+  "bachelor of science in nutrition and dietetics: concentration in foods and community nutrition": [
+   "health-social-sciences/consumer-family-studies-dietetics/bs-dietetics-conc-foods-community-nutrition"
+  ],
+  "graduate certificate in trauma-informed social work practice with children & families": [
+   "health-social-sciences/social-work/gct-trauma-sw"
+  ],
+  "minor in urban studies and planning": [
+   "health-social-sciences/urban-studies-planning/minor-urban-studies-planning"
+  ],
+  "bachelor of science in industrial design: concentration in product design and development": [
+   "liberal-creative-arts/design-industry/bs-industrial-design-concentration-product-design-development"
+  ],
+  "minor in electrical engineering": [
+   "science-engineering/engineering/minor-electrical-engineering"
+  ],
+  "minor in astronomy": [
+   "science-engineering/physics-astronomy/minor-astronomy"
+  ],
+  "master of science in chemistry": [
+   "science-engineering/chemistry-biochemistry/ms-chemistry"
+  ],
+  "graduate certificate in cybersecurity": [
+   "science-engineering/computer-science/certificate-cybersecurity"
+  ],
+  "graduate certificate in ethical artificial intelligence": [
+   "science-engineering/computer-science/certificate-ethical-artificial-intelligence"
+  ],
+  "minor in human resource management": [
+   "business/management/minor-human-resource-management"
+  ],
+  "bachelor of arts in mathematics: concentration in mathematics for advanced study": [
+   "science-engineering/mathematics/ba-mathematics-concentration-mathematics-for-advanced-study"
+  ],
+  "bachelor of arts in philosophy: concentration in philosophy and law": [
+   "liberal-creative-arts/philosphy/ba-philosophy-concentration-philosophy-law"
+  ],
+  "bachelor of arts in chinese: concentration in chinese language": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-language"
+  ],
+  "bachelor of music: concentration in instrumental performance": [
+   "liberal-creative-arts/music/bm-conc-instrumental-performance"
+  ],
+  "certificate in music/recording industry": [
+   "liberal-creative-arts/broadcast-electronic-communication-arts/certificate-music-recording-industry"
+  ],
+  "bachelor of science in biochemistry": [
+   "science-engineering/chemistry-biochemistry/bs-biochemistry"
+  ],
+  "master of arts in secondary teaching and learning": [
+   "education/secondary-education/ma-secondary-teaching"
+  ],
+  "certificate in ethnic studies empowerment": [
+   "ethnic-studies/certificate-ethnic-studies-empowerment"
+  ],
+  "certificate in international business": [
+   "extended-learning/international-business"
+  ],
+  "master of arts in english literatures": [
+   "liberal-creative-arts/english/ma-english-literatures"
+  ],
+  "master of arts in english: concentration in teaching english to speakers of other languages": [
+   "liberal-creative-arts/english/ma-english-concentration-teaching-english-to-speakers-of-other-languages"
+  ],
+  "graduate business certificate in ethics & compliance": [
+   "business/management/certificate-business-ethics-compliance"
+  ],
+  "minor in american indian studies": [
+   "ethnic-studies/american-indian-studies/minor-american-indian-studies"
+  ],
+  "certificate in business administration": [
+   "extended-learning/certificate-pre-master-business-administration-foundations"
+  ],
+  "bachelor of science in biology: concentration in cell and molecular biology": [
+   "science-engineering/biology/bs-biology-concentration-cell-molecular-biology"
+  ],
+  "graduate certificate in physical activity: social scientific perspectives": [
+   "health-social-sciences/kinesiology/ct-physical-activity-social-scientific-perspectives"
+  ],
+  "speech-language pathology services credential: language, speech & hearing": [
+   "education/speech-language-hearing-sciences/speech-pathology-credential"
+  ],
+  "bachelor of science in earth sciences": [
+   "science-engineering/environment/bs-earth-sciences"
+  ],
+  "master of science in psychology: concentration in clinical psychology": [
+   "science-engineering/psychology/ms-psychology-concentration-clinical-psychology"
+  ],
+  "minor in global dance and music": [
+   "liberal-creative-arts/theatre-arts/minor-world-music-dance"
+  ],
+  "master of science in accounting and analytics": [
+   "business/accounting/ms-acct-and-analytics"
+  ],
+  "minor in counseling": [
+   "health-social-sciences/counseling/minor-in-counseling"
+  ],
+  "minor in marketing": [
+   "business/marketing/minor-marketing"
+  ],
+  "minor in africa and globalization": [
+   "liberal-creative-arts/international-relations/minor-african-studies"
+  ],
+  "minor in cinema": [
+   "liberal-creative-arts/cinema/minor-cinema"
+  ],
+  "master of science in astronomy & astrophysics": [
+   "science-engineering/physics-astronomy/ms-astronomy-astrophysics"
+  ],
+  "multiple subject credential program": [
+   "education/elementary-education/multisubject-credential"
+  ],
+  "certificate in cybersecurity management": [
+   "business/information-systems/certificate-cybersecurity-management"
+  ],
+  "bachelor of arts in modern jewish studies": [
+   "liberal-creative-arts/jewish-studies/ba-modern-jewish-studies"
+  ],
+  "minor in asian american studies": [
+   "ethnic-studies/asian-american-studies/minor-asian-american-studies"
+  ],
+  "bachelor of arts in theatre arts": [
+   "liberal-creative-arts/theatre-arts/ba-theatre-arts"
+  ],
+  "graduate certificate in pk-12 climate justice education": [
+   "extended-learning/grad-cert-climate-justice-education"
+  ],
+  "master of public administration": [
+   "health-social-sciences/public-administration/mpa"
+  ],
+  "orientation and mobility clinical rehabilitative services credential": [
+   "education/special-education/credential-sped-orientation-mobility"
+  ],
+  "minor in south asian studies": [
+   "liberal-creative-arts/international-relations/minor-south-asian-studies"
+  ],
+  "bachelor of arts in liberal studies integrated teacher preparation": [
+   "liberal-creative-arts/liberal-studies/ba-liberal-studies-itp"
+  ],
+  "bachelor of arts in spanish": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/ba-spanish"
+  ],
+  "master of arts in creative writing": [
+   "liberal-creative-arts/creative-writing/ma-creative-writing"
+  ],
+  "minor in theatre arts": [
+   "liberal-creative-arts/theatre-arts/minor-theatre-arts"
+  ],
+  "bachelor of arts in early childhood studies: concentration in pre-k to 3rd grade": [
+   "health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade"
+  ],
+  "minor in dance": [
+   "liberal-creative-arts/theatre-arts/minor-dance"
+  ],
+  "master of arts in early childhood education": [
+   "education/elementary-education/ma-early-childhood-education"
+  ],
+  "international relations graduate pathway program": [
+   "extended-learning/international-relations-graduate-pathway"
+  ],
+  "master of music": [
+   "liberal-creative-arts/music/mm"
+  ],
+  "certificate in real estate": [
+   "business/finance/certificate-real-estate"
+  ],
+  "certificate in paralegal studies": [
+   "extended-learning/paralegal-studies"
+  ],
+  "master of science in biology: concentration in integrative biology": [
+   "science-engineering/biology/ms-biology-concentration-eecb"
+  ],
+  "master of science in clinical mental health counseling": [
+   "health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling"
+  ],
+  "graduate certificate in movement science": [
+   "health-social-sciences/kinesiology/ct-movement-science"
+  ],
+  "master of science in biomedical science: concentration in biotechnology": [
+   "science-engineering/biology/ms-biomedical-science-concentration-biotechnology"
+  ],
+  "master of arts in museum studies": [
+   "liberal-creative-arts/museum-studies/ma-museum-studies"
+  ],
+  "master of arts in communication studies": [
+   "liberal-creative-arts/communication-studies/ma-communication-studies"
+  ],
+  "minor in media literacy": [
+   "liberal-creative-arts/broadcast-electronic-communication-arts/minor-media-literacy"
+  ],
+  "bachelor of arts in comparative and world literature": [
+   "liberal-creative-arts/humanities-cwl/ba-comparative-literature"
+  ],
+  "minor in persian and iranian studies": [
+   "liberal-creative-arts/foreign-language/foreign-languages-literatures-persian/minor-persian-studies"
+  ],
+  "bachelor of science in biology: concentration in microbiology": [
+   "science-engineering/biology/bs-biology-concentration-microbiology"
+  ],
+  "certificate in migration and refugee studies": [
+   "liberal-creative-arts/international-relations/cert-migration-refugee-studies"
+  ],
+  "master of social work": [
+   "health-social-sciences/social-work/msw"
+  ],
+  "graduate certificate in clinical laboratory science": [
+   "health-social-sciences/physical-therapy-clinical-laboratory-science/graduate-certificate-clinical-laboratory-science"
+  ],
+  "minor in design": [
+   "liberal-creative-arts/design-industry/minor-industrial-arts"
+  ],
+  "bachelor of arts in history": [
+   "liberal-creative-arts/history/ba-history"
+  ],
+  "bachelor of arts in economics": [
+   "business/economics/ba-economics"
+  ],
+  "minor in classics": [
+   "liberal-creative-arts/classics/minor-classics"
+  ],
+  "minor in music": [
+   "liberal-creative-arts/music/minor-music"
+  ],
+  "master of science in speech, language, and hearing sciences": [
+   "education/speech-language-hearing-sciences/ms-speech-language-hearing-disorders"
+  ],
+  "graduate certificate in the teaching of composition": [
+   "liberal-creative-arts/english/certificate-teaching-of-composition"
+  ],
+  "minor in criminal justice studies": [
+   "health-social-sciences/criminal-justice-studies/minor-criminal-justice-studies"
+  ],
+  "certificate in data science for psychology": [
+   "science-engineering/psychology/ct-data-science-psychology"
+  ],
+  "certificate in weather study": [
+   "science-engineering/environment/certificate-weather-study"
+  ],
+  "certificate in hospitality & tourism management": [
+   "extended-learning/hospitality-management"
+  ],
+  "minor in pacific asian studies": [
+   "liberal-creative-arts/international-relations/minor-pacific-asian-studies"
+  ],
+  "master of arts in mathematics": [
+   "science-engineering/mathematics/ma-mathematics"
+  ],
+  "specialist in blood bank technology graduate certificate": [
+   "extended-learning/blood-bank-tech-cert"
+  ]
  },
  "subjects": {
   "ACCT": "Accounting",
@@ -54293,7 +55229,7 @@
   }
  },
  "rules": {
-  "ug_units_to_graduate": "A bachelor's degree (B.A. or B.S.) requires a minimum of 120 semester units.",
+  "ug_units_to_graduate": "A bachelor's degree (B.A., B.S., or B.Mus.) requires a minimum of 120 semester units.",
   "ug_residence_units": "At least 30 units must be earned in residence at SF State, including 24 upper-division units and 12 units in the major.",
   "ug_residence_ud_ge": "Nine of the 30 residence units must be earned in upper-division General Education.",
   "ug_upper_division_units": "At least 30 upper-division units (courses numbered 300-699) are required for the bachelor's degree.",
@@ -54306,7 +55242,7 @@
   "ug_ge_units": "General Education requires at least 43 units.",
   "ug_ge_upper_division": "Upper-division GE requires at least 9 units: one 3-unit course each in 2UD or 5UD (science/quantitative reasoning), 3UD (arts/humanities), and 4UD (social/behavioral sciences).",
   "ug_ge_ud_prereqs": "Upper-division GE courses require 1A, 1B, 1C and Area 2 first; they're recommended after 60 units.",
-  "ug_ge_area1": "GE Area 1 (English Communication): at least 9 units, 3 each in 1A English Composition, 1B Critical Thinking, 1C Oral Communication.",
+  "ug_ge_area1": "GE Area 1 (English Communication): at least 9 units, 3 each in 1A English Composition, 1B Critical Thinking, 1C Oral Communication. Every Area 1 course needs CR or C- or better.",
   "ug_ge_area3": "GE Area 3 (Arts and Humanities): at least 6 units, 3 in Arts (3A) and 3 in Humanities (3B).",
   "ug_ge_area5": "GE Area 5 (Physical and Biological Sciences): at least 7 units, including 3 in physical science and 3 in biological science (plus a 1-unit lab, 5C).",
   "ug_ge_table": "GE requirement table: 1A 3, 1B 3, 1C 3, 2 3, 3A 3, 3B 3, 4 6, 5A 3, 5B 3, 5C 1, 6 (Ethnic Studies, LD or UD) 3, 2UD/5UD 3, 3UD 3, 4UD 3. Area 4 also covers U.S. History (USH).",
@@ -54314,6 +55250,7 @@
   "ug_sf_state_studies": "Undergraduates must take courses covering all four SF State Studies areas: AERM, ESCA, GP and SJ. Courses may come from GE, major, minor or electives. Students with a verified AA-T/AS-T in a similar major are exempt.",
   "ug_american_institutions": "American Institutions has two parts: U.S. History (USH) and U.S. and California Government (USG/CSLG).",
   "ug_complementary_studies": "B.A. students may need at least 12 units of Complementary Studies outside the major's primary prefix.",
+  "ug_complementary_studies_exempt": "Complementary Studies is automatically met by completing two majors or a major plus a minor, and isn't required for B.Mus. or B.S. degrees.",
   "ug_declare_major": "Students who enter as freshmen must declare a major by the time they complete 70 units.",
   "ug_major_gpa": "The major requires a minimum 2.0 GPA; some majors set higher grade minimums.",
   "ug_major_ge_double_count": "Any number of GE courses may also count toward the major, but their units count once toward the 120.",
@@ -54324,27 +55261,30 @@
   "class_levels": "Class level by earned units: Freshman 0-29, Sophomore 30-59, Junior 60-89, Senior 90+.",
   "ug_average_load": "15 units is an average full-time undergraduate semester load.",
   "normal_load": "Normal load: undergraduates 12-15 units per fall/spring semester (8 in summer); graduates 9-12 (7 in summer). Expect two hours of preparation for every hour of class.",
-  "ug_max_units_priority_registration": "During priority registration undergraduates can register for at most 19 units, including up to 8 wait-listed units.",
+  "ug_max_units_priority_registration": "Undergraduates can register for at most 19 units in a fall or spring semester (up to 8 of them wait-listed). Going above this cap needs the Exceed Maximum Units Petition.",
   "grad_max_units_registration": "Graduate students can register for at most 16 units, including up to 9 wait-listed units.",
-  "ug_max_units_academic_notice": "Undergraduates on academic notice may enroll in at most 13 units (starting with their second semester on notice).",
+  "ug_max_units_academic_notice": "Undergraduates on academic notice may enroll in at most 13 units per semester while their GPA is below 2.0. An advisor can approve an exception by petition.",
   "ug_max_units_summer": "Summer maximums (undergraduate): 7 units in a 5-week session, 9 in an 8-week, 12 in a 10-week, 14 across all summer sessions combined (including 8 wait-listed).",
   "ug_exceed_max_units": "To exceed the maximum, undergraduates need a cumulative SF State GPA of 3.0+ and an approved Exceed Maximum Units Petition (major advisor, department chair, college dean).",
   "ug_25_units": "Enrolling in 25 or more units in one semester requires approval from the advisor, college dean, and Dean of Undergraduate Education and Academic Planning.",
   "intl_min_units": "International (F-1) students must carry at least 12 units (undergraduate) or 8 units (graduate) each fall and spring.",
-  "fa_enrollment_status": "Financial-aid enrollment status: full-time = 12 units, three-quarter time = 9-11, half-time = 6-8.",
+  "pell_enrollment_status": "For the Pell Grant: full-time = 12 units, three-quarter time = 9-11, half-time = 6-8 (award prorated). Other aid programs set their own unit rules.",
   "grad_full_time": "Graduate full-time in fall/spring: 6.1+ units for fee purposes, 8+ for financial aid and international students; typical load 9-12.",
-  "grad_max_units": "Graduate maximum with advisor permission is 16 units; more than 16 needs GPA 3.25+ and a petition; post-baccalaureate students normally can't exceed 18 units.",
+  "grad_max_units": "Graduate maximum with advisor permission is 16 units; more than 16 needs GPA 3.25+ and a petition. In general a post-baccalaureate student can't exceed 18 units, except in cohorted professional programs.",
   "grad_max_units_summer": "Graduate summer maximums: 6 units in a 5-week session, 9 in an 8- or 10-week session, 11 across all summer sessions.",
   "va_full_time": "For VA benefits, undergraduates must complete 12+ units and graduates 8+ upper-division/graduate units (9+ if any lower-division) per term for maximum benefits.",
   "add_deadline": "Courses can be added with an instructor-issued permission number during the first three weeks of the semester.",
   "drop_first_three_weeks": "During the first three weeks, courses can be dropped without restriction or penalty; drops don't appear on the transcript or count toward the withdrawal limit.",
   "withdraw_weeks_4_12": "Weeks 4-12: withdrawal requires serious and compelling reasons plus instructor and department chair approval; results in a W (not in GPA).",
-  "withdraw_week_13_on": "Week 13 to end of instruction: withdrawal only for circumstances clearly beyond the student's control (e.g., accident, serious illness), with documentation and instructor, chair and dean approval.",
-  "ug_withdraw_limit": "Undergraduates may withdraw from at most 18 units over their entire SF State career.",
+  "withdraw_week_13_on": "Week 13 to end of instruction: withdrawal only for circumstances clearly beyond the student's control (e.g., accident, serious illness) when an Incomplete isn't practicable, with documentation and instructor, chair and dean approval. These late withdrawals don't count toward the 18-unit limit.",
+  "ug_withdraw_limit": "Undergraduates may withdraw from at most 18 units over their entire SF State career. Withdrawing from a whole semester, CPaGE classes, and late withdrawals approved for circumstances beyond the student's control don't count.",
   "withdraw_deadline": "All withdrawal requests must be submitted by the last day of instruction.",
-  "readmission_three_semesters": "Students who don't enroll for three consecutive semesters (excluding summer) must apply for readmission.",
-  "audit": "Auditors pay the same fees; switching audit to credit must happen by the add deadline; credit to audit isn't allowed after week 2.",
-  "leave_of_absence": "Continuing students can be absent up to two consecutive fall/spring semesters without losing eligibility; a Planned Educational Leave is needed for 3+ consecutive semesters.",
+  "ug_withdraw_limit_exclusions": "Total-semester withdrawals and classes taken through CPaGE don't count toward the 18-unit withdrawal limit.",
+  "readmission_absence": "Undergraduates who are away too long must apply for readmission. The bulletin is inconsistent: the policies page says three consecutive semesters (excluding summer); the readmission page says two. Plan on two to be safe and confirm with the Registrar.",
+  "grad_readmission_absence": "Graduate students who leave for two or more consecutive semesters (not counting summer), or attend another college meanwhile, must reapply through Cal State Apply and to their program.",
+  "audit": "Auditors pay the same fees; switching audit to credit must happen by the add deadline; credit to audit isn't allowed after week 2 per the policies page (the grading page's AU definition says week 3).",
+  "leave_of_absence": "Continuing students can be absent up to two consecutive fall/spring semesters and keep continuing status; longer absences need a Planned Educational Leave (up to two academic years), which must be for something relevant to the program. For undergraduates, health, financial and personal reasons aren't accepted; the graduate rules differ (see the graduate policies page).",
+  "leave_reasons": "A Planned Educational Leave isn't granted for health, financial, or other personal reasons, or to attend another school; those students reapply for admission instead.",
   "grade_points": "Grade points per unit: A 4.0, A- 3.7, B+ 3.3, B 3.0, B- 2.7, C+ 2.3, C 2.0, C- 1.7, D+ 1.3, D 1.0, D- 0.7, F 0, IC 0, WU 0. W, I, AU, RP, RD, CR, NC carry no grade points. There is no A+.",
   "gpa_formula": "GPA = total grade points / total units attempted in A-F graded courses (adjusted by the course repeat policy).",
   "cr_definition": "CR means A through C- work in an undergraduate course, or A through B- in a graduate course.",
@@ -54356,23 +55296,48 @@
   "ug_grade_forgiveness": "Up to 16 units of SF State coursework can be repeated for grade forgiveness (the lower grade is excluded from the GPA). It doesn't apply to academic dishonesty.",
   "ug_repeat_cap": "After repeating 28 units of SF State coursework, undergraduates can't repeat more courses (except those repeatable for credit).",
   "repeat_default": "Courses can't be repeated for additional credit unless the course description says so.",
-  "grad_repeat": "Graduate students can repeat a course graded below B- (or IC, W, WU) once, if the program permits. Both grades stay on the transcript and are averaged.",
+  "grad_repeat": "Graduate students can repeat a course graded below B- (or IC, W, WU) once, if the program permits. Both grades stay on the transcript and are averaged. (The general policies page says 'lower than B', so a B- is ambiguous.)",
   "ug_good_standing": "Good academic standing means a 2.0 GPA or better.",
   "ug_academic_notice": "An SF State or combined cumulative GPA below 2.0 puts an undergraduate on academic notice; a second semester below 2.0 makes them subject to disqualification (mandatory advising, registration hold).",
-  "ug_disqualification": "Disqualification happens if term GPA < 2.0 and cumulative GPA is below: 1.50 (freshman <30 units), 1.70 (sophomore 30-59), 1.85 (junior 60-89), 1.95 (senior 90+).",
-  "ug_readmission_after_dq": "Disqualified students must raise SF State and combined GPAs to 2.0 to be reinstated (SF State GPA via Open University).",
+  "ug_disqualification": "Only students already on academic notice or subject to disqualification can be disqualified. It happens before the next fall/spring term when the term GPA is below 2.0 AND the SF State or combined cumulative GPA is below the class-level floor: 1.50 freshman (<30 units), 1.70 sophomore (30-59), 1.85 junior (60-89), 1.95 senior (90+). Freshmen get an extra (third) semester first. A term GPA of 2.0+ prevents disqualification.",
+  "ug_readmission_after_dq": "Disqualified students must raise SF State and combined GPAs to 2.0 (SF State GPA via Open University). Within one year they can ask the Registrar for reinstatement; after more than two semesters they must apply for admission again.",
   "deans_list": "Dean's List: 12+ A-F graded units completed in the semester with a semester GPA of 3.25 or better.",
   "latin_honors": "Graduation honors by cumulative GPA: cum laude 3.50-3.69, magna cum laude 3.70-3.84, summa cum laude 3.85+. GPA is not rounded.",
   "grad_min_units": "Minimum units: master's (M.A., M.S., M.P.H., M.M.) 30; M.F.A. 60; doctorates (Ed.D., D.P.T.) 60.",
-  "grad_gpa": "Graduate students need a 3.0 GPA in all post-baccalaureate SF State work and on the ATC; non-supervisory ATC courses need B- or better.",
+  "grad_gpa": "Graduate students need a 3.0 GPA in all post-baccalaureate SF State work and on the Advancement to Candidacy (ATC); non-supervisory ATC courses need B- or better. (Another section lists A through C and CR as acceptable on the ATC; programs may require B or better.)",
   "grad_standing": "Graduate students go on academic notice/probation if overall, SF State or semester GPA falls below 3.0.",
   "grad_seven_year_limit": "Master's and doctoral degrees must be completed within seven years; one extension of up to one year may be requested.",
   "grad_progress": "Graduate students must complete at least 6 units each year (excluding summer).",
   "grad_residence": "At least 21 of 30 master's units must be taken in residence (proportionally more for larger programs).",
   "grad_transfer_units": "At most 9 semester units of transfer/CPaGE coursework may apply to a 30-unit graduate program (more for 45+ unit programs).",
   "grad_open_university": "At most 6 Open University units may apply to a 30-unit master's (no more than 12 for larger degrees).",
-  "ug_grad_courses_as_undergrad": "Up to 9 upper-division or 12 graduate units (max 12 total) taken as an undergraduate can count toward a graduate program if not used for the bachelor's degree.",
+  "ug_grad_courses_as_undergrad": "Up to 9 upper-division or 12 graduate units (max 12 total) taken as an undergraduate can count toward a graduate program if not used for the bachelor's degree, and only units graded B or better.",
   "scholars_units": "SF State Scholars (combined bachelor's + master's) requires at least 150 units total (120 + 30).",
+  "ug_ge_area2_grade": "GE Area 2 (quantitative reasoning) courses need CR or C- or better.",
+  "ug_ge_area4": "The three Area 4 courses (two lower-division, one upper-division) must span at least two disciplines; first-time freshmen take one lower-division Area 4 course that meets U.S. History.",
+  "catalog_rights": "With continuous attendance, students may choose the graduation requirements in effect when they began study, when they entered SF State, or when they graduate.",
+  "continuous_attendance": "Continuous attendance (for catalog rights) means attending at least one semester or two quarters each calendar year.",
+  "ug_transfer_total_cap": "No more than 90 semester units may be transferred in from all sources combined (because 30 units must be earned in residence).",
+  "cal_getc": "California Community Colleges can certify up to 34 semester units of Cal-GETC, which fulfills lower-division GE.",
+  "double_major": "Students may complete two majors; courses that clearly overlap can count for both, but units count once toward 120. Apply for both in one degree application.",
+  "double_major_diploma": "Double majors in the same degree type (e.g. two B.A. majors) get one degree and one diploma, with one $100 application fee.",
+  "minor_overlap": "Courses may count toward both a major and a minor where the bulletin shows overlap (units count once). Minor and GE courses can overlap without limit.",
+  "second_bachelors": "Students who already hold a bachelor's degree and are admitted for a second one only complete the new major's courses, not GE or other graduation requirements.",
+  "graduation_reapply": "Students who don't finish in the term they applied for must reapply for graduation and pay the $100 fee again.",
+  "cr_nc_major_limit": "Departments may limit how many major courses can be taken CR/NC.",
+  "third_attempt": "Taking a course a third time or more requires the instructor's and department chair's consent (sometimes the dean or the Board of Appeals and Review too).",
+  "academic_renewal": "Academic renewal can disregard up to two semesters of old work if 5 years have passed and the student has since earned 15 units at 3.0, 30 at 2.5, or 45 at 2.0 in residence.",
+  "admin_disqualification_continuous": "Students on continuous academic notice or subject to disqualification for three semesters (not counting summer) may be administratively disqualified.",
+  "admin_notice_nc": "Repeated failure to progress, including 15 units of No Credit, can lead to administrative academic notice.",
+  "ap_us_history": "An AP U.S. History score of 3+ satisfies the U.S. History requirement; no AP exam satisfies California state and local government.",
+  "exam_duplicate_credit": "Exam credit (AP/IB/CLEP) isn't awarded twice for equivalent exams or coursework.",
+  "credit_by_exam": "Credit by examination is undergraduate-only, capped at 30 units (6 of which can count as residence), and requires enrollment in at least one other course.",
+  "concurrent_enrollment_load": "Units taken at all schools combined in a term can't exceed SF State's maximum unit load without advance written approval from the appropriate dean.",
+  "met_in_major": "Some majors satisfy specific GE areas ('met in the major') once the listed courses are completed, whether or not the student finishes the major.",
+  "seniors_grad_courses": "Seniors may enroll in graduate courses only with the instructor's special permission.",
+  "census_attendance": "To count as attending a semester, a student must be enrolled in at least one class on the 20th day of instruction (10th day of each summer session).",
+  "atc_graduate_level": "At least 50% of Advancement to Candidacy units must be graduate-level (700-999) courses.",
+  "grad_ce_continuous_enrollment": "Graduate students who haven't finished their Culminating Experience by the end of the following ('grace') semester must enroll in a zero-unit CPaGE course every semester until they finish.",
   "course_numbering": "Course numbers: 0-99 remedial/non-credit (don't count toward graduation), 100-299 lower-division, 300-699 upper-division, 700-899 graduate, 900-999 doctoral, 9000-9999 professional CEU.",
   "prereq_asterisk": "An asterisk (*) after a prerequisite means it is enforced at registration; others may be enforced by the instructor through add/drop.",
   "cross_listed": "A cross-listed course can't be taken for credit a second time under another prefix."

@@ -229,6 +229,36 @@
   "college_name": "Lam Family College of Business"
  },
  {
+  "id": "business/business-certificates",
+  "name": "Business Certificates",
+  "college": "business",
+  "url": "https://bulletin.sfsu.edu/colleges/business/business-certificates/",
+  "tabs": [
+   {
+    "tab": "Overview",
+    "markdown": "## Undergraduate\n\n- Certificate in Cybersecurity Management\n- Certificate in Financial Analytics\n- Certificate in Fintech\n- Certificate in Information Technology Auditing - Temporarily Suspended\n- Certificate in Real Estate\n\n## Graduate\n\n- Graduate Certificate in Accounting\n- Graduate Certificate in Business Principles\n- Graduate Certificate in Decision Sciences\n- Graduate Certificate in Enterprise Cybersecurity\n- Graduate Certificate in Enterprise Information Systems\n- Graduate Certificate in Ethics & Compliance\n- Graduate Certificate in Ethical Artificial Intelligence\n- Graduate Certificate in Finance\n- Graduate Certificate in International Business and Global Leadership\n- Graduate Certificate in Marketing in the Digital Economy\n- Graduate Certificate in Sustainable Business",
+    "sections": [
+     {
+      "heading_path": [
+       "Undergraduate"
+      ],
+      "text": "- Certificate in Cybersecurity Management\n- Certificate in Financial Analytics\n- Certificate in Fintech\n- Certificate in Information Technology Auditing - Temporarily Suspended\n- Certificate in Real Estate"
+     },
+     {
+      "heading_path": [
+       "Graduate"
+      ],
+      "text": "- Graduate Certificate in Accounting\n- Graduate Certificate in Business Principles\n- Graduate Certificate in Decision Sciences\n- Graduate Certificate in Enterprise Cybersecurity\n- Graduate Certificate in Enterprise Information Systems\n- Graduate Certificate in Ethics & Compliance\n- Graduate Certificate in Ethical Artificial Intelligence\n- Graduate Certificate in Finance\n- Graduate Certificate in International Business and Global Leadership\n- Graduate Certificate in Marketing in the Digital Economy\n- Graduate Certificate in Sustainable Business"
+     }
+    ]
+   }
+  ],
+  "course_codes": [],
+  "subjects": [],
+  "programs": [],
+  "college_name": "Lam Family College of Business"
+ },
+ {
   "id": "business/decision-sciences",
   "name": "Decision Sciences",
   "college": "business",
@@ -1421,7 +1451,7 @@
    },
    {
     "tab": "Undergraduate",
-    "markdown": "## World Development Studies Minor — 22 units minimum\n\nAll courses must be approved by a faculty advisor, who should be contacted as soon as a student decides to declare the minor. All student's programs must include courses with at least three different departmental prefixes. Substitutions are possible with an advisor's approval.\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Historical Background (3 units)\n\nSelect One:\n\n- HIST 358 | Latin America: The National Period | 3\n- HIST 398 | History of Modern European Imperialism | 3\n\n### The Global Development Era (3 – 4 units)\n\nSelect One:\n\n- ECON 620 | Economic Development | 3\n- I R 540 | Rich and Poor Nations: Legacies of Slavery and Colonialism | 4\n\n### Development and the Environment (3 – 4 units)\n\nSelect One:\n\n- ECON 550 | Environmental Economics | 3\n- GEOG 427 | Agriculture and Food Supply | 4\n- ENVS 331 | Global Environmental Crisis | 4\n- SOC 483 | Global Sociology | 4\n\n### Cultural, Ethnic, and Gender Perspectives (3 – 4 units)\n\nSelect One:\n\n- AFRS 335 | The Black Woman: A Cultural Analysis | 3\n- ANTH 321 | Endangered Cultures | 3\n- PLSI 544 | Women in the World | 4\n- LTNS 350 | Gender, Latina/x, and Women of Color Feminisms | 3\n- SOC 461 | Ethnic Relations: International Comparisons | 4\n\n### Regional Comparisons (6 – 8 units)\n\nSelect two different regions:\n\n- ANTH 315 | Regional Ethnography | 3\n- HIST 368 | Modern Africa | 3\n- PLSI 321 | Development and Foreign Policy: Africa | 4\n- PLSI 322 | Policy Analysis: The Latin American Cases | 4\n- I R 324 | Middle East and North Africa in International Relations | 4\n- LTNS 460 | Central Americans of the U.S.: History and Heritage | 3\n- I R 412 | South Asian Politics | 4\n- I R 416 | Ethnicity and Nationalism | 4\n\n### Electives (3 – 4 units)\n\nSelect one of the following or from courses in the above categories not chosen to fulfill a requirement within student's program:\n\n- CST 320 | Racism: Cross-Cultural Analysis | 3\n- CST 585 | Globalization and World Cultures | 3\n- CINE 308 | Third Cinema | 3\n- GEOG 425 | Economic Geography | 3\n- HIST 353 | History of Mexico | 3\n- HIST 362 | History of Modern China | 3\n- IBUS 592 | Doing Business in Greater China | 3\n- PLSI 325 | Chinese Foreign Policy | 4\n- IBUS 334 | International Organizations: New World Order | 4\n- IBUS 446 | The Multinational Corporation in World Affairs | 4\n- HIST 278 | History of Latinas/Latinos in the U.S. | 3\n- PSY 455 | Cross-Cultural Perspectives in Psychology | 3\n\n### Holistic Perspective: Special Study (1 unit)\n\nA special study from the student's advisor's home department (ANTH 699, ECON 699, etc.)",
+    "markdown": "## World Development Studies Minor — 22 units minimum\n\nAll courses must be approved by a faculty advisor, who should be contacted as soon as a student decides to declare the minor. All student's programs must include courses with at least three different departmental prefixes. Substitutions are possible with an advisor's approval.\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Historical Background (3 units)\n\nSelect One:\n\n- HIST 358 | Latin America: The National Period | 3\n- HIST 398 | History of Modern European Imperialism | 3\n\n### The Global Development Era (3 – 4 units)\n\nSelect One:\n\n- ECON 620 | Economic Development | 3\n- I R 540 | Rich and Poor Nations: Legacies of Slavery and Colonialism | 4\n\n### Development and the Environment (3 – 4 units)\n\nSelect One:\n\n- ECON 550 | Environmental Economics | 3\n- GEOG 427 | Agriculture and Food Supply | 4\n- I R 331 | Global Environmental Crisis | 4\n- SOC 483 | Global Sociology | 4\n\n### Cultural, Ethnic, and Gender Perspectives (3 – 4 units)\n\nSelect One:\n\n- AFRS 335 | The Black Woman: A Cultural Analysis | 3\n- ANTH 321 | Endangered Cultures | 3\n- I R 544 | Women in the World | 4\n- LTNS 350 | Gender, Latina/x, and Women of Color Feminisms | 3\n- SOC 461 | Ethnic Relations: International Comparisons | 4\n\n### Regional Comparisons (6 – 8 units)\n\nSelect two different regions:\n\n- ANTH 315 | Regional Ethnography | 3\n- HIST 368 | Modern Africa | 3\n- I R 321 | Development and Foreign Policy: Africa | 4\n- I R 322 | Policy Analysis: The Latin American Cases | 4\n- I R 324 | Middle East and North Africa in International Relations | 4\n- LTNS 460 | Central Americans of the U.S.: History and Heritage | 3\n- PLSI 412 | South Asian Politics | 4\n- PLSI 416 | Ethnicity and Nationalism | 4\n\n### Electives (3 – 4 units)\n\nSelect one of the following or from courses in the above categories not chosen to fulfill a requirement within student's program:\n\n- ANTH 320 | Racism: Cross-Cultural Analysis | 3\n- ANTH 585 | Globalization and World Cultures | 3\n- CINE 308 | Third Cinema | 3\n- GEOG 425 | Economic Geography | 3\n- HIST 353 | History of Mexico | 3\n- HIST 362 | History of Modern China | 3\n- IBUS 592 | Doing Business in Greater China | 3\n- I R 325 | Chinese Foreign Policy | 4\n- I R 334 | International Organizations: New World Order | 4\n- I R 446 | The Multinational Corporation in World Affairs | 4\n- LTNS 278 | History of Latinas/Latinos in the U.S. | 3\n- PSY 455 | Cross-Cultural Perspectives in Psychology | 3\n\n### Holistic Perspective: Special Study (1 unit)\n\nA special study from the student's advisor's home department (ANTH 699, ECON 699, etc.)",
     "sections": [
      {
       "heading_path": [
@@ -1448,28 +1478,28 @@
        "World Development Studies Minor — 22 units minimum",
        "Development and the Environment (3 – 4 units)"
       ],
-      "text": "Select One:\n\n- ECON 550 | Environmental Economics | 3\n- GEOG 427 | Agriculture and Food Supply | 4\n- ENVS 331 | Global Environmental Crisis | 4\n- SOC 483 | Global Sociology | 4"
+      "text": "Select One:\n\n- ECON 550 | Environmental Economics | 3\n- GEOG 427 | Agriculture and Food Supply | 4\n- I R 331 | Global Environmental Crisis | 4\n- SOC 483 | Global Sociology | 4"
      },
      {
       "heading_path": [
        "World Development Studies Minor — 22 units minimum",
        "Cultural, Ethnic, and Gender Perspectives (3 – 4 units)"
       ],
-      "text": "Select One:\n\n- AFRS 335 | The Black Woman: A Cultural Analysis | 3\n- ANTH 321 | Endangered Cultures | 3\n- PLSI 544 | Women in the World | 4\n- LTNS 350 | Gender, Latina/x, and Women of Color Feminisms | 3\n- SOC 461 | Ethnic Relations: International Comparisons | 4"
+      "text": "Select One:\n\n- AFRS 335 | The Black Woman: A Cultural Analysis | 3\n- ANTH 321 | Endangered Cultures | 3\n- I R 544 | Women in the World | 4\n- LTNS 350 | Gender, Latina/x, and Women of Color Feminisms | 3\n- SOC 461 | Ethnic Relations: International Comparisons | 4"
      },
      {
       "heading_path": [
        "World Development Studies Minor — 22 units minimum",
        "Regional Comparisons (6 – 8 units)"
       ],
-      "text": "Select two different regions:\n\n- ANTH 315 | Regional Ethnography | 3\n- HIST 368 | Modern Africa | 3\n- PLSI 321 | Development and Foreign Policy: Africa | 4\n- PLSI 322 | Policy Analysis: The Latin American Cases | 4\n- I R 324 | Middle East and North Africa in International Relations | 4\n- LTNS 460 | Central Americans of the U.S.: History and Heritage | 3\n- I R 412 | South Asian Politics | 4\n- I R 416 | Ethnicity and Nationalism | 4"
+      "text": "Select two different regions:\n\n- ANTH 315 | Regional Ethnography | 3\n- HIST 368 | Modern Africa | 3\n- I R 321 | Development and Foreign Policy: Africa | 4\n- I R 322 | Policy Analysis: The Latin American Cases | 4\n- I R 324 | Middle East and North Africa in International Relations | 4\n- LTNS 460 | Central Americans of the U.S.: History and Heritage | 3\n- PLSI 412 | South Asian Politics | 4\n- PLSI 416 | Ethnicity and Nationalism | 4"
      },
      {
       "heading_path": [
        "World Development Studies Minor — 22 units minimum",
        "Electives (3 – 4 units)"
       ],
-      "text": "Select one of the following or from courses in the above categories not chosen to fulfill a requirement within student's program:\n\n- CST 320 | Racism: Cross-Cultural Analysis | 3\n- CST 585 | Globalization and World Cultures | 3\n- CINE 308 | Third Cinema | 3\n- GEOG 425 | Economic Geography | 3\n- HIST 353 | History of Mexico | 3\n- HIST 362 | History of Modern China | 3\n- IBUS 592 | Doing Business in Greater China | 3\n- PLSI 325 | Chinese Foreign Policy | 4\n- IBUS 334 | International Organizations: New World Order | 4\n- IBUS 446 | The Multinational Corporation in World Affairs | 4\n- HIST 278 | History of Latinas/Latinos in the U.S. | 3\n- PSY 455 | Cross-Cultural Perspectives in Psychology | 3"
+      "text": "Select one of the following or from courses in the above categories not chosen to fulfill a requirement within student's program:\n\n- ANTH 320 | Racism: Cross-Cultural Analysis | 3\n- ANTH 585 | Globalization and World Cultures | 3\n- CINE 308 | Third Cinema | 3\n- GEOG 425 | Economic Geography | 3\n- HIST 353 | History of Mexico | 3\n- HIST 362 | History of Modern China | 3\n- IBUS 592 | Doing Business in Greater China | 3\n- I R 325 | Chinese Foreign Policy | 4\n- I R 334 | International Organizations: New World Order | 4\n- I R 446 | The Multinational Corporation in World Affairs | 4\n- LTNS 278 | History of Latinas/Latinos in the U.S. | 3\n- PSY 455 | Cross-Cultural Perspectives in Psychology | 3"
      },
      {
       "heading_path": [
@@ -1483,7 +1513,9 @@
   ],
   "course_codes": [],
   "subjects": [],
-  "programs": [],
+  "programs": [
+   "business/world-development-studies"
+  ],
   "college_name": "Lam Family College of Business"
  },
  {
@@ -7078,50 +7110,9 @@
   "programs": [
    "liberal-creative-arts/classics/ba-classics",
    "liberal-creative-arts/classics/ma-classics",
-   "liberal-creative-arts/classics/minor-classics"
+   "liberal-creative-arts/classics/minor-classics",
+   "liberal-creative-arts/classics/minor-modern-greek-studies"
   ],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/classics/minor-modern-greek-studies",
-  "name": "Minor in Modern Greek Studies",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/minor-modern-greek-studies/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\nThis minor is temporarily suspended. Please contact the Department of Classics for further information.\n\n### Modern Greek Studies Program\n\nHUM 577\n\nPhone: (415) 338-1892\n\nWebsite: https://classics.sfsu.edu/minor\n\n## Program Scope\n\nThe Minor in Modern Greek Studies is an interdisciplinary program for students seeking greater knowledge of contemporary Greek language, literature, history, and culture. The program is designed to provide the student with an understanding of Modern Greek language, culture, and society in relation to its earlier antecedents, the ancient Greek and Byzantine civilizations.\n\nThe minor complements academic majors for students planning careers in literary and ethnic studies; primary, secondary, and tertiary education; anthropology; history; linguistics; classics; journalism; museum studies, political science; sociology; translation; the arts; the foreign service; international relations; and business, as well as those who desire a better understanding of contemporary Greece, the Greek American experience, and the Hellenic diaspora. The interdisciplinary scope of the program also introduces the student for further study in any number of academic fields at the graduate level. Courses in Modern Greek Studies can also fulfill the B.A. requirements in Complementary Studies.\n\nThe interdisciplinary Minor in Modern Greek Studies consists of 17-19 units. A core of two four-unit courses is required, and an elective group of three additional courses completes the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy\n\nThis minor is temporarily suspended. Please contact the Department of Classics for further information."
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Modern Greek Studies Program"
-      ],
-      "text": "HUM 577\n\nPhone: (415) 338-1892\n\nWebsite: https://classics.sfsu.edu/minor"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "The Minor in Modern Greek Studies is an interdisciplinary program for students seeking greater knowledge of contemporary Greek language, literature, history, and culture. The program is designed to provide the student with an understanding of Modern Greek language, culture, and society in relation to its earlier antecedents, the ancient Greek and Byzantine civilizations.\n\nThe minor complements academic majors for students planning careers in literary and ethnic studies; primary, secondary, and tertiary education; anthropology; history; linguistics; classics; journalism; museum studies, political science; sociology; translation; the arts; the foreign service; international relations; and business, as well as those who desire a better understanding of contemporary Greece, the Greek American experience, and the Hellenic diaspora. The interdisciplinary scope of the program also introduces the student for further study in any number of academic fields at the graduate level. Courses in Modern Greek Studies can also fulfill the B.A. requirements in Complementary Studies.\n\nThe interdisciplinary Minor in Modern Greek Studies consists of 17-19 units. A core of two four-unit courses is required, and an elective group of three additional courses completes the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0."
-     }
-    ]
-   },
-   {
-    "tab": "Faculty",
-    "markdown": "",
-    "sections": []
-   }
-  ],
-  "course_codes": [],
-  "subjects": [],
-  "programs": [],
   "college_name": "College of Liberal and Creative Arts"
  },
  {
@@ -9927,398 +9918,13 @@
    "liberal-creative-arts/international-relations/ma-international-relations",
    "liberal-creative-arts/international-relations/minor-african-studies",
    "liberal-creative-arts/international-relations/minor-european-studies",
+   "liberal-creative-arts/international-relations/minor-global-peace-studies",
    "liberal-creative-arts/international-relations/minor-international-relations",
+   "liberal-creative-arts/international-relations/minor-latin-american-studies",
+   "liberal-creative-arts/international-relations/minor-middle-east-islamic-studies",
+   "liberal-creative-arts/international-relations/minor-pacific-asian-studies",
    "liberal-creative-arts/international-relations/minor-south-asian-studies"
   ],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/international-relations/minor-global-peace-studies",
-  "name": "Minor in Global Peace, Human Rights, and Justice Studies",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-global-peace-studies/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\n### Global Peace, Human Rights, and Justice Studies Program\n\nCo-Coordinator: Amy Kilgard, Communication Studies\n\nHumanities Building, Room 289\n\n\n\nCo-Coordinator: Burcu Ellis, International Relations\n\nHumanities Building, Room 280\n\nPhone: (415) 405-2694\n\n## Program Scope\n\nAs its title demonstrates, the Global Peace, Human Rights, and Justice Studies Minor is closely aligned with the mission and core values of San Francisco State University. We live in a world fraught with warring and ecological devastation and threatened by the frequent failure of governmental and financial powers to fashion just and effective solutions. Yet there are historical and contemporary examples of individuals, groups, and countries working productively and creatively within and across national boundaries to stop violent conflicts, form affirmative alliances, and ensure that basic rights and freedoms are available to all.\n\nGlobal Peace, Human Rights, and Justice Studies is an all-university, interdisciplinary minor in which students and faculty cooperatively study and explore the problems, issues, challenges, and opportunities to prevent war and to make this a more just, peaceable, and sustainable world.\n\n### Career Outlook\n\nThe Minor in Global Peace, Human Rights, and Justice Studies provides critical thinking, collaborative, and problem-solving skills relevant to students whatever their major course of study. These are the skills for analyzing and redressing the underlying roots of violence and injustice, including poverty, racism, sexism, heterosexism, cissexism, neoliberalism, imperialism, and environmental degradation. These are the skills that empower people to work more effectively to protect human rights and create systems of social justice.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy"
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Global Peace, Human Rights, and Justice Studies Program"
-      ],
-      "text": "Co-Coordinator: Amy Kilgard, Communication Studies\n\nHumanities Building, Room 289\n\n\n\nCo-Coordinator: Burcu Ellis, International Relations\n\nHumanities Building, Room 280\n\nPhone: (415) 405-2694"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "As its title demonstrates, the Global Peace, Human Rights, and Justice Studies Minor is closely aligned with the mission and core values of San Francisco State University. We live in a world fraught with warring and ecological devastation and threatened by the frequent failure of governmental and financial powers to fashion just and effective solutions. Yet there are historical and contemporary examples of individuals, groups, and countries working productively and creatively within and across national boundaries to stop violent conflicts, form affirmative alliances, and ensure that basic rights and freedoms are available to all.\n\nGlobal Peace, Human Rights, and Justice Studies is an all-university, interdisciplinary minor in which students and faculty cooperatively study and explore the problems, issues, challenges, and opportunities to prevent war and to make this a more just, peaceable, and sustainable world."
-     },
-     {
-      "heading_path": [
-       "Program Scope",
-       "Career Outlook"
-      ],
-      "text": "The Minor in Global Peace, Human Rights, and Justice Studies provides critical thinking, collaborative, and problem-solving skills relevant to students whatever their major course of study. These are the skills for analyzing and redressing the underlying roots of violence and injustice, including poverty, racism, sexism, heterosexism, cissexism, neoliberalism, imperialism, and environmental degradation. These are the skills that empower people to work more effectively to protect human rights and create systems of social justice."
-     }
-    ]
-   },
-   {
-    "tab": "Requirements",
-    "markdown": "## Global Peace, Human Rights, and Justice Studies, Minor — 15 units minimum\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Core Area 1: Introduction (3 units)\n\nSelect One:\n\n- PHIL 315 | Introduction to Global Peace Studies | 3\n- I R 436 | Human Rights in Global Perspective | 3\n\n### Core Area 2: Conflict Resolution & Non-Violence (3-4 units)\n\nSelect One:\n\n- COMM 531 | Conflict and Communication | 4\n- COMM 543 | Dialogues Across Differences | 4\n- HUM 366 | India's Gandhi | 3\n- JS 350 | Jewish Social Responsibility | 3\n- PHIL 436 | Islamic Political Philosophy | 3\n- PRSN 502 | World Religions | 3\n- I R 416 | Ethnicity and Nationalism | 4\n- PSY 547 | Social Conflict and Conflict Resolution | 3\n\n### Core Area 3: International Law and Organizations (3-4 units)\n\nSelect One:\n\n- C J 340 | Comparative Criminal Justice | 4\n- C J 490 | Immigration, Criminalization, and Justice | 3\n- PHIL 375 | Peace Law and Human Rights in the U.S. | 3\n- I R 330 | World Law | 4\n- IBUS 334 | International Organizations: New World Order | 4\n- PLSI 459 | Refugees in Global Perspective | 4\n- PHIL 335 | Law and Society | 3\n- PHIL 373 | The Ethics of Migration and Membership | 3\n- PHIL 380 | Philosophy of Law | 3\n\n### Electives (6-8 units)\n\nSelect 6-8 units on advisement. Courses may be used for electives if not taken in the core.\n\n- ANTH 321 | Endangered Cultures | 3\n- BIOL 349 | Bioethics | 3\n- ANTH 699 | Independent Study | 3\n- or COMM 699 | Independent Study\n- COMM 534 | Mediation Theory and Practice | 4\n- COMM 564 | Issues in Free Speech | 4\n- COMM 573 | The Rhetoric of Criminality and Punishment | 4\n- PHIL 375 | Peace Law and Human Rights in the U.S. | 3\n- JS 317 | The Holocaust and Genocide | 3\n- HIST 428 | U.S. History in the Civil Rights Era, 1945-1980 | 3\n- HIST 464 | American Ethnic and Racial Relations to 1890 | 3\n- HIST 465 | American Ethnic and Racial Relations II: 1890-Present | 3\n- I R 330 | World Law | 4\n- IBUS 334 | International Organizations: New World Order | 4\n- I R 459 | Refugees in Global Perspective | 4\n- PLSI 544 | Women in the World | 4\n- JS 548 | The Jewish Sixties: A Journey Through The Social Protest Movements of the 1960s | 3\n- SOC 555 | Labor Rights in the Global Economy | 3\n- LTNS 430 | Race, Crime, and Justice | 3\n- PHIL 373 | The Ethics of Migration and Membership | 3\n- PHIL 435 | Human Rights in Global Perspective (if not taken in the core) | 3\n- PLSI 552 | Individual Rights and the Constitution | 4\n- PSY 547 | Social Conflict and Conflict Resolution | 3\n- RRS 240 | All Power to the People: Comparative Freedom Movements of the \"Sixties\" | 3\n- SOC 461 | Ethnic Relations: International Comparisons | 4\n- USP 515 | Environmental Justice: Race, Poverty, and the Environment | 4\n- WGS 513 | Gender, War, and Militarism | 3\n- WGS 536 | Gender, Globalization, and Women's Human Rights | 3\n\nThe following electives are available for field study or internship on advisement:\n\n- I R 640 | Field Study in International Relations | 1-5\n- PHIL 680 | Field Project in Philosophy | 1-3\n- WGS 698 | Feminist Praxis and the Non-Profit Industrial Complex | 3",
-    "sections": [
-     {
-      "heading_path": [
-       "Global Peace, Human Rights, and Justice Studies, Minor — 15 units minimum"
-      ],
-      "text": "A minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0."
-     },
-     {
-      "heading_path": [
-       "Global Peace, Human Rights, and Justice Studies, Minor — 15 units minimum",
-       "Core Area 1: Introduction (3 units)"
-      ],
-      "text": "Select One:\n\n- PHIL 315 | Introduction to Global Peace Studies | 3\n- I R 436 | Human Rights in Global Perspective | 3"
-     },
-     {
-      "heading_path": [
-       "Global Peace, Human Rights, and Justice Studies, Minor — 15 units minimum",
-       "Core Area 2: Conflict Resolution & Non-Violence (3-4 units)"
-      ],
-      "text": "Select One:\n\n- COMM 531 | Conflict and Communication | 4\n- COMM 543 | Dialogues Across Differences | 4\n- HUM 366 | India's Gandhi | 3\n- JS 350 | Jewish Social Responsibility | 3\n- PHIL 436 | Islamic Political Philosophy | 3\n- PRSN 502 | World Religions | 3\n- I R 416 | Ethnicity and Nationalism | 4\n- PSY 547 | Social Conflict and Conflict Resolution | 3"
-     },
-     {
-      "heading_path": [
-       "Global Peace, Human Rights, and Justice Studies, Minor — 15 units minimum",
-       "Core Area 3: International Law and Organizations (3-4 units)"
-      ],
-      "text": "Select One:\n\n- C J 340 | Comparative Criminal Justice | 4\n- C J 490 | Immigration, Criminalization, and Justice | 3\n- PHIL 375 | Peace Law and Human Rights in the U.S. | 3\n- I R 330 | World Law | 4\n- IBUS 334 | International Organizations: New World Order | 4\n- PLSI 459 | Refugees in Global Perspective | 4\n- PHIL 335 | Law and Society | 3\n- PHIL 373 | The Ethics of Migration and Membership | 3\n- PHIL 380 | Philosophy of Law | 3"
-     },
-     {
-      "heading_path": [
-       "Global Peace, Human Rights, and Justice Studies, Minor — 15 units minimum",
-       "Electives (6-8 units)"
-      ],
-      "text": "Select 6-8 units on advisement. Courses may be used for electives if not taken in the core.\n\n- ANTH 321 | Endangered Cultures | 3\n- BIOL 349 | Bioethics | 3\n- ANTH 699 | Independent Study | 3\n- or COMM 699 | Independent Study\n- COMM 534 | Mediation Theory and Practice | 4\n- COMM 564 | Issues in Free Speech | 4\n- COMM 573 | The Rhetoric of Criminality and Punishment | 4\n- PHIL 375 | Peace Law and Human Rights in the U.S. | 3\n- JS 317 | The Holocaust and Genocide | 3\n- HIST 428 | U.S. History in the Civil Rights Era, 1945-1980 | 3\n- HIST 464 | American Ethnic and Racial Relations to 1890 | 3\n- HIST 465 | American Ethnic and Racial Relations II: 1890-Present | 3\n- I R 330 | World Law | 4\n- IBUS 334 | International Organizations: New World Order | 4\n- I R 459 | Refugees in Global Perspective | 4\n- PLSI 544 | Women in the World | 4\n- JS 548 | The Jewish Sixties: A Journey Through The Social Protest Movements of the 1960s | 3\n- SOC 555 | Labor Rights in the Global Economy | 3\n- LTNS 430 | Race, Crime, and Justice | 3\n- PHIL 373 | The Ethics of Migration and Membership | 3\n- PHIL 435 | Human Rights in Global Perspective (if not taken in the core) | 3\n- PLSI 552 | Individual Rights and the Constitution | 4\n- PSY 547 | Social Conflict and Conflict Resolution | 3\n- RRS 240 | All Power to the People: Comparative Freedom Movements of the \"Sixties\" | 3\n- SOC 461 | Ethnic Relations: International Comparisons | 4\n- USP 515 | Environmental Justice: Race, Poverty, and the Environment | 4\n- WGS 513 | Gender, War, and Militarism | 3\n- WGS 536 | Gender, Globalization, and Women's Human Rights | 3\n\nThe following electives are available for field study or internship on advisement:\n\n- I R 640 | Field Study in International Relations | 1-5\n- PHIL 680 | Field Project in Philosophy | 1-3\n- WGS 698 | Feminist Praxis and the Non-Profit Industrial Complex | 3"
-     }
-    ]
-   }
-  ],
-  "course_codes": [
-   "GPS 315",
-   "GPS 375"
-  ],
-  "subjects": [
-   "GPS"
-  ],
-  "programs": [],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/international-relations/minor-latin-american-studies",
-  "name": "Minor in Latin American Studies",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-latin-american-studies/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\n### Latin American Studies Program\n\nHumanities Building, Room 427\n\nPhone: (415) 405-3492\n\nCoordinator: Juanita Darling\n\n## Program Scope\n\nThe Minor in Latin American Studies is a multidisciplinary program designed to provide undergraduate students with an understanding of Latin American societies, including their history and literature, as well as economic and political developments. The minor emphasizes the hybrid nature of Latin American societies, their shared cultures and history, their influence on other parts of the world, and the region’s multi-layered relations with other countries. With a selection of courses drawn from disciplines or fields such as ethnic studies, the arts, the humanities, and the social sciences, students have the flexibility to explore a wide range of subjects including ancient and modern civilizations, ethnic relations, the literary “boom” of the 1960s, doing business in present-day Latin America, and more. The minor will be useful to students planning careers in education, humanities, and the arts, the Foreign Service, international organizations, overseas corporations, and banking, as well as for those who simply desire a better understanding of Latin America. The multidisciplinary nature of the program also prepares students for further work in a number of academic fields at the graduate level.\n\nThe minor consists of a core curriculum that deals with the region as a whole from a variety of disciplinary perspectives, plus elective upper-division coursework. No more than 6 units can be taken on a CR/NC basis. Students planning to take courses other than those listed below must get prior approval from the program director. Students completing the Latin American Studies minor are encouraged to participate in the study abroad programs at SF State. Courses taken in certified SF State study abroad programs may be substituted for the minor’s requirements.\n\n## Program Learning Outcomes\n\n1. Develop an understanding of the varied aspects of Latin American societies.\n2. Critically evaluate the inter-relationships among history, language and literature, social, economic, and political developments, and their influence on the place that the nations of the region occupy in the international order as a reflection of social justice and global perspectives.\n3. Explore a wide range of subjects as well as specialize in particular areas such as the Caribbean, Central America, Mexico, and South America.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy"
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Latin American Studies Program"
-      ],
-      "text": "Humanities Building, Room 427\n\nPhone: (415) 405-3492\n\nCoordinator: Juanita Darling"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "The Minor in Latin American Studies is a multidisciplinary program designed to provide undergraduate students with an understanding of Latin American societies, including their history and literature, as well as economic and political developments. The minor emphasizes the hybrid nature of Latin American societies, their shared cultures and history, their influence on other parts of the world, and the region’s multi-layered relations with other countries. With a selection of courses drawn from disciplines or fields such as ethnic studies, the arts, the humanities, and the social sciences, students have the flexibility to explore a wide range of subjects including ancient and modern civilizations, ethnic relations, the literary “boom” of the 1960s, doing business in present-day Latin America, and more. The minor will be useful to students planning careers in education, humanities, and the arts, the Foreign Service, international organizations, overseas corporations, and banking, as well as for those who simply desire a better understanding of Latin America. The multidisciplinary nature of the program also prepares students for further work in a number of academic fields at the graduate level.\n\nThe minor consists of a core curriculum that deals with the region as a whole from a variety of disciplinary perspectives, plus elective upper-division coursework. No more than 6 units can be taken on a CR/NC basis. Students planning to take courses other than those listed below must get prior approval from the program director. Students completing the Latin American Studies minor are encouraged to participate in the study abroad programs at SF State. Courses taken in certified SF State study abroad programs may be substituted for the minor’s requirements."
-     },
-     {
-      "heading_path": [
-       "Program Learning Outcomes"
-      ],
-      "text": "1. Develop an understanding of the varied aspects of Latin American societies.\n2. Critically evaluate the inter-relationships among history, language and literature, social, economic, and political developments, and their influence on the place that the nations of the region occupy in the international order as a reflection of social justice and global perspectives.\n3. Explore a wide range of subjects as well as specialize in particular areas such as the Caribbean, Central America, Mexico, and South America."
-     }
-    ]
-   },
-   {
-    "tab": "Faculty",
-    "markdown": "## Professor\n\nJuanita Darling (2008), Professor in International Relations. Ph.D. University of North Carolina, Chapel Hill.\n\nKatherine Gordy (2008), Professor in Political Science. Ph.D. Cornell University.\n\nKatynka Martinez (2007), Professor in Latina/Latino Studies. Ph.D. University of California at San Diego.\n\nKitty Millet (2004), Professor in Jewish Studies. Ph.D. University of Minnesota.\n\nRaquel Rivera Pinderhuges (1992), Professor in Urban Studies and Planning. Ph.D. Graduate Center of New York.\n\n## Associate Professor\n\nJason Ferreira (2005), Associate Professor in Race and Resistance Studies. Ph.D. University of California, Berkeley.\n\nLogan Hennessy (2007), Associate Professor in Liberal Studies. Ph.D. University of California, Berkeley.",
-    "sections": [
-     {
-      "heading_path": [
-       "Professor"
-      ],
-      "text": "Juanita Darling (2008), Professor in International Relations. Ph.D. University of North Carolina, Chapel Hill.\n\nKatherine Gordy (2008), Professor in Political Science. Ph.D. Cornell University.\n\nKatynka Martinez (2007), Professor in Latina/Latino Studies. Ph.D. University of California at San Diego.\n\nKitty Millet (2004), Professor in Jewish Studies. Ph.D. University of Minnesota.\n\nRaquel Rivera Pinderhuges (1992), Professor in Urban Studies and Planning. Ph.D. Graduate Center of New York."
-     },
-     {
-      "heading_path": [
-       "Associate Professor"
-      ],
-      "text": "Jason Ferreira (2005), Associate Professor in Race and Resistance Studies. Ph.D. University of California, Berkeley.\n\nLogan Hennessy (2007), Associate Professor in Liberal Studies. Ph.D. University of California, Berkeley."
-     }
-    ]
-   },
-   {
-    "tab": "Program Requirements",
-    "markdown": "## Latin American Studies Minor — 21 units minimum\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Core Courses (9-10 units)\n\n- LTNS 501 | Latin America: The National Period | 3\n- Select One: | 3-4\n- WGS 355 | History of Women in Latin America\n- PLSI 322 | Policy Analysis: The Latin American Cases\n- SOC 645 | Sociology of Latin America\n- Select One: | 3\n- HUM 455 | Humanities of the Americas\n- SPAN 405 | Culture and Civilization of Spanish America\n\n### Electives (11-12 units)\n\nTake enough electives to reach 21 units for the minor. Two courses must be selected from each group and no more than 9 units can be from any one discipline.\n\n- **Group I: Social Perspectives, Politics, and International Relations**\n- HIST 353 | History of Mexico | 3\n- HIST 357 | Race and Power in Colonial Latin America | 3\n- C J 306 | Crisis in Central America: U.S. Policy and the Root Causes of Chaos | 4\n- ENVS 430 | Future of the Forests | 3\n- LTNS 350 | Gender, Latina/x, and Women of Color Feminisms | 3\n- LTNS 460 | Central Americans of the U.S.: History and Heritage | 3\n- LTNS 467 | Caribbeans in the U.S.: History and Heritage | 3\n- SOC 640 | Sociology of Latina/x/o Experiences | 3\n- LTNS 660 | Latina/o Politics | 3\n- LTNS 670 | Mexican Politics and Society | 3\n- PLSI 389 | Latin American Revolutionary Societies | 4\n- RPT 470 | Travel with Purpose | 3\n- **Group II: Arts, Humanities, and Culture**\n- CWL 440 | \"Typical American\": Narratives of Multiculturalism in the Americas from 1492 to the Present | 3\n- CWL 520 | Modern Prose of the Americas | 3\n- CWL 540 | Faulkner, García Márquez, and Morrison | 3\n- HUM 371 | Biography of a City: Latin American Cities | 3\n- ENG 451 | Jewish Literature of the Americas | 3\n- LTNS 409 | Latina/o/x Cinema | 3\n- LTNS 425 | Popular and Traditional Music of the Latinx U.S. (CSL) | 3\n- LTNS 450 | Critical Latinx Indigeneities | 3\n- LTNS 475 | Mesoamerican Cosmologies | 3\n- LTNS 560 | Contemporary Latina/o Literature | 3\n- MUS 532 | Music of Latin America | 3\n- SPAN 326 | Applied Spanish Linguistics: Morphology and Syntax | 3\n- SPAN 341 | Introduction to the Reading of Literary Texts | 3\n- SPAN 543 | Spanish American Literature: Romanticism to Modernism | 3\n- SPAN 545 | 20th Century Spanish American Literature | 3\n- SPAN 595 | Senior Survey in Spanish or Spanish American Literature | 3\n\n### Latin American Language Requirement\n\nAll students completing this area studies minor are required to demonstrate intermediate-level competency in a language other than English and that is relevant to the region. This requirement may be met by the University entrance requirement of two years of high school language study, scoring at the appropriate level on the Spanish placement exam, study abroad in the region or the Iberian peninsula, or by demonstration of equivalent competency. Please see the Latin American Studies coordinator or faculty advisors to determine if this requirement is met.",
-    "sections": [
-     {
-      "heading_path": [
-       "Latin American Studies Minor — 21 units minimum"
-      ],
-      "text": "A minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0."
-     },
-     {
-      "heading_path": [
-       "Latin American Studies Minor — 21 units minimum",
-       "Core Courses (9-10 units)"
-      ],
-      "text": "- LTNS 501 | Latin America: The National Period | 3\n- Select One: | 3-4\n- WGS 355 | History of Women in Latin America\n- PLSI 322 | Policy Analysis: The Latin American Cases\n- SOC 645 | Sociology of Latin America\n- Select One: | 3\n- HUM 455 | Humanities of the Americas\n- SPAN 405 | Culture and Civilization of Spanish America"
-     },
-     {
-      "heading_path": [
-       "Latin American Studies Minor — 21 units minimum",
-       "Electives (11-12 units)"
-      ],
-      "text": "Take enough electives to reach 21 units for the minor. Two courses must be selected from each group and no more than 9 units can be from any one discipline.\n\n- **Group I: Social Perspectives, Politics, and International Relations**\n- HIST 353 | History of Mexico | 3\n- HIST 357 | Race and Power in Colonial Latin America | 3\n- C J 306 | Crisis in Central America: U.S. Policy and the Root Causes of Chaos | 4\n- ENVS 430 | Future of the Forests | 3\n- LTNS 350 | Gender, Latina/x, and Women of Color Feminisms | 3\n- LTNS 460 | Central Americans of the U.S.: History and Heritage | 3\n- LTNS 467 | Caribbeans in the U.S.: History and Heritage | 3\n- SOC 640 | Sociology of Latina/x/o Experiences | 3\n- LTNS 660 | Latina/o Politics | 3\n- LTNS 670 | Mexican Politics and Society | 3\n- PLSI 389 | Latin American Revolutionary Societies | 4\n- RPT 470 | Travel with Purpose | 3\n- **Group II: Arts, Humanities, and Culture**\n- CWL 440 | \"Typical American\": Narratives of Multiculturalism in the Americas from 1492 to the Present | 3\n- CWL 520 | Modern Prose of the Americas | 3\n- CWL 540 | Faulkner, García Márquez, and Morrison | 3\n- HUM 371 | Biography of a City: Latin American Cities | 3\n- ENG 451 | Jewish Literature of the Americas | 3\n- LTNS 409 | Latina/o/x Cinema | 3\n- LTNS 425 | Popular and Traditional Music of the Latinx U.S. (CSL) | 3\n- LTNS 450 | Critical Latinx Indigeneities | 3\n- LTNS 475 | Mesoamerican Cosmologies | 3\n- LTNS 560 | Contemporary Latina/o Literature | 3\n- MUS 532 | Music of Latin America | 3\n- SPAN 326 | Applied Spanish Linguistics: Morphology and Syntax | 3\n- SPAN 341 | Introduction to the Reading of Literary Texts | 3\n- SPAN 543 | Spanish American Literature: Romanticism to Modernism | 3\n- SPAN 545 | 20th Century Spanish American Literature | 3\n- SPAN 595 | Senior Survey in Spanish or Spanish American Literature | 3"
-     },
-     {
-      "heading_path": [
-       "Latin American Studies Minor — 21 units minimum",
-       "Latin American Language Requirement"
-      ],
-      "text": "All students completing this area studies minor are required to demonstrate intermediate-level competency in a language other than English and that is relevant to the region. This requirement may be met by the University entrance requirement of two years of high school language study, scoring at the appropriate level on the Spanish placement exam, study abroad in the region or the Iberian peninsula, or by demonstration of equivalent competency. Please see the Latin American Studies coordinator or faculty advisors to determine if this requirement is met."
-     }
-    ]
-   }
-  ],
-  "course_codes": [],
-  "subjects": [],
-  "programs": [],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/international-relations/minor-middle-east-islamic-studies",
-  "name": "Minor in Middle East and Islamic Studies",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-middle-east-islamic-studies/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\nCoordinator: Lucia Volk\n\nHumanities Building, Room 576\n\nPhone: (415) 405-2468\n\nEmail: lvolk@sfsu.edu\n\n## Program Scope\n\nThe Minor in Middle East and Islamic Studies is a multidisciplinary minor designed to provide undergraduate students with a broad understanding of the history, politics, and culture of the Middle East and Islamic world. Students are required to fulfill both core and elective requirements designed to give a background of the complexity and diversity of the region as well as offer more specific, in-depth studies of select issues of the region. This program covers regions and peoples from or in the Middle East from the founding of Islam in the seventh century to the present. In concert with the “Islamic Studies” aspect of this program, this minor also extends beyond the Middle East to those cultures, societies, and areas that are associated with the historical and current spread of Islam. Students can select from a variety of courses across multiple disciplines, including history, religion, politics, culture, art, music, language, and literature.\n\nThe minor is useful to students planning careers in politics and government, business, education, international organizations, journalism, and art, as well as for those who simply desire a better understanding of the Middle East and Islam. The multidisciplinary nature of the program also prepares students for further study in a number of academic fields at the graduate level.\n\nThe Middle East and Islamic Studies Minor consists of a core curriculum of three courses that deal with the region as a whole from a variety of disciplinary perspectives, plus three upper-division courses taken upon advisement.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy\n\nCoordinator: Lucia Volk\n\nHumanities Building, Room 576\n\nPhone: (415) 405-2468\n\nEmail: lvolk@sfsu.edu"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "The Minor in Middle East and Islamic Studies is a multidisciplinary minor designed to provide undergraduate students with a broad understanding of the history, politics, and culture of the Middle East and Islamic world. Students are required to fulfill both core and elective requirements designed to give a background of the complexity and diversity of the region as well as offer more specific, in-depth studies of select issues of the region. This program covers regions and peoples from or in the Middle East from the founding of Islam in the seventh century to the present. In concert with the “Islamic Studies” aspect of this program, this minor also extends beyond the Middle East to those cultures, societies, and areas that are associated with the historical and current spread of Islam. Students can select from a variety of courses across multiple disciplines, including history, religion, politics, culture, art, music, language, and literature.\n\nThe minor is useful to students planning careers in politics and government, business, education, international organizations, journalism, and art, as well as for those who simply desire a better understanding of the Middle East and Islam. The multidisciplinary nature of the program also prepares students for further study in a number of academic fields at the graduate level.\n\nThe Middle East and Islamic Studies Minor consists of a core curriculum of three courses that deal with the region as a whole from a variety of disciplinary perspectives, plus three upper-division courses taken upon advisement."
-     }
-    ]
-   },
-   {
-    "tab": "Faculty",
-    "markdown": "## Professor\n\nMitra Ara (2011), Professor in Modern Languages and Literatures. Ph.D. University of California, Berkeley.\n\nMohammad Azadpur (2003), Professor in Philosophy. Ph.D. University of Virginia.\n\nSanjoy Banerjee (1990), Professor in International Relations. Ph.D. Yale University.\n\nMaziar Behrooz (2002), Professor in History. C.Phil., Ph.D. University of California, Los Angeles.\n\nBurcu Akan Ellis (2004), Professor in International Relations. Ph.D. American University.\n\nDina A. Ibrahim (2003), Professor in Broadcast and Electronic Communication Arts. Ph.D. The University of Texas at Austin.\n\nEran Kaplan (2011), Professor in Jewish Studies. Ph.D. Brandeis University.\n\nSanthi Kavuri-Bauer (2003), Professor in Art. Ph.D. University of California, Los Angeles.\n\nShirin A. Khanmohamadi (2005), Professor in Comparative and World Literature. Ph.D. Columbia University.\n\nHafez Modirzadeh (1998), Professor in Music. Ph.D. Wesleyan University.\n\nMahmood Monshipouri (2007), Professor in International Relations. Ph.D. University of Georgia.\n\nLucia Volk (2003), Professor in International Relations. Ph.D. Harvard University.\n\nNicole Watts (2003), Professor in Political Science. Ph.D. University of Washington.\n\n## Associate Professor\n\nChristopher Chekuri (2004), Associate Professor in History. Ph.D. University of Wisconsin, Madison.",
-    "sections": [
-     {
-      "heading_path": [
-       "Professor"
-      ],
-      "text": "Mitra Ara (2011), Professor in Modern Languages and Literatures. Ph.D. University of California, Berkeley.\n\nMohammad Azadpur (2003), Professor in Philosophy. Ph.D. University of Virginia.\n\nSanjoy Banerjee (1990), Professor in International Relations. Ph.D. Yale University.\n\nMaziar Behrooz (2002), Professor in History. C.Phil., Ph.D. University of California, Los Angeles.\n\nBurcu Akan Ellis (2004), Professor in International Relations. Ph.D. American University.\n\nDina A. Ibrahim (2003), Professor in Broadcast and Electronic Communication Arts. Ph.D. The University of Texas at Austin.\n\nEran Kaplan (2011), Professor in Jewish Studies. Ph.D. Brandeis University.\n\nSanthi Kavuri-Bauer (2003), Professor in Art. Ph.D. University of California, Los Angeles.\n\nShirin A. Khanmohamadi (2005), Professor in Comparative and World Literature. Ph.D. Columbia University.\n\nHafez Modirzadeh (1998), Professor in Music. Ph.D. Wesleyan University.\n\nMahmood Monshipouri (2007), Professor in International Relations. Ph.D. University of Georgia.\n\nLucia Volk (2003), Professor in International Relations. Ph.D. Harvard University.\n\nNicole Watts (2003), Professor in Political Science. Ph.D. University of Washington."
-     },
-     {
-      "heading_path": [
-       "Associate Professor"
-      ],
-      "text": "Christopher Chekuri (2004), Associate Professor in History. Ph.D. University of Wisconsin, Madison."
-     }
-    ]
-   },
-   {
-    "tab": "Minor",
-    "markdown": "## Middle East and Islamic Studies Minor - 18 units minimum\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Core (9-10 units)\n\nComplete at least nine units in the core by taking one course from Section A, one course from Section B, and a third course from either section. MEIS 300 and MEIS 301 may satisfy either Core Section A or B. Any core class taken beyond the required units can be counted towards the required elective units.\n\n- **Section A: History and Politics** | 3-4\n- HIST 380 | Islamic World I: 500-1500\n- HIST 381 | Islamic World II: 1500 - Present\n- I R 324 | Middle East and North Africa in International Relations\n- I R 335 | Muslim Societies in Transnational Perspective\n- **Section B: Arts and Culture** | 3\n- HUM 361 | Cultural Expression in Islam\n- ARTH 496 | Art, Architecture, and Space in the Islamic World\n- PHIL 516 | Islamic Philosophy\n- **Section A or B:** | 3\n- MEIS 300 | Foundations in Middle East and Islamic Studies\n- MEIS 301 | Islam: Interpretation and Practice\n\n### Electives (9-11 units)\n\nIn addition to the three core courses above, take a minimum of three additional courses as electives. Courses that are used to satisfy core requirements may not also be used as electives.\n\n- Select at least one course from Part I and at least one course from Part II. The third elective may be taken from either part I or II:\n- **Part I: History and Politics**\n- HIST 372 | India and the British Empire | 3\n- HIST 380 | Islamic World I: 500-1500 | 3\n- HIST 381 | Islamic World II: 1500 - Present | 3\n- HIST 382 | History of Iran and Afghanistan 1500 - Present | 3\n- I R 323 | The Persian Gulf in International Relations | 4\n- I R 324 | Middle East and North Africa in International Relations | 4\n- I R 335 | Muslim Societies in Transnational Perspective | 4\n- PLSI 430 | Israeli Democracy: Politics, Institutions, and Society | 3\n- PHIL 436 | Islamic Political Philosophy | 3\n- **Part II: Arts and Culture**\n- ARAB 102 | Second Semester Arabic | 4\n- ARAB 300 | Reading Qur'anic Arabic | 3\n- HUM 424 | Multicultural Middle Ages | 3\n- HEBR 102 | Second Semester Modern Hebrew | 3\n- HEBR 201 | Third Semester Modern Hebrew | 3\n- HUM 361 | Cultural Expression in Islam | 3\n- HUM 375 | Biography of a City: United States Cities | 3\n- JS 379 | Jerusalem | 3\n- ARTH 496 | Art, Architecture, and Space in the Islamic World | 3\n- JS 408 | Israeli Cinema | 3\n- PHIL 501 | Judaism, Christianity, and Islam | 3\n- PHIL 516 | Islamic Philosophy | 3\n- PRSN 102 | Second Semester Persian | 3\n- I R 260 | History and Cultures of Iran | 3\n- ARAB 450 | Contemporary Arabic and Arab American Literature | 3\n- WGS 565 | Muslim Feminisms | 3\n\n### Foreign Language Requirement\n\nStudents are strongly encouraged to develop proficiency in a Middle Eastern language or a language pertaining to the Islamic world and to commit to more than one semester of language studies. Therefore, second-semester language courses and higher will count towards elective units. Each student will discuss how to incorporate language into their minor during advising sessions.\n\n### Study-Abroad Courses\n\nStudents completing the Middle East and Islamic Studies minor are strongly encouraged to participate in study-abroad programs, whether through the CSU system or another approved study abroad program. SF State’s bilateral exchange with Koç University in Istanbul is particularly suited for MEIS minors. Please attend OIP’s informational sessions and then see a MEIS advisor.",
-    "sections": [
-     {
-      "heading_path": [
-       "Middle East and Islamic Studies Minor - 18 units minimum"
-      ],
-      "text": "A minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0."
-     },
-     {
-      "heading_path": [
-       "Middle East and Islamic Studies Minor - 18 units minimum",
-       "Core (9-10 units)"
-      ],
-      "text": "Complete at least nine units in the core by taking one course from Section A, one course from Section B, and a third course from either section. MEIS 300 and MEIS 301 may satisfy either Core Section A or B. Any core class taken beyond the required units can be counted towards the required elective units.\n\n- **Section A: History and Politics** | 3-4\n- HIST 380 | Islamic World I: 500-1500\n- HIST 381 | Islamic World II: 1500 - Present\n- I R 324 | Middle East and North Africa in International Relations\n- I R 335 | Muslim Societies in Transnational Perspective\n- **Section B: Arts and Culture** | 3\n- HUM 361 | Cultural Expression in Islam\n- ARTH 496 | Art, Architecture, and Space in the Islamic World\n- PHIL 516 | Islamic Philosophy\n- **Section A or B:** | 3\n- MEIS 300 | Foundations in Middle East and Islamic Studies\n- MEIS 301 | Islam: Interpretation and Practice"
-     },
-     {
-      "heading_path": [
-       "Middle East and Islamic Studies Minor - 18 units minimum",
-       "Electives (9-11 units)"
-      ],
-      "text": "In addition to the three core courses above, take a minimum of three additional courses as electives. Courses that are used to satisfy core requirements may not also be used as electives.\n\n- Select at least one course from Part I and at least one course from Part II. The third elective may be taken from either part I or II:\n- **Part I: History and Politics**\n- HIST 372 | India and the British Empire | 3\n- HIST 380 | Islamic World I: 500-1500 | 3\n- HIST 381 | Islamic World II: 1500 - Present | 3\n- HIST 382 | History of Iran and Afghanistan 1500 - Present | 3\n- I R 323 | The Persian Gulf in International Relations | 4\n- I R 324 | Middle East and North Africa in International Relations | 4\n- I R 335 | Muslim Societies in Transnational Perspective | 4\n- PLSI 430 | Israeli Democracy: Politics, Institutions, and Society | 3\n- PHIL 436 | Islamic Political Philosophy | 3\n- **Part II: Arts and Culture**\n- ARAB 102 | Second Semester Arabic | 4\n- ARAB 300 | Reading Qur'anic Arabic | 3\n- HUM 424 | Multicultural Middle Ages | 3\n- HEBR 102 | Second Semester Modern Hebrew | 3\n- HEBR 201 | Third Semester Modern Hebrew | 3\n- HUM 361 | Cultural Expression in Islam | 3\n- HUM 375 | Biography of a City: United States Cities | 3\n- JS 379 | Jerusalem | 3\n- ARTH 496 | Art, Architecture, and Space in the Islamic World | 3\n- JS 408 | Israeli Cinema | 3\n- PHIL 501 | Judaism, Christianity, and Islam | 3\n- PHIL 516 | Islamic Philosophy | 3\n- PRSN 102 | Second Semester Persian | 3\n- I R 260 | History and Cultures of Iran | 3\n- ARAB 450 | Contemporary Arabic and Arab American Literature | 3\n- WGS 565 | Muslim Feminisms | 3"
-     },
-     {
-      "heading_path": [
-       "Middle East and Islamic Studies Minor - 18 units minimum",
-       "Foreign Language Requirement"
-      ],
-      "text": "Students are strongly encouraged to develop proficiency in a Middle Eastern language or a language pertaining to the Islamic world and to commit to more than one semester of language studies. Therefore, second-semester language courses and higher will count towards elective units. Each student will discuss how to incorporate language into their minor during advising sessions."
-     },
-     {
-      "heading_path": [
-       "Middle East and Islamic Studies Minor - 18 units minimum",
-       "Study-Abroad Courses"
-      ],
-      "text": "Students completing the Middle East and Islamic Studies minor are strongly encouraged to participate in study-abroad programs, whether through the CSU system or another approved study abroad program. SF State’s bilateral exchange with Koç University in Istanbul is particularly suited for MEIS minors. Please attend OIP’s informational sessions and then see a MEIS advisor."
-     }
-    ]
-   }
-  ],
-  "course_codes": [],
-  "subjects": [],
-  "programs": [],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/international-relations/minor-pacific-asian-studies",
-  "name": "Minor in Pacific Asian Studies",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-pacific-asian-studies/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\n### Pacific Asian Studies Program\n\nCoordinator: See Won Byun\n\nHumanities Building, Room 267\n\nPhone: (415) 338-2319\n\nEmail: sbyun@sfsu.edu\n\n## Program Learning Outcomes\n\n1. identify and explain relationships between and within major societies of the Asia-Pacific\n\n## Program Scope\n\nThe Minor in Pacific Asian Studies is a multidisciplinary program on the regions and societies of the Asia-Pacific, including China, Japan, Korea, and Southeast Asia. In addition to courses focused on different regions, the program emphasizes regional or comparative studies in issue-areas within and beyond the Asia-Pacific. As a university-wide program, the Pacific Asian Studies Minor offers courses in multiple departments spanning humanities and social science disciplines. Enriched by the Bay Area’s historical and cultural ties with the region, SF State’s Pacific Asian Studies Minor builds a wide range of knowledge and skills, preparing students to apply their regional specialization in diverse academic and professional careers.\n\nThe minor curriculum is organized around these themes: (A) China/Hong Kong/Taiwan, (B) Japan/Korea/Southeast Asia, and (C) Regional/Comparative. Students must complete at least one semester of an Asian language course, or demonstrate at least basic competency. In consultation with faculty advisors, students are encouraged to complement their minor program with study abroad in Asia. Students should consult the Pacific Asian Studies coordinator to design an individualized plan of study and ensure timely program completion.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy"
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Pacific Asian Studies Program"
-      ],
-      "text": "Coordinator: See Won Byun\n\nHumanities Building, Room 267\n\nPhone: (415) 338-2319\n\nEmail: sbyun@sfsu.edu"
-     },
-     {
-      "heading_path": [
-       "Program Learning Outcomes"
-      ],
-      "text": "1. identify and explain relationships between and within major societies of the Asia-Pacific"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "The Minor in Pacific Asian Studies is a multidisciplinary program on the regions and societies of the Asia-Pacific, including China, Japan, Korea, and Southeast Asia. In addition to courses focused on different regions, the program emphasizes regional or comparative studies in issue-areas within and beyond the Asia-Pacific. As a university-wide program, the Pacific Asian Studies Minor offers courses in multiple departments spanning humanities and social science disciplines. Enriched by the Bay Area’s historical and cultural ties with the region, SF State’s Pacific Asian Studies Minor builds a wide range of knowledge and skills, preparing students to apply their regional specialization in diverse academic and professional careers.\n\nThe minor curriculum is organized around these themes: (A) China/Hong Kong/Taiwan, (B) Japan/Korea/Southeast Asia, and (C) Regional/Comparative. Students must complete at least one semester of an Asian language course, or demonstrate at least basic competency. In consultation with faculty advisors, students are encouraged to complement their minor program with study abroad in Asia. Students should consult the Pacific Asian Studies coordinator to design an individualized plan of study and ensure timely program completion."
-     }
-    ]
-   },
-   {
-    "tab": "Faculty",
-    "markdown": "## Professor\n\nSanjoy Banerjee (1990), Professor in International Relations. Ph.D. Yale University.\n\nSujian Guo (2002), Professor in Political Science. Ph.D. University of Tennessee.\n\nSanthi Kavuri-Bauer (2003), Professor in Art. Ph.D. University of California, Los Angeles.\n\nMatthew Lee (2001), Professor in Kinesiology. Ph.D. Louisiana State University.\n\nChris Wen-Chao Li (2000), Professor in Modern Languages and Literatures. M.Phil., D.Phil. Oxford University.\n\nMidori Yamamoto McKeon (1990), Professor in Modern Languages and Literatures. Ph.D. University of California, Berkeley.\n\nMasahiko Minami (1997), Professor in Modern Languages and Literatures. Ed.D. Harvard University.\n\nHafez Modirzadeh (1998), Professor in Music. Ph.D. Wesleyan University.\n\n## Associate Professor\n\nJessica Elkind (2008), Associate Professor in History. Ph.D. University of California, Los Angeles.\n\nQian Guo (1998), Associate Professor in School of the Environment. Ph.D. University of Tennessee, Knoxville.\n\n## Lecturers\n\nChang, Dupen, Kuo, Liou, Matsumoto, Mick, Muranaka, Yamaguchi",
-    "sections": [
-     {
-      "heading_path": [
-       "Professor"
-      ],
-      "text": "Sanjoy Banerjee (1990), Professor in International Relations. Ph.D. Yale University.\n\nSujian Guo (2002), Professor in Political Science. Ph.D. University of Tennessee.\n\nSanthi Kavuri-Bauer (2003), Professor in Art. Ph.D. University of California, Los Angeles.\n\nMatthew Lee (2001), Professor in Kinesiology. Ph.D. Louisiana State University.\n\nChris Wen-Chao Li (2000), Professor in Modern Languages and Literatures. M.Phil., D.Phil. Oxford University.\n\nMidori Yamamoto McKeon (1990), Professor in Modern Languages and Literatures. Ph.D. University of California, Berkeley.\n\nMasahiko Minami (1997), Professor in Modern Languages and Literatures. Ed.D. Harvard University.\n\nHafez Modirzadeh (1998), Professor in Music. Ph.D. Wesleyan University."
-     },
-     {
-      "heading_path": [
-       "Associate Professor"
-      ],
-      "text": "Jessica Elkind (2008), Associate Professor in History. Ph.D. University of California, Los Angeles.\n\nQian Guo (1998), Associate Professor in School of the Environment. Ph.D. University of Tennessee, Knoxville."
-     },
-     {
-      "heading_path": [
-       "Lecturers"
-      ],
-      "text": "Chang, Dupen, Kuo, Liou, Matsumoto, Mick, Muranaka, Yamaguchi"
-     }
-    ]
-   },
-   {
-    "tab": "Requirements",
-    "markdown": "### Pacific Asian Studies Minor — 18 units minimum\n\nA minimum of 6 upper-division units are required to complete the minor. No more than 9 units can be completed in transfer.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0. No more than 6 units may be completed on a Cr/NCr basis.\n\nSome courses have additional prerequisites that will need to be met to be able to take the course.\n\n### Core (9-12 units)\n\n#### Category A: China/Hong Kong/Taiwan Studies\n\nSelect 3-4 units from the following:\n\n- CHIN 401 | Advanced Chinese | 3\n- CHIN 411 | Media Chinese | 3\n- CHIN 501 | Introduction to Classical Chinese | 3\n- CHIN 521 | Chinese Modern Fiction | 3\n- CHIN 600 | Topics in Chinese Language, Literature, and Culture in English | 3\n- CHIN 601GW | The Poetic Tradition - GWAR | 3\n- CHIN 602 | The Narrative Tradition | 3\n- GEOG 575 | Emerging China | 3\n- HH 210 | The Dao of Well-Being in Chinese Tradition | 3\n- HH 383 | Chinese Perspectives in Holistic Health | 3\n- HH 420 | Qigong Body-Mind Energetics | 3\n- HH 530 | Eastern Nutrition and Herbs | 3\n- HIST 360 | Ancient Chinese Civilization | 3\n- HIST 361 | Imperial China | 3\n- HIST 362 | History of Modern China | 3\n- HUM 370 | Biography of a City: Asian Cities | 3\n- HUM 530 | Chinese Civilization | 3\n- HUM 531 | Images of Modern China | 3\n- IBUS 592 | Doing Business in Greater China | 3\n- PLSI 325 | Chinese Foreign Policy | 4\n- PLSI 404 | Politics of China | 4\n- KIN 148 | Elementary Kung Fu | 1\n- CHIN 511 | Chinese Philosophy and Religion | 3\n\n#### Category B: Japan/Korea/Southeast Asia Studies\n\nSelect 3-4 units from the following:\n\n- HUM 541 | Manga | 3\n- CWL 432 | From Ghost Stories to Short Stories: Japanese Fiction in Comparative Contexts | 3\n- HIST 376 | History of Southeast Asia | 3\n- HIST 384 | History of Modern Korea | 3\n- HUM 370 | Biography of a City: Asian Cities | 3\n- IBUS 596 | Doing Business in Japan | 3\n- MLL 200 | Art of Japanese Writing and Calligraphy | 3\n- JAPN 302 | Japanese Reading and Grammar | 3\n- JAPN 309 | Advanced Readings in Japanese I | 3\n- JAPN 390 | Business Japanese | 3\n- JAPN 401 | Topics in Japanese Culture | 3\n- JAPN 510 | Modern Japanese Literature | 3\n- PLSI 418 | Political Transitions in East & Southeast Asia | 4\n\n#### Category C: Regional/Comparative Studies\n\nSelect 3-4 units from the following:\n\n- ANTH 315 | Regional Ethnography | 3\n- HUM 205 | Asian Art History | 3\n- CINE 103 | Asian Popular Culture in Global Perspective | 4\n- TH A 408 | Performance in Asia and the Asian Diaspora | 3\n- HH 381 | Holistic Health: Eastern Perspectives | 3\n- HH 540 | Meditation for Health and Wellness | 3\n- HH 545 | Mind-Body Healing in Tibetan Culture | 3\n- HIST 364 | Sex and Gender in East Asia | 3\n- I R 303 | Post-Western World: Political, Economic, and Cultural Challenges | 1\n- MLL 345 | US-China Conflict and Cooperation in Asia | 4\n- MUS 513 | Asian Musical Diaspora | 3\n- PHIL 210 | Great Thinkers: East and West | 3\n- PRSN 502 | World Religions | 3\n- PRSN 509 | The Buddhist Tradition | 3\n- I R 411 | East Asian Politics | 4\n- PLSI 419 | Comparative Political Economy | 4\n\n### Pacific Asian Language Requirement (3-4 units)\n\nStudents completing the Pacific Asian Studies Minor are required to complete at least one semester of a language course relevant to the regions studied in the minor, or request that this requirement be waived based on existing competency in one of these languages. Courses that can be used include lower or upper division language courses in Chinese, Japanese or Korean. The waiver will be evaluated by the Pacific Asian Studies coordinator or faculty advisors based on prior coursework or native proficiency in an appropriate language.\n\n### Electives (3-9 units)\n\nSelect electives from at least two of the above three categories as needed to reach 18 units for the minor. Courses that are used to satisfy core requirements may not also be used as electives.\n\n### Study Abroad Courses\n\nStudents completing the Pacific Asian Studies Minor are encouraged to participate in study-abroad programs. With the Pacific Asian Studies coordinator’s approval, courses completed in certified SF State Study-Abroad programs may be substituted for the minor requirements.",
-    "sections": [
-     {
-      "heading_path": [
-       "Pacific Asian Studies Minor — 18 units minimum"
-      ],
-      "text": "A minimum of 6 upper-division units are required to complete the minor. No more than 9 units can be completed in transfer.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0. No more than 6 units may be completed on a Cr/NCr basis.\n\nSome courses have additional prerequisites that will need to be met to be able to take the course."
-     },
-     {
-      "heading_path": [
-       "Core (9-12 units)",
-       "Category A: China/Hong Kong/Taiwan Studies"
-      ],
-      "text": "Select 3-4 units from the following:\n\n- CHIN 401 | Advanced Chinese | 3\n- CHIN 411 | Media Chinese | 3\n- CHIN 501 | Introduction to Classical Chinese | 3\n- CHIN 521 | Chinese Modern Fiction | 3\n- CHIN 600 | Topics in Chinese Language, Literature, and Culture in English | 3\n- CHIN 601GW | The Poetic Tradition - GWAR | 3\n- CHIN 602 | The Narrative Tradition | 3\n- GEOG 575 | Emerging China | 3\n- HH 210 | The Dao of Well-Being in Chinese Tradition | 3\n- HH 383 | Chinese Perspectives in Holistic Health | 3\n- HH 420 | Qigong Body-Mind Energetics | 3\n- HH 530 | Eastern Nutrition and Herbs | 3\n- HIST 360 | Ancient Chinese Civilization | 3\n- HIST 361 | Imperial China | 3\n- HIST 362 | History of Modern China | 3\n- HUM 370 | Biography of a City: Asian Cities | 3\n- HUM 530 | Chinese Civilization | 3\n- HUM 531 | Images of Modern China | 3\n- IBUS 592 | Doing Business in Greater China | 3\n- PLSI 325 | Chinese Foreign Policy | 4\n- PLSI 404 | Politics of China | 4\n- KIN 148 | Elementary Kung Fu | 1\n- CHIN 511 | Chinese Philosophy and Religion | 3"
-     },
-     {
-      "heading_path": [
-       "Core (9-12 units)",
-       "Category B: Japan/Korea/Southeast Asia Studies"
-      ],
-      "text": "Select 3-4 units from the following:\n\n- HUM 541 | Manga | 3\n- CWL 432 | From Ghost Stories to Short Stories: Japanese Fiction in Comparative Contexts | 3\n- HIST 376 | History of Southeast Asia | 3\n- HIST 384 | History of Modern Korea | 3\n- HUM 370 | Biography of a City: Asian Cities | 3\n- IBUS 596 | Doing Business in Japan | 3\n- MLL 200 | Art of Japanese Writing and Calligraphy | 3\n- JAPN 302 | Japanese Reading and Grammar | 3\n- JAPN 309 | Advanced Readings in Japanese I | 3\n- JAPN 390 | Business Japanese | 3\n- JAPN 401 | Topics in Japanese Culture | 3\n- JAPN 510 | Modern Japanese Literature | 3\n- PLSI 418 | Political Transitions in East & Southeast Asia | 4"
-     },
-     {
-      "heading_path": [
-       "Core (9-12 units)",
-       "Category C: Regional/Comparative Studies"
-      ],
-      "text": "Select 3-4 units from the following:\n\n- ANTH 315 | Regional Ethnography | 3\n- HUM 205 | Asian Art History | 3\n- CINE 103 | Asian Popular Culture in Global Perspective | 4\n- TH A 408 | Performance in Asia and the Asian Diaspora | 3\n- HH 381 | Holistic Health: Eastern Perspectives | 3\n- HH 540 | Meditation for Health and Wellness | 3\n- HH 545 | Mind-Body Healing in Tibetan Culture | 3\n- HIST 364 | Sex and Gender in East Asia | 3\n- I R 303 | Post-Western World: Political, Economic, and Cultural Challenges | 1\n- MLL 345 | US-China Conflict and Cooperation in Asia | 4\n- MUS 513 | Asian Musical Diaspora | 3\n- PHIL 210 | Great Thinkers: East and West | 3\n- PRSN 502 | World Religions | 3\n- PRSN 509 | The Buddhist Tradition | 3\n- I R 411 | East Asian Politics | 4\n- PLSI 419 | Comparative Political Economy | 4"
-     },
-     {
-      "heading_path": [
-       "Pacific Asian Language Requirement (3-4 units)"
-      ],
-      "text": "Students completing the Pacific Asian Studies Minor are required to complete at least one semester of a language course relevant to the regions studied in the minor, or request that this requirement be waived based on existing competency in one of these languages. Courses that can be used include lower or upper division language courses in Chinese, Japanese or Korean. The waiver will be evaluated by the Pacific Asian Studies coordinator or faculty advisors based on prior coursework or native proficiency in an appropriate language."
-     },
-     {
-      "heading_path": [
-       "Electives (3-9 units)"
-      ],
-      "text": "Select electives from at least two of the above three categories as needed to reach 18 units for the minor. Courses that are used to satisfy core requirements may not also be used as electives."
-     },
-     {
-      "heading_path": [
-       "Study Abroad Courses"
-      ],
-      "text": "Students completing the Pacific Asian Studies Minor are encouraged to participate in study-abroad programs. With the Pacific Asian Studies coordinator’s approval, courses completed in certified SF State Study-Abroad programs may be substituted for the minor requirements."
-     }
-    ]
-   }
-  ],
-  "course_codes": [],
-  "subjects": [],
-  "programs": [],
   "college_name": "College of Liberal and Creative Arts"
  },
  {
@@ -11675,218 +11281,9 @@
    "liberal-creative-arts/political-science/ba-political-science",
    "liberal-creative-arts/political-science/certificate-pre-law",
    "liberal-creative-arts/political-science/ma-political-science",
+   "liberal-creative-arts/political-science/minor-critical-social-thought",
    "liberal-creative-arts/political-science/minor-political-science"
   ],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/political-science/minor-critical-social-thought",
-  "name": "Minor in Critical Social Thought",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/minor-critical-social-thought/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\n### Department of Political Science\n\nHumanities Building, Room 304\n\nPhone: (415) 338-2247\n\nWebsite: http://politicalscience.sfsu.edu/\n\nChair: Nicole Watts\n\nGraduate Coordinator: Katherine Gordy\n\n### Critical Social Thought Program\n\nHumanities Building, Room 304\n\nPhone: (415) 338-2247\n\nCoordinator: James Martel\n\n## Program Scope\n\nCritical social theory challenges contemporary forms of political-economic power. In coursework and internships, the Minor in Critical Social Thought program draws from Marxism, socialism, anarchism, the Frankfurt School, radical environmentalism and anti-consumerism, postmodernism and post-structuralism, globalization studies, feminism, queer theory, postcolonial and subaltern studies, disability studies, critical race theory, theories of art and visual representation, and other systems of thought that pay attention to the questions of power and exploitation in world politics, culture, economics, and the formation of identities.\n\nThe minor seeks to address the way that so much of contemporary social thought is uncritical. It is guided by the belief that a better world is possible and that social thought has an important role in outlining the form such a world might take and identifying the agents who might be capable of bringing it about.\n\n### Applications\n\nCritical social thought serves as a foundation in critical theory that can be applied to a variety of disciplines in the social sciences, humanities, and the arts. Critical social thought can be pursued in conjunction with any number of majors enriching and diversifying these fields of study including but not limited to sociology, human sexuality studies, psychology, history, philosophy, women and gender studies, Latinx studies, ethnic studies, political science, international relations, criminal justice, etc. In addition, critical social thought can help establish skills that will be useful in post-graduate careers ranging from social activism and social work to politics, law, health care, policy, and many others.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy"
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Department of Political Science"
-      ],
-      "text": "Humanities Building, Room 304\n\nPhone: (415) 338-2247\n\nWebsite: http://politicalscience.sfsu.edu/\n\nChair: Nicole Watts\n\nGraduate Coordinator: Katherine Gordy"
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Critical Social Thought Program"
-      ],
-      "text": "Humanities Building, Room 304\n\nPhone: (415) 338-2247\n\nCoordinator: James Martel"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "Critical social theory challenges contemporary forms of political-economic power. In coursework and internships, the Minor in Critical Social Thought program draws from Marxism, socialism, anarchism, the Frankfurt School, radical environmentalism and anti-consumerism, postmodernism and post-structuralism, globalization studies, feminism, queer theory, postcolonial and subaltern studies, disability studies, critical race theory, theories of art and visual representation, and other systems of thought that pay attention to the questions of power and exploitation in world politics, culture, economics, and the formation of identities.\n\nThe minor seeks to address the way that so much of contemporary social thought is uncritical. It is guided by the belief that a better world is possible and that social thought has an important role in outlining the form such a world might take and identifying the agents who might be capable of bringing it about."
-     },
-     {
-      "heading_path": [
-       "Program Scope",
-       "Applications"
-      ],
-      "text": "Critical social thought serves as a foundation in critical theory that can be applied to a variety of disciplines in the social sciences, humanities, and the arts. Critical social thought can be pursued in conjunction with any number of majors enriching and diversifying these fields of study including but not limited to sociology, human sexuality studies, psychology, history, philosophy, women and gender studies, Latinx studies, ethnic studies, political science, international relations, criminal justice, etc. In addition, critical social thought can help establish skills that will be useful in post-graduate careers ranging from social activism and social work to politics, law, health care, policy, and many others."
-     }
-    ]
-   },
-   {
-    "tab": "Faculty",
-    "markdown": "## Professor\n\nTeresa Carrillo (1993), Professor in Latina/Latino Studies. Ph.D. Stanford University.\n\nMariana Ferreira (2003), Professor in Liberal Studies. Ph.D. University of California, Berkeley and San Francisco.\n\nKatherine Gordy (2008), Professor in Political Science. Ph.D. Cornell University.\n\nJoel J. Kassiola (1995), Professor in Political Science. Ph.D. Princeton University.\n\nJames R. Martel (2002), Professor in Political Science. Ph.D. University of California, Berkeley.\n\nRaquel Rivera Pinderhuges (1992), Professor in Urban Studies and Planning. Ph.D. Graduate Center of New York.",
-    "sections": [
-     {
-      "heading_path": [
-       "Professor"
-      ],
-      "text": "Teresa Carrillo (1993), Professor in Latina/Latino Studies. Ph.D. Stanford University.\n\nMariana Ferreira (2003), Professor in Liberal Studies. Ph.D. University of California, Berkeley and San Francisco.\n\nKatherine Gordy (2008), Professor in Political Science. Ph.D. Cornell University.\n\nJoel J. Kassiola (1995), Professor in Political Science. Ph.D. Princeton University.\n\nJames R. Martel (2002), Professor in Political Science. Ph.D. University of California, Berkeley.\n\nRaquel Rivera Pinderhuges (1992), Professor in Urban Studies and Planning. Ph.D. Graduate Center of New York."
-     }
-    ]
-   },
-   {
-    "tab": "Minor",
-    "markdown": "## Critical Social Thought, Minor – 15-19 units\n\nEach student shall, in consultation with a faculty advisor, develop an individual program of 15-19 units. Students may also take an internship program in political activism or other related areas in conjunction with these classes to count towards the minor. If the introductory course is not available, other courses can be substituted on advisement.\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Introduction (3 units)\n\nOverview of the tradition of critical social thought.\n\n- CST 300 | Introduction to Critical Social Thought | 3\n\n### Core - Theory and Pedagogy (6-8 units)\n\nSelect At Least Two:\n\n- PHIL 330 | Political Philosophy | 3\n- PLSI 351 | Political Theory: The Classical Tradition | 4\n- PHIL 355 | Politics and Ethics of the Consumer Society | 3\n- PLSI 360 | Development of American Political Thought | 4\n- SOC 394 | Inside the Social World: Qualitative Research Tools | 4\n- SOC 272 | Social Inequality: Poverty, Wealth, and Privilege | 4\n\n### Electives (6-8 units)\n\nChoose at least two courses from at least two of the following fields:\n\n- Identity and Resistance\n- Globalism, Empire, and Social Movements\n- Culture as Critical Social Thought\n\nAn approved internship may be substituted for 3-4 units of electives.\n\n#### Identity and Resistance (3-4 units)\n\n- CST 320 | Racism: Cross-Cultural Analysis | 3\n- ANTH 569 | Cross-Cultural Aspects of Sex and Gender | 3\n- CST 590 | Feminist Anthropology | 3\n- PHIL 375 | Peace Law and Human Rights in the U.S. | 3\n- HUM 415 | Thinking the Present: Comparative Arts and Culture | 3\n- LTNS 415 | Latina/o Economic Empowerment | 3\n- PLSI 381 | Political Theories of Sexuality | 4\n- SXS 455 | Sex, Power, and Politics | 3\n\n#### Globalism, Empire, and Social Movements (3-4 units)\n\n- CST 585 | Globalization and World Cultures | 3\n- PHIL 315 | Introduction to Global Peace Studies | 3\n- HIST 343 | Soviet Russia, the West, and the Cold War | 3\n- HIST 398 | History of Modern European Imperialism | 3\n- WGS 445 | Gendered Borders: Latinas and Globalization | 3\n- PHIL 435 | Human Rights in Global Perspective | 3\n- PLSI 354 | Politics, the Environment, and Social Change | 4\n- USP 514 | Sustainable Development in Cities | 4\n- USP 515 | Environmental Justice: Race, Poverty, and the Environment | 4\n\n#### Culture as Critical Social Thought (3-4 units)\n\n- CINE 327 | Anthropology and Film | 3\n- WGS 485 | Women and Media | 3\n- CINE 305 | Film and the Holocaust | 3\n- CINE 308 | Third Cinema | 3\n- CINE 342 | Documentary Film | 3\n- CINE 373 | Film and Society | 3\n- COMM 525 | Sexualities and Communication | 4\n- DANC 350 | Dance Aesthetics: Cultural/Historical Perspectives | 3\n- MUS 505 | Music of the World's Peoples | 3\n- MUS 511 | The Roots of Rock | 3",
-    "sections": [
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units"
-      ],
-      "text": "Each student shall, in consultation with a faculty advisor, develop an individual program of 15-19 units. Students may also take an internship program in political activism or other related areas in conjunction with these classes to count towards the minor. If the introductory course is not available, other courses can be substituted on advisement.\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0."
-     },
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units",
-       "Introduction (3 units)"
-      ],
-      "text": "Overview of the tradition of critical social thought.\n\n- CST 300 | Introduction to Critical Social Thought | 3"
-     },
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units",
-       "Core - Theory and Pedagogy (6-8 units)"
-      ],
-      "text": "Select At Least Two:\n\n- PHIL 330 | Political Philosophy | 3\n- PLSI 351 | Political Theory: The Classical Tradition | 4\n- PHIL 355 | Politics and Ethics of the Consumer Society | 3\n- PLSI 360 | Development of American Political Thought | 4\n- SOC 394 | Inside the Social World: Qualitative Research Tools | 4\n- SOC 272 | Social Inequality: Poverty, Wealth, and Privilege | 4"
-     },
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units",
-       "Electives (6-8 units)"
-      ],
-      "text": "Choose at least two courses from at least two of the following fields:\n\n- Identity and Resistance\n- Globalism, Empire, and Social Movements\n- Culture as Critical Social Thought\n\nAn approved internship may be substituted for 3-4 units of electives."
-     },
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units",
-       "Electives (6-8 units)",
-       "Identity and Resistance (3-4 units)"
-      ],
-      "text": "- CST 320 | Racism: Cross-Cultural Analysis | 3\n- ANTH 569 | Cross-Cultural Aspects of Sex and Gender | 3\n- CST 590 | Feminist Anthropology | 3\n- PHIL 375 | Peace Law and Human Rights in the U.S. | 3\n- HUM 415 | Thinking the Present: Comparative Arts and Culture | 3\n- LTNS 415 | Latina/o Economic Empowerment | 3\n- PLSI 381 | Political Theories of Sexuality | 4\n- SXS 455 | Sex, Power, and Politics | 3"
-     },
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units",
-       "Electives (6-8 units)",
-       "Globalism, Empire, and Social Movements (3-4 units)"
-      ],
-      "text": "- CST 585 | Globalization and World Cultures | 3\n- PHIL 315 | Introduction to Global Peace Studies | 3\n- HIST 343 | Soviet Russia, the West, and the Cold War | 3\n- HIST 398 | History of Modern European Imperialism | 3\n- WGS 445 | Gendered Borders: Latinas and Globalization | 3\n- PHIL 435 | Human Rights in Global Perspective | 3\n- PLSI 354 | Politics, the Environment, and Social Change | 4\n- USP 514 | Sustainable Development in Cities | 4\n- USP 515 | Environmental Justice: Race, Poverty, and the Environment | 4"
-     },
-     {
-      "heading_path": [
-       "Critical Social Thought, Minor – 15-19 units",
-       "Electives (6-8 units)",
-       "Culture as Critical Social Thought (3-4 units)"
-      ],
-      "text": "- CINE 327 | Anthropology and Film | 3\n- WGS 485 | Women and Media | 3\n- CINE 305 | Film and the Holocaust | 3\n- CINE 308 | Third Cinema | 3\n- CINE 342 | Documentary Film | 3\n- CINE 373 | Film and Society | 3\n- COMM 525 | Sexualities and Communication | 4\n- DANC 350 | Dance Aesthetics: Cultural/Historical Perspectives | 3\n- MUS 505 | Music of the World's Peoples | 3\n- MUS 511 | The Roots of Rock | 3"
-     }
-    ]
-   }
-  ],
-  "course_codes": [
-   "CST 300",
-   "CST 320",
-   "CST 585",
-   "CST 590"
-  ],
-  "subjects": [
-   "CST"
-  ],
-  "programs": [],
-  "college_name": "College of Liberal and Creative Arts"
- },
- {
-  "id": "liberal-creative-arts/religious-studies",
-  "name": "Minor in Religious Studies",
-  "college": "liberal-creative-arts",
-  "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/religious-studies/",
-  "tabs": [
-   {
-    "tab": "Overview",
-    "markdown": "## College of Liberal & Creative Arts\n\nActing Dean: Dr. David Landy\n\n### Religious Studies Program\n\nHUM 388\n\nPhone: (415) 338-1596\n\nCoordinator: Mohammad Azadpur\n\nUndergraduate Advisors: Justin Tiwald\n\n## Program Scope\n\nThe Minor in Religious Studies offers students the opportunity to study the full spectrum of humankind’s religious heritage from an interdisciplinary perspective. Religion is an individual as well as a social phenomenon and the curriculum takes the students through both realms. Basic value questions are investigated from the viewpoint of religion, of disciplines looking at religion and of the individual in a pluralistic, unsettled world. More than half the minor is individually selected in consultation with an advisor, though the courses must represent the different dimensions of the religious experience as listed on the \"Courses\" page. Students may choose to focus their course combination in the minor on a specific religious tradition such as Judaism, Islam, Christianity, Buddhism; on a particular issue common to different religions; or on a particular culture or historical period.\n\nAs an interdisciplinary minor, religious studies can be taken in conjunction with any major.\n\n### Career Outlook\n\nThe religious studies minor provides an excellent background for those considering the ministry, social work, counseling, politics, law, or teaching at any level. As a help in shaping a person's view of the meaning and purpose of life, it can be of lasting value whatever one's career.\n\n## Program Learning Outcomes\n\n1. Understand aspects of the full spectrum of humankind’s religious heritage from an interdisciplinary perspective.\n2. Investigate basic value questions from the viewpoint of religion, of disciplines looking at religion, and of the individual in a pluralistic, unsettled world.",
-    "sections": [
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts"
-      ],
-      "text": "Acting Dean: Dr. David Landy"
-     },
-     {
-      "heading_path": [
-       "College of Liberal & Creative Arts",
-       "Religious Studies Program"
-      ],
-      "text": "HUM 388\n\nPhone: (415) 338-1596\n\nCoordinator: Mohammad Azadpur\n\nUndergraduate Advisors: Justin Tiwald"
-     },
-     {
-      "heading_path": [
-       "Program Scope"
-      ],
-      "text": "The Minor in Religious Studies offers students the opportunity to study the full spectrum of humankind’s religious heritage from an interdisciplinary perspective. Religion is an individual as well as a social phenomenon and the curriculum takes the students through both realms. Basic value questions are investigated from the viewpoint of religion, of disciplines looking at religion and of the individual in a pluralistic, unsettled world. More than half the minor is individually selected in consultation with an advisor, though the courses must represent the different dimensions of the religious experience as listed on the \"Courses\" page. Students may choose to focus their course combination in the minor on a specific religious tradition such as Judaism, Islam, Christianity, Buddhism; on a particular issue common to different religions; or on a particular culture or historical period.\n\nAs an interdisciplinary minor, religious studies can be taken in conjunction with any major."
-     },
-     {
-      "heading_path": [
-       "Program Scope",
-       "Career Outlook"
-      ],
-      "text": "The religious studies minor provides an excellent background for those considering the ministry, social work, counseling, politics, law, or teaching at any level. As a help in shaping a person's view of the meaning and purpose of life, it can be of lasting value whatever one's career."
-     },
-     {
-      "heading_path": [
-       "Program Learning Outcomes"
-      ],
-      "text": "1. Understand aspects of the full spectrum of humankind’s religious heritage from an interdisciplinary perspective.\n2. Investigate basic value questions from the viewpoint of religion, of disciplines looking at religion, and of the individual in a pluralistic, unsettled world."
-     }
-    ]
-   },
-   {
-    "tab": "Program Requirements",
-    "markdown": "## Religious Studies Minor - 15 units\n\nA minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0.\n\n### Core (6 units)\n\n- PHIL 425 | Existentialism | 3\n- A 500-level PHIL course | 3\n\n### Electives (9 units)\n\nSelect Three:\n\n- AFRS 326 | Black Religion | 3\n- AIS 310 | American Indian Religion and Philosophy | 3\n- AIS 450 | American Indian Science | 3\n- ARTH 202 | Global Art History II | 3\n- HUM 205 | Asian Art History | 3\n- CLAS 230 | Ancient Epic Tales | 3\n- CWL 260 | Myths of the World | 3\n- DANC 430 | Survey of Ballet and Modern Dance History | 3\n- ANTH 657 | Ethnography of Dance | 3\n- ENG 501 | Age of Chaucer | 3\n- ENG 503 | Studies in Medieval Literature | 3\n- ENG 525 | Studies in American Literature | 3\n- ENG 580 | Individual Authors | 3\n- ENG 589 | Milton | 3\n- ENG 630 | Selected Studies | 3\n- HIST 110 | History of Western Civilization I | 3\n- HIST 321 | Hellenistic Greece | 3\n- HIST 326 | The Byzantine Empire | 3\n- HIST 328 | Pagans and Christians in a Changing Roman World | 3\n- HIST 329 | Early Christian Church 313-787 | 3\n- HIST 331 | The High Middle Ages | 3\n- HUM 480 | Thought and Culture in America to 1880 | 3\n- HUM 345 | Humanism and Mysticism | 3\n- HUM 403 | Vikings, Caliphs, & Carolingians: Europe in the Early Middle Ages | 3\n- JS 410 | Kabbalah, Jewish Mysticism, and Literature | 3\n- PHIL 501 | Judaism, Christianity, and Islam | 3\n- MUS 505 | Music of the World's Peoples | 3\n- PHIL 302 | Medieval Philosophy | 3\n- PHIL 436 | Islamic Political Philosophy | 3\n- PHIL 500 | Philosophy of Religion | 3\n- PRSN 509 | The Buddhist Tradition | 3\n- CHIN 511 | Chinese Philosophy and Religion | 3\n- PHIL 516 | Islamic Philosophy | 3\n- TH A 401 | Global Theatre History I | 3\n- WGS 565 | Muslim Feminisms | 3",
-    "sections": [
-     {
-      "heading_path": [
-       "Religious Studies Minor - 15 units"
-      ],
-      "text": "A minimum of 6 upper-division units are required to complete the minor.\n\nAll coursework used to satisfy the requirements of the minor must be completed with a minimum grade point average of 2.0."
-     },
-     {
-      "heading_path": [
-       "Religious Studies Minor - 15 units",
-       "Core (6 units)"
-      ],
-      "text": "- PHIL 425 | Existentialism | 3\n- A 500-level PHIL course | 3"
-     },
-     {
-      "heading_path": [
-       "Religious Studies Minor - 15 units",
-       "Electives (9 units)"
-      ],
-      "text": "Select Three:\n\n- AFRS 326 | Black Religion | 3\n- AIS 310 | American Indian Religion and Philosophy | 3\n- AIS 450 | American Indian Science | 3\n- ARTH 202 | Global Art History II | 3\n- HUM 205 | Asian Art History | 3\n- CLAS 230 | Ancient Epic Tales | 3\n- CWL 260 | Myths of the World | 3\n- DANC 430 | Survey of Ballet and Modern Dance History | 3\n- ANTH 657 | Ethnography of Dance | 3\n- ENG 501 | Age of Chaucer | 3\n- ENG 503 | Studies in Medieval Literature | 3\n- ENG 525 | Studies in American Literature | 3\n- ENG 580 | Individual Authors | 3\n- ENG 589 | Milton | 3\n- ENG 630 | Selected Studies | 3\n- HIST 110 | History of Western Civilization I | 3\n- HIST 321 | Hellenistic Greece | 3\n- HIST 326 | The Byzantine Empire | 3\n- HIST 328 | Pagans and Christians in a Changing Roman World | 3\n- HIST 329 | Early Christian Church 313-787 | 3\n- HIST 331 | The High Middle Ages | 3\n- HUM 480 | Thought and Culture in America to 1880 | 3\n- HUM 345 | Humanism and Mysticism | 3\n- HUM 403 | Vikings, Caliphs, & Carolingians: Europe in the Early Middle Ages | 3\n- JS 410 | Kabbalah, Jewish Mysticism, and Literature | 3\n- PHIL 501 | Judaism, Christianity, and Islam | 3\n- MUS 505 | Music of the World's Peoples | 3\n- PHIL 302 | Medieval Philosophy | 3\n- PHIL 436 | Islamic Political Philosophy | 3\n- PHIL 500 | Philosophy of Religion | 3\n- PRSN 509 | The Buddhist Tradition | 3\n- CHIN 511 | Chinese Philosophy and Religion | 3\n- PHIL 516 | Islamic Philosophy | 3\n- TH A 401 | Global Theatre History I | 3\n- WGS 565 | Muslim Feminisms | 3"
-     }
-    ]
-   }
-  ],
-  "course_codes": [
-   "RELS 265",
-   "RELS 300",
-   "RELS 482",
-   "RELS 503"
-  ],
-  "subjects": [
-   "RELS"
-  ],
-  "programs": [],
   "college_name": "College of Liberal and Creative Arts"
  },
  {

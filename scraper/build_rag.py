@@ -52,11 +52,20 @@ class Chunks:
     def __init__(self):
         self.items = []
         self.ids = collections.Counter()
+        self.seen_bodies = set()
 
     def add(self, cid, ctype, title, header, body, url, meta):
         body = (body or "").strip()
         if not body:
             return
+        # drop stubs ("Roadmap > Roadmap / This roadmap opens in a new tab.") unless the type is inherently short
+        payload = re.sub(r"^[^\n]*\n", "", body) if "\n" in body else body
+        if len(payload.strip()) < 60 and ctype not in ("course", "academic_rule", "program_summary", "subject_index"):
+            return
+        key = re.sub(r"\s+", " ", body)
+        if key in self.seen_bodies:
+            return
+        self.seen_bodies.add(key)
         pieces = split_text(body)
         for i, piece in enumerate(pieces):
             uid = cid if len(pieces) == 1 else f"{cid}#part{i + 1}"
@@ -72,6 +81,26 @@ class Chunks:
                 "url": url,
                 "metadata": {k: v for k, v in meta.items() if v not in (None, [], "", {})},
             })
+
+
+RULE_KEYWORDS = {
+    "unit_load": "maximum units per semester, max units, unit cap, course load, full-time, part-time, how many classes",
+    "graduation_units": "units to graduate, credits needed, total units, degree requirements, how many units",
+    "gpa": "GPA needed to graduate, minimum GPA, grade point average",
+    "withdrawal": "withdraw from a class, drop a class late, W grade, withdrawal limit",
+    "registration": "enrollment, add a class, drop a class, audit, readmission, leave of absence",
+    "grading": "grades, CR/NC, credit/no credit, pass/fail, incomplete, grade points",
+    "repeat": "retake a class, repeat a course, grade forgiveness, replace a grade",
+    "academic_standing": "probation, academic notice, disqualification, dismissed, kicked out, GPA below 2.0",
+    "honors": "dean's list, honors, cum laude, latin honors",
+    "transfer_credit": "transfer units, community college credit, AP, IB, CLEP, credit by exam",
+    "general_education": "GE requirements, general education areas, breadth",
+    "major": "major requirements, double major, declare a major, change major",
+    "minor": "minor requirements, minor units",
+    "catalog_rights": "catalog year, which bulletin applies, catalog rights, graduation requirements year",
+    "time_limit": "how long to finish, time limit, seven years, deadline to complete degree",
+    "graduation": "apply to graduate, graduation application, diploma, second bachelor's",
+}
 
 
 def course_text(c, prog_names):
@@ -132,7 +161,9 @@ def item_lines(items):
         t = it.get("type")
         if t == "course":
             u = f" ({it['units']} units)" if it.get("units") else ""
-            out.append(f"- {it['code']}: {it['title']}{u}")
+            aka = f" [also listed as {', '.join(it['also_listed_as'])}]" if it.get("also_listed_as") else ""
+            nt = f" — {'; '.join(it['notes'])}" if it.get("notes") else ""
+            out.append(f"- {it['code']}: {it['title']}{u}{aka}{nt}")
         elif t == "one_of":
             opts = " OR ".join(f"{o['code']} {o['title']}" for o in it["options"])
             u = f" ({it['units']} units)" if it.get("units") else ""
@@ -173,15 +204,18 @@ def main():
 
     # ------------------------------------------------------------ academic rules (highest-value facts)
     for r in rules:
-        ch.add(f"rule:{r['id']}", "academic_rule", r["rule"][:80],
-               f"[{SRC}] Academic rule ({r['category'].replace('_', ' ')}; applies to: {r['applies_to']})",
-               f"{r['rule']}\nBulletin text: \"{r['quote']}\"\nSource: {r['source_page']} > {r['source_section']}",
-               r["source_url"], {"category": r["category"], "applies_to": r["applies_to"], "values": r["values"]})
+        conflicts = "".join(f"\nConflicting bulletin text ({c['source_page']}): \"{c['quote']}\" — {c['note']}"
+                            for c in r.get("conflicts", []))
+        ch.add(f"rule:{r['id']}", "academic_rule", r["topic"],
+               f"[{SRC}] Academic rule: {r['topic']} ({r['applies_to']} students)",
+               f"{r['rule']}\nBulletin text: \"{r['quote']}\"{conflicts}\nSource: {r['source_page']} > {r['source_section']}",
+               r["source_url"], {"category": r["category"], "applies_to": r["applies_to"], "values": r["values"],
+                                 "has_conflict": bool(r.get("conflicts"))})
 
     # ------------------------------------------------------------ courses
     for c in courses:
         ch.add(f"course:{c['code']}", "course", f"{c['code']} {c['title']}",
-               f"[{SRC}] Course", course_text(c, prog_names), c["source_url"],
+               f"[{SRC}] Course {c['code']}: {c['title']}", course_text(c, prog_names), c["source_url"],
                {"course_code": c["code"], "subject": c["subject"], "level": c["level"], "units": c["units"],
                 "units_min": c["units_min"], "units_max": c["units_max"], "ge_areas": c["ge_areas"],
                 "sf_state_studies": c["sf_state_studies"], "satisfies_gwar": c.get("satisfies_gwar"),
@@ -202,9 +236,11 @@ def main():
                 "award_type": p["award_type"], "level": p["level"], "concentration": p["concentration"],
                 "field": p["field"], "college": p["college"], "department": p["department"],
                 "status": p["status"], "total_units": p["total_units"]}
-        ctx = (f"[{SRC}] Program: {p['name']} | {p['degree'] or ''} | "
-               f"{college_names.get(p['college'], p['college'])}"
-               f"{' | Department: ' + dept_names.get(p['department'], p['department']) if p['department'] else ''}")
+        parts = [f"Program: {p['name']}", p["degree"], college_names.get(p["college"], p["college"]),
+                 ("Department: " + dept_names.get(p["department"], p["department"])) if p["department"] else None]
+        ctx = f"[{SRC}] " + " | ".join(x for x in parts if x)
+        if p["status"] != "Active":
+            ctx += f"\nSTATUS: {p['status'].upper()}. This program is not accepting new students."
         summary = [f"{p['name']}",
                    f"Award: {p['degree']} ({p['award_type']}, {p['level']})",
                    f"Status: {p['status']}"]
@@ -236,6 +272,7 @@ def main():
                 body.append(f"Units for this requirement: {b['units']}")
             body += b["notes"]
             body.append(item_lines(b["items"]))
+            body += b.get("notes_after", [])
             ch.add(f"program:{p['id']}:req{i + 1}", "program_requirement", f"{p['name']} — {hp}", ctx,
                    "\n".join(x for x in body if x), p["url"], dict(meta, heading_path=b["heading_path"],
                                                                    courses=b["courses"]))
@@ -292,12 +329,24 @@ def main():
 
     # ------------------------------------------------------------ policies and general university info
     for pg in policies:
+        if pg.get("duplicate_of") or pg.get("empty"):
+            continue
         kind = "faculty_directory" if pg["category"] == "faculty" else "policy"
         ctx = f"[{SRC}] {pg['title']} ({pg['category'].replace('-', ' ')})"
         for t in pg["tabs"]:
             for j, s in enumerate(t["sections"]):
                 hp = " > ".join(s["heading_path"]) or t["tab"]
                 label = hp if t["tab"] == "Overview" else f"{t['tab']} > {hp}"
+                items = re.split(r"\n(?=- \*\*)", s["text"])
+                if len(s["text"]) > 1500 and len(items) >= 4:
+                    # long lists of labelled rules (e.g. "**Double Major** ...") become one chunk per label
+                    for k, item in enumerate(items):
+                        m = re.match(r"- \*\*(.+?)\*\*", item)
+                        sub = f"{label} > {m.group(1).strip()}" if m else label
+                        ch.add(f"policy:{pg['id']}:{t['tab']}:{j}.{k}", kind, f"{pg['title']} — {sub}", ctx,
+                               f"{pg['title']} > {sub}\n{item}", pg["url"],
+                               {"page_id": pg["id"], "category": pg["category"], "heading_path": s["heading_path"]})
+                    continue
                 ch.add(f"policy:{pg['id']}:{t['tab']}:{j}", kind, f"{pg['title']} — {label}", ctx,
                        f"{pg['title']} > {label}\n{s['text']}", pg["url"],
                        {"page_id": pg["id"], "category": pg["category"], "heading_path": s["heading_path"]})
@@ -316,7 +365,8 @@ def main():
                                "level": p["level"], "total_units": p["total_units"], "status": p["status"],
                                "concentration": p["concentration"], "url": p["url"],
                                "roadmaps": p["roadmap_urls"]} for p in programs},
-        "program_names": {p["name"].lower(): p["id"] for p in programs},
+        "program_names": {name: sorted(p["id"] for p in programs if p["name"].lower() == name)
+                          for name in {p["name"].lower() for p in programs}},
         "subjects": {s["subject_code"]: s["subject_name"] for s in course_index},
         "policies": {pg["id"]: {"title": pg["title"], "url": pg["url"]} for pg in policies},
         "rules": {r["id"]: r["rule"] for r in rules},
