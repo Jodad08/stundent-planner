@@ -522,3 +522,42 @@ export function criticalCourses(p: Plan, dag: Dag): Record<CourseId, { chain: Co
   }
   return out
 }
+
+/**
+ * Fill GE / free-elective units with placeholder cards up to `target` units per semester until the
+ * plan reaches the degree minimum. Major courses are never moved. Deterministic.
+ */
+export function fillPlaceholders(p: Plan, dag: Dag, target: number): Plan {
+  const q: Plan = { ...p, semesters: p.semesters.map(s => ({ ...s, courseIds: s.courseIds.filter(c => !isPlaceholder(c)) })) }
+  let total = q.semesters.reduce((sum, s) => sum + s.courseIds.reduce((a, c) => a + unitsOf(dag, c), 0), 0)
+  let n = 0
+  for (const s of q.semesters) {
+    let units = s.courseIds.reduce((a, c) => a + unitsOf(dag, c), 0)
+    while (units < target && total < dag.university.min_units) {
+      const u = Math.min(3, target - units, dag.university.min_units - total)
+      s.courseIds.push(placeholderId(u, ++n)); units += u; total += u
+    }
+  }
+  return q
+}
+
+/** Coerce untrusted model output into an 8-semester plan. Unknown IDs are dropped (and reported), never auto-corrected. */
+export function sanitizeSemesters(raw: unknown, dag: Dag): { semesters: ReturnType<typeof emptySemesters>; dropped: string[] } {
+  const semesters = emptySemesters()
+  const dropped: string[] = []
+  const seen = new Set<CourseId>()
+  const list = Array.isArray(raw) ? raw : []
+  for (const item of list) {
+    if (!item || typeof item !== "object") continue
+    const { index, courseIds } = item as { index?: unknown; courseIds?: unknown }
+    if (typeof index !== "number" || index < 1 || index > SEMESTER_COUNT || !Array.isArray(courseIds)) continue
+    for (const c of courseIds) {
+      if (typeof c !== "string") continue
+      if (!dag.nodes[c]) { if (!isPlaceholder(c)) dropped.push(c); continue }
+      if (seen.has(c)) continue
+      seen.add(c)
+      semesters[index - 1].courseIds.push(c)
+    }
+  }
+  return { semesters, dropped }
+}

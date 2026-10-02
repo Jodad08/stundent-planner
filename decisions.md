@@ -205,3 +205,29 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Run: `npm test`.
 - Proof: 15 tests pass, including pins against `web/planner.js` (fresh + mid-degree + bottlenecks), prereq order/missing, concurrency, coreq, placement, 12/15/19 boundaries, unknown/duplicate IDs, reversed-plan control.
 - Can still fail: requirement checks ignore GE areas, SF State Studies and the 30 upper-division-unit rule (documented limits).
+
+## D-018: Model adapter details
+- Step: 4, 9
+- Decision: `server/gemini.ts` `completeJson(system, user, {purpose, schema, mock})`, providers `gemini | mock` (`AI_PROVIDER`, default mock without a key). Structured output via `responseMimeType: application/json` + `responseJsonSchema`. 25 s timeout, one retry; the retry uses `GEMINI_FALLBACK_MODEL` (`gemini-3.7-flash`) when set. Primary `GEMINI_MODEL=gemini-3.8-flash`. The mock plan seeds one prerequisite error (CSC 340 a semester early) so the repair loop runs with no key.
+- Alternatives: hardcode the model; retry on the same model only.
+- Why: `gemini-3.8-flash` returned 503 "high demand" twice during the build (13:55, 14:05); a different model on retry keeps the demo live.
+- Evidence: live `GET /v1beta/models` list 2026-10-02; SDK types `node_modules/@google/genai/dist/genai.d.ts` (`GenerateContentConfig.responseJsonSchema`, `abortSignal`); server log 2026-10-02
+- Risk / undo: Both models can be busy; then the deterministic fallback is shown and labeled.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+## D-019: AI plan harness rules
+- Step: 5
+- Decision: Gemini plans major courses only; code fills GE/free-elective placeholders (`fillPlaceholders`). Unknown IDs are dropped and reported back, never auto-corrected. A plan is accepted only with zero engine errors, all requirement groups complete and no standing warnings; otherwise up to 2 repair calls with the engine's messages, then the deterministic fallback (keeping any valid electives the model chose). Repair prompts carry engine messages only, never scores. Every call writes `runs/<id>.json`.
+- Alternatives: let Gemini place GE placeholders (more tokens, more errors).
+- Why: `plan.md` §11.1; skill "The model proposes. Code disposes."
+- Evidence: `plan.md` §11.1; `prompt.md` B.5 steps 5-6; run records in `runs/`
+- Risk / undo: Placeholder filling is code, so AI plans and fallback plans have identical GE handling.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+### Steps 4-6 and 9 summary
+- Changed: `server/` (adapter, prompts, plan/evaluate/data routes, runs, cache), `.env.example`.
+- Run: `npm run server` (mock without key) then `POST /api/plan`.
+- Proof: mock run repaired the seeded error on attempt 2; real `gemini-3.8-flash` "cybersecurity analyst" plan accepted on attempt 1 with no engine errors; a 503 run fell back to the labeled engine plan. Runs saved in `runs/`.
+- Can still fail: Gemini capacity (503); latency ~14 s per plan call.
