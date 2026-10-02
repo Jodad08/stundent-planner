@@ -15,7 +15,7 @@ export function traceOf(run: RunRecord): Stage[] {
   return run.steps.flatMap((s): Stage[] => {
     const d = s.detail as { problems?: string[]; dropped?: string[]; provider?: string; model?: string; ms?: number; reason?: string; raw?: { thoughts?: unknown } }
     const thoughts: Stage[] = Array.isArray(d.raw?.thoughts) ? (d.raw!.thoughts as unknown[]).filter(x => typeof x === "string").map(x => ({ label: x as string, state: "think" })) : []
-    const who = d.provider === "gemini" ? `Gemini (${d.model})` : "Simulated AI"
+    const who = d.provider === "gemini" ? `Gemini (${d.model})` : "PlanEd"
     if (s.name === "engine_check") {
       const n = d.problems?.length ?? 0
       return [{ label: names(n ? `Rules engine: ${n} problem${n > 1 ? "s" : ""} found${d.problems?.[0] ? `: ${d.problems[0]}` : ""}` : "Rules engine: no problems, plan accepted"), state: n ? "fail" : "done" }]
@@ -75,7 +75,7 @@ export function PlanModal() {
           <div className="mt-4 rounded-lg border border-white/10 bg-black p-3 text-sm">
             <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">What happened (saved run {result.resp.runId.slice(-6)})</div>
             <Thinking lines={result.trace} />
-            <div className="mt-2 text-slate-300"><b>{result.resp.plan.source === "ai" ? `${aiName(useStore.getState().health?.aiProvider)} plan accepted` : "Engine fallback plan"}</b> after {result.resp.attempts} model call{result.resp.attempts > 1 ? "s" : ""} · {result.resp.report.issues.filter(i => i.severity === "error").length} rule errors · {result.resp.report.graduationReady ? "graduation-ready" : "incomplete"}</div>
+            <div className="mt-2 text-slate-300"><b>{result.resp.plan.source === "ai" ? `${aiName(useStore.getState().health?.aiProvider)} plan accepted` : "Engine fallback plan"}</b> after {result.resp.attempts} attempt{result.resp.attempts > 1 ? "s" : ""} · {result.resp.report.issues.filter(i => i.severity === "error").length} rule errors · {result.resp.report.graduationReady ? "graduation-ready" : "incomplete"}</div>
             {result.resp.rationale && <div className="mt-2 text-slate-300"><span className="text-[10px] uppercase text-violet-300">{result.resp.plan.source === "ai" ? `Written by ${aiName(useStore.getState().health?.aiProvider)}` : "Written by code"}</span><br />{result.resp.rationale}</div>}
           </div>
         )}

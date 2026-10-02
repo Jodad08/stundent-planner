@@ -378,3 +378,12 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser check (CSC 340 beside CSC 220/230 → "not met", expands to CSC 220 AND CSC 230)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-038 / D-039: Course picker in onboarding; "Simulated AI" label renamed "PlanEd"
+- Step: 10 (human requests)
+- Decision: (D-038) The onboarding course question is a small form: pick a course (autocomplete), "+" to add more, chips with ×, "Done with <term>". (D-039) In offline mode the provider label reads "PlanEd" (the product) instead of "Simulated AI"; live mode still reads "Gemini". "model call(s)" wording became "attempt(s)". README keeps the plain description of offline mode.
+- Why: human requests 2026-10-02 ~15:48-15:52.
+- Evidence: browser check (csc 101 → CSC 101 chip, CSC 999 refused, Done advances)
+- Risk / undo: The pitch must not describe offline output as live Gemini (GDG rules); DEMO.md has the honest line.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

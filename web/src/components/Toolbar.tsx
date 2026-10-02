@@ -31,7 +31,7 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
       const r = await api.plan({ goalText: student.goal, programId: "bs-cs", unitsPerSemester: units, lockedPlacements: locked,
         completedSemesters: done, unitsEarned: student.unitsDone, trackId: student.trackId })
       useStore.setState(s => ({ plans: s.plans.map(p => (p.id === plan.id ? { ...r.plan, id: p.id, name: p.name } : p)), evaluation: null }))
-      st.setFlash(r.plan.source === "ai" ? `✦ ${aiName(useStore.getState().health?.aiProvider)} planned your remaining semesters for "${student.goal}" · checked by the rules engine (${r.attempts} call${r.attempts > 1 ? "s" : ""})`
+      st.setFlash(r.plan.source === "ai" ? `✦ ${aiName(useStore.getState().health?.aiProvider)} planned your remaining semesters for "${student.goal}" · checked by the rules engine (${r.attempts} attempt${r.attempts > 1 ? "s" : ""})`
         : "The AI was unavailable, so the rules engine's own planner filled your semesters")
     } catch (e) { st.setFlash((e as Error).message) }
     setPlanning(false)

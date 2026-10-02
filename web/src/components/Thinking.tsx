@@ -22,5 +22,5 @@ export function Thinking({ lines, pending, speed = 420, onDone }: { lines: Stage
   )
 }
 
-/** "Gemini" or "Simulated AI", from the server's provider. */
-export const aiName = (provider?: string) => (provider === "gemini" ? "Gemini" : "Simulated AI")
+/** "Gemini" when live, otherwise the product name (offline planner, D-039). */
+export const aiName = (provider?: string) => (provider === "gemini" ? "Gemini" : "PlanEd")
