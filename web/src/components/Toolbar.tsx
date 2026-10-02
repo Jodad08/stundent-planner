@@ -44,11 +44,11 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
   return (
     <header className="flex items-center gap-4 border-b border-zinc-200 bg-white px-4 py-2.5 text-zinc-800">
       <span className="text-lg font-bold text-zinc-900">Plan<span className="text-[#b08410]">Ed</span></span>
-      {student && <span className="hidden font-mono text-[11px] text-zinc-500 xl:inline">{student.name} · Graduating {student.gradTerm}</span>}
+      {student && <span className="hidden text-[12px] text-zinc-500 xl:inline">{student.name} · Graduating {student.gradTerm}</span>}
       <div data-tour="tabs" className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto font-mono text-xs">
         {plans.map(p => (
           <div key={p.id} onClick={() => st.setActivePlan(p.id)} onDoubleClick={() => setEditing(p.id)}
-            className={`group flex shrink-0 cursor-pointer items-center gap-1 rounded-full px-3 py-1 ${p.id === activeId ? "bg-zinc-800 text-white" : "text-zinc-500 hover:text-zinc-800"}`}>
+            className={`group flex shrink-0 cursor-pointer items-center gap-1 rounded-full px-3 py-1 font-sans ${p.id === activeId ? "bg-zinc-800 text-white" : "text-zinc-500 hover:text-zinc-800"}`}>
             {editing === p.id
               ? <input autoFocus defaultValue={p.name} className="w-28 bg-transparent outline-none" onBlur={e => { st.renamePlan(p.id, e.target.value || p.name); setEditing(null) }}
                 onKeyDown={e => { if (e.key === "Enter") (e.target as HTMLInputElement).blur() }} />

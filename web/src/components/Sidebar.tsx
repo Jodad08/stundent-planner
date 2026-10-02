@@ -60,13 +60,13 @@ export function Sidebar() {
                   const sem = placed.get(c)
                   return (
                     <div key={c} draggable={!sem} onDragStart={drag(c)}
-                      className={`flex items-center gap-2 rounded-xl bg-white px-2.5 py-1.5 shadow-sm ${sem ? "opacity-45" : "cursor-grab hover:shadow"}`}>
+                      className={`flex items-center gap-2 rounded-xl bg-white px-2.5 py-1.5 shadow-sm ${sem ? "bg-white/50 shadow-none" : "cursor-grab hover:shadow"}`}>
                       <span className="w-4 text-center text-xs text-zinc-400">{dag.nodes[c].units}</span>
                       <div className="min-w-0 flex-1">
                         <div className="truncate text-[10.5px] text-zinc-500">{dag.nodes[c].title}</div>
                         <div className="text-[15px] font-bold leading-tight">{c}</div>
                       </div>
-                      {sem ? <span className="shrink-0 text-[10px] text-zinc-500">{termName(dag, sem)}</span>
+                      {sem ? <span className="shrink-0 rounded-full bg-lime-100 px-1.5 py-0.5 text-[10px] text-lime-800">✓ {termName(dag, sem)}</span>
                         : <button title="Add to the next open semester" onClick={() => add(c)} className="text-xl leading-none text-zinc-400 hover:text-zinc-900">+</button>}
                     </div>
                   )

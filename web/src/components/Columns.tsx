@@ -27,6 +27,7 @@ export function Columns() {
     }
     return m
   }, [report])
+  const names = (t?: string) => t?.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2)))
   const issueFor = (id: CourseId) => report.issues.find(i => i.courseIds[0] === id && i.severity !== "info" && i.code !== "REQ_GROUP_INCOMPLETE")
   const done = plan.completedSemesters ?? 0
   const drop = (index: number) => (e: React.DragEvent) => {
@@ -58,7 +59,7 @@ export function Columns() {
           </div>
         </div>
       </div>
-      <div className="flex h-[calc(100%-64px)] gap-4 px-4 pb-3 pt-3">
+      <div className="flex h-[calc(100%-64px)] gap-3 px-4 pb-3 pt-3">
         {plan.semesters.map(s => {
           const stat = report.semesterStats.find(x => x.index === s.index)!
           const isDone = s.index <= done
@@ -67,7 +68,7 @@ export function Columns() {
           return (
             <div key={s.index} data-tour={s.index === 1 ? "semester" : undefined}
               onDragOver={e => { e.preventDefault(); setOver(s.index) }} onDragLeave={() => setOver(null)} onDrop={drop(s.index)}
-              className={`flex w-[250px] shrink-0 flex-col rounded-2xl bg-zinc-300/60 transition ${over === s.index ? "ring-4 ring-lime-400/70" : ""}`}>
+              className={`flex w-[218px] shrink-0 flex-col rounded-2xl bg-zinc-300/60 transition ${over === s.index ? "ring-4 ring-lime-400/70" : ""}`}>
               <div className="flex justify-center py-2">
                 <button className="cursor-default rounded-full bg-zinc-500 px-4 py-1 text-sm font-semibold text-white shadow">
                   {termName(dag, s.index)}{isDone && " ✓"}
@@ -75,7 +76,7 @@ export function Columns() {
               </div>
               <div className="flex-1 space-y-2.5 overflow-y-auto px-2 pb-2">
                 {s.courseIds.filter(c => !isPlaceholder(c)).map((id, k) => (
-                  <Card key={id} first={s.index === (plan.semesters.find(x => x.courseIds.some(c => !isPlaceholder(c)))?.index) && k === 0} dag={dag} id={id} sem={s.index} semOf={semOf} status={status.get(id)} issue={issueFor(id)?.message} done={isDone}
+                  <Card key={id} first={s.index === (plan.semesters.find(x => x.courseIds.some(c => !isPlaceholder(c)))?.index) && k === 0} dag={dag} id={id} sem={s.index} semOf={semOf} status={status.get(id)} issue={names(issueFor(id)?.message)} done={isDone}
                     onRemove={() => st.unplaceCourse(id)} />
                 ))}
                 {ge.length > 0 && (
@@ -101,7 +102,7 @@ export function Columns() {
 function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { first?: boolean; dag: Dag; id: CourseId; sem: number; semOf: Map<CourseId, number>
   status?: "error" | "warning"; issue?: string; done: boolean; onRemove: () => void }) {
   const n = dag.nodes[id]
-  const [open, setOpen] = useState(!done)
+  const [open, setOpen] = useState(false)
   const desc = useStore(s => s.descriptions[id])
   const tone = status === "error" ? "bg-[#e9775c]" : status === "warning" ? "bg-[#f2c14e]" : done ? "bg-zinc-400" : "bg-[#b5d94c]"
   return (
@@ -114,22 +115,21 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { f
         </div>
         <div className="flex flex-col items-end gap-1">
           <div className="flex gap-1 text-zinc-800/70">
-            <button title={open ? "Collapse" : "Expand"} onClick={() => setOpen(!open)} className="text-xs hover:text-black">{open ? "︿" : "﹀"}</button>
+            <button title={open ? "Hide details" : "Show description and Bulletin text"} onClick={() => setOpen(!open)} className="text-xs hover:text-black">{open ? "︿" : "﹀"}</button>
             <button title="Remove" onClick={onRemove} className="text-sm leading-none hover:text-black">×</button>
           </div>
           <span className="rounded bg-zinc-800/80 px-1.5 text-xs font-bold text-white">{n?.units ?? 0}</span>
         </div>
       </div>
+      {n && issue && <div className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{issue}</div>}
+      {n && n.prereq && !done && (
+        <div className="mt-1.5 flex flex-wrap items-center gap-1 rounded-lg bg-white/70 px-2 py-1.5">
+          <span className="mr-0.5 text-[10px] font-semibold text-zinc-600">Needs</span><Expr e={n.prereq} sem={sem} semOf={semOf} />
+        </div>
+      )}
       {open && n && <>
-        {issue && <div className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{issue}</div>}
-        {n.prereq && (
-          <div className="mt-1.5 rounded-lg bg-white/85 p-2">
-            <div className="text-[11px] font-semibold text-zinc-700">Pre-req:</div>
-            <div className="mt-1 flex flex-wrap items-center justify-center gap-1"><Expr e={n.prereq} sem={sem} semOf={semOf} /></div>
-            {n.bulletin_prerequisite_text && <div className="mt-1.5 border-t border-zinc-200 pt-1 text-[10.5px] leading-snug text-zinc-600">• {n.bulletin_prerequisite_text}</div>}
-          </div>
-        )}
-        {desc && !n.prereq && <div className="mt-1.5 line-clamp-3 rounded-lg bg-white/85 p-2 text-[10.5px] leading-snug text-zinc-600">{desc}</div>}
+        {n.bulletin_prerequisite_text && <div className="mt-1.5 rounded-lg bg-white/85 p-2 text-[10.5px] leading-snug text-zinc-600"><b>Bulletin:</b> {n.bulletin_prerequisite_text}</div>}
+        {desc && <div className="mt-1.5 line-clamp-4 rounded-lg bg-white/85 p-2 text-[10.5px] leading-snug text-zinc-600">{desc}</div>}
       </>}
     </div>
   )

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react"
 export type Stage = { label: string; state: "wait" | "run" | "done" | "fail" | "think" }
 
 /** Reveals reasoning/trace lines one at a time, like a model thinking out loud (D-026). */
-export function Thinking({ lines, pending, speed = 420 }: { lines: Stage[]; pending?: boolean; speed?: number }) {
+export function Thinking({ lines, pending, speed = 420, onDone }: { lines: Stage[]; pending?: boolean; speed?: number; onDone?: () => void }) {
   const [n, setN] = useState(0)
   useEffect(() => { setN(0) }, [lines])
+  useEffect(() => { if (!pending && lines.length && n >= lines.length) onDone?.() }, [n, lines, pending, onDone])
   useEffect(() => {
     if (n >= lines.length) return
     const t = setTimeout(() => setN(n + 1), lines[n]?.state === "think" ? speed * 1.6 : speed)

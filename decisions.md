@@ -308,3 +308,23 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Judges may discount simulated output; say plainly "simulation mode because of free-tier quota" and show a recorded real run.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-027: Card-column view (default) after the AcaMapa reference; graph kept as a toggle
+- Step: 10 (human request)
+- Decision: Default board = light-theme semester columns with course cards (title, code, credits; "Needs" chips per prerequisite that turn green when satisfied where the card sits; card color = engine status: green ok, red error, amber warning, grey taken). Description and Bulletin text open from the card's chevron. "Program" and "Plan Stats" chips on top; credits footer per semester colored by load status. Sidebar = light course cards with "+" (adds to the first open semester after the completed ones) and "✓ Fall 2027" chips for placed courses. The free-flow graph (D-023) stays behind a Cards/Graph toggle (kept dark as a "map mode").
+- Alternatives: replace the graph entirely.
+- Why: human request (graph looked cluttered); the graph still answers "show me the whole chain".
+- Evidence: human instruction + AcaMapa screenshot 2026-10-02 ~15:05; browser audit 15:20
+- Risk / undo: Two views to keep in sync; both derive from the same plan JSON and engine report.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+## D-028: Evaluate as a guided AI read-out; "Proof" renamed "Justification"; UI audit fixes
+- Step: 10 (human request)
+- Decision: Evaluate opens with "Evaluating your plan with AI…" and the reasoning revealed line by line; results appear only after it finishes: (1) the plan start to end (longest prerequisite chain as a semester timeline), (2) where it's heading (direction scores + explanation), (3) career paths to consider (2-3, labeled as AI suggestions; the simulated evaluator maps the top track to generic job titles), (4) the rule check, then engine-validated swaps. Gemini's evaluate schema gains `careerPaths`. "Proof" → "Justification" with plain-language sections. Audit fixes: tour card never covers its target and uses the light theme; cards compact (Bulletin text on expand), columns 218 px; placed sidebar courses readable; capitalization and grammar across the UI; term names in all engine messages.
+- Alternatives: keep the dense evaluate panel.
+- Why: human requests 2026-10-02 ~15:10-15:15.
+- Evidence: browser checks (results hidden at 2.5 s, shown by 9.5 s; tour card beside Fall 2026)
+- Risk / undo: Career titles are generic suggestions, not SFSU data; labeled as such.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

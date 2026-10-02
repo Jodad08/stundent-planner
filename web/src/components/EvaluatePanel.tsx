@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"
 import type { Issue, Suggestion } from "../../../shared/types"
 import { useActivePlan, useStore } from "../store"
 import { termName } from "../lib/derive"
@@ -12,6 +13,8 @@ export function EvaluatePanel() {
   const plan = useActivePlan()
   const st = useStore.getState()
   const ai = aiName(useStore.getState().health?.aiProvider)
+  const [revealed, setRevealed] = useState(false) // results appear once the reasoning finishes
+  useEffect(() => { if (!ev) setRevealed(false) }, [ev])
   if (!report) return null
   const semOf = new Map(plan.semesters.flatMap(s => s.courseIds.map(c => [c, s.index] as const)))
   const names = (t: string) => t.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2)))
@@ -35,12 +38,12 @@ export function EvaluatePanel() {
       </div>
       <div className="mt-3 rounded-xl border border-violet-200 bg-violet-50 p-3">
         <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-violet-700">{ev ? `${ai} · reasoning` : `Evaluating your plan with ${ai}…`}</div>
-        <div className="[&_li]:!text-violet-900"><Thinking pending={!ev} lines={ev ? [...thinking, { label: "Done", state: "done" }] : [
+        <div className="[&_li]:!text-violet-900"><Thinking pending={!ev} onDone={() => setRevealed(true)} lines={ev ? [...thinking, { label: "Done", state: "done" }] : [
           { label: `Reading ${plan.semesters.flatMap(s => s.courseIds).filter(c => !c.startsWith("GE-")).length} planned courses`, state: "think" },
           { label: "Tracing how your courses connect", state: "think" }]} /></div>
       </div>
 
-      {ev && <>
+      {ev && revealed && <>
         <H n={1}>Your plan, start to end</H>
         {ev.connections.longestChain.length > 1 ? (
           <ol className="relative ml-2 border-l-2 border-lime-400 pl-4">
