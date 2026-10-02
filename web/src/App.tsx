@@ -3,6 +3,7 @@ import { ReactFlowProvider } from "@xyflow/react"
 import { api } from "./api"
 import { useStore } from "./store"
 import { Board } from "./components/Board"
+import { Columns } from "./components/Columns"
 import { Sidebar } from "./components/Sidebar"
 import { Toolbar } from "./components/Toolbar"
 import { PlanModal } from "./components/PlanModal"
@@ -16,6 +17,7 @@ import { buildFallbackPlan } from "../../shared/fallbackPlanner"
 export function App() {
   const ready = useStore(s => !!s.dag && !!s.policies)
   const panel = useStore(s => s.panel)
+  const view = useStore(s => s.view)
   const modal = useStore(s => s.modalOpen)
   const [err, setErr] = useState<string | null>(null)
   const hasStudent = useStore(s => !!s.student)
@@ -41,7 +43,7 @@ export function App() {
         <Toolbar onTour={() => setTour(true)} />
         <div className="flex min-h-0 flex-1">
           <Sidebar />
-          <main className="relative min-w-0 flex-1"><Board /></main>
+          <main data-tour="board" className="relative min-w-0 flex-1">{view === "cards" ? <Columns /> : <Board />}</main>
           {panel === "evaluate" && <EvaluatePanel />}
           {panel === "proof" && <ProofPanel />}
           {panel === "runs" && <RunsPanel />}

@@ -160,7 +160,7 @@ export type EvaluateResponse = {
   report: EngineReport
   connections: { links: number; longestChain: CourseId[]; critical: CourseId[] }
   directionScores: DirectionScore[]
-  ai: { summary: string; directionExplanation: string; suggestions: Suggestion[] } | null
+  ai: { summary: string; directionExplanation: string; suggestions: Suggestion[]; careerPaths: { title: string; why: string }[]; thoughts?: string[] } | null
   aiStatus: "ok" | "failed" | "skipped"
   droppedSuggestions: number
   runId: string

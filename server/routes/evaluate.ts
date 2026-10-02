@@ -12,6 +12,14 @@ import { newRun } from "../runs"
 const errorsOf = (p: Plan) => evaluatePlan(p, dag, policies, DEFAULT_PROFILE).issues.filter(i => i.severity === "error").length
 
 /** Apply a swap to a copy of the plan; null if the swap is malformed. */
+/** Career titles per DAG track for the simulated evaluator (AI-style suggestions, not SFSU data; D-028). */
+const CAREERS: Record<string, string[]> = {
+  ai: ["Machine learning engineer", "Data scientist", "AI research engineer"],
+  systems: ["Security engineer", "Systems / infrastructure engineer", "Cloud and DevOps engineer"],
+  web: ["Full-stack developer", "Mobile app developer", "Front-end engineer"],
+  theory: ["Graphics / game engine developer", "Quantum computing researcher", "Algorithms-focused grad school path"],
+}
+
 export function applySuggestion(p: Plan, s: Suggestion): Plan | null {
   if (!dag.nodes[s.add] || !Number.isInteger(s.semester) || s.semester < 1 || s.semester > 8) return null
   const ids = new Set(p.semesters.flatMap(x => x.courseIds))
@@ -48,7 +56,16 @@ export async function evaluate(planIn: Plan, goalText?: string): Promise<Evaluat
           directionExplanation: top.score > 0
             ? `It points most toward ${top.label} (${top.score}/100) because of ${fits.slice(0, 3).join(", ")}.${second && second.score > 0 ? ` ${second.label} is next at ${second.score}.` : ""}${goalText ? ` That ${top.label === careers.find(c => c.id === guessTrack(goalText))?.label ? "matches" : "differs from"} your goal, "${goalText}".` : ""}`
             : "No electives are planned yet, so the plan doesn't point toward a direction. Add electives from your goal's track.",
-          suggestions: [] }
+          suggestions: [],
+          careerPaths: (CAREERS[top.directionId] ?? []).map(title => ({ title,
+            why: fits.length ? `Your ${fits.slice(0, 2).join(" and ")} ${fits.length > 1 ? "are" : "is"} the kind of coursework this role uses every day.` : "Add electives from this track to build toward it." })),
+          thoughts: [
+            `Reading your ${planIn.semesters.flatMap(x => x.courseIds).filter(c => !isPlaceholder(c)).length} planned courses across ${planIn.semesters.filter(x => x.courseIds.length).length} semesters.`,
+            `Tracing prerequisites: ${conn.links} links between your courses${ch.length > 1 ? `; the longest path runs ${ch[0]} → ${ch[ch.length - 1]} (${ch.length} courses).` : "."}`,
+            `Scoring your electives against the department's tracks: ${scores.map(x => `${x.label} ${x.score}`).join(", ")}.`,
+            errs.length ? `The rules engine reports ${errs.length} error${errs.length > 1 ? "s" : ""}; flagging them first.` : "The rules engine reports no errors.",
+            `Matching ${top.label} to career paths.`,
+          ] }
       },
     })
     const raw = (out.json ?? {}) as { summary?: unknown; directionExplanation?: unknown; suggestions?: unknown }
@@ -60,7 +77,10 @@ export async function evaluate(planIn: Plan, goalText?: string): Promise<Evaluat
       if (!after || errorsOf(after) > before || typeof s.reason !== "string") { dropped++; continue }
       suggestions.push({ remove: s.remove, add: s.add, semester: s.semester, reason: s.reason })
     }
-    ai = { summary: String(raw.summary ?? ""), directionExplanation: String(raw.directionExplanation ?? ""), suggestions }
+    const careerPaths = (Array.isArray((raw as { careerPaths?: unknown }).careerPaths) ? (raw as { careerPaths: unknown[] }).careerPaths : [])
+      .filter((c): c is { title: string; why: string } => !!c && typeof (c as { title?: unknown }).title === "string" && typeof (c as { why?: unknown }).why === "string").slice(0, 3)
+    const thoughts = Array.isArray((raw as { thoughts?: unknown }).thoughts) ? ((raw as { thoughts: unknown[] }).thoughts.filter(t => typeof t === "string") as string[]) : undefined
+    ai = { summary: String(raw.summary ?? ""), directionExplanation: String(raw.directionExplanation ?? ""), suggestions, careerPaths, ...(thoughts ? { thoughts } : {}) }
     aiStatus = "ok"
   } catch (e) {
     run.rec.errors.push(String(e).slice(0, 300))

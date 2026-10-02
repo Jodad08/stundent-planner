@@ -16,7 +16,7 @@ export function Thinking({ lines, pending, speed = 420 }: { lines: Stage[]; pend
   return (
     <ol className="space-y-1 font-mono text-[11px] leading-relaxed">
       {lines.slice(0, n).map((t, i) => <li key={i} className={`${color(t.state)} ${t.state === "think" ? "pl-3" : ""}`}>{mark(t.state)} {t.label}</li>)}
-      {(pending || n < lines.length) && <li className="animate-pulse text-zinc-500">▍ thinking…</li>}
+      {(pending || n < lines.length) && <li className="animate-pulse text-zinc-500">▍ Thinking…</li>}
     </ol>
   )
 }

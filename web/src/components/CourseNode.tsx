@@ -25,7 +25,7 @@ export function CourseNode({ data }: NodeProps<Node<CourseData>>) {
           ["--glow" as string]: data.highlight || data.hasError ? c : `${c}55` }} />
       <span className={`truncate font-mono text-[11px] ${data.placeholder ? "text-zinc-600" : data.highlight ? "text-white" : "text-zinc-300"}`}
         style={data.hasError ? { color: "#ff6b6b" } : undefined}>
-        {data.placeholder ? `ge ${data.units}u` : data.id}
+        {data.placeholder ? `GE ${data.units}u` : data.id}
       </span>
       <button onClick={e => { e.stopPropagation(); unplace(data.geIds ? data.geIds[data.geIds.length - 1] : data.id) }} title={data.geIds ? "Remove 3 GE units" : "Remove"}
         className="ml-auto hidden text-[11px] text-zinc-600 hover:text-red-400 group-hover:block">×</button>

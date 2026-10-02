@@ -119,7 +119,7 @@ export function Board() {
         <Panel position="top-right">
           <button onClick={() => useStore.getState().setZoomSem(null)} title="Back to all semesters (Esc)"
             className="flex items-center gap-2 rounded-full border border-white/10 bg-black/80 px-3 py-1.5 font-mono text-xs text-zinc-300 backdrop-blur hover:text-white">
-            <span className="text-base leading-none">×</span> all semesters
+            <span className="text-base leading-none">×</span> All semesters
           </button>
         </Panel>
       )}

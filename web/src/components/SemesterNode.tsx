@@ -6,9 +6,9 @@ import { useStore } from "../store"
 const TONE: Record<string, { text: string; note: (d: SemesterData) => string }> = {
   empty: { text: "text-zinc-600", note: () => "" },
   ok: { text: "text-zinc-400", note: () => "" },
-  under: { text: "text-red-400", note: d => `below ${d.policyMin}` },
-  heavy: { text: "text-amber-300", note: () => "heavy" },
-  over: { text: "text-red-400", note: () => "over limit" },
+  under: { text: "text-red-400", note: d => `Below ${d.policyMin}` },
+  heavy: { text: "text-amber-300", note: () => "Heavy" },
+  over: { text: "text-red-400", note: () => "Over limit" },
 }
 
 export function SemesterNode({ data }: NodeProps<Node<SemesterData>>) {
@@ -19,7 +19,7 @@ export function SemesterNode({ data }: NodeProps<Node<SemesterData>>) {
       <button className={`pointer-events-auto w-full px-3 pt-2 text-left font-mono text-[11px] tracking-wide ${t.text} hover:text-white`}
         title="Zoom into this semester" onClick={() => useStore.getState().setZoomSem(zoom === data.index ? null : data.index)}>
         <span className="block text-[12px] text-zinc-200">{data.termName}</span>
-        <span>{data.done ? <span className="text-teal-300/80">✓ taken · {data.units}u</span> : <>{data.units}u{t.note(data) && ` · ${t.note(data)}`}</>}</span>
+        <span>{data.done ? <span className="text-teal-300/80">✓ Taken · {data.units}u</span> : <>{data.units}u{t.note(data) && ` · ${t.note(data)}`}</>}</span>
       </button>
     </div>
   )

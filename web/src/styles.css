@@ -10,7 +10,7 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 html, body, #root { height: 100%; margin: 0; }
-body { background: #000; color: #d4d4d8; font-family: var(--font-sans); }
+body { background: #e7e7ea; color: #27272a; font-family: var(--font-sans); }
 .react-flow { background: #000; }
 .react-flow__node-semester, .react-flow__node-course { transition: opacity 200ms; }
 @keyframes dash { to { stroke-dashoffset: -20; } }

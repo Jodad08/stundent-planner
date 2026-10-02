@@ -1,91 +1,93 @@
 import type { Issue, Suggestion } from "../../../shared/types"
 import { useActivePlan, useStore } from "../store"
 import { termName } from "../lib/derive"
-import { aiName } from "./Thinking"
 import { useReport } from "./Board"
+import { aiName, Thinking, type Stage } from "./Thinking"
 
-function IssueItem({ i }: { i: Issue }) {
-  const select = useStore(s => s.selectCourse)
-  const dag = useStore(s => s.dag)!
-  // engine labels "Fall Year 2" -> board names "Fall 2027"
-  const msg = i.message.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2)))
-  return (
-    <li className="cursor-pointer rounded border border-white/10 bg-white/[0.03] p-2 hover:border-slate-600" onClick={() => i.courseIds[0] && select(i.courseIds[0])}>
-      <div><span className="mr-1 font-mono text-[10px] text-slate-500">{i.code}</span>{msg}</div>
-      {i.quote && <div className="mt-1 text-[11px] italic text-slate-400">Bulletin: "{i.quote.slice(0, 220)}"</div>}
-      {i.sourceUrl && <a className="text-[11px] text-sky-300 underline" href={i.sourceUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>Source</a>}
-    </li>
-  )
-}
-
+/** Evaluate (D-028): AI reasoning, then the plan start-to-end, where it heads, career paths, and the rule check. */
 export function EvaluatePanel() {
   const report = useReport()
   const ev = useStore(s => s.evaluation)
+  const dag = useStore(s => s.dag)!
   const plan = useActivePlan()
   const st = useStore.getState()
-  if (!report) return null
-  const by = (sev: Issue["severity"]) => report.issues.filter(i => i.severity === sev)
-  const errors = by("error"), warnings = by("warning").filter(i => i.code !== "REQ_GROUP_INCOMPLETE"), infos = by("info")
-  const missing = report.requirementStatus.filter(r => !r.satisfied)
-  const verdict = errors.length ? { t: `Fix ${errors.length} error${errors.length > 1 ? "s" : ""} first`, c: "bg-red-700" }
-    : report.graduationReady ? { t: "Valid plan: graduation-ready", c: "bg-emerald-700" } : { t: "Valid but incomplete", c: "bg-amber-700" }
-  const apply = (s: Suggestion) => {
-    if (s.remove) st.unplaceCourse(s.remove)
-    st.moveCourse(s.add, s.semester)
-  }
   const ai = aiName(useStore.getState().health?.aiProvider)
-  const Tag = ({ ai: isAi }: { ai?: boolean }) => <span className={`ml-2 rounded px-1.5 py-0.5 text-[10px] font-normal normal-case ${isAi ? "bg-violet-800 text-violet-100" : "bg-slate-700 text-slate-200"}`}>{isAi ? `Written by ${ai}` : "Checked by rules engine"}</span>
-  const H = ({ children, ai }: { children: React.ReactNode; ai?: boolean }) => <div className="mb-1 mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">{children}<Tag ai={ai} /></div>
+  if (!report) return null
+  const semOf = new Map(plan.semesters.flatMap(s => s.courseIds.map(c => [c, s.index] as const)))
+  const names = (t: string) => t.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2)))
+  const errors = report.issues.filter(i => i.severity === "error")
+  const warnings = report.issues.filter(i => i.severity === "warning")
+  const apply = (s: Suggestion) => { if (s.remove) st.unplaceCourse(s.remove); st.moveCourse(s.add, s.semester) }
+  const thinking: Stage[] = ev?.ai?.thoughts?.map(t => ({ label: t, state: "think" as const })) ?? []
+  const H = ({ n, children }: { n: number; children: React.ReactNode }) => (
+    <div className="mb-2 mt-6 flex items-center gap-2 text-[13px] font-semibold text-zinc-900">
+      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-800 text-[11px] text-white">{n}</span>{children}</div>)
+  const Item = ({ i }: { i: Issue }) => (
+    <li className="cursor-pointer rounded-lg bg-zinc-50 p-2 text-[12px] hover:bg-zinc-100" onClick={() => i.courseIds[0] && st.selectCourse(i.courseIds[0])}>
+      {names(i.message)}{i.sourceUrl && <a className="ml-1 text-sky-700 underline" href={i.sourceUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>Bulletin</a>}
+    </li>)
 
   return (
-    <aside className="w-[400px] shrink-0 overflow-y-auto border-l border-white/10 bg-black p-4 text-sm text-slate-200">
-      <div className="flex items-center justify-between"><div className="text-base font-semibold">Evaluate · {plan.name}</div>
-        <button className="text-slate-400 hover:text-white" onClick={() => st.setPanel("none")}>✕</button></div>
-      {!ev && <div className="mt-4 animate-pulse font-mono text-xs text-teal-300">Scanning your map: connections, career direction, rules…</div>}
+    <aside className="w-[420px] shrink-0 overflow-y-auto border-l border-zinc-200 bg-white p-5 text-sm text-zinc-700">
+      <div className="flex items-center justify-between">
+        <div className="text-base font-bold text-zinc-900">Evaluate your plan</div>
+        <button className="text-zinc-400 hover:text-zinc-900" onClick={() => st.setPanel("none")}>✕</button>
+      </div>
+      <div className="mt-3 rounded-xl border border-violet-200 bg-violet-50 p-3">
+        <div className="mb-1.5 font-mono text-[10px] uppercase tracking-wider text-violet-700">{ev ? `${ai} · reasoning` : `Evaluating your plan with ${ai}…`}</div>
+        <div className="[&_li]:!text-violet-900"><Thinking pending={!ev} lines={ev ? [...thinking, { label: "Done", state: "done" }] : [
+          { label: `Reading ${plan.semesters.flatMap(s => s.courseIds).filter(c => !c.startsWith("GE-")).length} planned courses`, state: "think" },
+          { label: "Tracing how your courses connect", state: "think" }]} /></div>
+      </div>
+
       {ev && <>
-        <H ai>Where your plan points</H>
-        <div className="rounded-lg border border-teal-300/20 bg-teal-300/[0.04] p-3">
-          <div className="font-mono text-sm text-teal-200">→ {ev.directionScores[0]?.label} <span className="text-zinc-500">({ev.directionScores[0]?.score}/100)</span></div>
-          {ev.ai && <p className="mt-1 text-[13px] leading-relaxed text-zinc-300">{ev.ai.directionExplanation}</p>}
-          <div className="mt-2 space-y-1">{ev.directionScores.map(d => (
-            <div key={d.directionId} className="flex items-center gap-2 font-mono text-[10px] text-zinc-500"><span className="w-28 truncate">{d.label}</span>
-              <div className="h-1 flex-1 rounded bg-white/5"><div className="h-1 rounded bg-teal-300/70 shadow-[0_0_6px_#2dd4bf]" style={{ width: `${d.score}%` }} /></div><span className="w-6 text-right">{d.score}</span></div>))}</div>
+        <H n={1}>Your plan, start to end</H>
+        {ev.connections.longestChain.length > 1 ? (
+          <ol className="relative ml-2 border-l-2 border-lime-400 pl-4">
+            {ev.connections.longestChain.map(c => (
+              <li key={c} className="mb-2 cursor-pointer" onClick={() => st.selectCourse(c)}>
+                <span className="absolute -left-[7px] mt-1 h-3 w-3 rounded-full border-2 border-white bg-lime-500" />
+                <div className="text-[11px] text-zinc-500">{semOf.has(c) ? termName(dag, semOf.get(c)!) : ""}</div>
+                <div className="text-[13px]"><b className="text-zinc-900">{c}</b> · {dag.nodes[c]?.title}</div>
+              </li>))}
+          </ol>) : <div className="text-[12px] text-zinc-500">Add more courses to see how they connect.</div>}
+        {ev.ai && <p className="mt-1 text-[13px] leading-relaxed">{ev.ai.summary}</p>}
+        <div className="mt-1 text-[11px] text-zinc-500">{ev.connections.links} prerequisite links · {ev.connections.critical.length} courses with no slack{ev.connections.critical.length ? ` (${ev.connections.critical.slice(0, 4).join(", ")})` : ""}</div>
+
+        <H n={2}>Where it's heading</H>
+        <div className="text-[15px] font-semibold text-zinc-900">→ {ev.directionScores[0]?.label}</div>
+        {ev.ai && <p className="mt-1 text-[13px] leading-relaxed">{ev.ai.directionExplanation}</p>}
+        <div className="mt-2 space-y-1">{ev.directionScores.map(d => (
+          <div key={d.directionId} className="flex items-center gap-2 text-[11px] text-zinc-500"><span className="w-32 truncate">{d.label}</span>
+            <div className="h-1.5 flex-1 rounded bg-zinc-100"><div className="h-1.5 rounded bg-lime-500" style={{ width: `${d.score}%` }} /></div><span className="w-6 text-right">{d.score}</span></div>))}</div>
+
+        {ev.ai && ev.ai.careerPaths.length > 0 && <>
+          <H n={3}>Career paths to consider</H>
+          <div className="space-y-2">{ev.ai.careerPaths.map(c => (
+            <div key={c.title} className="rounded-xl border border-zinc-200 p-3">
+              <div className="font-semibold text-zinc-900">{c.title}</div>
+              <div className="text-[12px] text-zinc-600">{c.why}</div>
+            </div>))}</div>
+          <div className="mt-1 text-[10px] text-zinc-400">Suggested by {ai}. Talk to SFSU Career Services and your advisor.</div>
+        </>}
+
+        <H n={ev.ai?.careerPaths.length ? 4 : 3}>Rule check</H>
+        <div className={`rounded-lg px-3 py-2 text-[13px] font-semibold ${errors.length ? "bg-red-100 text-red-800" : report.graduationReady ? "bg-lime-100 text-lime-900" : "bg-amber-100 text-amber-900"}`}>
+          {errors.length ? `${errors.length} rule${errors.length > 1 ? "s" : ""} broken: fix first` : report.graduationReady ? "Follows every checked SFSU rule and reaches graduation" : "No broken rules, but the plan is not complete yet"}
         </div>
-        <H>How your plan connects</H>
-        <div className="space-y-2 rounded-lg border border-white/10 p-3 text-[13px]">
-          <div className="font-mono text-[11px] text-zinc-500">{ev.connections.links} prerequisite links · {ev.connections.critical.length} critical courses</div>
-          {ev.connections.longestChain.length > 0 && (
-            <div className="flex flex-wrap items-center gap-1 font-mono text-[11px]">
-              <span className="mr-1 text-zinc-500">longest chain</span>
-              {ev.connections.longestChain.map((c, k) => <span key={c} className="flex items-center gap-1">
-                <button className="rounded-full border border-white/10 px-2 py-0.5 text-zinc-200 hover:border-teal-300/60" onClick={() => st.selectCourse(c)}>{c}</button>
-                {k < ev.connections.longestChain.length - 1 && <span className="text-zinc-600">→</span>}</span>)}
-            </div>)}
-          {ev.connections.critical.length > 0 && <div className="font-mono text-[11px] text-amber-300/80">no slack: {ev.connections.critical.join(", ")}</div>}
-          {ev.ai && <p className="text-zinc-300"><span className="mr-1 font-mono text-[10px] text-violet-300">{ai.toLowerCase()}</span>{ev.ai.summary}</p>}
-        </div>
-      </>}
-      <H>Rule check</H>
-      <div className={`rounded-md px-3 py-2 font-semibold text-white ${verdict.c}`}>{verdict.t} · {report.totalUnitsPlanned} units</div>
-      {errors.length > 0 && <><H>Errors</H><ul className="space-y-1">{errors.map(i => <IssueItem key={i.id} i={i} />)}</ul></>}
-      {warnings.length > 0 && <><H>Warnings</H><ul className="space-y-1">{warnings.map(i => <IssueItem key={i.id} i={i} />)}</ul></>}
-      {missing.length > 0 && <><H>Missing requirements</H><ul className="space-y-1">{missing.map(r => (
-        <li key={r.groupId} className="rounded border border-white/10 bg-white/[0.03] p-2"><b>{r.title}</b>: {r.unitsNeed != null ? `${r.unitsHave} of ${r.unitsNeed} units` : r.missingCourseIds.join(", ")}</li>))}</ul></>}
-      {ev && <>
-        {ev.ai ? <>
-          <H ai>Suggestions (each re-checked by the engine)</H>
-          {ev.ai.suggestions.length === 0 && <div className="text-xs text-slate-400">No suggestions passed the engine.</div>}
+        {errors.length + warnings.length > 0 && <ul className="mt-2 space-y-1">{[...errors, ...warnings].map(i => <Item key={i.id} i={i} />)}</ul>}
+
+        {ev.ai && ev.ai.suggestions.length > 0 && <>
+          <div className="mb-1 mt-4 text-[12px] font-semibold text-zinc-900">Suggested swaps (re-checked by the engine)</div>
           <ul className="space-y-1">{ev.ai.suggestions.map((s, k) => (
-            <li key={k} className="rounded border border-violet-900 bg-violet-950/40 p-2">
-              <div className="font-mono text-xs">{s.remove ? `${s.remove} → ` : "+ "}{s.add} (semester {s.semester})</div>
-              <div className="text-xs text-slate-300">{s.reason}</div>
-              <button className="mt-1 rounded bg-violet-700 px-2 py-0.5 text-xs" onClick={() => apply(s)}>Apply</button>
+            <li key={k} className="rounded-lg border border-zinc-200 p-2 text-[12px]">
+              <b>{s.remove ? `${s.remove} → ` : "+ "}{s.add}</b> ({termName(dag, s.semester)}) · {s.reason}
+              <button className="ml-2 rounded bg-zinc-800 px-2 py-0.5 text-[11px] text-white" onClick={() => apply(s)}>apply</button>
             </li>))}</ul>
-          {ev.droppedSuggestions > 0 && <div className="mt-1 text-xs text-amber-300">{ev.droppedSuggestions} AI suggestion(s) dropped: they broke a rule or named an unknown course.</div>}
-        </> : <div className="mt-4 text-xs text-amber-300">AI explanation unavailable ({ev.aiStatus}). Engine results above are complete.</div>}
+        </>}
+        {!ev.ai && <div className="mt-4 text-[12px] text-amber-700">The AI part is unavailable right now; the rule check above is complete.</div>}
       </>}
-      {infos.length > 0 && <><H>Info</H><ul className="space-y-1 text-xs text-slate-400">{infos.map(i => <li key={i.id}>{i.message}</li>)}</ul></>}
-      <div className="mt-6 border-t border-white/10 pt-3 text-xs text-slate-500">Always confirm with your SFSU advisor. This planner does not check GE areas, SF State Studies or the 30 upper-division-unit rule.</div>
+      <div className="mt-6 border-t border-zinc-100 pt-3 text-[11px] text-zinc-400">Always confirm with your SFSU advisor. Not checked: GE areas, SF State Studies, the 30 upper-division-unit rule.</div>
     </aside>
   )
 }

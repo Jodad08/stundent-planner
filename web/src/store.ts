@@ -29,6 +29,7 @@ export type Store = {
   zoomSem: number | null
   student: Student | null
   showAll: boolean
+  view: "cards" | "graph"
   setData(d: { dag: Dag; policies: Policies; careers: CareerDirection[]; health: Health; descriptions: Record<string, string> }): void
   placeCourse(courseId: CourseId, semesterIndex: number): void
   moveCourse(courseId: CourseId, toSemester: number): void
@@ -47,6 +48,7 @@ export type Store = {
   setZoomSem(i: number | null): void
   setStudent(s: Student | null): void
   setShowAll(v: boolean): void
+  setView(v: "cards" | "graph"): void
   reset(): void
 }
 
@@ -81,7 +83,7 @@ function edit(s: Store, fn: (p: Plan) => Plan): Partial<Store> {
 export const useStore = create<Store>((set, get) => ({
   dag: null, policies: null, careers: [], health: null, descriptions: {},
   plans: initial.plans, activePlanId: initial.activePlanId,
-  selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null, zoomSem: null, student: loadStudent(), showAll: false,
+  selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null, zoomSem: null, student: loadStudent(), showAll: false, view: "cards",
   setData: d => set({ ...d }),
   placeCourse: (courseId, semesterIndex) => set(s => {
     const active = s.plans.find(p => p.id === s.activePlanId)
@@ -115,6 +117,7 @@ export const useStore = create<Store>((set, get) => ({
     set({ student })
   },
   setShowAll: showAll => set({ showAll }),
+  setView: view => set({ view }),
   reset: () => { const p = blankPlan(); set({ plans: [p], activePlanId: p.id, evaluation: null, selectedCourseId: null }) },
 }))
 

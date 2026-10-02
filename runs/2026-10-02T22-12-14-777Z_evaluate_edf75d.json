@@ -1,0 +1,304 @@
+{
+ "run_id": "2026-10-02T22-12-14-777Z_evaluate_edf75d",
+ "variant": "evaluate",
+ "input": {
+  "plan": {
+   "id": "plan_me",
+   "name": "shehr's plan",
+   "programId": "bs-cs",
+   "goalText": "Systems & Security and want to do product management",
+   "createdAt": "2026-10-02T22:04:53.601Z",
+   "semesters": [
+    {
+     "index": 1,
+     "label": "Fall Year 1",
+     "season": "fall",
+     "courseIds": [
+      "CSC 101",
+      "GE-3u-1",
+      "GE-3u-2",
+      "GE-3u-3"
+     ]
+    },
+    {
+     "index": 2,
+     "label": "Spring Year 1",
+     "season": "spring",
+     "courseIds": [
+      "CSC 215",
+      "MATH 226",
+      "GE-3u-4",
+      "GE-3u-5",
+      "GE-1u-6"
+     ]
+    },
+    {
+     "index": 3,
+     "label": "Fall Year 2",
+     "season": "fall",
+     "courseIds": [
+      "CSC 220",
+      "CSC 230",
+      "MATH 227",
+      "PHYS 220",
+      "PHYS 222",
+      "GE-1u-7"
+     ]
+    },
+    {
+     "index": 4,
+     "label": "Spring Year 2",
+     "season": "spring",
+     "courseIds": [
+      "CSC 256",
+      "CSC 317",
+      "CSC 340",
+      "MATH 324",
+      "MATH 225"
+     ]
+    },
+    {
+     "index": 5,
+     "label": "Fall Year 3",
+     "season": "fall",
+     "courseIds": [
+      "PHYS 230",
+      "CSC 413",
+      "CSC 510",
+      "PHYS 232",
+      "GE-3u-8",
+      "GE-2u-9"
+     ]
+    },
+    {
+     "index": 6,
+     "label": "Spring Year 3",
+     "season": "spring",
+     "courseIds": [
+      "CSC 415",
+      "CSC 300GW",
+      "CSC 648",
+      "GE-3u-10",
+      "GE-3u-11"
+     ]
+    },
+    {
+     "index": 7,
+     "label": "Fall Year 4",
+     "season": "fall",
+     "courseIds": [
+      "CSC 615",
+      "CSC 645",
+      "CSC 651",
+      "CSC 652",
+      "CSC 653"
+     ]
+    },
+    {
+     "index": 8,
+     "label": "Spring Year 4",
+     "season": "spring",
+     "courseIds": [
+      "GE-3u-12",
+      "GE-3u-13",
+      "GE-3u-14",
+      "GE-3u-15",
+      "GE-3u-16",
+      "GE-3u-17"
+     ]
+    }
+   ],
+   "source": "fallback",
+   "completedSemesters": 1
+  },
+  "goalText": "Systems & Security and want to do product management"
+ },
+ "config": {
+  "provider": "mock",
+  "model": "gemini-3.8-flash"
+ },
+ "steps": [
+  {
+   "name": "engine",
+   "detail": {
+    "errors": 0,
+    "graduationReady": true
+   },
+   "at": "2026-10-02T22:12:14.778Z"
+  },
+  {
+   "name": "model_evaluate",
+   "detail": {
+    "provider": "mock",
+    "model": "simulated",
+    "ms": 1402,
+    "raw": {
+     "summary": "Your plan's backbone is a 6-course chain, CSC 101 → CSC 215 → CSC 220 → CSC 317 → CSC 413 → CSC 648, with 35 prerequisite links between courses. No rule errors, and every course has some slack.",
+     "directionExplanation": "It points most toward Systems & Security (100/100) because of CSC 645, CSC 652, CSC 653. That matches your goal, \"Systems & Security and want to do product management\".",
+     "suggestions": []
+    }
+   },
+   "at": "2026-10-02T22:12:16.180Z"
+  }
+ ],
+ "final_state": {
+  "report": {
+   "issues": [
+    {
+     "id": "UNITS_HEAVY-0",
+     "severity": "warning",
+     "code": "UNITS_HEAVY",
+     "message": "Spring Year 4 has 18 units, above 15 (Top of the normal load).",
+     "courseIds": [],
+     "semesterIndex": 8,
+     "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+     "quote": "During spring and fall, the normal academic load for undergraduates is 12 to 15 units per semester and 8 units in the summer. For graduates, the normal load during spring and fall is from 9 to 12 units per semester and 7 units during the summer."
+    },
+    {
+     "id": "PREREQ_NOTE-1",
+     "severity": "info",
+     "code": "PREREQ_NOTE",
+     "message": "Not checked by the engine (GPA or instructor-permission conditions): CSC 317, MATH 324, CSC 300GW, CSC 648, CSC 615, CSC 645, CSC 652, CSC 653.",
+     "courseIds": [
+      "CSC 317",
+      "MATH 324",
+      "CSC 300GW",
+      "CSC 648",
+      "CSC 615",
+      "CSC 645",
+      "CSC 652",
+      "CSC 653"
+     ]
+    },
+    {
+     "id": "UNVERIFIED_DATA-2",
+     "severity": "info",
+     "code": "UNVERIFIED_DATA",
+     "message": "Course data is scraped from the 2026-27 Bulletin and machine-checked, not yet checked by a person. Confirm with an advisor.",
+     "courseIds": []
+    }
+   ],
+   "semesterStats": [
+    {
+     "index": 1,
+     "units": 12,
+     "status": "ok"
+    },
+    {
+     "index": 2,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 3,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 4,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 5,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 6,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 7,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 8,
+     "units": 18,
+     "status": "heavy"
+    }
+   ],
+   "requirementStatus": [
+    {
+     "groupId": "mathematics_and_physics",
+     "title": "Mathematics and Physics",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "core_computer_science_requirements",
+     "title": "Core Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "advanced_computer_science_requirements",
+     "title": "Advanced Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "electives",
+     "title": "Electives",
+     "satisfied": true,
+     "missingCourseIds": [],
+     "unitsHave": 15,
+     "unitsNeed": 15
+    }
+   ],
+   "totalUnitsPlanned": 120,
+   "graduationReady": true
+  },
+  "connections": {
+   "links": 35,
+   "longestChain": [
+    "CSC 101",
+    "CSC 215",
+    "CSC 220",
+    "CSC 317",
+    "CSC 413",
+    "CSC 648"
+   ],
+   "critical": []
+  },
+  "directionScores": [
+   {
+    "directionId": "systems",
+    "label": "Systems & Security",
+    "score": 100
+   },
+   {
+    "directionId": "web",
+    "label": "Web & Mobile",
+    "score": 0
+   },
+   {
+    "directionId": "ai",
+    "label": "AI & Data",
+    "score": 0
+   },
+   {
+    "directionId": "theory",
+    "label": "Theory & Graphics",
+    "score": 0
+   }
+  ],
+  "ai": {
+   "summary": "Your plan's backbone is a 6-course chain, CSC 101 → CSC 215 → CSC 220 → CSC 317 → CSC 413 → CSC 648, with 35 prerequisite links between courses. No rule errors, and every course has some slack.",
+   "directionExplanation": "It points most toward Systems & Security (100/100) because of CSC 645, CSC 652, CSC 653. That matches your goal, \"Systems & Security and want to do product management\".",
+   "suggestions": []
+  },
+  "aiStatus": "ok",
+  "droppedSuggestions": 0,
+  "runId": "2026-10-02T22-12-14-777Z_evaluate_edf75d"
+ },
+ "scores": {
+  "errors": 0,
+  "graduationReady": true,
+  "droppedSuggestions": 0
+ },
+ "errors": [],
+ "created_at": "2026-10-02T22:12:14.778Z"
+}

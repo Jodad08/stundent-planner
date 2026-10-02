@@ -80,7 +80,8 @@ Do not invent courses. Use only course IDs from the plan or the provided course 
 Write:
 1. "summary": 2 to 3 plain sentences on how the plan's courses connect: name the longest prerequisite chain and what it builds toward, and the overall state of the plan.
 2. "directionExplanation": 2 to 3 sentences on which career direction this plan points to and why, using the provided scores and the student's goal.
-3. "suggestions": up to 3 swaps. Each has "remove" (course id or null), "add" (course id), "semester" (1-8), and "reason" (one sentence).
+3. "careerPaths": 2 or 3 career paths this plan prepares the student for, each with "title" and "why" (one sentence naming planned course IDs).
+4. "suggestions": up to 3 swaps. Each has "remove" (course id or null), "add" (course id), "semester" (1-8), and "reason" (one sentence).
 
 Use simple words. Be direct. If the plan is fine, say so.
 Return ONLY JSON.`
@@ -90,11 +91,12 @@ export const EVALUATE_SCHEMA = {
   properties: {
     summary: { type: "string" },
     directionExplanation: { type: "string" },
+    careerPaths: { type: "array", items: { type: "object", properties: { title: { type: "string" }, why: { type: "string" } }, required: ["title", "why"] } },
     suggestions: { type: "array", items: { type: "object", properties: {
       remove: { type: ["string", "null"] }, add: { type: "string" }, semester: { type: "integer" }, reason: { type: "string" } },
       required: ["remove", "add", "semester", "reason"] } },
   },
-  required: ["summary", "directionExplanation", "suggestions"],
+  required: ["summary", "directionExplanation", "careerPaths", "suggestions"],
 }
 
 export function buildEvaluateUser(dag: Dag, plan: Plan, report: EngineReport, scores: DirectionScore[], goalText?: string,

@@ -91,7 +91,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   const input = "w-full rounded-lg border border-white/10 bg-transparent px-3 py-2 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-teal-300/60"
   const label = "mb-1 mt-4 block font-mono text-[11px] text-zinc-500"
   const next = (ok = true) => (
-    <button disabled={!ok} onClick={() => setStep(step + 1)} className="rounded-full bg-teal-300 px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">next</button>)
+    <button disabled={!ok} onClick={() => setStep(step + 1)} className="rounded-full bg-teal-300 px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">Next</button>)
   const total = buildStep + 1
 
   return (
@@ -107,37 +107,37 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
         {step === 0 && <>
           <h1 className="text-2xl font-semibold text-white">Let's map your degree.</h1>
           <p className="mt-1 text-sm text-zinc-500">A few questions, then lay out every semester: automatically, or by hand.</p>
-          <label className={label}>your name</label>
-          <input autoFocus className={input} value={name} onChange={e => setName(e.target.value)} placeholder="first name" onKeyDown={e => { if (e.key === "Enter" && name.trim()) setStep(1) }} />
-          <label className={label}>major</label>
+          <label className={label}>Your name</label>
+          <input autoFocus className={input} value={name} onChange={e => setName(e.target.value)} placeholder="First name" onKeyDown={e => { if (e.key === "Enter" && name.trim()) setStep(1) }} />
+          <label className={label}>Major</label>
           <select className={input} value={dag.program.id} onChange={() => { /* only the mapped major is selectable */ }}>
             {majors.length === 0 && <option value={dag.program.id} className="bg-black">{dag.program.name}</option>}
             {majors.map(m => <option key={m.id} value={m.id} disabled={!m.mapped} className="bg-black">
-              {m.name}{m.mapped ? "" : " · map coming soon"}</option>)}
+              {m.name}{m.mapped ? "" : " (coming soon)"}</option>)}
           </select>
-          <p className="mt-1 font-mono text-[10px] text-zinc-600">{majors.length} SFSU bachelor's programs from the 2026-27 Bulletin · Computer Science is mapped and verified first</p>
+          <p className="mt-1 font-mono text-[10px] text-zinc-600">{majors.length} SFSU bachelor's programs from the 2026-27 Bulletin . Computer Science is mapped and verified first.</p>
           <div className="mt-6 flex justify-end">{next(!!name.trim())}</div>
         </>}
 
         {step === 1 && <>
           <h1 className="text-2xl font-semibold text-white">Where are you now, {name.trim()}?</h1>
           <div className="grid grid-cols-2 gap-x-4">
-            <div><label className={label}>units completed</label>
+            <div><label className={label}>Units completed</label>
               <input type="number" min={0} max={200} className={input} value={unitsDone} onChange={e => setUnitsDone(Math.max(0, Number(e.target.value)))} /></div>
-            <div><label className={label}>semesters completed</label>
+            <div><label className={label}>Semesters completed</label>
               <select className={input} value={doneSems} onChange={e => setDoneSems(Number(e.target.value))}>
-                {Array.from({ length: 8 }, (_, i) => <option key={i} value={i} className="bg-black">{i === 0 ? "none, I'm starting" : `${i} (through ${termName(dag, i)})`}</option>)}
+                {Array.from({ length: 8 }, (_, i) => <option key={i} value={i} className="bg-black">{i === 0 ? "None, I'm just starting" : `${i} (through ${termName(dag, i)})`}</option>)}
               </select></div>
-            <div><label className={label}>expected graduation</label>
+            <div><label className={label}>Expected graduation</label>
               <select className={input} value={gradIndex} onChange={e => setGradIndex(Number(e.target.value))}>
                 {Array.from({ length: 8 }, (_, i) => i + 1).filter(i => i > doneSems).map(i => <option key={i} value={i} className="bg-black">{termName(dag, i)}</option>)}
               </select></div>
-            <div><label className={label}>courses per semester</label>
+            <div><label className={label}>Courses per semester</label>
               <select className={input} value={coursesPerSemester} onChange={e => setCps(Number(e.target.value))}>
                 {[4, 5, 6].map(n => <option key={n} value={n} className="bg-black">{n} courses (~{Math.min(policies.maxUnitsWithoutPermission.value, Math.max(policies.minUnitsFullTime.value, n * 3))} units)</option>)}
               </select></div>
           </div>
-          <div className="mt-6 flex justify-between"><button className="font-mono text-xs text-zinc-500" onClick={() => setStep(0)}>back</button>{next()}</div>
+          <div className="mt-6 flex justify-between"><button className="font-mono text-xs text-zinc-500" onClick={() => setStep(0)}>Back</button>{next()}</div>
         </>}
 
         {step >= 2 && step < goalStep && (() => {
@@ -159,12 +159,12 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
                   <span className="h-2 w-2 rounded-full" style={{ border: `1.5px solid ${COLOR[category(dag, c)]}` }} />{c}
                   <button className="text-zinc-600 hover:text-red-400" onClick={() => setTaken(t => t.map((l, i) => (i === sem ? l.filter(x => x !== c) : l)))}>×</button>
                 </span>))}
-              {!taken[sem].length && <span className="font-mono text-xs text-zinc-700">no major courses yet</span>}
+              {!taken[sem].length && <span className="font-mono text-xs text-zinc-700">No major courses yet</span>}
             </div>
             <div className="mt-6 flex justify-between">
-              <button className="font-mono text-xs text-zinc-500" onClick={() => { setStep(step - 1); setWarn(null) }}>back</button>
+              <button className="font-mono text-xs text-zinc-500" onClick={() => { setStep(step - 1); setWarn(null) }}>Back</button>
               <button onClick={() => { setStep(step + 1); setWarn(null); setDraft("") }} className="rounded-full bg-teal-300 px-4 py-1.5 font-mono text-xs text-black">
-                {sem + 1 < doneSems ? `next: ${termName(dag, sem + 2)}` : "done with courses"}</button>
+                {sem + 1 < doneSems ? `Next: ${termName(dag, sem + 2)}` : "Done with courses"}</button>
             </div>
           </>
         })()}
@@ -176,7 +176,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
             {careers.map(c => <button key={c.id} onClick={() => setGoal(c.label)} className="rounded-full border border-white/10 px-3 py-1 font-mono text-[11px] text-zinc-400 hover:border-teal-300/60 hover:text-white">{c.label}</button>)}
           </div>
           {goal.trim() && <>
-            <label className={label}>recommended electives · {dag.tracks[trackId].label}</label>
+            <label className={label}>Recommended electives · {dag.tracks[trackId].label}</label>
             <div className="grid grid-cols-2 gap-1.5">
               {dag.tracks[trackId].courses.filter(c => !allTaken.includes(c)).map(c => (
                 <div key={c} className="flex items-center gap-2 font-mono text-[11px] text-zinc-300">
@@ -186,31 +186,31 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
             </div>
             <p className="mt-2 text-[11px] text-zinc-600">From the department's own elective tracks. Auto plan picks among them for your goal; the engine checks every rule.</p>
           </>}
-          <div className="mt-6 flex justify-between"><button className="font-mono text-xs text-zinc-500" onClick={() => setStep(step - 1)}>back</button>{next(!!goal.trim())}</div>
+          <div className="mt-6 flex justify-between"><button className="font-mono text-xs text-zinc-500" onClick={() => setStep(step - 1)}>Back</button>{next(!!goal.trim())}</div>
         </>}
 
         {step === buildStep && <>
           <h1 className="text-2xl font-semibold text-white">{result ? "Your plan is ready." : "How do you want to plan?"}</h1>
           <div className="mt-3 space-y-1 font-mono text-[11px] text-zinc-500">
-            <div>{name.trim()} · B.S. Computer Science · {unitsDone} units done · graduating {termName(dag, gradIndex)}</div>
-            <div>{doneSems ? `${allTaken.length} major courses locked in ${doneSems} completed semester${doneSems > 1 ? "s" : ""}` : "starting fresh"} · ~{unitsPerSemester} units per semester</div>
-            <div>goal: {goal}</div>
+            <div>{name.trim()} · B.S. Computer Science · {unitsDone} units done · Graduating {termName(dag, gradIndex)}</div>
+            <div>{doneSems ? `${allTaken.length} major course${allTaken.length === 1 ? "" : "s"} locked in ${doneSems} completed semester${doneSems > 1 ? "s" : ""}` : "Starting fresh"} · ~{unitsPerSemester} units per semester</div>
+            <div>Goal: {goal}</div>
           </div>
           {err && <div className="mt-4 font-mono text-xs text-red-400">{err}</div>}
           {(busy || result) && (
             <div className="mt-5 rounded-lg border border-white/10 bg-white/[0.02] p-3">
-              <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-violet-300">{aiName(useStore.getState().health?.aiProvider)} · reasoning</div>
+              <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-violet-300">{aiName(useStore.getState().health?.aiProvider)} · Reasoning</div>
               <Thinking pending={busy} lines={result ? [...result.trace, { label: `${result.resp.plan.source === "ai" ? "Plan accepted by the rules engine" : "Deterministic engine plan"} · ${result.resp.report.issues.filter(i => i.severity === "error").length} rule errors`, state: "done" }]
                 : [{ label: `Reading your ${allTaken.length} completed course${allTaken.length === 1 ? "" : "s"} and ${dag.requirements.length} requirement groups`, state: "think" },
                    { label: `Loading ${Object.keys(dag.nodes).length} course prerequisites from the ${dag.program.bulletin} Bulletin`, state: "think" }]} />
             </div>
           )}
           <div className="mt-6 flex justify-between">
-            <button className="font-mono text-xs text-zinc-500" onClick={() => setStep(step - 1)} disabled={busy}>back</button>
-            {result ? <button onClick={finish} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black">show me my map</button>
+            <button className="font-mono text-xs text-zinc-500" onClick={() => setStep(step - 1)} disabled={busy}>Back</button>
+            {result ? <button onClick={finish} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black">Show me my map</button>
               : <div className="flex gap-2">
                   <button onClick={finishManual} disabled={busy} className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-xs text-zinc-200 hover:bg-white/10 disabled:opacity-40">I'll plan it myself</button>
-                  <button onClick={build} disabled={busy} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">✦ auto plan it</button>
+                  <button onClick={build} disabled={busy} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">✦ Auto plan it</button>
                 </div>}
           </div>
         </>}
