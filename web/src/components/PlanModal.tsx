@@ -18,7 +18,7 @@ export function traceOf(run: RunRecord): Stage[] {
     const who = d.provider === "gemini" ? `Gemini (${d.model})` : "Simulated AI"
     if (s.name === "engine_check") {
       const n = d.problems?.length ?? 0
-      return [{ label: n ? `Rules engine: ${n} problem${n > 1 ? "s" : ""} found${d.problems?.[0] ? `: ${d.problems[0]}` : ""}` : "Rules engine: no problems, plan accepted", state: n ? "fail" : "done" }].map(x => ({ ...x, label: names(x.label) }))
+      return [{ label: names(n ? `Rules engine: ${n} problem${n > 1 ? "s" : ""} found${d.problems?.[0] ? `: ${d.problems[0]}` : ""}` : "Rules engine: no problems, plan accepted"), state: n ? "fail" : "done" }]
     }
     if (s.name === "model_plan") return [...thoughts, { label: `${who} proposed a plan · ${((d.ms ?? 0) / 1000).toFixed(1)}s`, state: "done" }]
     if (s.name.startsWith("model_repair")) return [...thoughts, { label: `${who} repaired the plan from the engine's messages · ${((d.ms ?? 0) / 1000).toFixed(1)}s`, state: "done" }]
