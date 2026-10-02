@@ -1,0 +1,27 @@
+{
+ "minUnitsFullTime": {
+  "value": 12,
+  "label": "Full-time minimum",
+  "ruleId": "enrollment_status_levels",
+  "quote": "Undergraduates | Full Time | 12–19 units |",
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "verified": false
+ },
+ "heavyLoadUnits": {
+  "value": 15,
+  "label": "Top of the normal load",
+  "ruleId": "normal_load",
+  "quote": "During spring and fall, the normal academic load for undergraduates is 12 to 15 units per semester and 8 units in the summer. For graduates, the normal load during spring and fall is from 9 to 12 units per semester and 7 units during the summer.",
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "verified": false
+ },
+ "maxUnitsWithoutPermission": {
+  "value": 19,
+  "label": "Registration maximum",
+  "ruleId": "ug_max_units_priority_registration",
+  "quote": "During priority registration, students may register for a maximum of 19 units of enrolled, including 8 units of wait-listed courses.",
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "verified": false
+ },
+ "_note": "verified stays false until a person compares each quote with the Bulletin page (architecture.md §8). The quote itself is machine-checked by scraper/build_rules.py."
+}

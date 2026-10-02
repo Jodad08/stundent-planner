@@ -1,0 +1,124 @@
+{
+ "source": "Project-defined groupings over real 2026-27 catalog courses; not SFSU categories.",
+ "directions": [
+  {
+   "id": "software-engineer",
+   "label": "Software Engineer",
+   "signalTags": [
+    "software-eng",
+    "web"
+   ],
+   "signalCourseIds": [
+    "CSC 648",
+    "CSC 413",
+    "CSC 667",
+    "CSC 668",
+    "CSC 642",
+    "CSC 675",
+    "CSC 600"
+   ],
+   "description": "Building and shipping software in teams: design, testing, web and data back ends."
+  },
+  {
+   "id": "quant",
+   "label": "Quantitative Developer",
+   "signalTags": [
+    "math",
+    "algorithms",
+    "probability",
+    "numerical"
+   ],
+   "signalCourseIds": [
+    "MATH 324",
+    "MATH 400",
+    "MATH 425",
+    "MATH 448",
+    "CSC 510",
+    "CSC 520"
+   ],
+   "description": "Math-heavy programming: probability, numerical methods and fast algorithms."
+  },
+  {
+   "id": "ml-engineer",
+   "label": "Data / ML Engineer",
+   "signalTags": [
+    "ml",
+    "data"
+   ],
+   "signalCourseIds": [
+    "CSC 665",
+    "CSC 671",
+    "CSC 620",
+    "CSC 603",
+    "CSC 659",
+    "MATH 448",
+    "CSC 675"
+   ],
+   "description": "Machine learning, language models and the data systems behind them."
+  },
+  {
+   "id": "cybersecurity",
+   "label": "Cybersecurity",
+   "signalTags": [
+    "security",
+    "networks"
+   ],
+   "signalCourseIds": [
+    "CSC 652",
+    "CSC 653",
+    "CSC 645",
+    "CSC 651"
+   ],
+   "description": "Securing systems and networks: privacy, network security and administration."
+  },
+  {
+   "id": "systems",
+   "label": "Systems / Networking",
+   "signalTags": [
+    "systems",
+    "networks"
+   ],
+   "signalCourseIds": [
+    "CSC 415",
+    "CSC 615",
+    "CSC 645",
+    "CSC 651",
+    "CSC 656",
+    "CSC 641"
+   ],
+   "description": "Operating systems, embedded Linux, networks and performance."
+  },
+  {
+   "id": "games-graphics",
+   "label": "Game / Graphics Developer",
+   "signalTags": [
+    "graphics",
+    "games"
+   ],
+   "signalCourseIds": [
+    "CSC 630",
+    "CSC 631",
+    "CSC 664",
+    "CSC 642"
+   ],
+   "description": "Computer graphics, multiplayer games, multimedia and interaction design."
+  },
+  {
+   "id": "research",
+   "label": "Academia / Research",
+   "signalTags": [
+    "theory",
+    "research"
+   ],
+   "signalCourseIds": [
+    "CSC 520",
+    "CSC 600",
+    "CSC 647",
+    "CSC 621",
+    "CSC 510",
+    "CSC 671"
+   ],
+   "description": "Theory of computation, programming languages and research-oriented electives."
+  }
+ ]
+}

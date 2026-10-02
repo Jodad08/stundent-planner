@@ -135,3 +135,99 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - How to run: `python3 scraper/parse.py <cache> data/sfsu && python3 scraper/build_rules.py && python3 scraper/build_rag.py && python3 scraper/build_cs_dag.py && python3 web/make_data.py && python3 web/bundle.py`
 - What proves it works: 0 blocks with an unapplied choice instruction (was 357); `harness.py scan` clean; planner output on the sample student unchanged (Spring 2028, CSC 340/413/415 flags); search eval 50/50; rule build finds all 113 quotes.
 - What can still fail: 17 choose groups without a parsed count; programs whose "Select" text sits in prose far from the table.
+
+## D-011: One engine, kept in `web/planner.js` (plain JavaScript)
+- Step: 3 (open decision 2)
+- Decision: The existing UMD engine `web/planner.js` stays the single rules engine for the browser and a Node server. No TypeScript port. `evaluatePlan` will be added to it. `architecture.md` §4/§5 updated, change log line added.
+- Alternatives: port to `shared/engine.ts` (the architecture default); keep JS with JSDoc types.
+- Why: Human instruction this session: skip the TypeScript port unless it is fully needed. The engine already runs in browser and Node, so a port isn't needed for one engine.
+- Evidence: human instruction 2026-10-02; `web/planner.js` (UMD export); `prompt.md` B.4 #1
+- Risk / undo: no compile-time types; mitigated by tests that pin outputs. Port later behind the same function names.
+- Critic: PASS (0001-check) [critic: mock]
+- Status: active
+
+## D-012: Prerequisite contract type is the DAG expression grammar
+- Step: 3 (open decision 3)
+- Decision: `Course.prereq: PrereqExpr | null` replaces `prereqs: CourseId[][]`. Grammar: course id, `and`, `or`, `{course, concurrent}`, `{coreq}`, `{placement}`, plus a new `{ge_area}` leaf (any earlier course in that GE area), used by the upper-division GE placeholders. Added fields: `prereqEncoded`, `minGrade`, `conditions`, `geAreas`, `unitsRange`. `architecture.md` §6 updated.
+- Alternatives: convert to `CourseId[][]` (lossy: drops concurrency, coreqs, placement, so MATH 227 with CSC 230 would become a false error).
+- Why: The Bulletin needs these cases; `prompt.md` B.4 #2.
+- Evidence: `data/sfsu/dags/bs-computer-science.json` (CSC 230: MATH 227 "may be taken concurrently"); `academic_rules.json#ug_ge_ud_prereqs` (upper-division GE requires 1A, 1B, 1C and 2)
+- Risk / undo: the engine must understand `ge_area` (to be added with `evaluatePlan`).
+- Critic: PASS (0008-check) [critic: mock]
+- Status: active
+
+## D-013: Course IDs keep the Bulletin format (`CSC 413`)
+- Step: 3 (open decision 4)
+- Decision: IDs use the Bulletin's spacing everywhere. Placeholders use `GE-<area>` and `ELECTIVE-<n>` (no 3-digit number, so they can't collide with real codes). `architecture.md` §3 updated.
+- Alternatives: `CSC413` per the original glossary.
+- Why: All 4,995 records, roadmaps, the DAG and the transcript format already use it; converting adds a lossy step (`AA S 106` vs `AAS106`).
+- Evidence: `data/sfsu/courses.json`; `web/README.md` transcript format
+- Risk / undo: none known; a slug function can produce `CSC413` where an ID can't contain spaces.
+- Critic: PASS (0009-check) [critic: mock]
+- Status: active
+
+## D-014: Contract files are generated from `data/sfsu/`
+- Step: 3 (open decision 5)
+- Decision: `scraper/build_contracts.py` writes `data/catalog.json` (all 4,995 courses + 15 GE + 4 free-elective placeholders), `data/programs/bs-computer-science.json`, `data/policies.json` and `data/career_tags.json`. `scripts/validate_catalog.py` checks them. Nothing is hand-typed.
+- Alternatives: hand-write the contract files; point code straight at `data/sfsu/`.
+- Why: Keeps one source (the Bulletin scrape) and the architecture's file contracts. The full catalog also serves as the harness's ID list, so transcript courses outside CS aren't flagged.
+- Evidence: `python3 scripts/validate_catalog.py` → OK (5,014 records, 59 encoded prerequisites, 0 errors); CS groups sum to 120 = 22 + 28 + 9 + 15 + 36 GE + 10 free (`ug_units_to_graduate`, `ug_ge_units`); GE areas 2/5A/5C are covered by MATH 226, PHYS 220, PHYS 222 (their `ge_areas`; `ug_major_ge_double_count`); no CS entry on https://bulletin.sfsu.edu/undergraduate-education/general-education/met-in-major/
+- Risk / undo: `oneLiner` is the description's first sentence, cut at 90 characters (marked `official`). Re-run the builder after any re-scrape.
+- Critic: PASS (0010-check) [critic: mock]
+- Status: active
+
+## D-015: Load policies 12 / 15 / 19, unverified until a person checks them
+- Step: 3 (open decision 6)
+- Decision: `data/policies.json`: `minUnitsFullTime` 12 (`enrollment_status_levels`), `heavyLoadUnits` 15 (`normal_load`, top of the normal load), `maxUnitsWithoutPermission` 19 (`ug_max_units_priority_registration`, labeled "Registration maximum"). Each carries the rule id, the quote and the Bulletin URL, with `verified: false`. The CS DAG's thresholds are also read from `academic_rules.json` now, so every number has one source.
+- Alternatives: `verified: true` because the quotes are machine-checked (`prompt.md` A.5).
+- Why: `architecture.md` §8 says `verified: true` only after a person compares the record with the Bulletin; architecture wins on contracts. The UI can still show the quote instead of the word "assumed".
+- Evidence: `academic_rules.json#enrollment_status_levels`, `#normal_load`, `#ug_max_units_priority_registration`
+- Risk / undo: the three values show as unverified until the human confirms them; flip `verified` after that check.
+- Critic: PASS (0011-check) [critic: mock]
+- Status: active
+
+## D-016: P0 supports mid-degree students
+- Step: 3 (open decision 8)
+- Decision: P0 shows an "Already done" view fed by the transcript profile the engine already supports. The `Plan` contract gets `completedCourseIds` and real term labels; that `architecture.md` §6 edit lands with `evaluatePlan`.
+- Alternatives: fresh 8-semester plans only.
+- Why: The real SFSU planner is used mid-degree (`prompt.md` A.6); the engine already removes completed and in-progress courses.
+- Evidence: `prompt.md` A.6; `web/planner.js` `profileSets`
+- Risk / undo: a fresh freshman still gets 8 empty terms.
+- Critic: PASS (0012-check) [critic: mock]
+- Status: active
+
+## D-017: No React Flow; extend the existing page with an SVG prerequisite layer
+- Step: 3 (human decision)
+- Decision: The board is the existing `web/index.html` semester columns with an SVG layer drawn over them: a line from each prerequisite to its dependent, red where the prerequisite order is broken. No React, React Flow, Zustand or Tailwind.
+- Alternatives: React Flow board per `plan.md` §5/§10.
+- Why: Human decision, 2026-10-02.
+- Evidence: human message 2026-10-02 ("No React Flow: extend the current HTML/JS page instead, with an SVG layer over the semester columns")
+- Risk / undo: line routing over HTML columns is hand-written; keep it simple (straight curves, recomputed on resize).
+- Critic: PASS (0013-check) [critic: mock]
+- Status: active
+
+## D-018: The plan critic runs scan-only
+- Step: 3 (human decision)
+- Decision: No Anthropic key; `harness.py` runs its deterministic scan only. Every decision records `[critic: mock]`.
+- Alternatives: supply `ANTHROPIC_API_KEY` for the LLM critic.
+- Why: Human decision, 2026-10-02.
+- Evidence: human message 2026-10-02 ("No Anthropic key: the planning-doc checker runs in scan-only mode")
+- Risk / undo: reasoning and scope aren't reviewed by an LLM; the scan, the validators and the evals carry the checking.
+- Critic: PASS (0014-check) [critic: mock]
+- Status: active
+
+## D-019: Courses move by click, not drag and drop
+- Step: 3 (human decision)
+- Decision: A course moves through a "Move to…" menu, or by selecting it and then clicking a semester. No drag and drop.
+- Alternatives: drag and drop (`plan.md` §10 P0).
+- Why: Human decision, 2026-10-02; the demo's "move CSC 340 before its prerequisite" still works.
+- Evidence: human message 2026-10-02 ("Click-to-move: a 'Move to…' menu, or select a course and then click a semester")
+- Risk / undo: none.
+- Critic: PASS (0015-check) [critic: mock]
+- Status: active
+
+### Step 3 summary
+- What changed: `scraper/build_contracts.py` generates `data/catalog.json`, `data/programs/bs-computer-science.json`, `data/policies.json`, `data/career_tags.json`; `scripts/validate_catalog.py` validates them; the CS DAG reads its thresholds from `academic_rules.json`; `architecture.md` §3/§4/§5/§6/§8/§16 minimal edits.
+- How to run: `python3 scraper/build_cs_dag.py && python3 scraper/build_contracts.py && python3 scripts/validate_catalog.py`
+- What proves it works: validator OK (0 errors); harness scan clean; CS groups add up to 120 units.
+- What can still fail: only the 59 CS courses have encoded prerequisites; the other courses carry Bulletin text in `prereqNotes`. Nothing is human-verified yet.

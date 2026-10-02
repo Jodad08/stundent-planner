@@ -1,0 +1,177 @@
+{
+ "id": "bs-cs",
+ "name": "Bachelor of Science in Computer Science",
+ "totalUnitsRequired": 120,
+ "majorUnits": 74,
+ "sourceUrl": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/",
+ "sourceAccessed": "2026-10-02",
+ "requirementGroups": [
+  {
+   "id": "mathematics_and_physics",
+   "title": "Mathematics and Physics",
+   "type": "all",
+   "courseIds": [
+    "MATH 225",
+    "MATH 226",
+    "MATH 227",
+    "MATH 324",
+    "PHYS 220",
+    "PHYS 222",
+    "PHYS 230",
+    "PHYS 232"
+   ],
+   "units": 22
+  },
+  {
+   "id": "core_computer_science_requirements",
+   "title": "Core Computer Science Requirements",
+   "type": "all",
+   "courseIds": [
+    "CSC 101",
+    "CSC 215",
+    "CSC 220",
+    "CSC 230",
+    "CSC 256",
+    "CSC 300GW",
+    "CSC 317",
+    "CSC 340",
+    "CSC 413"
+   ],
+   "units": 28
+  },
+  {
+   "id": "advanced_computer_science_requirements",
+   "title": "Advanced Computer Science Requirements",
+   "type": "all",
+   "courseIds": [
+    "CSC 415",
+    "CSC 510",
+    "CSC 648"
+   ],
+   "units": 9
+  },
+  {
+   "id": "electives",
+   "title": "Electives",
+   "type": "units",
+   "unitsRequired": 15,
+   "courseIds": [
+    "CSC 520",
+    "CSC 600",
+    "CSC 603",
+    "CSC 615",
+    "CSC 620",
+    "CSC 621",
+    "CSC 630",
+    "CSC 631",
+    "CSC 641",
+    "CSC 642",
+    "CSC 645",
+    "CSC 647",
+    "CSC 651",
+    "CSC 652",
+    "CSC 653",
+    "CSC 656",
+    "CSC 659",
+    "CSC 664",
+    "CSC 665",
+    "CSC 667",
+    "CSC 668",
+    "CSC 671",
+    "CSC 675",
+    "CSC 676",
+    "CSC 680",
+    "CSC 685",
+    "CSC 686",
+    "CSC 698",
+    "CSC 699",
+    "MATH 400",
+    "MATH 425",
+    "MATH 448"
+   ],
+   "minUnitsInSubject": {
+    "CSC": 12
+   },
+   "excludedCourseIds": [
+    "CSC 601",
+    "CSC 602",
+    "CSC 648",
+    "CSC 694"
+   ],
+   "notAutoPlanned": [
+    "CSC 685",
+    "CSC 686",
+    "CSC 698",
+    "CSC 699"
+   ],
+   "note": "All students must complete five 3-unit senior electives. At least 12 units must be CSC courses. In addition to the courses listed below, any 600-level CSC course, with the exception of CSC 601, CSC 602, CSC 648, and CSC 694 can be used as an elective. The department also allows one CSC graduate course to be used as a senior elective (700-level or higher, and non-paired excluding CSC 895, CSC 898, CSC 897, CSC 899). Exceptions must be approved in advance by a senior advisor."
+  },
+  {
+   "id": "general_education",
+   "title": "General Education",
+   "type": "units",
+   "unitsRequired": 36,
+   "courseIds": [
+    "GE-1A",
+    "GE-1B",
+    "GE-1C",
+    "GE-3A",
+    "GE-3B",
+    "GE-4-1",
+    "GE-4-2",
+    "GE-5B",
+    "GE-6",
+    "GE-2UD-5UD",
+    "GE-3UD",
+    "GE-4UD"
+   ],
+   "metByMajorCourse": {
+    "2": "MATH 226",
+    "5A": "PHYS 220",
+    "5C": "PHYS 222"
+   },
+   "note": "GE is 43 units (rule ug_ge_units). Areas covered by GE-approved courses in the major are not repeated (rule ug_major_ge_double_count); placeholders stand for any approved course in that area."
+  },
+  {
+   "id": "free_electives",
+   "title": "Free electives",
+   "type": "units",
+   "unitsRequired": 10,
+   "courseIds": [
+    "ELECTIVE-1",
+    "ELECTIVE-2",
+    "ELECTIVE-3",
+    "ELECTIVE-4"
+   ],
+   "note": "120 degree units − 74 major − 36 GE placeholders."
+  }
+ ],
+ "notTracked": [
+  "SF State Studies (AERM, ESCA, GP, SJ)",
+  "American Institutions (U.S. History, U.S. and California Government)",
+  "Residence units (30 at SF State)",
+  "Upper-division units (30)"
+ ],
+ "officialRoadmaps": [
+  {
+   "id": "science-engineering/computer-science/bs-computer-science/adt-roadmap",
+   "title": "Bachelor of Science in Computer Science – COMP Associate Degree for Transfer (ADT) Roadmap",
+   "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/adt-roadmap/",
+   "type": "transfer (ADT)"
+  },
+  {
+   "id": "science-engineering/computer-science/bs-computer-science/roadmap-i-ii-eng",
+   "title": "Bachelor of Science in Computer Science Roadmap - Quantitative Reasoning Category 1/2",
+   "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/roadmap-i-ii-eng/",
+   "type": "first-time student (4-year)"
+  },
+  {
+   "id": "science-engineering/computer-science/bs-computer-science/roadmap-math-pathway",
+   "title": "Bachelor of Science in Computer Science Roadmap Quantitative Reasoning Category 3/4",
+   "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/roadmap-math-pathway/",
+   "type": "first-time student (4-year)"
+  }
+ ],
+ "prereqGraph": "data/sfsu/dags/bs-computer-science.json",
+ "verified": false
+}

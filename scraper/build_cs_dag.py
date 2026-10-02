@@ -143,6 +143,8 @@ def codes(expr):
 def main():
     courses = {c["code"]: c for c in json.load(open(os.path.join(DATA, "courses.json")))}
     program = next(p for p in json.load(open(os.path.join(DATA, "programs.json"))) if p["id"] == PROGRAM_ID)
+    rules = {r["id"]: r["values"] for r in json.load(open(os.path.join(DATA, "academic_rules.json")))["rules"]}
+    levels = rules["class_levels"]
     errors = []
     nodes = {}
     for code, (expr, conds, grade, ignored) in COURSES.items():
@@ -233,7 +235,8 @@ def main():
         sys.exit(1)
     doc = {
         "program": {"id": PROGRAM_ID, "name": program["name"], "url": program["url"],
-                    "major_units": int(program["total_units"]), "degree_units": 120,
+                    "major_units": int(program["total_units"]),
+                    "degree_units": rules["ug_units_to_graduate"]["min_units"],
                     "bulletin": "2026-2027"},
         "grammar": __doc__.split("Expression grammar (JSON):")[1].split("Usage:")[0].strip(),
         "notes": [
@@ -249,14 +252,14 @@ def main():
         "tracks": TRACKS,
         "term_offerings": {},
         "university": {
-            "min_units": 120,
-            "min_gpa": 2.0,
-            "upper_division_units_required": 30,
-            "sophomore_standing_units": 30,
-            "upper_division_standing_units": 60,
-            "senior_standing_units": 90,
-            "normal_load_units": [12, 15],
-            "max_units_priority_registration": 19,
+            "min_units": rules["ug_units_to_graduate"]["min_units"],
+            "min_gpa": rules["ug_min_gpa_graduation"]["min_gpa"],
+            "upper_division_units_required": rules["ug_upper_division_units"]["min_upper_division_units"],
+            "sophomore_standing_units": levels["sophomore"][0],
+            "upper_division_standing_units": levels["junior"][0],
+            "senior_standing_units": levels["senior"][0],
+            "normal_load_units": rules["normal_load"]["undergraduate"]["fall_spring"],
+            "max_units_priority_registration": rules["ug_max_units_priority_registration"]["max_units"],
             "gwar_course": "CSC 300GW",
             "rule_ids": {
                 "min_units": "ug_units_to_graduate", "min_gpa": "ug_min_gpa_graduation",

@@ -63,7 +63,7 @@ Use these exact words in code, comments and UI text.
 | Term | Meaning | Code name |
 |---|---|---|
 | Course | One catalog course | `Course` |
-| Course ID | Normalized ID, no spaces, uppercase, for example `CSC413` | `courseId: string` |
+| Course ID | Bulletin format with one space, for example `CSC 413` (D-013). Placeholders: `GE-1A`, `ELECTIVE-1` | `courseId: string` |
 | Credits | Unit value of a course. Shown as "credits" in UI. Field name in data is `units`. | `units` |
 | Program | A major with requirement groups | `Program` |
 | Requirement group | A block of a program such as "Lower Division Core" | `RequirementGroup` |
@@ -108,10 +108,10 @@ Key decisions (locked, do not revisit without editing this file):
 
 | Decision | Choice | Reason |
 |---|---|---|
-| Backend language | Node + Express + TypeScript | One language, so the engine exists once in `shared/`. This replaces the Flask mention in `plan.md`. |
-| Engine location | `shared/engine.ts`, used by web and server | One implementation, no drift. |
-| Graph library | React Flow (`@xyflow/react`) | Group nodes, derived edges, sidebar drag pattern. |
-| State | Zustand, plan JSON is the single source of truth | Nodes and edges are derived, never stored. |
+| Backend language | Node, plain JavaScript (D-011) | One language, so the engine exists once. TypeScript port deferred by the human. |
+| Engine location | `web/planner.js` (UMD), used by web and server (D-011) | One implementation, no drift. |
+| Graph library | None: the existing HTML/JS page with an SVG overlay for prerequisite lines (D-017) | Human decision; no React Flow. |
+| State | Plain JS state object; plan JSON is the single source of truth | Lines are derived, never stored. |
 | Storage | `localStorage` key `gatorgraph.plans.v1` | No database allowed. |
 | AI output format | Gemini structured JSON with a response schema | No free text parsing. |
 | AI trust | All AI output re-checked by the engine | Prevents hallucinated plans. |
@@ -184,8 +184,12 @@ gatorgraph/
     demo-script.md
 ```
 
+Current layout (D-011, D-014, D-017): the scraped Bulletin lives in `data/sfsu/` and is the source of the contract
+files, which `scraper/build_contracts.py` generates; builders live in `scraper/`; the engine is `web/planner.js`;
+the UI is `web/index.html`; `shared/` and `web/src/` are not used.
+
 File ownership rules:
-- Rules about prerequisites, credits, requirements live ONLY in `shared/engine.ts`.
+- Rules about prerequisites, credits, requirements live ONLY in the engine (`web/planner.js`, D-011).
 - Prompts live ONLY in `server/prompts.ts`.
 - Policy numbers live ONLY in `data/policies.json`.
 - Course facts live ONLY in `data/catalog.json`.
@@ -209,8 +213,13 @@ export type Course = {
   oneLiner: string
   oneLinerSource: "official" | "generated" | "manual"
   description: string
-  prereqs: CourseId[][]      // AND of OR groups. outer = AND, inner = OR
+  prereq: PrereqExpr | null  // D-012: AND/OR expression (see below); null = none or not encoded
+  prereqEncoded: boolean     // false = only prereqNotes (Bulletin text) is available for this course
   prereqNotes: string        // prose the engine cannot check, may be ""
+  minGrade: string | null    // minimum grade in prerequisite courses, e.g. "C"
+  conditions: string[]       // standing / GPA / major restrictions, as text
+  geAreas: string[]          // GE areas the course satisfies, e.g. ["1A"]
+  unitsRange: string | null  // "1-3" for variable-unit courses; units holds the maximum
   coreqs: CourseId[]
   tags: string[]
   typicalTerms: ("fall" | "spring" | "summer")[] // [] means unknown
@@ -220,6 +229,15 @@ export type Course = {
   isPlaceholder: boolean
   notes: string
 }
+
+// D-012: prerequisite expression grammar (from data/sfsu/dags/*.json)
+export type PrereqExpr =
+  | CourseId                                   // completed in an earlier term
+  | { and: PrereqExpr[] } | { or: PrereqExpr[] }
+  | { course: CourseId; concurrent: true }     // earlier term or the same term
+  | { coreq: CourseId }                        // same term or earlier
+  | { placement: string }                      // student profile flag, e.g. "calculus"
+  | { ge_area: string }                        // any earlier course in that GE area
 
 export type RequirementGroup =
   | { id: string; title: string; type: "all"; courseIds: CourseId[] }
@@ -358,7 +376,7 @@ Files in `data/` are the only data source. They are read-only at runtime.
 
 | File | Shape | Notes |
 |---|---|---|
-| `catalog.json` | `Course[]` | Every record has `sourceUrl`. |
+| `catalog.json` | `Course[]` | Every record has `sourceUrl`. Generated from `data/sfsu/` by `scraper/build_contracts.py` (D-014). All 4,995 courses plus GE and free-elective placeholders. |
 | `programs/bs-computer-science.json` | `Program` | `id` is `bs-cs`. |
 | `policies.json` | `Policies` | Values may be `verified: false`. UI shows "assumed". |
 | `career_tags.json` | `{ directions: CareerDirection[] }` | Signals reference real course IDs and tags only. |
@@ -578,4 +596,5 @@ Each item must be resolved from an official source and then moved to the data fi
 
 Add one line per contract change. Newest first.
 
+- 2026-10-02: D-011 engine stays `web/planner.js` (plain JS); D-012 `prereq: PrereqExpr` replaces `prereqs: CourseId[][]`; D-013 course IDs keep the Bulletin space; D-014 contract files generated from `data/sfsu/`; D-017 no React Flow, SVG overlay on the existing page.
 - 2026-10-02: Initial version. Backend locked to Node + Express + TypeScript so the engine exists once in `shared/`.

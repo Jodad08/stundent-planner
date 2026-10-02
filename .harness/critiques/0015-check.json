@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T20:49:13+00:00",
+  "input": {
+    "proposal": "D-019 move courses by click: a Move to menu, or select a course then click a semester; no drag and drop (human decision)"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0015-check"
+}
