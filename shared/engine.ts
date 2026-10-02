@@ -582,3 +582,21 @@ export function uniqueCourses(p: Plan): Plan {
   const seen = new Set<CourseId>()
   return { ...p, semesters: p.semesters.map(s => ({ ...s, courseIds: s.courseIds.filter(c => (seen.has(c) ? false : (seen.add(c), true))) })) }
 }
+
+/**
+ * Where should a course that breaks a rule go? (D-040) The earliest open semester where moving it leaves no
+ * error for that course and no more errors overall than before. null when no single move fixes it
+ * (e.g. its prerequisite is missing from the plan).
+ */
+export function suggestSemester(p: Plan, dag: Dag, policies: Policies, id: CourseId): number | null {
+  const errs = (q: Plan) => evaluatePlan(q, dag, policies).issues.filter(i => i.severity === "error")
+  const before = errs(p).length
+  const from = p.semesters.find(s => s.courseIds.includes(id))?.index
+  for (const s of p.semesters) {
+    if (s.index <= (p.completedSemesters ?? 0) || s.index === from) continue
+    const q: Plan = { ...p, semesters: p.semesters.map(x => ({ ...x, courseIds: x.index === s.index ? [...x.courseIds.filter(c => c !== id), id] : x.courseIds.filter(c => c !== id) })) }
+    const e = errs(q)
+    if (!e.some(i => i.courseIds[0] === id) && e.length < before) return s.index
+  }
+  return null
+}

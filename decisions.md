@@ -387,3 +387,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: The pitch must not describe offline output as live Gemini (GDG rules); DEMO.md has the honest line.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-040: Broken courses say where to go
+- Step: 10 (human request)
+- Decision: `suggestSemester(plan, dag, policies, id)` (engine) returns the earliest open semester where moving the course leaves no error for it and fewer errors overall, or null when no single move fixes it (e.g. a missing prerequisite). Red cards and Evaluate's error list show "Move it to <term> →", which applies the move; when null the card says to add the missing prerequisite first.
+- Why: human request 2026-10-02 ~15:53.
+- Evidence: `shared/engine.test.ts` (CSC 340 beside CSC 220/230 → semester 4; missing CSC 220 → null); browser (button moved CSC 340 to Spring 2028, its error cleared)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

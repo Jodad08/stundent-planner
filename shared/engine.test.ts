@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, it } from "vitest"
 import { dag, policies } from "./data"
-import { bottlenecks, criticalCourses, evaluatePlan, placeholderId, plan, semesterStatus, uniqueCourses, type Profile } from "./engine"
+import { bottlenecks, criticalCourses, evaluatePlan, placeholderId, plan, semesterStatus, suggestSemester, uniqueCourses, type Profile } from "./engine"
 import { buildFallbackPlan } from "./fallbackPlanner"
 import type { Plan } from "./types"
 import transcript from "./fixtures/midDegreeTranscript.json"
@@ -103,6 +103,12 @@ describe("evaluatePlan", () => {
     expect(u.semesters.flatMap(s => s.courseIds).filter(c => c === "CSC 101")).toHaveLength(1)
     expect(u.semesters[0].courseIds).toContain("CSC 101")
     expect(codes(u, "DUPLICATE_COURSE")).toHaveLength(0)
+  })
+  it("suggestSemester finds the earliest semester that fixes a broken course", () => {
+    const broken = move(valid, "CSC 340", 3) // same semester as CSC 220 / CSC 230
+    expect(suggestSemester(broken, dag, policies, "CSC 340")).toBe(4)
+    const missing = clone(valid); missing.semesters.forEach(s => { s.courseIds = s.courseIds.filter(c => c !== "CSC 220") })
+    expect(suggestSemester(missing, dag, policies, "CSC 340")).toBeNull() // no move can fix a missing prerequisite
   })
   it("empty plan is not graduation-ready", () => {
     const p = clone(valid); p.semesters.forEach(s => { s.courseIds = [] })

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import type { Issue, Suggestion } from "../../../shared/types"
 import { useActivePlan, useStore } from "../store"
+import { suggestSemester } from "../../../shared/engine"
 import { termName } from "../lib/derive"
 import { useReport } from "./Board"
 import { aiName, Thinking, type Stage } from "./Thinking"
@@ -28,6 +29,10 @@ export function EvaluatePanel() {
   const Item = ({ i }: { i: Issue }) => (
     <li className="cursor-pointer rounded-lg bg-zinc-50 p-2 text-[12px] hover:bg-zinc-100" onClick={() => i.courseIds[0] && st.selectCourse(i.courseIds[0])}>
       {names(i.message)}{i.sourceUrl && <a className="ml-1 text-sky-700 underline" href={i.sourceUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>Bulletin</a>}
+      {i.severity === "error" && i.courseIds[0] && (() => {
+        const to = suggestSemester(plan, dag, useStore.getState().policies!, i.courseIds[0])
+        return to ? <button onClick={e => { e.stopPropagation(); st.moveCourse(i.courseIds[0], to) }} className="mt-1 block rounded-md bg-zinc-900 px-2 py-0.5 text-[11px] font-semibold text-white">Move {i.courseIds[0]} to {termName(dag, to)} →</button> : null
+      })()}
     </li>)
 
   return (

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { isElectiveSlot, isPlaceholder, leaves, placeholderUnits } from "../../../shared/engine"
+import { isElectiveSlot, isPlaceholder, leaves, placeholderUnits, suggestSemester } from "../../../shared/engine"
 import type { CourseId, Dag, PrereqExpr } from "../../../shared/types"
 import { category, termName } from "../lib/derive"
 import { useActivePlan, useStore } from "../store"
@@ -30,6 +30,8 @@ export function Columns() {
   const names = (t?: string) => t?.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2)))
   const issueFor = (id: CourseId) => report.issues.find(i => i.courseIds[0] === id && i.severity !== "info" && i.code !== "REQ_GROUP_INCOMPLETE")
   const done = plan.completedSemesters ?? 0
+  // where each broken course should go (D-040)
+  const fixes = useMemo(() => new Map([...status].filter(([, v]) => v === "error").map(([id]) => [id, suggestSemester(plan, dag, policies, id)])), [status, plan, dag, policies])
   const drop = (index: number) => (e: React.DragEvent) => {
     e.preventDefault(); setOver(null)
     const id = e.dataTransfer.getData("application/gatorgraph")
@@ -85,7 +87,7 @@ export function Columns() {
               </div>
               <div className="flex-1 space-y-2.5 overflow-y-auto px-2 pb-2">
                 {s.courseIds.filter(c => !isPlaceholder(c)).map((id, k) => (
-                  <Card key={id} first={s.index === (plan.semesters.find(x => x.courseIds.some(c => !isPlaceholder(c)))?.index) && k === 0} dag={dag} id={id} sem={s.index} semOf={semOf} status={status.get(id)} issue={names(issueFor(id)?.message)} done={isDone}
+                  <Card key={id} first={s.index === (plan.semesters.find(x => x.courseIds.some(c => !isPlaceholder(c)))?.index) && k === 0} dag={dag} id={id} sem={s.index} semOf={semOf} status={status.get(id)} issue={names(issueFor(id)?.message)} done={isDone} fix={fixes.get(id)} onFix={to => st.moveCourse(id, to)}
                     onRemove={() => st.unplaceCourse(id)} />
                 ))}
                 {slots.map(slot => (
@@ -125,7 +127,7 @@ export function Columns() {
   )
 }
 
-function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { first?: boolean; dag: Dag; id: CourseId; sem: number; semOf: Map<CourseId, number>
+function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first, fix, onFix }: { first?: boolean; fix?: number | null; onFix: (to: number) => void; dag: Dag; id: CourseId; sem: number; semOf: Map<CourseId, number>
   status?: "error" | "warning"; issue?: string; done: boolean; onRemove: () => void }) {
   const n = dag.nodes[id]
   const [open, setOpen] = useState(false)
@@ -152,7 +154,11 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { f
           <span className="rounded bg-zinc-800/80 px-1.5 text-xs font-bold text-white">{n?.units ?? 0}</span>
         </div>
       </div>
-      {n && issue && <div className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{issue}</div>}
+      {n && issue && <div className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{issue}
+        {status === "error" && (fix
+          ? <button onClick={() => onFix(fix)} className="mt-1.5 block w-full rounded-md bg-zinc-900 px-2 py-1 text-[11px] font-semibold text-white hover:bg-zinc-700">Move it to {termName(dag, fix)} →</button>
+          : fix === null && <div className="mt-1 text-[10.5px] text-zinc-600">Moving it alone won't fix this. Add the missing prerequisite to an earlier semester first.</div>)}
+      </div>}
       {n && n.prereq && !done && (() => {
         // collapsed by default: one line with the count and whether they're met; click to see the chips (D-037)
         const count = new Set(leaves(n.prereq).map(l => l.code)).size
