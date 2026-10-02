@@ -22,7 +22,10 @@ export function ProofPanel() {
     <div className="mb-2 mt-6 flex items-center gap-2 text-[14px] font-semibold text-zinc-900">
       <span className="flex h-5 w-5 items-center justify-center rounded-full bg-zinc-800 text-[11px] text-white">{n}</span>{children}</div>)
   const caught = r?.seeded.cases.filter(c => c.pass).length ?? 0
-  const name = (v: string) => v.startsWith("No-op") ? "Empty plan" : v.startsWith("SFSU official") ? "SFSU's sample roadmap" : v.startsWith("Deterministic") ? "PlanEd rules engine" : "AI + rules engine"
+  // three honest AI labels: live Gemini, simulated AI, or the engine fallback when the AI was unavailable
+  const name = (v: string) => v.startsWith("No-op") ? "Empty plan" : v.startsWith("SFSU official") ? "SFSU's sample roadmap"
+    : v.startsWith("Deterministic") ? "PlanEd rules engine" : v.includes("fallback") ? "Engine fallback (AI unavailable)"
+    : v.includes("(mock)") ? "Simulated AI + rules engine" : "Gemini + rules engine"
 
   return (
     <aside className="w-[460px] shrink-0 overflow-y-auto border-l border-zinc-200 bg-white p-5 text-sm text-zinc-700">

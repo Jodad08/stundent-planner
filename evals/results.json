@@ -1,6 +1,6 @@
 {
- "generated_at": "2026-10-02T21:21:55.800Z",
- "provider": "gemini",
+ "generated_at": "2026-10-02T22:20:12.994Z",
+ "provider": "mock",
  "model": "gemini-3.8-flash",
  "seeded": {
   "cases": [
@@ -197,7 +197,7 @@
      "source": "fallback"
     },
     {
-     "variant": "Gemini failed → engine fallback (gemini)",
+     "variant": "Gemini + engine repair (mock)",
      "errors": 0,
      "groupsSatisfied": 4,
      "groupsTotal": 4,
@@ -205,9 +205,9 @@
      "units": 120,
      "graduationReady": true,
      "goalTrackScore": 100,
-     "attempts": 1,
-     "source": "fallback",
-     "runId": "2026-10-02T21-21-17-481Z_gemini_plan_6700b8"
+     "attempts": 2,
+     "source": "ai",
+     "runId": "2026-10-02T22-20-04-567Z_gemini_plan_d1c334"
     }
    ]
   },
@@ -252,17 +252,17 @@
      "source": "fallback"
     },
     {
-     "variant": "Gemini failed → engine fallback (gemini)",
+     "variant": "Gemini + engine repair (mock)",
      "errors": 0,
      "groupsSatisfied": 4,
      "groupsTotal": 4,
      "semesters": 7,
      "units": 120,
      "graduationReady": true,
-     "goalTrackScore": 0,
-     "attempts": 1,
-     "source": "fallback",
-     "runId": "2026-10-02T21-21-31-160Z_gemini_plan_8acfd8"
+     "goalTrackScore": 100,
+     "attempts": 2,
+     "source": "ai",
+     "runId": "2026-10-02T22-20-07-376Z_gemini_plan_f39e20"
     }
    ]
   },
@@ -307,17 +307,17 @@
      "source": "fallback"
     },
     {
-     "variant": "Gemini + engine repair (gemini)",
+     "variant": "Gemini + engine repair (mock)",
      "errors": 0,
      "groupsSatisfied": 4,
      "groupsTotal": 4,
-     "semesters": 8,
+     "semesters": 7,
      "units": 120,
      "graduationReady": true,
-     "goalTrackScore": 80,
-     "attempts": 1,
+     "goalTrackScore": 100,
+     "attempts": 2,
      "source": "ai",
-     "runId": "2026-10-02T21-21-40-111Z_gemini_plan_8e1deb"
+     "runId": "2026-10-02T22-20-10-187Z_gemini_plan_b125ad"
     }
    ]
   }
