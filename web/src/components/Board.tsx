@@ -28,6 +28,8 @@ export function Board() {
   const report = useReport()!
   const [dropTarget, setDropTarget] = useState<number | null>(null)
   const zoomSem = useStore(s => s.zoomSem)
+  const flash = useStore(s => s.flash)
+  useEffect(() => { if (!flash) return; const t = setTimeout(() => useStore.getState().setFlash(null), 7000); return () => clearTimeout(t) }, [flash])
   const derived = useMemo(() => derive(plan, dag, report, selected, policies.minUnitsFullTime.value, dropTarget), [plan, dag, report, selected, policies, dropTarget])
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>(derived.nodes)
   useEffect(() => { setNodes(derived.nodes) }, [derived.nodes, setNodes])
@@ -108,6 +110,11 @@ export function Board() {
       }}>
       <Background variant={BackgroundVariant.Dots} gap={28} size={0.8} color="#18181b" />
       <Panel position="bottom-left"><Legend /></Panel>
+      {flash && (
+        <Panel position="top-center">
+          <div className="max-w-xl rounded-full border border-teal-300/30 bg-black/90 px-4 py-1.5 font-mono text-[11px] text-teal-200 shadow-[0_0_24px_-6px_#2dd4bf]">{flash}</div>
+        </Panel>
+      )}
       {zoomSem != null && (
         <Panel position="top-right">
           <button onClick={() => useStore.getState().setZoomSem(null)} title="Back to all semesters (Esc)"

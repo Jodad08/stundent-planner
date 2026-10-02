@@ -1,7 +1,7 @@
 // POST /api/evaluate: engine first (truth), direction scores in code, then Gemini explains (plan.md §11.3).
 import { Router } from "express"
 import { careers, dag, policies } from "../../shared/data"
-import { DEFAULT_PROFILE, evaluatePlan, isPlaceholder, sanitizeSemesters } from "../../shared/engine"
+import { connections, DEFAULT_PROFILE, evaluatePlan, isPlaceholder, sanitizeSemesters } from "../../shared/engine"
 import { directionScores } from "../../shared/directionScores"
 import type { EvaluateResponse, Plan, Suggestion } from "../../shared/types"
 import { completeJson, providerName } from "../gemini"
@@ -24,6 +24,7 @@ export function applySuggestion(p: Plan, s: Suggestion): Plan | null {
 export async function evaluate(planIn: Plan, goalText?: string): Promise<EvaluateResponse> {
   const report = evaluatePlan(planIn, dag, policies, DEFAULT_PROFILE)
   const scores = directionScores(planIn, careers)
+  const conn = connections(planIn, dag)
   const key = cacheKey(["evaluate", providerName(), planIn.semesters, goalText ?? ""])
   const hit = cacheGet<EvaluateResponse>(key)
   if (hit) return hit
@@ -33,7 +34,7 @@ export async function evaluate(planIn: Plan, goalText?: string): Promise<Evaluat
   let aiStatus: EvaluateResponse["aiStatus"] = "failed"
   let dropped = 0
   try {
-    const out = await completeJson(EVALUATE_SYSTEM, buildEvaluateUser(dag, planIn, report, scores, goalText), {
+    const out = await completeJson(EVALUATE_SYSTEM, buildEvaluateUser(dag, planIn, report, scores, goalText, conn), {
       purpose: "evaluate", schema: EVALUATE_SCHEMA,
       mock: () => ({ summary: `MOCK (no model call): the engine found ${report.issues.filter(i => i.severity === "error").length} error(s).`,
         directionExplanation: `MOCK: highest code score is ${scores[0].label} (${scores[0].score}).`, suggestions: [] }),
@@ -52,7 +53,7 @@ export async function evaluate(planIn: Plan, goalText?: string): Promise<Evaluat
   } catch (e) {
     run.rec.errors.push(String(e).slice(0, 300))
   }
-  const resp: EvaluateResponse = { report, directionScores: scores, ai, aiStatus, droppedSuggestions: dropped, runId: run.rec.run_id }
+  const resp: EvaluateResponse = { report, connections: conn, directionScores: scores, ai, aiStatus, droppedSuggestions: dropped, runId: run.rec.run_id }
   run.rec.final_state = resp
   run.rec.scores = { errors: report.issues.filter(i => i.severity === "error").length, graduationReady: report.graduationReady, droppedSuggestions: dropped }
   run.save()

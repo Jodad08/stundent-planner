@@ -8,7 +8,6 @@ import { COLOR } from "./CourseNode"
 export function Sidebar() {
   const dag = useStore(s => s.dag)!
   const plan = useActivePlan()
-  const flash = useStore(s => s.flash)
   const [q, setQ] = useState("")
   const placed = useMemo(() => {
     const m = new Map<string, number>()
@@ -18,14 +17,26 @@ export function Sidebar() {
   const nextGe = useMemo(() => { let n = 1; while (placed.has(placeholderId(3, n))) n++; return placeholderId(3, n) }, [placed])
   const drag = (id: string) => (e: React.DragEvent) => { e.dataTransfer.setData("application/gatorgraph", id); e.dataTransfer.effectAllowed = "move" }
   const geUnits = [...placed.keys()].filter(isPlaceholder).reduce((s, id) => s + Number(id.split("-")[1].slice(0, -1)), 0)
-  const match = (id: string) => !q || (id + " " + dag.nodes[id].title).toLowerCase().includes(q.toLowerCase())
+  const student = useStore(s => s.student)
+  const showAll = useStore(s => s.showAll)
+  // recommended view: required courses + the goal track's electives (D-024)
+  const rec = student && !showAll ? new Set(dag.tracks[student.trackId]?.courses ?? []) : null
+  const match = (id: string) => (!q || (id + " " + dag.nodes[id].title).toLowerCase().includes(q.toLowerCase()))
+    && (!rec || dag.requirements.some(r => r.type === "all" && r.courses.includes(id)) || rec.has(id))
 
   return (
     <aside data-tour="courses" className="flex w-56 shrink-0 flex-col border-r border-white/5 bg-black">
       <div className="p-3">
         <input value={q} onChange={e => setQ(e.target.value)} placeholder="search courses"
           className="w-full rounded-md border border-white/10 bg-transparent px-2 py-1.5 font-mono text-xs text-zinc-300 outline-none placeholder:text-zinc-600 focus:border-white/30" />
-        {flash && <div className="mt-2 font-mono text-[11px] text-amber-300" onClick={() => useStore.getState().setFlash(null)}>{flash}</div>}
+        {student && (
+          <div className="mt-2 flex gap-1 font-mono text-[10px]">
+            {[["recommended", false], ["all courses", true]].map(([l, v]) => (
+              <button key={l as string} onClick={() => useStore.getState().setShowAll(v as boolean)}
+                className={`rounded-full px-2 py-0.5 ${showAll === v ? "bg-white/10 text-white" : "text-zinc-500 hover:text-zinc-300"}`}>{l as string}</button>))}
+          </div>
+        )}
+        {student && !showAll && <div className="mt-1 font-mono text-[10px] text-zinc-600">electives for: {dag.tracks[student.trackId]?.label}</div>}
       </div>
       <div className="flex-1 overflow-y-auto px-3 pb-4 font-mono text-[11px]">
         {dag.requirements.map(r => {

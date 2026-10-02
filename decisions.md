@@ -278,3 +278,23 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Term years assume a Fall 2026 start (Bulletin 2026-27 catalog year); a later start shifts every label.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-024: Onboarding wizard and mid-degree plans
+- Step: 10 (human request)
+- Decision: First visit runs a wizard: name, major (B.S. CS only), units completed, semesters completed, expected graduation, courses per semester (→ units, clamped to the 12-19 policy range), then the course codes taken in each completed semester (autocomplete from the DAG; unknown codes rejected), then the career goal with a preview of that track's electives. "Build my plan" calls `/api/plan` with the taken courses as `lockedPlacements` plus new `completedSemesters` and `unitsEarned`; the server strips anything the model puts in a completed semester and reports it back for repair; the fallback planner now takes completed courses (counted as passed with C, since the wizard asks codes, not grades) and plans from the next term. Completed semesters show "✓ taken". The sidebar shows "recommended" (required + goal-track electives) with an "all courses" toggle. Answers stay in localStorage only. Supersedes the deferral in D-015.
+- Alternatives: transcript upload; asking grades per course.
+- Why: human request; `prompt.md` A.6 (mid-degree students are how the real planner is used).
+- Evidence: human instruction 2026-10-02 ~14:58; `web/README.md` transcript format; browser test (csc101 normalized to CSC 101, CSC 999 rejected, plan built with 2 locked semesters)
+- Risk / undo: Grades are assumed C or better for courses typed in.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+## D-025: Auto Plan, Evaluate wording, PlanEd name
+- Step: 10 (human request)
+- Decision: "ai plan" → "auto plan": one click fills the remaining semesters for the onboarding goal (completed semesters stay locked; same Gemini → engine → repair → fallback harness); without a saved profile it opens the goal modal. "check" → "evaluate": panel opens with where the plan points (code direction scores + Gemini explanation) and how it connects (`connections()`: prerequisite links, longest chain, zero-slack courses; also passed to the evaluate prompt), then the rule check. Product renamed PlanEd in all user-facing text; storage keys keep the old name so saved plans survive; planning docs keep "GatorGraph" (D-001).
+- Alternatives: rename storage keys (drops saved plans).
+- Why: human requests 2026-10-02 ~15:00-15:05.
+- Evidence: human instructions
+- Risk / undo: Gemini key now returns 429 (quota) and 503; Auto Plan falls back to the engine planner and says so.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

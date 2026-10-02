@@ -1,4 +1,4 @@
-# VISION: GatorGraph
+# VISION: PlanEd
 
 **Thesis.** Same SFSU degree requirements, three planners: SFSU's official roadmap, a deterministic prerequisite engine, and Gemini constrained by that engine. Watch which plans break prerequisite rules, which reach graduation soonest, and which fit the student's career goal, with every rule traced to a Bulletin quote.
 

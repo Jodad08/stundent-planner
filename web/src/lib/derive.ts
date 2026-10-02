@@ -6,7 +6,7 @@ import { semX, COURSE_STEP, COURSE_X, COURSE_Y0, SEM_W, SEM_Y } from "./layout"
 
 export const slug = (id: CourseId) => "course-" + id.replace(/\s+/g, "-")
 
-export type SemesterData = { index: number; label: string; termName: string; units: number; status: string; year: number; policyMin: number; geUnits: number; drop: boolean }
+export type SemesterData = { index: number; label: string; termName: string; units: number; status: string; year: number; policyMin: number; geUnits: number; drop: boolean; done: boolean }
 export type CourseData = {
   id: CourseId; title: string; units: number; placeholder: boolean; category: string
   hasError: boolean; critical: null | { slack: number; chain: CourseId[] }; dim: boolean; highlight: boolean
@@ -126,7 +126,7 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
       className: "pointer-events-none",
       style: { width: SEM_W, height: 0 }, // height set below once maxRow is known
       data: { index: s.index, label: s.label, termName: termName(dag, s.index), units: stat.units, status: stat.status, year: Math.ceil(s.index / 2), policyMin: minUnits,
-        geUnits, drop: dropTarget === s.index } satisfies SemesterData })
+        geUnits, drop: dropTarget === s.index, done: s.index <= (plan.completedSemesters ?? 0) } satisfies SemesterData })
   })
   const height = COURSE_Y0 + (maxRow + 1) * COURSE_STEP + 10
   nodes.forEach(n => { if (n.type === "semester") n.style = { width: SEM_W, height } })

@@ -83,6 +83,7 @@ export type Plan = {
   createdAt: string
   semesters: SemesterPlan[] // length 8
   source: "manual" | "ai" | "fallback" | "roadmap"
+  completedSemesters?: number // semesters 1..N already taken (onboarding, D-024)
 }
 
 export type IssueCode =
@@ -140,6 +141,8 @@ export type PlanRequest = {
   programId: string
   unitsPerSemester: number
   lockedPlacements: { courseId: CourseId; semester: number }[]
+  completedSemesters?: number // 0..7; locked placements in these semesters are courses already taken
+  unitsEarned?: number
 }
 
 export type PlanResponse = {
@@ -155,6 +158,7 @@ export type EvaluateRequest = { plan: Plan; goalText?: string }
 
 export type EvaluateResponse = {
   report: EngineReport
+  connections: { links: number; longestChain: CourseId[]; critical: CourseId[] }
   directionScores: DirectionScore[]
   ai: { summary: string; directionExplanation: string; suggestions: Suggestion[] } | null
   aiStatus: "ok" | "failed" | "skipped"

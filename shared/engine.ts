@@ -562,3 +562,14 @@ export function sanitizeSemesters(raw: unknown, dag: Dag): { semesters: ReturnTy
   }
   return { semesters, dropped }
 }
+
+/** How a plan hangs together (Evaluate, D-025): prerequisite links, the longest chain, and zero-slack courses. */
+export function connections(p: Plan, dag: Dag) {
+  const planned = new Set(p.semesters.flatMap(s => s.courseIds))
+  let links = 0
+  planned.forEach(id => { if (dag.nodes[id]) links += leaves(dag.nodes[id].prereq).filter(l => planned.has(l.code)).length })
+  const crit = criticalCourses(p, dag)
+  const longestChain = Object.values(crit).reduce<CourseId[]>((best, c) => (c.chain.length > best.length ? c.chain : best), [])
+  const critical = Object.entries(crit).filter(([, c]) => c.slack <= 0).map(([id]) => id)
+  return { links, longestChain, critical }
+}

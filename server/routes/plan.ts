@@ -4,7 +4,7 @@ import { Router } from "express"
 import { careers, dag, policies } from "../../shared/data"
 import { DEFAULT_PROFILE, evaluatePlan, fillPlaceholders, isPlaceholder, pickElectives, sanitizeSemesters } from "../../shared/engine"
 import { buildFallbackPlan } from "../../shared/fallbackPlanner"
-import { directionScores } from "../../shared/directionScores"
+import { directionScores, guessTrack } from "../../shared/directionScores"
 import type { EngineReport, Plan, PlanRequest, PlanResponse } from "../../shared/types"
 import { completeJson, providerName } from "../gemini"
 import { buildPlanUser, buildRepairUser, PLAN_SCHEMA, PLAN_SYSTEM } from "../prompts"
@@ -21,21 +21,17 @@ export function blockingProblems(report: EngineReport): string[] {
     .map(i => i.message)
 }
 
-/** Keyword guess of the closest DAG track. Used only by the mock and when the model gave no answer at all. */
-export function guessTrack(goalText: string): string {
-  const g = goalText.toLowerCase()
-  return /secur|system|network|\bos\b|cloud|infra/.test(g) ? "systems" : /web|mobile|app|front|full-stack|fullstack|product/.test(g) ? "web"
-    : /theor|graphic|quantum|math|game/.test(g) ? "theory" : "ai"
-}
-
 /** Deterministic mock: first answer has one seeded prerequisite error so the repair loop runs without a key. */
-function mockPlan(goalText: string, units: number, attempt: number): RawPlan {
+function mockPlan(req: PlanRequest, attempt: number): RawPlan {
+  const { goalText, unitsPerSemester: units } = req
   const trackId = guessTrack(goalText)
-  const p = buildFallbackPlan(dag, { trackId, unitsPerSemester: units, profile: DEFAULT_PROFILE })
+  const done = req.completedSemesters ?? 0
+  const p = buildFallbackPlan(dag, { trackId, unitsPerSemester: units, profile: DEFAULT_PROFILE,
+    completed: req.lockedPlacements.filter(l => l.semester <= done), completedSemesters: done, unitsEarned: req.unitsEarned })
   const semesters = p.semesters.map(s => ({ index: s.index, courseIds: s.courseIds.filter(c => !isPlaceholder(c)) }))
   if (attempt === 0) { // seeded mistake: CSC 340 one semester too early
     const from = semesters.find(s => s.courseIds.includes("CSC 340"))
-    if (from && from.index > 1) { from.courseIds = from.courseIds.filter(c => c !== "CSC 340"); semesters[from.index - 2].courseIds.push("CSC 340") }
+    if (from && from.index > done + 1) { from.courseIds = from.courseIds.filter(c => c !== "CSC 340"); semesters[from.index - 2].courseIds.push("CSC 340") }
   }
   return { trackId, semesters, rationale: `MOCK (no model call): electives taken from the ${dag.tracks[trackId].label} track.`,
     electiveChoices: pickElectives(dag, { courses: [] }, trackId).map(c => ({ courseId: c, reason: `Listed in the ${dag.tracks[trackId].label} track.` })) }
@@ -52,7 +48,12 @@ export function validateRequest(body: unknown): PlanRequest | string {
   for (const l of locked) {
     if (!l || !dag.nodes[l.courseId] || !Number.isInteger(l.semester) || l.semester < 1 || l.semester > 8) return `UNKNOWN_COURSE:${l?.courseId}`
   }
-  return { goalText: b.goalText.trim(), programId: "bs-cs", unitsPerSemester: u, lockedPlacements: locked }
+  const done = b.completedSemesters ?? 0
+  if (!Number.isInteger(done) || done < 0 || done > 7) return "completedSemesters must be an integer from 0 to 7"
+  const earned = b.unitsEarned
+  if (earned != null && (typeof earned !== "number" || earned < 0 || earned > 300)) return "unitsEarned must be 0 to 300"
+  return { goalText: b.goalText.trim(), programId: "bs-cs", unitsPerSemester: u, lockedPlacements: locked, completedSemesters: done,
+    ...(earned != null ? { unitsEarned: earned } : {}) }
 }
 
 export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
@@ -61,7 +62,8 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
   if (hit) return hit
 
   const run = newRun("gemini_plan", req, { provider: providerName(), model: process.env.GEMINI_MODEL ?? "mock", maxRepairs: MAX_REPAIRS })
-  const user = buildPlanUser(dag, policies, req.goalText, req.unitsPerSemester, req.lockedPlacements)
+  const done = req.completedSemesters ?? 0
+  const user = buildPlanUser(dag, policies, req.goalText, req.unitsPerSemester, req.lockedPlacements, done)
   let prompt = user
   let attempts = 0
   let last: { raw: RawPlan; plan: Plan; report: EngineReport } | null = null
@@ -72,7 +74,7 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
     let raw: RawPlan
     try {
       const out = await completeJson(PLAN_SYSTEM, prompt, { purpose: i === 0 ? "plan" : "repair", schema: PLAN_SCHEMA,
-        mock: () => mockPlan(req.goalText, req.unitsPerSemester, i) })
+        mock: () => mockPlan(req, i) })
       raw = (out.json ?? {}) as RawPlan
       run.step(i === 0 ? "model_plan" : `model_repair_${i}`, { provider: out.provider, model: out.model, ms: out.ms, raw })
     } catch (e) {
@@ -81,15 +83,21 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
       break
     }
     const { semesters, dropped } = sanitizeSemesters(raw.semesters, dag)
+    // completed semesters hold only the courses the student already took
+    const intoDone: string[] = []
+    semesters.slice(0, done).forEach(s => { intoDone.push(...s.courseIds); s.courseIds = [] })
     for (const l of req.lockedPlacements) {
       semesters.forEach(s => { s.courseIds = s.courseIds.filter(c => c !== l.courseId) })
       semesters[l.semester - 1].courseIds.push(l.courseId)
     }
+    const lockedIds = new Set(req.lockedPlacements.map(l => l.courseId))
+    const misplaced = intoDone.filter(c => !lockedIds.has(c))
     const draft: Plan = { id: `plan_ai_${run.rec.run_id}`, name: req.goalText.slice(0, 40), programId: "bs-cs", goalText: req.goalText,
-      createdAt: new Date().toISOString(), semesters, source: "ai" }
+      createdAt: new Date().toISOString(), semesters, source: "ai", ...(done ? { completedSemesters: done } : {}) }
     const plan = fillPlaceholders(draft, dag, req.unitsPerSemester)
     const report = evaluatePlan(plan, dag, policies, DEFAULT_PROFILE)
-    const problems = [...dropped.map(d => `${d} is not in the course list. Use only listed IDs.`), ...blockingProblems(report)]
+    const problems = [...dropped.map(d => `${d} is not in the course list. Use only listed IDs.`),
+      ...misplaced.map(c => `${c} was put in a completed semester; plan it in semester ${done + 1} or later.`), ...blockingProblems(report)]
     run.step("engine_check", { attempt: attempts, dropped, problems, errors: report.issues.filter(x => x.severity === "error").length })
     last = { raw, plan, report }
     if (!problems.length) { accepted = true; break }
@@ -107,8 +115,10 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
     // deterministic fallback; keeps any valid electives the model chose
     const trackId = typeof last?.raw.trackId === "string" && dag.tracks[last.raw.trackId] ? last.raw.trackId : guessTrack(req.goalText)
     const keep = last ? last.plan.semesters.flatMap(s => s.courseIds).filter(c => dag.requirements.some(r => r.type === "choose_units" && r.courses.includes(c))) : []
-    const electives = pickElectives(dag, { courses: [] }, trackId, keep)
+    const electives = pickElectives(dag, { courses: req.lockedPlacements.filter(l => l.semester <= done).map(l => ({ code: l.courseId, grade: "C" })) }, trackId, keep)
+    const completed = req.lockedPlacements.filter(l => l.semester <= done)
     const plan = { ...buildFallbackPlan(dag, { trackId, unitsPerSemester: req.unitsPerSemester, profile: DEFAULT_PROFILE, electives,
+      completed, completedSemesters: done, unitsEarned: req.unitsEarned,
       goalText: req.goalText, name: `${req.goalText.slice(0, 32)} (engine fallback)` }), id: `plan_fb_${run.rec.run_id}`, createdAt: new Date().toISOString() }
     const report = evaluatePlan(plan, dag, policies, DEFAULT_PROFILE)
     run.step("fallback", { trackId, electives, reason: last ? "model plan still invalid after repairs" : "model call failed" })

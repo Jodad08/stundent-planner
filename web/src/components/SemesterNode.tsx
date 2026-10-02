@@ -19,7 +19,7 @@ export function SemesterNode({ data }: NodeProps<Node<SemesterData>>) {
       <button className={`pointer-events-auto w-full px-3 pt-2 text-left font-mono text-[11px] tracking-wide ${t.text} hover:text-white`}
         title="Zoom into this semester" onClick={() => useStore.getState().setZoomSem(zoom === data.index ? null : data.index)}>
         <span className="block text-[12px] text-zinc-200">{data.termName}</span>
-        <span>{data.units}u{t.note(data) && ` · ${t.note(data)}`}</span>
+        <span>{data.done ? <span className="text-teal-300/80">✓ taken · {data.units}u</span> : <>{data.units}u{t.note(data) && ` · ${t.note(data)}`}</>}</span>
       </button>
     </div>
   )

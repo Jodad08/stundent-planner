@@ -10,6 +10,7 @@ import { EvaluatePanel } from "./components/EvaluatePanel"
 import { ProofPanel } from "./components/ProofPanel"
 import { RunsPanel } from "./components/RunsPanel"
 import { Tour } from "./components/Tour"
+import { Onboarding } from "./components/Onboarding"
 import { buildFallbackPlan } from "../../shared/fallbackPlanner"
 
 export function App() {
@@ -17,19 +18,20 @@ export function App() {
   const panel = useStore(s => s.panel)
   const modal = useStore(s => s.modalOpen)
   const [err, setErr] = useState<string | null>(null)
-  const [tour, setTour] = useState(true) // shown on every load (D-022)
+  const hasStudent = useStore(s => !!s.student)
+  const [tour, setTour] = useState(true) // shown on every load after onboarding (D-022, D-024)
   useEffect(() => {
     Promise.all([api.program(), api.policies(), api.careers(), api.health(), api.descriptions()])
       .then(([dag, policies, careers, health, descriptions]) => {
         const st = useStore.getState()
         st.setData({ dag, policies, careers, health, descriptions })
         // nothing planned yet: open a sample plan from the deterministic planner so the board isn't empty
-        if (st.plans.every(p => p.semesters.every(s => !s.courseIds.length))) {
+        if (st.student && st.plans.every(p => p.semesters.every(s => !s.courseIds.length))) {
           const p = buildFallbackPlan(dag, { trackId: "ai", unitsPerSemester: dag.university.typical_units_per_term, profile: { placement: { calculus: true } } })
           useStore.setState({ plans: [{ ...p, id: "plan_sample", name: "Sample plan", createdAt: new Date().toISOString() }], activePlanId: "plan_sample" })
         }
       })
-      .catch(e => setErr(`Could not reach the GatorGraph server: ${e.message}. Is "npm run dev" running?`))
+      .catch(e => setErr(`Could not reach the PlanEd server: ${e.message}. Is "npm run dev" running?`))
   }, [])
   if (err) return <div className="p-8 text-red-300">{err}</div>
   if (!ready) return <div className="p-8 text-slate-400">Loading the 2026-27 Bulletin data…</div>
@@ -46,7 +48,8 @@ export function App() {
         </div>
       </div>
       {modal && <PlanModal />}
-      {tour && <Tour onDone={() => setTour(false)} />}
+      {!hasStudent && <Onboarding onDone={() => setTour(true)} />}
+      {hasStudent && tour && <Tour onDone={() => setTour(false)} />}
     </ReactFlowProvider>
   )
 }

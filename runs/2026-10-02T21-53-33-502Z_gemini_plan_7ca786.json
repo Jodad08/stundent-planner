@@ -1,0 +1,296 @@
+{
+ "run_id": "2026-10-02T21-53-33-502Z_gemini_plan_7ca786",
+ "variant": "gemini_plan",
+ "input": {
+  "goalText": "cybersecurity",
+  "programId": "bs-cs",
+  "unitsPerSemester": 15,
+  "lockedPlacements": [
+   {
+    "courseId": "CSC 101",
+    "semester": 1
+   },
+   {
+    "courseId": "MATH 226",
+    "semester": 1
+   },
+   {
+    "courseId": "CSC 215",
+    "semester": 2
+   },
+   {
+    "courseId": "MATH 227",
+    "semester": 2
+   }
+  ],
+  "completedSemesters": 2,
+  "unitsEarned": 30
+ },
+ "config": {
+  "provider": "gemini",
+  "model": "gemini-3.8-flash",
+  "maxRepairs": 2
+ },
+ "steps": [
+  {
+   "name": "model_error",
+   "detail": {
+    "attempt": 1,
+    "error": "ApiError: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+   },
+   "at": "2026-10-02T21:53:36.540Z"
+  },
+  {
+   "name": "fallback",
+   "detail": {
+    "trackId": "systems",
+    "electives": [
+     "CSC 645",
+     "CSC 652",
+     "CSC 653",
+     "CSC 651",
+     "CSC 615"
+    ],
+    "reason": "model call failed"
+   },
+   "at": "2026-10-02T21:53:36.546Z"
+  }
+ ],
+ "final_state": {
+  "plan": {
+   "id": "plan_fb_2026-10-02T21-53-33-502Z_gemini_plan_7ca786",
+   "name": "cybersecurity (engine fallback)",
+   "programId": "bs-cs",
+   "goalText": "cybersecurity",
+   "createdAt": "2026-10-02T21:53:36.544Z",
+   "semesters": [
+    {
+     "index": 1,
+     "label": "Fall Year 1",
+     "season": "fall",
+     "courseIds": [
+      "CSC 101",
+      "MATH 226",
+      "GE-3u-1",
+      "GE-3u-2",
+      "GE-2u-3"
+     ]
+    },
+    {
+     "index": 2,
+     "label": "Spring Year 1",
+     "season": "spring",
+     "courseIds": [
+      "CSC 215",
+      "MATH 227",
+      "GE-3u-4",
+      "GE-3u-5",
+      "GE-1u-6"
+     ]
+    },
+    {
+     "index": 3,
+     "label": "Fall Year 2",
+     "season": "fall",
+     "courseIds": [
+      "CSC 220",
+      "CSC 230",
+      "PHYS 220",
+      "MATH 324",
+      "PHYS 222",
+      "GE-2u-7"
+     ]
+    },
+    {
+     "index": 4,
+     "label": "Spring Year 2",
+     "season": "spring",
+     "courseIds": [
+      "CSC 256",
+      "CSC 317",
+      "CSC 340",
+      "PHYS 230",
+      "PHYS 232",
+      "GE-2u-8"
+     ]
+    },
+    {
+     "index": 5,
+     "label": "Fall Year 3",
+     "season": "fall",
+     "courseIds": [
+      "CSC 413",
+      "CSC 415",
+      "CSC 300GW",
+      "CSC 510",
+      "MATH 225"
+     ]
+    },
+    {
+     "index": 6,
+     "label": "Spring Year 3",
+     "season": "spring",
+     "courseIds": [
+      "CSC 615",
+      "CSC 645",
+      "CSC 648",
+      "CSC 651",
+      "CSC 652"
+     ]
+    },
+    {
+     "index": 7,
+     "label": "Fall Year 4",
+     "season": "fall",
+     "courseIds": [
+      "CSC 653",
+      "GE-3u-9",
+      "GE-3u-10",
+      "GE-3u-11",
+      "GE-3u-12"
+     ]
+    },
+    {
+     "index": 8,
+     "label": "Spring Year 4",
+     "season": "spring",
+     "courseIds": [
+      "GE-3u-13",
+      "GE-3u-14",
+      "GE-3u-15",
+      "GE-3u-16",
+      "GE-3u-17"
+     ]
+    }
+   ],
+   "source": "fallback",
+   "completedSemesters": 2
+  },
+  "report": {
+   "issues": [
+    {
+     "id": "PREREQ_NOTE-0",
+     "severity": "info",
+     "code": "PREREQ_NOTE",
+     "message": "Not checked by the engine (GPA or instructor-permission conditions): MATH 324, CSC 317, CSC 300GW, CSC 615, CSC 645, CSC 648, CSC 652, CSC 653.",
+     "courseIds": [
+      "MATH 324",
+      "CSC 317",
+      "CSC 300GW",
+      "CSC 615",
+      "CSC 645",
+      "CSC 648",
+      "CSC 652",
+      "CSC 653"
+     ]
+    },
+    {
+     "id": "UNVERIFIED_DATA-1",
+     "severity": "info",
+     "code": "UNVERIFIED_DATA",
+     "message": "Course data is scraped from the 2026-27 Bulletin and machine-checked, not yet checked by a person. Confirm with an advisor.",
+     "courseIds": []
+    }
+   ],
+   "semesterStats": [
+    {
+     "index": 1,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 2,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 3,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 4,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 5,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 6,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 7,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 8,
+     "units": 15,
+     "status": "ok"
+    }
+   ],
+   "requirementStatus": [
+    {
+     "groupId": "mathematics_and_physics",
+     "title": "Mathematics and Physics",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "core_computer_science_requirements",
+     "title": "Core Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "advanced_computer_science_requirements",
+     "title": "Advanced Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "electives",
+     "title": "Electives",
+     "satisfied": true,
+     "missingCourseIds": [],
+     "unitsHave": 15,
+     "unitsNeed": 15
+    }
+   ],
+   "totalUnitsPlanned": 120,
+   "graduationReady": true
+  },
+  "rationale": "The model was unavailable (busy or timed out), so this plan comes from the deterministic planner.",
+  "electiveChoices": [],
+  "attempts": 1,
+  "runId": "2026-10-02T21-53-33-502Z_gemini_plan_7ca786"
+ },
+ "scores": {
+  "accepted": false,
+  "attempts": 1,
+  "source": "fallback",
+  "errors": 0,
+  "graduationReady": true,
+  "directions": [
+   {
+    "directionId": "systems",
+    "label": "Systems & Security",
+    "score": 100
+   },
+   {
+    "directionId": "web",
+    "label": "Web & Mobile",
+    "score": 0
+   }
+  ]
+ },
+ "errors": [
+  "model call 1 failed: ApiError: {\"error\":{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}}"
+ ],
+ "created_at": "2026-10-02T21:53:33.502Z"
+}

@@ -3,7 +3,7 @@
 Start: `npm run dev` → http://localhost:5173 (or `npm run build && npm start` → http://localhost:3000).
 
 1. Problem (20s): blurred screenshots of SFSU's Degree Planner and the 12-page Degree Progress Report (a business student's; say so). "This is what students see. No prerequisites anywhere."
-2. Map (30s): GatorGraph on B.S. CS. Semesters left to right, prerequisite lines.
+2. Map (30s): PlanEd on B.S. CS. Semesters left to right, prerequisite lines.
 3. Break it (30s): drag CSC 340 before CSC 220. Bold animated line, red semester, engine names the rule + Bulletin link.
 4. Chain (20s): click a course, its whole chain lights up; bottleneck badge "delaying this costs N semesters".
 5. AI Plan (40s): "Machine learning engineer". Show attempts/repairs count and "Checked by rules engine".

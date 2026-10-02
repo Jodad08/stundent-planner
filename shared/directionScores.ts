@@ -9,3 +9,10 @@ export function directionScores(plan: Plan, directions: CareerDirection[], elect
     return { directionId: d.id, label: d.label, score: Math.round(100 * Math.min(hits, electiveSlots) / Math.min(electiveSlots, d.signalCourseIds.length)) }
   }).sort((a, b) => b.score - a.score)
 }
+
+/** Keyword guess of the closest DAG track for a free-text goal (mock, onboarding preview, no-answer fallback). */
+export function guessTrack(goalText: string): string {
+  const g = goalText.toLowerCase()
+  return /secur|system|network|\bos\b|cloud|infra/.test(g) ? "systems" : /web|mobile|app|front|full-stack|fullstack|product/.test(g) ? "web"
+    : /theor|graphic|quantum|math|game/.test(g) ? "theory" : "ai"
+}

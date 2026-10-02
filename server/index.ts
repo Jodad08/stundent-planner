@@ -18,4 +18,4 @@ app.get(/^(?!\/api).*/, (_req, res) => {
   else res.status(404).send("Board not built. Open http://localhost:5173 (npm run dev) or run npm run build.")
 })
 const port = Number(process.env.PORT ?? 3000)
-app.listen(port, () => console.log(`GatorGraph server on http://localhost:${port} (AI provider: ${providerName()}, model: ${process.env.GEMINI_MODEL ?? "-"})`))
+app.listen(port, () => console.log(`PlanEd server on http://localhost:${port} (AI provider: ${providerName()}, model: ${process.env.GEMINI_MODEL ?? "-"})`))

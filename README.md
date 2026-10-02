@@ -1,11 +1,11 @@
-# GatorGraph
+# PlanEd
 
 **Same SFSU degree requirements, three planners: SFSU's official roadmap, a deterministic prerequisite engine, and Gemini constrained by that engine.** Watch which plans break prerequisite rules, which reach graduation soonest, and which fit the student's career goal, with every rule traced to a Bulletin quote.
 
 Built at SF Hacks x GDG AI Hackathon (SFSU, 2026-10-02). Tracks: Build for SFSU, GDG AI for Social Good.
 
 ## The problem (observed, not assumed)
-SFSU's Student Center has a Degree Planner (suggested courses per term) and a Degree Progress Report (a long requirement audit). Neither shows prerequisites, why a course is placed where it is, or how a plan fits a career goal. SFSU's planner lists what to take; GatorGraph shows how it connects.
+SFSU's Student Center has a Degree Planner (suggested courses per term) and a Degree Progress Report (a long requirement audit). Neither shows prerequisites, why a course is placed where it is, or how a plan fits a career goal. SFSU's planner lists what to take; PlanEd shows how it connects.
 
 ## What it does
 - **The whole B.S. CS degree on one map.** 8 semester boxes, courses as cards, prerequisite lines left to right (AND, OR, "may be taken concurrently", corequisites).

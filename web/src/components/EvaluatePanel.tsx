@@ -37,22 +37,40 @@ export function EvaluatePanel() {
 
   return (
     <aside className="w-[400px] shrink-0 overflow-y-auto border-l border-white/10 bg-black p-4 text-sm text-slate-200">
-      <div className="flex items-center justify-between"><div className="text-base font-semibold">Evaluate: {plan.name}</div>
+      <div className="flex items-center justify-between"><div className="text-base font-semibold">Evaluate · {plan.name}</div>
         <button className="text-slate-400 hover:text-white" onClick={() => st.setPanel("none")}>✕</button></div>
-      <div className={`mt-3 rounded-md px-3 py-2 font-semibold text-white ${verdict.c}`}>{verdict.t} · {report.totalUnitsPlanned} units</div>
+      {!ev && <div className="mt-4 animate-pulse font-mono text-xs text-teal-300">Scanning your map: connections, career direction, rules…</div>}
+      {ev && <>
+        <H ai>Where your plan points</H>
+        <div className="rounded-lg border border-teal-300/20 bg-teal-300/[0.04] p-3">
+          <div className="font-mono text-sm text-teal-200">→ {ev.directionScores[0]?.label} <span className="text-zinc-500">({ev.directionScores[0]?.score}/100)</span></div>
+          {ev.ai && <p className="mt-1 text-[13px] leading-relaxed text-zinc-300">{ev.ai.directionExplanation}</p>}
+          <div className="mt-2 space-y-1">{ev.directionScores.map(d => (
+            <div key={d.directionId} className="flex items-center gap-2 font-mono text-[10px] text-zinc-500"><span className="w-28 truncate">{d.label}</span>
+              <div className="h-1 flex-1 rounded bg-white/5"><div className="h-1 rounded bg-teal-300/70 shadow-[0_0_6px_#2dd4bf]" style={{ width: `${d.score}%` }} /></div><span className="w-6 text-right">{d.score}</span></div>))}</div>
+        </div>
+        <H>How your plan connects</H>
+        <div className="space-y-2 rounded-lg border border-white/10 p-3 text-[13px]">
+          <div className="font-mono text-[11px] text-zinc-500">{ev.connections.links} prerequisite links · {ev.connections.critical.length} critical courses</div>
+          {ev.connections.longestChain.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1 font-mono text-[11px]">
+              <span className="mr-1 text-zinc-500">longest chain</span>
+              {ev.connections.longestChain.map((c, k) => <span key={c} className="flex items-center gap-1">
+                <button className="rounded-full border border-white/10 px-2 py-0.5 text-zinc-200 hover:border-teal-300/60" onClick={() => st.selectCourse(c)}>{c}</button>
+                {k < ev.connections.longestChain.length - 1 && <span className="text-zinc-600">→</span>}</span>)}
+            </div>)}
+          {ev.connections.critical.length > 0 && <div className="font-mono text-[11px] text-amber-300/80">no slack: {ev.connections.critical.join(", ")}</div>}
+          {ev.ai && <p className="text-zinc-300"><span className="mr-1 font-mono text-[10px] text-violet-300">gemini</span>{ev.ai.summary}</p>}
+        </div>
+      </>}
+      <H>Rule check</H>
+      <div className={`rounded-md px-3 py-2 font-semibold text-white ${verdict.c}`}>{verdict.t} · {report.totalUnitsPlanned} units</div>
       {errors.length > 0 && <><H>Errors</H><ul className="space-y-1">{errors.map(i => <IssueItem key={i.id} i={i} />)}</ul></>}
       {warnings.length > 0 && <><H>Warnings</H><ul className="space-y-1">{warnings.map(i => <IssueItem key={i.id} i={i} />)}</ul></>}
       {missing.length > 0 && <><H>Missing requirements</H><ul className="space-y-1">{missing.map(r => (
         <li key={r.groupId} className="rounded border border-white/10 bg-white/[0.03] p-2"><b>{r.title}</b>: {r.unitsNeed != null ? `${r.unitsHave} of ${r.unitsNeed} units` : r.missingCourseIds.join(", ")}</li>))}</ul></>}
-      {!ev && <div className="mt-4 animate-pulse text-xs text-slate-400">Waiting for the career analysis…</div>}
       {ev && <>
-        <H>Career direction (scores by code)</H>
-        <div className="space-y-1">{ev.directionScores.map(d => (
-          <div key={d.directionId} className="flex items-center gap-2 text-xs"><span className="w-32 truncate">{d.label}</span>
-            <div className="h-2 flex-1 rounded bg-white/10"><div className="h-2 rounded bg-sf-gold" style={{ width: `${d.score}%` }} /></div><span className="w-8 text-right">{d.score}</span></div>))}</div>
         {ev.ai ? <>
-          <H ai>Explanation</H>
-          <p>{ev.ai.summary}</p><p className="mt-2">{ev.ai.directionExplanation}</p>
           <H ai>Suggestions (each re-checked by the engine)</H>
           {ev.ai.suggestions.length === 0 && <div className="text-xs text-slate-400">No suggestions passed the engine.</div>}
           <ul className="space-y-1">{ev.ai.suggestions.map((s, k) => (
