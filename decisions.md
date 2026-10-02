@@ -247,8 +247,14 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Decision: `evals/run_evals.ts` writes `evals/results.json`: 9 seeded-error cases (exact expected code sets), both 8-semester official CS roadmaps, a 4-planner comparison on 3 goals, 6 anti-vacuity checks. The ADT transfer roadmap is skipped (assumes 35 transferred units; transfer credit is out of scope, D-015). Roadmap items without a single in-catalog code (GE, "Major Electives 9 units", US History) become placeholders of the stated units.
 - Findings: precision 1.00, recall 1.00; valid fixture 0 errors. **Both official roadmaps have 0 prerequisite errors under the engine** (QR 1/2 with calculus placement, QR 3/4 without), so engine and SFSU agree. They show only load warnings (16-17 unit semesters, above the 12-15 normal load) and an open electives group (the roadmap leaves electives unnamed). Seeded case "CSC 220 removed" also yields `STANDING_TOO_LOW` (3 fewer units leaves a senior-standing course under 90), a correct cascade, so it was added to the expected set.
 - Why: `prompt.md` B.6 and EVALS.md; an evaluator must fail what should fail.
-- Also: `gemini-3.8-flash` and `gemini-3.7-flash` returned 503 on 2 of 3 plan prompts at 14:30; fallback chain extended to `gemini-3.7-flash,gemini-2.5-flash`; when the model gives no answer, the fallback picks a track by keywords (`guessTrack`), labeled as the engine fallback.
+- Also: `gemini-3.8-flash` and `gemini-3.7-flash` returned 503 on 2 of 3 plan prompts at 14:30; fallback chain should be `gemini-flash-latest,gemini-3.7-flash` (`gemini-2.5-flash` timed out at 25 s on the plan prompt at 14:25; `gemini-flash-latest` returned a valid plan in 11 s). Agent is blocked from editing `.env*`; the human sets `GEMINI_FALLBACK_MODEL`; when the model gives no answer, the fallback picks a track by keywords (`guessTrack`), labeled as the engine fallback.
 - Evidence: `evals/results.json`; `data/sfsu/roadmaps.json` (CS roadmaps); server log 2026-10-02
 - Risk / undo: Gemini rows vary run to run; the run ids are recorded in results.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+### Steps 7-8 and 10 summary
+- Changed: `web/src/` (board, sidebar, toolbar, AI Plan modal, Evaluate/Proof/Runs panels), `evals/run_evals.ts` + `evals/results.json`, `shared/fixtures/validPlan.json` + `brokenPlan.json`, `README.md`, `THIRD_PARTY.md`, `architecture.md` §12/§13/§15 tables.
+- Run: `npm run dev` → http://localhost:5173; `npm run evals`; `npm run build && npm start` → http://localhost:3000.
+- Proof: browser test (deterministic plan graduation-ready; CSC 340 drag shows bold animated edges, red dot, "1 rule error", amber 18-unit semester; Evaluate shows Bulletin quote + source link; Proof panel renders results; AI Plan modal shows the saved-run trace and labels the fallback). Evals: precision/recall 1.00, both official roadmaps 0 errors, 6/6 anti-vacuity. Production build serves board + API from one server.
+- Can still fail: Gemini 503s under event load (fallback shows instead, labeled); `.env` fallback chain must be set by the human (agent is blocked from `.env*`).

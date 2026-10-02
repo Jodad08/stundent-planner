@@ -78,7 +78,7 @@ ALLOWED_TOP_LEVEL = {
     "Degree planner.pdf", "Student Center.pdf",
     ".git", "node_modules", ".claude", ".vscode",
     # D-014: build config at the root; gitignored local prep notes
-    "vite.config.ts", "CLAUDE.local.md", "KICKOFF.md",
+    "vite.config.ts", "CLAUDE.local.md", "KICKOFF.md", "tsconfig.json", "dist",  # dist = gitignored build output
 }
 
 

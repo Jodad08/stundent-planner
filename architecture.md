@@ -511,6 +511,8 @@ Environment variables (`.env`, never committed):
 |---|---|---|
 | `GEMINI_API_KEY` | server | required for AI routes |
 | `GEMINI_MODEL` | server | check current ID in Gemini docs before use |
+| `GEMINI_FALLBACK_MODEL` | server | comma list tried in order after a failure (D-018) |
+| `AI_PROVIDER` | server | `gemini` or `mock` (default mock without a key) |
 | `PORT` | server | default 3000 |
 
 Commands (fill in the exact scripts in `package.json` and keep this table true):
@@ -518,10 +520,12 @@ Commands (fill in the exact scripts in `package.json` and keep this table true):
 | Task | Command |
 |---|---|
 | Install | `npm install` |
-| Dev (web + server) | `TODO(verify): set in package.json` |
-| Test engine | `TODO(verify): set in package.json` |
-| Validate data | `python scripts/validate_catalog.py` |
-| Build | `TODO(verify): set in package.json` |
+| Dev (web + server) | `npm run dev` (server :3000, board :5173) |
+| Test engine | `npm test` |
+| Rebuild contract data | `python3 scraper/build_cs_dag.py && python3 scripts/build_contract_data.py` |
+| Evals | `npm run evals` |
+| Critic | `python3 harness.py scan` / `check` / `review` |
+| Build + serve | `npm run build && npm start` (http://localhost:3000) |
 
 Update this table as soon as scripts exist. An agent must not run a command that is not in this table without checking `package.json`.
 
@@ -533,14 +537,14 @@ Do not write versions from memory. After install, copy the real versions from `p
 
 | Package | Version |
 |---|---|
-| node | TODO(verify) |
-| @xyflow/react | TODO(verify) |
-| react | TODO(verify) |
-| zustand | TODO(verify) |
-| express | TODO(verify) |
-| @google/genai | TODO(verify) |
-| tailwindcss | TODO(verify) |
-| vitest | TODO(verify) |
+| node | 26.4.0 |
+| @xyflow/react | 12.12.0 |
+| react | 19.3.0 |
+| zustand | 5.0.15 |
+| express | 5.2.1 |
+| @google/genai | 2.27.0 |
+| tailwindcss | 4.3.3 |
+| vitest | 5.0.3 |
 
 ---
 
@@ -567,14 +571,14 @@ Each item must be resolved from an official source and then moved to the data fi
 
 | Unknown | Where it will live | Status |
 |---|---|---|
-| Official minimum credits for full-time status | `policies.json` | UNKNOWN until verified |
-| Official heavy load threshold | `policies.json` | UNKNOWN until verified |
-| Official maximum credits without permission | `policies.json` | UNKNOWN until verified |
+| Official minimum credits for full-time status | `policies.json` | Resolved: 12 (`fa_enrollment_status`, D-010) |
+| Official heavy load threshold | `policies.json` | Resolved: 15, top of normal load (`normal_load`, D-010) |
+| Official maximum credits without permission | `policies.json` | Resolved: 19, priority-registration max (D-010) |
 | Exact B.S. CS requirement list | `programs/bs-computer-science.json` | UNKNOWN until read from the Bulletin |
 | Which electives count for each requirement group | `programs/bs-computer-science.json` | UNKNOWN until verified |
 | Term offering data | `typicalTerms` | Leave `[]` unless a source states it |
 | SFSU brand colors | `web/` styles | Check the official brand page |
-| Current Gemini model ID | `.env` | Check docs on the day |
+| Current Gemini model ID | `.env` | Resolved: `gemini-3.8-flash` from the live model list (D-018) |
 | Hackathon rules on open source and pre-existing code | `THIRD_PARTY.md` | Check event rules |
 
 ---
@@ -583,6 +587,7 @@ Each item must be resolved from an official source and then moved to the data fi
 
 Add one line per contract change. Newest first.
 
+- 2026-10-02: D-016..D-021. `IssueCode` adds `STANDING_TOO_LOW`; `Plan.source` adds `roadmap`; placeholder IDs `GE-<u>u-<n>`; routes add `GET /api/runs`, `/api/runs/:id`, `/api/evals`; `server/runs.ts`; Vite root `web/src`.
 - 2026-10-02: D-006..D-014. TS engine ported from web/planner.js; prereqs use the DAG grammar; IDs keep the space; data stays in data/sfsu/ (+ generated policies.json, career_tags.json); local-only hosting; root vite.config.ts.
 
 - 2026-10-02: Initial version. Backend locked to Node + Express + TypeScript so the engine exists once in `shared/`.

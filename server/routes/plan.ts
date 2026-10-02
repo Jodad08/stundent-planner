@@ -112,7 +112,8 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
       goalText: req.goalText, name: `${req.goalText.slice(0, 32)} (engine fallback)` }), id: `plan_fb_${run.rec.run_id}`, createdAt: new Date().toISOString() }
     const report = evaluatePlan(plan, dag, policies, DEFAULT_PROFILE)
     run.step("fallback", { trackId, electives, reason: last ? "model plan still invalid after repairs" : "model call failed" })
-    resp = { plan, report, rationale: `The AI plan did not pass the rules engine after ${attempts} attempt(s), so this plan comes from the deterministic planner.`,
+    resp = { plan, report, rationale: last ? `The AI plan did not pass the rules engine after ${attempts} attempt(s), so this plan comes from the deterministic planner.`
+      : "The model was unavailable (busy or timed out), so this plan comes from the deterministic planner.",
       electiveChoices: [], attempts, runId: run.rec.run_id }
   }
   run.rec.final_state = resp
