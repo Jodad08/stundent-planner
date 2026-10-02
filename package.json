@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "concurrently -k -n server,web \"tsx watch server/index.ts\" \"vite\"",
     "server": "tsx server/index.ts",
-    "test": "vitest run",
+    "test": "vitest run --root .",
     "evals": "tsx evals/run_evals.ts",
     "build": "vite build",
     "start": "NODE_ENV=production tsx server/index.ts"

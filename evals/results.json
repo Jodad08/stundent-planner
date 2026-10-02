@@ -1,0 +1,351 @@
+{
+ "generated_at": "2026-10-02T21:21:55.800Z",
+ "provider": "gemini",
+ "model": "gemini-3.8-flash",
+ "seeded": {
+  "cases": [
+   {
+    "name": "CSC 340 in the same semester as CSC 220/230",
+    "expected": [
+     "PREREQ_ORDER",
+     "UNITS_HEAVY"
+    ],
+    "got": [
+     "PREREQ_ORDER",
+     "UNITS_HEAVY"
+    ],
+    "pass": true
+   },
+   {
+    "name": "CSC 220 removed",
+    "expected": [
+     "PREREQ_MISSING",
+     "REQ_GROUP_INCOMPLETE",
+     "STANDING_TOO_LOW",
+     "TOTAL_UNITS_SHORT"
+    ],
+    "got": [
+     "PREREQ_MISSING",
+     "REQ_GROUP_INCOMPLETE",
+     "STANDING_TOO_LOW",
+     "TOTAL_UNITS_SHORT"
+    ],
+    "pass": true
+   },
+   {
+    "name": "PHYS 222 (coreq) a semester after PHYS 220",
+    "expected": [
+     "COREQ_ORDER",
+     "UNITS_HEAVY"
+    ],
+    "got": [
+     "COREQ_ORDER",
+     "UNITS_HEAVY"
+    ],
+    "pass": true
+   },
+   {
+    "name": "CSC 648 in Fall Year 2",
+    "expected": [
+     "PREREQ_ORDER",
+     "STANDING_TOO_LOW",
+     "UNITS_HEAVY"
+    ],
+    "got": [
+     "PREREQ_ORDER",
+     "STANDING_TOO_LOW",
+     "UNITS_HEAVY"
+    ],
+    "pass": true
+   },
+   {
+    "name": "CSC 101 planned twice",
+    "expected": [
+     "DUPLICATE_COURSE",
+     "UNITS_HEAVY"
+    ],
+    "got": [
+     "DUPLICATE_COURSE",
+     "UNITS_HEAVY"
+    ],
+    "pass": true
+   },
+   {
+    "name": "Invented course ID",
+    "expected": [
+     "UNKNOWN_COURSE"
+    ],
+    "got": [
+     "UNKNOWN_COURSE"
+    ],
+    "pass": true
+   },
+   {
+    "name": "21 units in Fall Year 1",
+    "expected": [
+     "UNITS_OVER"
+    ],
+    "got": [
+     "UNITS_OVER"
+    ],
+    "pass": true
+   },
+   {
+    "name": "Last semester emptied",
+    "expected": [
+     "TOTAL_UNITS_SHORT"
+    ],
+    "got": [
+     "TOTAL_UNITS_SHORT"
+    ],
+    "pass": true
+   },
+   {
+    "name": "One elective removed (CSC 665)",
+    "expected": [
+     "REQ_GROUP_INCOMPLETE",
+     "TOTAL_UNITS_SHORT"
+    ],
+    "got": [
+     "REQ_GROUP_INCOMPLETE",
+     "TOTAL_UNITS_SHORT"
+    ],
+    "pass": true
+   }
+  ],
+  "precision": 1,
+  "recall": 1,
+  "validFixtureErrors": 0
+ },
+ "roadmaps": [
+  {
+   "title": "Bachelor of Science in Computer Science Roadmap - Quantitative Reasoning Category 1/2",
+   "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/roadmap-i-ii-eng/",
+   "profile": "calculus placement",
+   "errors": [],
+   "warnings": 3,
+   "warningMessages": [
+    "Fall Year 1 has 16 units, above 15 (Top of the normal load).",
+    "Fall Year 2 has 16 units, above 15 (Top of the normal load).",
+    "Electives is not complete. 0 of 15 elective units (at least 12 must be CSC)."
+   ],
+   "graduationReady": false,
+   "units": 120
+  },
+  {
+   "title": "Bachelor of Science in Computer Science Roadmap Quantitative Reasoning Category 3/4",
+   "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/roadmap-math-pathway/",
+   "profile": "no calculus placement",
+   "errors": [],
+   "warnings": 5,
+   "warningMessages": [
+    "Spring Year 1 has 16 units, above 15 (Top of the normal load).",
+    "Fall Year 2 has 16 units, above 15 (Top of the normal load).",
+    "Spring Year 2 has 17 units, above 15 (Top of the normal load).",
+    "Fall Year 3 has 16 units, above 15 (Top of the normal load).",
+    "Electives is not complete. 0 of 15 elective units (at least 12 must be CSC)."
+   ],
+   "graduationReady": false,
+   "units": 120
+  }
+ ],
+ "skippedRoadmaps": [
+  {
+   "title": "Bachelor of Science in Computer Science – COMP Associate Degree for Transfer (ADT) Roadmap",
+   "reason": "Transfer (ADT) roadmap: assumes 35 units already transferred; the engine's fresh-plan check does not model transfer credit (D-015)."
+  }
+ ],
+ "comparison": [
+  {
+   "goal": "Machine learning engineer",
+   "trackId": "ai",
+   "rows": [
+    {
+     "variant": "No-op (empty plan)",
+     "errors": 0,
+     "groupsSatisfied": 0,
+     "groupsTotal": 4,
+     "semesters": 0,
+     "units": 0,
+     "graduationReady": false,
+     "goalTrackScore": 0,
+     "attempts": null,
+     "source": "manual"
+    },
+    {
+     "variant": "SFSU official roadmap (QR 1/2)",
+     "errors": 0,
+     "groupsSatisfied": 3,
+     "groupsTotal": 4,
+     "semesters": 8,
+     "units": 120,
+     "graduationReady": false,
+     "goalTrackScore": 0,
+     "attempts": null,
+     "source": "roadmap"
+    },
+    {
+     "variant": "Deterministic engine planner",
+     "errors": 0,
+     "groupsSatisfied": 4,
+     "groupsTotal": 4,
+     "semesters": 7,
+     "units": 120,
+     "graduationReady": true,
+     "goalTrackScore": 100,
+     "attempts": null,
+     "source": "fallback"
+    },
+    {
+     "variant": "Gemini failed → engine fallback (gemini)",
+     "errors": 0,
+     "groupsSatisfied": 4,
+     "groupsTotal": 4,
+     "semesters": 7,
+     "units": 120,
+     "graduationReady": true,
+     "goalTrackScore": 100,
+     "attempts": 1,
+     "source": "fallback",
+     "runId": "2026-10-02T21-21-17-481Z_gemini_plan_6700b8"
+    }
+   ]
+  },
+  {
+   "goal": "Cybersecurity analyst",
+   "trackId": "systems",
+   "rows": [
+    {
+     "variant": "No-op (empty plan)",
+     "errors": 0,
+     "groupsSatisfied": 0,
+     "groupsTotal": 4,
+     "semesters": 0,
+     "units": 0,
+     "graduationReady": false,
+     "goalTrackScore": 0,
+     "attempts": null,
+     "source": "manual"
+    },
+    {
+     "variant": "SFSU official roadmap (QR 1/2)",
+     "errors": 0,
+     "groupsSatisfied": 3,
+     "groupsTotal": 4,
+     "semesters": 8,
+     "units": 120,
+     "graduationReady": false,
+     "goalTrackScore": 0,
+     "attempts": null,
+     "source": "roadmap"
+    },
+    {
+     "variant": "Deterministic engine planner",
+     "errors": 0,
+     "groupsSatisfied": 4,
+     "groupsTotal": 4,
+     "semesters": 7,
+     "units": 120,
+     "graduationReady": true,
+     "goalTrackScore": 100,
+     "attempts": null,
+     "source": "fallback"
+    },
+    {
+     "variant": "Gemini failed → engine fallback (gemini)",
+     "errors": 0,
+     "groupsSatisfied": 4,
+     "groupsTotal": 4,
+     "semesters": 7,
+     "units": 120,
+     "graduationReady": true,
+     "goalTrackScore": 0,
+     "attempts": 1,
+     "source": "fallback",
+     "runId": "2026-10-02T21-21-31-160Z_gemini_plan_8acfd8"
+    }
+   ]
+  },
+  {
+   "goal": "Full-stack web developer",
+   "trackId": "web",
+   "rows": [
+    {
+     "variant": "No-op (empty plan)",
+     "errors": 0,
+     "groupsSatisfied": 0,
+     "groupsTotal": 4,
+     "semesters": 0,
+     "units": 0,
+     "graduationReady": false,
+     "goalTrackScore": 0,
+     "attempts": null,
+     "source": "manual"
+    },
+    {
+     "variant": "SFSU official roadmap (QR 1/2)",
+     "errors": 0,
+     "groupsSatisfied": 3,
+     "groupsTotal": 4,
+     "semesters": 8,
+     "units": 120,
+     "graduationReady": false,
+     "goalTrackScore": 0,
+     "attempts": null,
+     "source": "roadmap"
+    },
+    {
+     "variant": "Deterministic engine planner",
+     "errors": 0,
+     "groupsSatisfied": 4,
+     "groupsTotal": 4,
+     "semesters": 7,
+     "units": 120,
+     "graduationReady": true,
+     "goalTrackScore": 100,
+     "attempts": null,
+     "source": "fallback"
+    },
+    {
+     "variant": "Gemini + engine repair (gemini)",
+     "errors": 0,
+     "groupsSatisfied": 4,
+     "groupsTotal": 4,
+     "semesters": 8,
+     "units": 120,
+     "graduationReady": true,
+     "goalTrackScore": 80,
+     "attempts": 1,
+     "source": "ai",
+     "runId": "2026-10-02T21-21-40-111Z_gemini_plan_8e1deb"
+    }
+   ]
+  }
+ ],
+ "antiVacuity": [
+  {
+   "check": "Empty plan scores worst (0 groups, not graduation-ready)",
+   "pass": true
+  },
+  {
+   "check": "Reversed semester order fails PREREQ_ORDER",
+   "pass": true
+  },
+  {
+   "check": "Invented course IDs from the model are dropped, not auto-corrected",
+   "pass": true
+  },
+  {
+   "check": "Valid fixture has zero errors and is graduation-ready",
+   "pass": true
+  },
+  {
+   "check": "Seeded-error recall is 1.0 (every planted mistake caught)",
+   "pass": true
+  },
+  {
+   "check": "Scores and engine verdicts never appear in the plan-generation prompt",
+   "pass": true
+  }
+ ]
+}

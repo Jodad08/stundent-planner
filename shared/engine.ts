@@ -374,6 +374,7 @@ export function evaluatePlan(planIn: Plan, dag: Dag, policies: Policies, profile
   const add = (severity: Issue["severity"], code: IssueCode, message: string, courseIds: CourseId[], extra: Partial<Issue> = {}) =>
     issues.push({ id: `${code}-${issues.length}`, severity, code, message, courseIds, ...extra })
   const uni = dag.university
+  const lab = (i: number) => planIn.semesters.find(s => s.index === i)?.label ?? `semester ${i}`
 
   // where each course sits
   const semOf = new Map<CourseId, number>()
@@ -384,7 +385,7 @@ export function evaluatePlan(planIn: Plan, dag: Dag, policies: Policies, profile
         continue
       }
       if (semOf.has(id)) {
-        add("error", "DUPLICATE_COURSE", `${id} is planned twice (semesters ${semOf.get(id)} and ${s.index}).`, [id], { semesterIndex: s.index })
+        add("error", "DUPLICATE_COURSE", `${id} is planned twice (${lab(semOf.get(id)!)} and ${s.label}).`, [id], { semesterIndex: s.index })
         continue
       }
       semOf.set(id, s.index)
@@ -400,9 +401,9 @@ export function evaluatePlan(planIn: Plan, dag: Dag, policies: Policies, profile
       : st.status === "over" ? policies.maxUnitsWithoutPermission : null
     if (!pol) continue
     const code: IssueCode = st.status === "under" ? "UNITS_UNDER" : st.status === "heavy" ? "UNITS_HEAVY" : "UNITS_OVER"
-    const msg = st.status === "under" ? `Semester ${st.index} has ${st.units} units, below ${pol.value} (${pol.label}).`
-      : st.status === "heavy" ? `Semester ${st.index} has ${st.units} units, above ${pol.value} (${pol.label}).`
-        : `Semester ${st.index} has ${st.units} units, above ${pol.value} (${pol.label}). Needs a 3.0 GPA and a petition.`
+    const msg = st.status === "under" ? `${lab(st.index)} has ${st.units} units, below ${pol.value} (${pol.label}).`
+      : st.status === "heavy" ? `${lab(st.index)} has ${st.units} units, above ${pol.value} (${pol.label}).`
+        : `${lab(st.index)} has ${st.units} units, above ${pol.value} (${pol.label}). Needs a 3.0 GPA and a petition.`
     add(st.status === "over" ? "error" : "warning", code, msg, [], { semesterIndex: st.index, sourceUrl: pol.sourceUrl, quote: pol.quote })
   }
 
@@ -431,7 +432,7 @@ export function evaluatePlan(planIn: Plan, dag: Dag, policies: Policies, profile
         const code: IssueCode = inPlan.length ? (onlyCoreq ? "COREQ_ORDER" : "PREREQ_ORDER") : "PREREQ_MISSING"
         const msg = code === "PREREQ_MISSING"
           ? `${id} needs ${describe(node.prereq)}. Missing from the plan: ${courseLeaves.map(l => l.code).join(", ") || "placement"}.`
-          : `${id} is in semester ${s.index}, but ${inPlan.map(c => `${c} (semester ${semOf.get(c)})`).join(", ")} must come ${onlyCoreq ? "in the same semester or" : ""} earlier. Rule: ${describe(node.prereq)}.`
+          : `${id} is in ${s.label}, but ${inPlan.map(c => `${c} (${lab(semOf.get(c)!)})`).join(", ")} must come ${onlyCoreq ? "in the same semester or earlier" : "earlier"}. Rule: ${describe(node.prereq)}.`
         add("error", code, msg, [id, ...courseLeaves.map(l => l.code).filter(c => semOf.has(c))],
           { semesterIndex: s.index, sourceUrl: node.url, quote: node.bulletin_prerequisite_text ?? undefined })
       }
@@ -440,7 +441,7 @@ export function evaluatePlan(planIn: Plan, dag: Dag, policies: Policies, profile
         if (need == null) continue
         if (cumBefore < need) {
           add("warning", "STANDING_TOO_LOW",
-            `${id} needs ${UD.test(cond) ? "upper-division" : "senior"} standing (${need}+ units). Only ${cumBefore} units are planned before semester ${s.index}.`,
+            `${id} needs ${UD.test(cond) ? "upper-division" : "senior"} standing (${need}+ units). Only ${cumBefore} units are planned before ${s.label}.`,
             [id], { semesterIndex: s.index, sourceUrl: node.url, quote: node.bulletin_prerequisite_text ?? undefined })
         }
       }
@@ -462,7 +463,7 @@ export function evaluatePlan(planIn: Plan, dag: Dag, policies: Policies, profile
   })
   for (const r of requirementStatus) {
     if (r.satisfied) continue
-    const detail = r.unitsNeed != null ? `${r.unitsHave} of ${r.unitsNeed} elective units (at least 12 must be CSC).`
+    const detail = r.unitsNeed != null ? `${r.unitsHave} of ${r.unitsNeed} elective units (at least ${electiveRuleCheck(dag, []).minCsc} must be CSC).`
       : `Missing: ${r.missingCourseIds.join(", ")}.`
     add("warning", "REQ_GROUP_INCOMPLETE", `${r.title} is not complete. ${detail}`, r.missingCourseIds, { sourceUrl: dag.program.url })
   }

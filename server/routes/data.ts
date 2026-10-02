@@ -1,4 +1,6 @@
 import { Router } from "express"
+import { readFileSync } from "node:fs"
+import { repoRoot } from "../../shared/data"
 import { careers, dag, policies } from "../../shared/data"
 import { providerName } from "../gemini"
 import { getRun, listRuns } from "../runs"
@@ -18,4 +20,9 @@ dataRoutes.get("/runs/:id", (req, res) => {
   const r = getRun(req.params.id)
   if (!r) { res.status(404).json({ error: "Run not found", code: "RUN_NOT_FOUND" }); return }
   res.json(r)
+})
+dataRoutes.get("/evals", (_req, res) => {
+  try { res.json(JSON.parse(readFileSync(repoRoot + "evals/results.json", "utf8"))) } catch {
+    res.status(404).json({ error: "No eval results yet. Run npm run evals.", code: "NO_EVALS" })
+  }
 })

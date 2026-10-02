@@ -1,0 +1,495 @@
+{
+ "run_id": "2026-10-02T21-21-06-720Z_gemini_plan_099608",
+ "variant": "gemini_plan",
+ "input": {
+  "goalText": "Machine learning engineer",
+  "programId": "bs-cs",
+  "unitsPerSemester": 15,
+  "lockedPlacements": []
+ },
+ "config": {
+  "provider": "mock",
+  "model": "gemini-3.8-flash",
+  "maxRepairs": 2
+ },
+ "steps": [
+  {
+   "name": "model_plan",
+   "detail": {
+    "provider": "mock",
+    "model": "mock",
+    "ms": 1,
+    "raw": {
+     "trackId": "ai",
+     "semesters": [
+      {
+       "index": 1,
+       "courseIds": [
+        "CSC 101",
+        "MATH 226"
+       ]
+      },
+      {
+       "index": 2,
+       "courseIds": [
+        "CSC 215",
+        "MATH 227",
+        "PHYS 220",
+        "MATH 225",
+        "PHYS 222"
+       ]
+      },
+      {
+       "index": 3,
+       "courseIds": [
+        "CSC 220",
+        "CSC 230",
+        "MATH 324",
+        "PHYS 230",
+        "PHYS 232",
+        "CSC 340"
+       ]
+      },
+      {
+       "index": 4,
+       "courseIds": [
+        "CSC 317",
+        "CSC 256"
+       ]
+      },
+      {
+       "index": 5,
+       "courseIds": [
+        "CSC 413",
+        "CSC 510",
+        "CSC 300GW",
+        "CSC 415"
+       ]
+      },
+      {
+       "index": 6,
+       "courseIds": [
+        "CSC 603",
+        "CSC 620",
+        "CSC 648",
+        "CSC 659",
+        "CSC 665"
+       ]
+      },
+      {
+       "index": 7,
+       "courseIds": [
+        "CSC 671"
+       ]
+      },
+      {
+       "index": 8,
+       "courseIds": []
+      }
+     ],
+     "rationale": "MOCK (no model call): electives taken from the AI & Data track.",
+     "electiveChoices": [
+      {
+       "courseId": "CSC 665",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 671",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 620",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 603",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 659",
+       "reason": "Listed in the AI & Data track."
+      }
+     ]
+    }
+   },
+   "at": "2026-10-02T21:21:06.721Z"
+  },
+  {
+   "name": "engine_check",
+   "detail": {
+    "attempt": 1,
+    "dropped": [],
+    "problems": [
+     "CSC 340 is in Fall Year 2, but CSC 220 (Fall Year 2), CSC 230 (Fall Year 2) must come earlier. Rule: CSC 220 and CSC 230."
+    ],
+    "errors": 1
+   },
+   "at": "2026-10-02T21:21:06.721Z"
+  },
+  {
+   "name": "model_repair_1",
+   "detail": {
+    "provider": "mock",
+    "model": "mock",
+    "ms": 0,
+    "raw": {
+     "trackId": "ai",
+     "semesters": [
+      {
+       "index": 1,
+       "courseIds": [
+        "CSC 101",
+        "MATH 226"
+       ]
+      },
+      {
+       "index": 2,
+       "courseIds": [
+        "CSC 215",
+        "MATH 227",
+        "PHYS 220",
+        "MATH 225",
+        "PHYS 222"
+       ]
+      },
+      {
+       "index": 3,
+       "courseIds": [
+        "CSC 220",
+        "CSC 230",
+        "MATH 324",
+        "PHYS 230",
+        "PHYS 232"
+       ]
+      },
+      {
+       "index": 4,
+       "courseIds": [
+        "CSC 317",
+        "CSC 340",
+        "CSC 256"
+       ]
+      },
+      {
+       "index": 5,
+       "courseIds": [
+        "CSC 413",
+        "CSC 510",
+        "CSC 300GW",
+        "CSC 415"
+       ]
+      },
+      {
+       "index": 6,
+       "courseIds": [
+        "CSC 603",
+        "CSC 620",
+        "CSC 648",
+        "CSC 659",
+        "CSC 665"
+       ]
+      },
+      {
+       "index": 7,
+       "courseIds": [
+        "CSC 671"
+       ]
+      },
+      {
+       "index": 8,
+       "courseIds": []
+      }
+     ],
+     "rationale": "MOCK (no model call): electives taken from the AI & Data track.",
+     "electiveChoices": [
+      {
+       "courseId": "CSC 665",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 671",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 620",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 603",
+       "reason": "Listed in the AI & Data track."
+      },
+      {
+       "courseId": "CSC 659",
+       "reason": "Listed in the AI & Data track."
+      }
+     ]
+    }
+   },
+   "at": "2026-10-02T21:21:06.721Z"
+  },
+  {
+   "name": "engine_check",
+   "detail": {
+    "attempt": 2,
+    "dropped": [],
+    "problems": [],
+    "errors": 0
+   },
+   "at": "2026-10-02T21:21:06.721Z"
+  }
+ ],
+ "final_state": {
+  "plan": {
+   "id": "plan_ai_2026-10-02T21-21-06-720Z_gemini_plan_099608",
+   "name": "Machine learning engineer",
+   "programId": "bs-cs",
+   "goalText": "Machine learning engineer",
+   "createdAt": "2026-10-02T21:21:06.721Z",
+   "semesters": [
+    {
+     "index": 1,
+     "label": "Fall Year 1",
+     "season": "fall",
+     "courseIds": [
+      "CSC 101",
+      "MATH 226",
+      "GE-3u-1",
+      "GE-3u-2",
+      "GE-2u-3"
+     ]
+    },
+    {
+     "index": 2,
+     "label": "Spring Year 1",
+     "season": "spring",
+     "courseIds": [
+      "CSC 215",
+      "MATH 227",
+      "PHYS 220",
+      "MATH 225",
+      "PHYS 222"
+     ]
+    },
+    {
+     "index": 3,
+     "label": "Fall Year 2",
+     "season": "fall",
+     "courseIds": [
+      "CSC 220",
+      "CSC 230",
+      "MATH 324",
+      "PHYS 230",
+      "PHYS 232",
+      "GE-2u-4"
+     ]
+    },
+    {
+     "index": 4,
+     "label": "Spring Year 2",
+     "season": "spring",
+     "courseIds": [
+      "CSC 317",
+      "CSC 340",
+      "CSC 256",
+      "GE-3u-5",
+      "GE-3u-6"
+     ]
+    },
+    {
+     "index": 5,
+     "label": "Fall Year 3",
+     "season": "fall",
+     "courseIds": [
+      "CSC 413",
+      "CSC 510",
+      "CSC 300GW",
+      "CSC 415",
+      "GE-3u-7"
+     ]
+    },
+    {
+     "index": 6,
+     "label": "Spring Year 3",
+     "season": "spring",
+     "courseIds": [
+      "CSC 603",
+      "CSC 620",
+      "CSC 648",
+      "CSC 659",
+      "CSC 665"
+     ]
+    },
+    {
+     "index": 7,
+     "label": "Fall Year 4",
+     "season": "fall",
+     "courseIds": [
+      "CSC 671",
+      "GE-3u-8",
+      "GE-3u-9",
+      "GE-3u-10",
+      "GE-3u-11"
+     ]
+    },
+    {
+     "index": 8,
+     "label": "Spring Year 4",
+     "season": "spring",
+     "courseIds": [
+      "GE-3u-12",
+      "GE-3u-13",
+      "GE-3u-14",
+      "GE-3u-15",
+      "GE-3u-16"
+     ]
+    }
+   ],
+   "source": "ai"
+  },
+  "report": {
+   "issues": [
+    {
+     "id": "PREREQ_NOTE-0",
+     "severity": "info",
+     "code": "PREREQ_NOTE",
+     "message": "Not checked by the engine (GPA or instructor-permission conditions): MATH 324, CSC 317, CSC 300GW, CSC 603, CSC 620, CSC 648, CSC 659, CSC 671.",
+     "courseIds": [
+      "MATH 324",
+      "CSC 317",
+      "CSC 300GW",
+      "CSC 603",
+      "CSC 620",
+      "CSC 648",
+      "CSC 659",
+      "CSC 671"
+     ]
+    },
+    {
+     "id": "UNVERIFIED_DATA-1",
+     "severity": "info",
+     "code": "UNVERIFIED_DATA",
+     "message": "Course data is scraped from the 2026-27 Bulletin and machine-checked, not yet checked by a person. Confirm with an advisor.",
+     "courseIds": []
+    }
+   ],
+   "semesterStats": [
+    {
+     "index": 1,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 2,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 3,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 4,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 5,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 6,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 7,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 8,
+     "units": 15,
+     "status": "ok"
+    }
+   ],
+   "requirementStatus": [
+    {
+     "groupId": "mathematics_and_physics",
+     "title": "Mathematics and Physics",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "core_computer_science_requirements",
+     "title": "Core Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "advanced_computer_science_requirements",
+     "title": "Advanced Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "electives",
+     "title": "Electives",
+     "satisfied": true,
+     "missingCourseIds": [],
+     "unitsHave": 15,
+     "unitsNeed": 15
+    }
+   ],
+   "totalUnitsPlanned": 120,
+   "graduationReady": true
+  },
+  "rationale": "MOCK (no model call): electives taken from the AI & Data track.",
+  "electiveChoices": [
+   {
+    "courseId": "CSC 665",
+    "reason": "Listed in the AI & Data track."
+   },
+   {
+    "courseId": "CSC 671",
+    "reason": "Listed in the AI & Data track."
+   },
+   {
+    "courseId": "CSC 620",
+    "reason": "Listed in the AI & Data track."
+   },
+   {
+    "courseId": "CSC 603",
+    "reason": "Listed in the AI & Data track."
+   },
+   {
+    "courseId": "CSC 659",
+    "reason": "Listed in the AI & Data track."
+   }
+  ],
+  "attempts": 2,
+  "runId": "2026-10-02T21-21-06-720Z_gemini_plan_099608"
+ },
+ "scores": {
+  "accepted": true,
+  "attempts": 2,
+  "source": "ai",
+  "errors": 0,
+  "graduationReady": true,
+  "directions": [
+   {
+    "directionId": "ai",
+    "label": "AI & Data",
+    "score": 100
+   },
+   {
+    "directionId": "systems",
+    "label": "Systems & Security",
+    "score": 0
+   }
+  ]
+ },
+ "errors": [],
+ "created_at": "2026-10-02T21:21:06.720Z"
+}

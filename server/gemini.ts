@@ -26,8 +26,10 @@ export async function completeJson(system: string, user: string,
   if (!model) throw new Error("GEMINI_MODEL is not set")
   client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
   let lastErr: unknown
-  for (let attempt = 0; attempt < 2; attempt++) { // one retry (architecture.md §9), on GEMINI_FALLBACK_MODEL if set (D-018)
-    const m = attempt === 0 ? model : (process.env.GEMINI_FALLBACK_MODEL || model)
+  // primary, then each GEMINI_FALLBACK_MODEL (comma list) once; plain retry if none set (D-018, D-021)
+  const chain = [model, ...(process.env.GEMINI_FALLBACK_MODEL || model).split(",").map(x => x.trim()).filter(Boolean)]
+  for (let attempt = 0; attempt < chain.length; attempt++) {
+    const m = chain[attempt]
     try {
       const res = await client.models.generateContent({
         model: m, contents: user,
@@ -39,7 +41,8 @@ export async function completeJson(system: string, user: string,
       return { json: JSON.parse(text), provider: "gemini", model: m, ms: Date.now() - t0 }
     } catch (e) {
       lastErr = e
-      console.warn(`[gemini] purpose=${opts.purpose} attempt ${attempt + 1} failed: ${String(e).slice(0, 200)}`)
+      console.warn(`[gemini] purpose=${opts.purpose} model=${m} attempt ${attempt + 1} failed: ${String(e).slice(0, 200)}`)
+      if (attempt < chain.length - 1) await new Promise(r => setTimeout(r, 1500)) // brief backoff on 503 spikes
     }
   }
   throw lastErr

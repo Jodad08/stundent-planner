@@ -231,3 +231,23 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Run: `npm run server` (mock without key) then `POST /api/plan`.
 - Proof: mock run repaired the seeded error on attempt 2; real `gemini-3.8-flash` "cybersecurity analyst" plan accepted on attempt 1 with no engine errors; a 503 run fell back to the labeled engine plan. Runs saved in `runs/`.
 - Can still fail: Gemini capacity (503); latency ~14 s per plan call.
+
+## D-020: Board build choices
+- Step: 7
+- Decision: (a) Vite root is `web/src` (keeps the legacy `web/index.html` planner working); dev proxy is `/api/` (with the slash: `/api` also captured the app's own `api.ts`). (b) Course nodes are NOT `extent: "parent"`: on drag stop the node's x picks the target semester and the store moves it, so drag-between-semesters works (`plan.md` §10.3 asks for both; extent:parent would block it). (c) Engine reports are derived with `useMemo` (`useReport`) instead of stored in Zustand. (d) "Critical" badge = `criticalCourses` (a course whose hard-prerequisite chain inside the plan already ends in Spring Year 4, so delaying it pushes graduation out); this is our own definition, NOT SFSU's undefined "Critical" icon. (e) Added a "Deterministic plan (no AI)" button in the AI Plan modal, a Proof panel (reads `evals/results.json` via `GET /api/evals`) and a Runs panel (saved-run replay, no model call). (f) Hover card uses React Flow `NodeToolbar`.
+- Alternatives: extent:parent + sidebar-only moves.
+- Why: demo moment needs drag-between-semesters; Proof/Runs panels are the skill's "evidence visible in the UI" and replay requirements.
+- Evidence: `plan.md` §10.3, §13; `prompt.md` A.3 ("Critical" unexplained), B.5 step 6; browser test 2026-10-02 14:25 (CSC 340 drag → bold edges, red dot, "1 rule error", Fall Year 2 amber at 18 units)
+- Risk / undo: new top-level files none. `web/src/components/ProofPanel.tsx`, `RunsPanel.tsx` added beyond the §5 list (logged here).
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+## D-021: Evals design and findings
+- Step: 8
+- Decision: `evals/run_evals.ts` writes `evals/results.json`: 9 seeded-error cases (exact expected code sets), both 8-semester official CS roadmaps, a 4-planner comparison on 3 goals, 6 anti-vacuity checks. The ADT transfer roadmap is skipped (assumes 35 transferred units; transfer credit is out of scope, D-015). Roadmap items without a single in-catalog code (GE, "Major Electives 9 units", US History) become placeholders of the stated units.
+- Findings: precision 1.00, recall 1.00; valid fixture 0 errors. **Both official roadmaps have 0 prerequisite errors under the engine** (QR 1/2 with calculus placement, QR 3/4 without), so engine and SFSU agree. They show only load warnings (16-17 unit semesters, above the 12-15 normal load) and an open electives group (the roadmap leaves electives unnamed). Seeded case "CSC 220 removed" also yields `STANDING_TOO_LOW` (3 fewer units leaves a senior-standing course under 90), a correct cascade, so it was added to the expected set.
+- Also: `gemini-3.8-flash` and `gemini-3.7-flash` returned 503 on 2 of 3 plan prompts at 14:30; fallback chain extended to `gemini-3.7-flash,gemini-2.5-flash`; when the model gives no answer, the fallback picks a track by keywords (`guessTrack`), labeled as the engine fallback.
+- Evidence: `evals/results.json`; `data/sfsu/roadmaps.json` (CS roadmaps); server log 2026-10-02
+- Risk / undo: Gemini rows vary run to run; the run ids are recorded in results.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

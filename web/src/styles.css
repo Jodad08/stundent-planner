@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "@xyflow/react/dist/style.css";
+
+/* SFSU purple/gold: values from plan.md §10.9, TODO(verify) against the SFSU brand page */
+@theme {
+  --color-sf-purple: #231161;
+  --color-sf-gold: #E3B53C;
+  --color-canvas: #0b1022;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+html, body, #root { height: 100%; margin: 0; }
+body { background: var(--color-canvas); color: #e5e7eb; font-family: var(--font-sans); }
+.react-flow__node-semester, .react-flow__node-course { transition: opacity 150ms; }
+.semester-box { transition: background-color 200ms, border-color 200ms; }
+@keyframes dash { to { stroke-dashoffset: -20; } }
+.edge-violated { stroke-dasharray: 6 4; animation: dash 0.6s linear infinite; }
+.dimmed { opacity: 0.2 !important; }
+.react-flow__attribution { display: none; }

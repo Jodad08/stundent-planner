@@ -21,11 +21,16 @@ export function blockingProblems(report: EngineReport): string[] {
     .map(i => i.message)
 }
 
+/** Keyword guess of the closest DAG track. Used only by the mock and when the model gave no answer at all. */
+export function guessTrack(goalText: string): string {
+  const g = goalText.toLowerCase()
+  return /secur|system|network|\bos\b|cloud|infra/.test(g) ? "systems" : /web|mobile|app|front|full-stack|fullstack|product/.test(g) ? "web"
+    : /theor|graphic|quantum|math|game/.test(g) ? "theory" : "ai"
+}
+
 /** Deterministic mock: first answer has one seeded prerequisite error so the repair loop runs without a key. */
 function mockPlan(goalText: string, units: number, attempt: number): RawPlan {
-  const g = goalText.toLowerCase()
-  const trackId = /secur|system|network|os\b|cloud/.test(g) ? "systems" : /web|mobile|app|front|product/.test(g) ? "web"
-    : /theor|graphic|quantum|math|game/.test(g) ? "theory" : "ai"
+  const trackId = guessTrack(goalText)
   const p = buildFallbackPlan(dag, { trackId, unitsPerSemester: units, profile: DEFAULT_PROFILE })
   const semesters = p.semesters.map(s => ({ index: s.index, courseIds: s.courseIds.filter(c => !isPlaceholder(c)) }))
   if (attempt === 0) { // seeded mistake: CSC 340 one semester too early
@@ -100,7 +105,7 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
       attempts, runId: run.rec.run_id }
   } else {
     // deterministic fallback; keeps any valid electives the model chose
-    const trackId = typeof last?.raw.trackId === "string" && dag.tracks[last.raw.trackId] ? last.raw.trackId : "ai"
+    const trackId = typeof last?.raw.trackId === "string" && dag.tracks[last.raw.trackId] ? last.raw.trackId : guessTrack(req.goalText)
     const keep = last ? last.plan.semesters.flatMap(s => s.courseIds).filter(c => dag.requirements.some(r => r.type === "choose_units" && r.courses.includes(c))) : []
     const electives = pickElectives(dag, { courses: [] }, trackId, keep)
     const plan = { ...buildFallbackPlan(dag, { trackId, unitsPerSemester: req.unitsPerSemester, profile: DEFAULT_PROFILE, electives,
