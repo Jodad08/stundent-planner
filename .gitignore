@@ -1,3 +1,14 @@
 scraper/.cache/
 __pycache__/
 *.pyc
+
+# Private student records (PII): never commit. See data/sources.md.
+Degree planner.pdf
+Student Center.pdf
+
+# Secrets and local tooling
+.env
+.claude/
+
+# Critic harness: keep critiques (evidence), ignore the change-tracking baseline
+.harness/state.json
