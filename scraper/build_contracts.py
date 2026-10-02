@@ -275,6 +275,9 @@ def main():
         "heavyLoadUnits": pol(nl[1], "normal_load", "Top of the normal load"),
         "maxUnitsWithoutPermission": pol(rules["ug_max_units_priority_registration"]["values"]["max_units"],
                                          "ug_max_units_priority_registration", "Registration maximum"),
+        "upperDivisionStandingUnits": pol(rules["class_levels"]["values"]["junior"][0], "class_levels",
+                                          "Upper-division (junior) standing"),
+        "seniorStandingUnits": pol(rules["class_levels"]["values"]["senior"][0], "class_levels", "Senior standing"),
         "_note": "verified stays false until a person compares each quote with the Bulletin page "
                  "(architecture.md §8). The quote itself is machine-checked by scraper/build_rules.py.",
     }

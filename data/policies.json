@@ -23,5 +23,21 @@
   "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
   "verified": false
  },
+ "upperDivisionStandingUnits": {
+  "value": 60,
+  "label": "Upper-division (junior) standing",
+  "ruleId": "class_levels",
+  "quote": "The class level of students is determined according to units completed (earned units) as follows:",
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "verified": false
+ },
+ "seniorStandingUnits": {
+  "value": 90,
+  "label": "Senior standing",
+  "ruleId": "class_levels",
+  "quote": "The class level of students is determined according to units completed (earned units) as follows:",
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "verified": false
+ },
  "_note": "verified stays false until a person compares each quote with the Bulletin page (architecture.md §8). The quote itself is machine-checked by scraper/build_rules.py."
 }
