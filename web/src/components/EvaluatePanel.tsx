@@ -1,12 +1,16 @@
 import type { Issue, Suggestion } from "../../../shared/types"
 import { useActivePlan, useStore } from "../store"
+import { termName } from "../lib/derive"
 import { useReport } from "./Board"
 
 function IssueItem({ i }: { i: Issue }) {
   const select = useStore(s => s.selectCourse)
+  const dag = useStore(s => s.dag)!
+  // engine labels "Fall Year 2" -> board names "Fall 2027"
+  const msg = i.message.replace(/(Fall|Spring) Year (\d)/g, (_m, season: string, y: string) => termName(dag, (Number(y) - 1) * 2 + (season === "Fall" ? 1 : 2)))
   return (
     <li className="cursor-pointer rounded border border-white/10 bg-white/[0.03] p-2 hover:border-slate-600" onClick={() => i.courseIds[0] && select(i.courseIds[0])}>
-      <div><span className="mr-1 font-mono text-[10px] text-slate-500">{i.code}</span>{i.message}</div>
+      <div><span className="mr-1 font-mono text-[10px] text-slate-500">{i.code}</span>{msg}</div>
       {i.quote && <div className="mt-1 text-[11px] italic text-slate-400">Bulletin: "{i.quote.slice(0, 220)}"</div>}
       {i.sourceUrl && <a className="text-[11px] text-sky-300 underline" href={i.sourceUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>Source</a>}
     </li>

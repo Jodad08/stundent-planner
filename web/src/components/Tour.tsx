@@ -2,10 +2,10 @@ import { useEffect, useLayoutEffect, useState } from "react"
 
 /** First-load walkthrough (D-022): spotlight one part of the UI at a time. */
 const STEPS: { target: string; title: string; body: string }[] = [
-  { target: ".react-flow__node-semester", title: "This is a semester", body: "Your degree is 8 columns, Fall Year 1 to Spring Year 4. The label turns amber or red when a semester's units break SFSU's load rules." },
+  { target: ".react-flow__node-semester", title: "This is a semester", body: "Your degree is 8 columns, Fall Year 1 to Spring Year 4. Click a semester's label to zoom in, × or Esc to zoom out. The label turns amber or red when its units break SFSU's load rules." },
   { target: ".react-flow__node-course", title: "This is a course", body: "Each dot is one course. Hover it for the description and credits. Click it to light up everything it needs and everything it unlocks." },
-  { target: "[data-tour=board]", title: "These are prerequisites", body: "Faint lines connect a course to what it needs. Drag a course before its prerequisite and the line turns red and glows." },
-  { target: "[data-tour=courses]", title: "This is your course list", body: "Every B.S. Computer Science requirement from the 2026-27 Bulletin. Drag a course onto a semester to plan it." },
+  { target: "[data-tour=board]", title: "These are prerequisites", body: "Faint lines connect a course to what it needs. Drag empty space to move the canvas, scroll to zoom. Drag a course before its prerequisite and the line turns red and glows." },
+  { target: "[data-tour=courses]", title: "This is your course list", body: "Every B.S. Computer Science requirement from the 2026-27 Bulletin. Drag a course onto the canvas: the semester under it lights up." },
   { target: "[data-tour=status]", title: "The rules engine", body: "Every move is checked against the Bulletin rules: prerequisites, corequisites, standing and unit loads. No AI decides this." },
   { target: "[data-tour=ai]", title: "This is AI Plan", body: "Tell Gemini your career goal. It proposes a plan, the engine checks it and sends mistakes back for repair, and nothing invalid reaches you." },
   { target: "[data-tour=check]", title: "This is Check", body: "A full report: each broken rule with the Bulletin quote, missing requirements, career fit, and Gemini's suggestions (each re-checked)." },

@@ -18,6 +18,7 @@ export type Store = {
   panel: "none" | "evaluate" | "proof" | "runs"
   modalOpen: boolean
   flash: string | null
+  zoomSem: number | null
   setData(d: { dag: Dag; policies: Policies; careers: CareerDirection[]; health: Health; descriptions: Record<string, string> }): void
   placeCourse(courseId: CourseId, semesterIndex: number): void
   moveCourse(courseId: CourseId, toSemester: number): void
@@ -33,6 +34,7 @@ export type Store = {
   setPanel(p: Store["panel"]): void
   setModal(open: boolean): void
   setFlash(msg: string | null): void
+  setZoomSem(i: number | null): void
   reset(): void
 }
 
@@ -67,7 +69,7 @@ function edit(s: Store, fn: (p: Plan) => Plan): Partial<Store> {
 export const useStore = create<Store>((set, get) => ({
   dag: null, policies: null, careers: [], health: null, descriptions: {},
   plans: initial.plans, activePlanId: initial.activePlanId,
-  selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null,
+  selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null, zoomSem: null,
   setData: d => set({ ...d }),
   placeCourse: (courseId, semesterIndex) => set(s => {
     const active = s.plans.find(p => p.id === s.activePlanId)
@@ -89,12 +91,13 @@ export const useStore = create<Store>((set, get) => ({
     if (!plans.length) plans.push(blankPlan())
     return { plans, activePlanId: s.activePlanId === id ? plans[0].id : s.activePlanId, evaluation: null }
   }),
-  setActivePlan: id => set({ activePlanId: id, evaluation: null, selectedCourseId: null }),
+  setActivePlan: id => set({ activePlanId: id, evaluation: null, selectedCourseId: null, zoomSem: null }),
   selectCourse: id => set({ selectedCourseId: id }),
   setEvaluation: e => set({ evaluation: e }),
   setPanel: panel => set({ panel }),
   setModal: modalOpen => set({ modalOpen }),
   setFlash: flash => set({ flash }),
+  setZoomSem: zoomSem => set({ zoomSem }),
   reset: () => { const p = blankPlan(); set({ plans: [p], activePlanId: p.id, evaluation: null, selectedCourseId: null }) },
 }))
 

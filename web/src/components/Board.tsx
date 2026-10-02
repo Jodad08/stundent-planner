@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useRef } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { Background, BackgroundVariant, Panel, ReactFlow, useNodesState, useReactFlow, type Node } from "@xyflow/react"
 import { evaluatePlan } from "../../../shared/engine"
 import { derive } from "../lib/derive"
-import { semesterAt, semHeight, semX, COURSE_W, SEM_W, SEM_X0, SEM_Y } from "../lib/layout"
+import { semesterAt, semX, COURSE_W, SEM_W, SEM_X0 } from "../lib/layout"
 import { useActivePlan, useStore } from "../store"
 import { CourseNode } from "./CourseNode"
 import { Legend } from "./Legend"
@@ -26,45 +26,79 @@ export function Board() {
   const selected = useStore(s => s.selectedCourseId)
   const { selectCourse, placeCourse, moveCourse, setFlash } = useStore.getState()
   const report = useReport()!
-  const derived = useMemo(() => derive(plan, dag, report, selected, policies.minUnitsFullTime.value), [plan, dag, report, selected, policies])
+  const [dropTarget, setDropTarget] = useState<number | null>(null)
+  const zoomSem = useStore(s => s.zoomSem)
+  const derived = useMemo(() => derive(plan, dag, report, selected, policies.minUnitsFullTime.value, dropTarget), [plan, dag, report, selected, policies, dropTarget])
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>(derived.nodes)
   useEffect(() => { setNodes(derived.nodes) }, [derived.nodes, setNodes])
   const edges = derived.edges
   const rf = useReactFlow()
-  // fit the fixed 8-column layout to the canvas (computed, so it works before nodes are measured)
+  // smooth camera: whole degree, or one semester when its label is clicked (D-023)
   const wrap = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    const fit = () => {
-      const el = wrap.current
-      if (!el) return
-      const tallest = Math.max(...plan.semesters.map(s => semHeight(s.courseIds.length)))
-      const w = semX(8) + SEM_W + SEM_X0, h = SEM_Y + tallest + 40
-      const zoom = Math.min(1.2, (el.clientWidth - 40) / w, (el.clientHeight - 60) / h)
-      rf.setViewport({ x: (el.clientWidth - w * zoom) / 2, y: Math.max(16, (el.clientHeight - h * zoom) / 2 - 30), zoom }, { duration: 250 })
+  const heightRef = useRef(derived.height)
+  heightRef.current = derived.height
+  // smooth camera tween (React Flow's animated setViewport did not move the camera here, D-023)
+  const anim = useRef(0)
+  const flyTo = useCallback((to: { x: number; y: number; zoom: number }, duration = 700) => {
+    cancelAnimationFrame(anim.current)
+    const from = rf.getViewport()
+    if (!duration || document.hidden) { rf.setViewport(to); return } // hidden tabs pause animation frames
+    const t0 = performance.now()
+    const step = (now: number) => {
+      const t = Math.min(1, (now - t0) / duration)
+      const e = 1 - Math.pow(1 - t, 3) // ease-out cubic
+      rf.setViewport({ x: from.x + (to.x - from.x) * e, y: from.y + (to.y - from.y) * e, zoom: from.zoom + (to.zoom - from.zoom) * e })
+      if (t < 1) anim.current = requestAnimationFrame(step)
     }
-    const t = setTimeout(fit, 30)
-    window.addEventListener("resize", fit)
-    return () => { clearTimeout(t); window.removeEventListener("resize", fit) }
-  }, [plan.id, rf]) // eslint-disable-line react-hooks/exhaustive-deps
+    anim.current = requestAnimationFrame(step)
+  }, [rf])
+  const fitAll = useCallback((duration = 700) => {
+    const el = wrap.current
+    if (!el) return
+    const w = semX(8) + SEM_W + SEM_X0, h = heightRef.current + 20
+    const zoom = Math.min(1.25, (el.clientWidth - 40) / w, (el.clientHeight - 70) / h)
+    flyTo({ x: (el.clientWidth - w * zoom) / 2, y: Math.max(16, (el.clientHeight - h * zoom) / 2 - 20), zoom }, duration)
+  }, [flyTo])
+  useEffect(() => {
+    if (zoomSem == null) { const t = setTimeout(() => fitAll(), 30); return () => clearTimeout(t) }
+    const el = wrap.current
+    if (!el) return
+    // center the clicked semester and its neighbours, as tall as fits
+    const cx = semX(zoomSem) + SEM_W / 2, h = heightRef.current + 20
+    const zoom = Math.min(1.9, (el.clientHeight - 80) / h, el.clientWidth / (SEM_W * 3.2))
+    flyTo({ x: el.clientWidth / 2 - cx * zoom, y: Math.max(20, (el.clientHeight - h * zoom) / 2), zoom })
+  }, [zoomSem, plan.id, fitAll, flyTo])
+  useEffect(() => {
+    const onResize = () => { if (useStore.getState().zoomSem == null) fitAll(0) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") useStore.getState().setZoomSem(null) }
+    window.addEventListener("resize", onResize); window.addEventListener("keydown", onKey)
+    return () => { window.removeEventListener("resize", onResize); window.removeEventListener("keydown", onKey) }
+  }, [fitAll])
 
   return (
     <div ref={wrap} className="h-full w-full">
     <ReactFlow data-tour="board" nodes={nodes} edges={edges} nodeTypes={nodeTypes} edgeTypes={edgeTypes} onNodesChange={onNodesChange}
-      colorMode="dark" minZoom={0.2} nodesConnectable={false} proOptions={{ hideAttribution: true }}
+      onInit={() => setTimeout(() => fitAll(0), 50)}
+      colorMode="dark" minZoom={0.2} maxZoom={2.5} panOnDrag zoomOnScroll zoomOnPinch nodesConnectable={false} proOptions={{ hideAttribution: true }}
       onNodeClick={(_e, n) => { if (n.type === "course") selectCourse(selected === (n.data as { id: string }).id ? null : (n.data as { id: string }).id) }}
       onPaneClick={() => selectCourse(null)}
+      onNodeDrag={(_e, n) => { if (n.type === "course") setDropTarget(semesterAt(n.position.x + COURSE_W / 2)) }}
       onNodeDragStop={(_e, n) => {
+        setDropTarget(null)
         if (n.type !== "course") return
-        const parent = nodes.find(x => x.id === n.parentId)
-        const absX = (parent?.position.x ?? 0) + n.position.x + COURSE_W / 2
-        const to = semesterAt(absX)
+        const to = semesterAt(n.position.x + COURSE_W / 2)
         const id = (n.data as { id: string }).id
         if (to) moveCourse(id, to)
         else setNodes(derived.nodes) // dropped outside the semesters: snap back
       }}
-      onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = "move" }}
+      onDragOver={e => {
+        e.preventDefault(); e.dataTransfer.dropEffect = "move"
+        setDropTarget(semesterAt(rf.screenToFlowPosition({ x: e.clientX, y: e.clientY }).x))
+      }}
+      onDragLeave={() => setDropTarget(null)}
       onDrop={e => {
         e.preventDefault()
+        setDropTarget(null)
         const id = e.dataTransfer.getData("application/gatorgraph")
         if (!id) return
         const p = rf.screenToFlowPosition({ x: e.clientX, y: e.clientY })
@@ -74,6 +108,14 @@ export function Board() {
       }}>
       <Background variant={BackgroundVariant.Dots} gap={28} size={0.8} color="#18181b" />
       <Panel position="bottom-left"><Legend /></Panel>
+      {zoomSem != null && (
+        <Panel position="top-right">
+          <button onClick={() => useStore.getState().setZoomSem(null)} title="Back to all semesters (Esc)"
+            className="flex items-center gap-2 rounded-full border border-white/10 bg-black/80 px-3 py-1.5 font-mono text-xs text-zinc-300 backdrop-blur hover:text-white">
+            <span className="text-base leading-none">×</span> all semesters
+          </button>
+        </Panel>
+      )}
     </ReactFlow>
     </div>
   )

@@ -27,7 +27,7 @@ export function CourseNode({ data }: NodeProps<Node<CourseData>>) {
         style={data.hasError ? { color: "#ff6b6b" } : undefined}>
         {data.placeholder ? `ge ${data.units}u` : data.id}
       </span>
-      <button onClick={e => { e.stopPropagation(); unplace(data.id) }} title="Remove"
+      <button onClick={e => { e.stopPropagation(); unplace(data.geIds ? data.geIds[data.geIds.length - 1] : data.id) }} title={data.geIds ? "Remove 3 GE units" : "Remove"}
         className="ml-auto hidden text-[11px] text-zinc-600 hover:text-red-400 group-hover:block">×</button>
       <Handle type="target" position={Position.Left} style={{ left: size / 2 }} />
       <Handle type="source" position={Position.Right} style={{ left: size / 2, right: "auto" }} />

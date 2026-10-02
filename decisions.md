@@ -268,3 +268,13 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Tour shows on every reload by design; "skip" or Esc closes it. Colors no longer use SFSU purple except the wordmark gold.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-023: Free-flow node layout, semester zoom, full term names
+- Step: 10 (demo polish)
+- Decision: Semester boxes removed. Semesters are invisible columns (still the engine's unit of time and the drop target) with a clickable label. Course y-positions come from a layered-graph crossing-reduction pass (6 barycenter sweeps, then each course pulled toward its prerequisites' average row). GE placeholders of a semester collapse into one "ge Nu" dot. Clicking a semester label tweens the camera into that semester; "× all semesters" or Esc tweens back. Canvas pans by dragging empty space, zooms by scroll/pinch. The column under a dragged course (from the list or the canvas) glows. Labels show full term names from the Bulletin year: semester 1 = Fall 2026 ... semester 8 = Spring 2030; Check-panel messages are rewritten to the same names. Camera animation is a custom requestAnimationFrame tween; React Flow's animated `setViewport` did not move in testing (cause: the automation tab is `visibilityState: hidden`, which pauses animation frames), so hidden tabs jump instantly.
+- Alternatives: keep boxes; auto-layout library (dagre/elk) - new dependency, and semesters must stay fixed columns anyway.
+- Why: human request (rigid rectangles made lines overlap; click-to-zoom; canvas feel; easier drag; full semester names).
+- Evidence: human instructions 2026-10-02 ~14:45-14:55; browser test (all 8 columns fit; zoom into Fall 2027 → scale 1.40, back → 0.87)
+- Risk / undo: Term years assume a Fall 2026 start (Bulletin 2026-27 catalog year); a later start shifts every label.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

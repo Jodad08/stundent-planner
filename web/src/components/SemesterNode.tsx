@@ -1,23 +1,26 @@
 import type { NodeProps, Node } from "@xyflow/react"
 import type { SemesterData } from "../lib/derive"
+import { useStore } from "../store"
 
-// Status shows as the label color only; the column itself stays almost invisible (D-022).
-const TONE: Record<string, { text: string; line: string; note: (d: SemesterData) => string }> = {
-  empty: { text: "text-zinc-600", line: "border-white/5", note: () => "" },
-  ok: { text: "text-zinc-400", line: "border-white/8", note: () => "" },
-  under: { text: "text-red-400", line: "border-red-500/30", note: d => `below ${d.policyMin}` },
-  heavy: { text: "text-amber-300", line: "border-amber-400/30", note: () => "heavy" },
-  over: { text: "text-red-400", line: "border-red-500/60", note: () => "over limit" },
+// A semester is an invisible column: only its label shows (click it to zoom in). It glows while a course is dragged over it (D-023).
+const TONE: Record<string, { text: string; note: (d: SemesterData) => string }> = {
+  empty: { text: "text-zinc-600", note: () => "" },
+  ok: { text: "text-zinc-400", note: () => "" },
+  under: { text: "text-red-400", note: d => `below ${d.policyMin}` },
+  heavy: { text: "text-amber-300", note: () => "heavy" },
+  over: { text: "text-red-400", note: () => "over limit" },
 }
 
 export function SemesterNode({ data }: NodeProps<Node<SemesterData>>) {
   const t = TONE[data.status] ?? TONE.empty
+  const zoom = useStore(s => s.zoomSem)
   return (
-    <div className={`h-full w-full rounded-2xl border border-dashed ${t.line} bg-white/[0.015]`}>
-      <div className={`px-3 pt-3 font-mono text-[11px] tracking-wide ${t.text}`}>
-        {data.label.replace("Year ", "y").replace("Spring", "spr").toLowerCase()} <span className="text-zinc-600">·</span> {data.units}u
-        {t.note(data) && <span className="ml-1">· {t.note(data)}</span>}
-      </div>
+    <div className={`h-full w-full rounded-3xl transition-all duration-300 ${data.drop ? "bg-teal-300/[0.06] shadow-[0_0_40px_-10px_#2dd4bf] ring-1 ring-teal-300/40" : ""}`}>
+      <button className={`pointer-events-auto w-full px-3 pt-2 text-left font-mono text-[11px] tracking-wide ${t.text} hover:text-white`}
+        title="Zoom into this semester" onClick={() => useStore.getState().setZoomSem(zoom === data.index ? null : data.index)}>
+        <span className="block text-[12px] text-zinc-200">{data.termName}</span>
+        <span>{data.units}u{t.note(data) && ` · ${t.note(data)}`}</span>
+      </button>
     </div>
   )
 }
