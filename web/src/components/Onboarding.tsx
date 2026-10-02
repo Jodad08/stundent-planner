@@ -7,6 +7,7 @@ import { useStore, type Student } from "../store"
 import { traceOf } from "./PlanModal"
 import { COLOR } from "./CourseNode"
 import { aiName, Thinking } from "./Thinking"
+import { Interview } from "./Interview"
 import { emptySemesters } from "../../../shared/engine"
 import { category } from "../lib/derive"
 
@@ -35,6 +36,8 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<{ resp: PlanResponse; trace: ReturnType<typeof traceOf> } | null>(null)
   const [err, setErr] = useState<string | null>(null)
+  const [interview, setInterview] = useState(false)
+  const [richGoal, setRichGoal] = useState<{ text: string; trackId: string } | null>(null)
   const [majors, setMajors] = useState<Awaited<ReturnType<typeof api.majors>>>([])
   useEffect(() => { api.majors().then(setMajors).catch(() => setMajors([])) }, [])
 
@@ -60,12 +63,13 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
       : dup.length ? `${dup.join(", ")} already listed.` : null)
   }
 
-  async function build() {
+  async function build(goalText = goal || "Software engineer", cps = coursesPerSemester, trackPref?: string) {
     setBusy(true); setErr(null)
+    const ups = Math.min(policies.maxUnitsWithoutPermission.value, Math.max(policies.minUnitsFullTime.value, cps * 3))
     const locked = taken.slice(0, doneSems).flatMap((l, i) => l.map(courseId => ({ courseId, semester: i + 1 })))
     try {
-      const resp = await api.plan({ goalText: goal || "Software engineer", programId: "bs-cs", unitsPerSemester, lockedPlacements: locked,
-        completedSemesters: doneSems, unitsEarned: unitsDone })
+      const resp = await api.plan({ goalText, programId: "bs-cs", unitsPerSemester: ups, lockedPlacements: locked,
+        completedSemesters: doneSems, unitsEarned: unitsDone, ...(trackPref ? { trackId: trackPref } : {}) })
       const run = await api.run(resp.runId).catch(() => null as RunRecord | null)
       setResult({ resp, trace: run ? traceOf(run) : [] })
     } catch (e) { setErr((e as Error).message) }
@@ -87,7 +91,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   function finish() {
     if (!result) return
     const student: Student = { name: name.trim() || "Student", major: "bs-cs", unitsDone, gradTerm: termName(dag, gradIndex),
-      coursesPerSemester, completedSemesters: doneSems, goal, trackId }
+      coursesPerSemester, completedSemesters: doneSems, goal, trackId: richGoal?.trackId ?? trackId }
     const st = useStore.getState()
     st.setStudent(student)
     useStore.setState({ plans: [{ ...result.resp.plan, id: "plan_me", name: `${student.name}'s plan` }], activePlanId: "plan_me", evaluation: null })
@@ -219,11 +223,14 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
             {result ? <button onClick={finish} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black">Show me my map</button>
               : <div className="flex gap-2">
                   <button onClick={finishManual} disabled={busy} className="rounded-full border border-white/15 px-4 py-1.5 font-mono text-xs text-zinc-200 hover:bg-white/10 disabled:opacity-40">I'll plan it myself</button>
-                  <button onClick={build} disabled={busy} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">✦ Auto plan it</button>
+                  <button onClick={() => setInterview(true)} disabled={busy} className="rounded-full bg-sf-gold px-4 py-1.5 font-mono text-xs text-black disabled:opacity-40">✦ Auto plan it</button>
                 </div>}
           </div>
         </>}
       </div>
+      {interview && <Interview name={name.trim() || "there"} initialGoal={goal} coursesPerSemester={coursesPerSemester}
+        onCancel={() => setInterview(false)}
+        onFinish={(goalText, shortGoal, cps, tId) => { setInterview(false); setGoal(shortGoal); setCps(cps); setRichGoal({ text: goalText, trackId: tId }); build(goalText, cps, tId) }} />}
     </div>
   )
 }

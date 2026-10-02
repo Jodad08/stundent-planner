@@ -28,7 +28,7 @@ export function blockingProblems(report: EngineReport): string[] {
  */
 function mockPlan(req: PlanRequest, attempt: number): RawPlan {
   const { goalText, unitsPerSemester: units } = req
-  const trackId = guessTrack(goalText)
+  const trackId = req.trackId ?? guessTrack(goalText)
   const track = dag.tracks[trackId]
   const done = req.completedSemesters ?? 0
   const taken = req.lockedPlacements.filter(l => l.semester <= done)
@@ -54,7 +54,17 @@ function mockPlan(req: PlanRequest, attempt: number): RawPlan {
     if (from && from.index > done + 1) { from.courseIds = from.courseIds.filter(c => c !== "CSC 340"); semesters[from.index - 2].courseIds.push("CSC 340") }
   }
   const thoughts = [
-    `"${goalText}" lines up best with the department's ${track.label} track, so its electives come first.`,
+    (() => { // interview answers read naturally; a plain goal is quoted
+      const m = /^[^:]+: (.+?)\. Focus: (.+?)\. Wants to work: (.+?)\. After graduating: (.+?)\.?(?: \(|$)/.exec(goalText)
+      if (!m) return `"${goalText}" lines up best with the department's ${track.label} track, so its electives come first.`
+      // lowercase a leading capital unless it's an acronym ("ML", "AI"); pick a/an
+      const lc = (t: string) => /^[A-Z][a-z]/.test(t) ? t[0].toLowerCase() + t.slice(1) : t
+      const role = lc(m[1].replace(/^an? /i, "")), art = /^[aeiou]|^(AI|ML)\b/i.test(role) ? "an" : "a"
+      const after = /grad/i.test(m[4]) ? "grad school" : /industry/i.test(m[4]) ? "industry" : "whatever comes next"
+      const focus = /not sure/i.test(m[2]) ? "still exploring within it" : `focused on ${lc(m[2])}`
+      const place = /not sure/i.test(m[3]) ? "open to working anywhere" : `working in ${m[3]}`
+      return `You want to be ${art} ${role}, ${focus}, ${place}, and heading into ${after} after graduating. That lines up with the department's ${track.label} track, so its electives come first.`
+    })(),
     done ? `${done} semester${done > 1 ? "s are" : " is"} already done (${taken.map(t => t.courseId).join(", ") || "GE only"}), so I'm planning from semester ${done + 1}.` : "Starting from semester 1 with calculus placement.",
     conn.longestChain.length > 1 ? `The longest prerequisite chain is ${conn.longestChain.join(" → ")}, so ${conn.longestChain[0]} has to start early.` : "",
     `Electives (${electives.reduce((u, c) => u + dag.nodes[c].units, 0)} units): ${electives.join(", ")}.`,
@@ -80,7 +90,8 @@ export function validateRequest(body: unknown): PlanRequest | string {
   if (!Number.isInteger(done) || done < 0 || done > 7) return "completedSemesters must be an integer from 0 to 7"
   const earned = b.unitsEarned
   if (earned != null && (typeof earned !== "number" || earned < 0 || earned > 300)) return "unitsEarned must be 0 to 300"
-  return { goalText: b.goalText.trim(), programId: "bs-cs", unitsPerSemester: u, lockedPlacements: locked, completedSemesters: done,
+  const trackId = typeof b.trackId === "string" && dag.tracks[b.trackId] ? b.trackId : undefined
+  return { goalText: b.goalText.trim(), programId: "bs-cs", unitsPerSemester: u, lockedPlacements: locked, completedSemesters: done, ...(trackId ? { trackId } : {}),
     ...(earned != null ? { unitsEarned: earned } : {}) }
 }
 
@@ -91,7 +102,7 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
 
   const run = newRun("gemini_plan", req, { provider: providerName(), model: process.env.GEMINI_MODEL ?? "mock", maxRepairs: MAX_REPAIRS })
   const done = req.completedSemesters ?? 0
-  const user = buildPlanUser(dag, policies, req.goalText, req.unitsPerSemester, req.lockedPlacements, done)
+  const user = buildPlanUser(dag, policies, req.goalText + (req.trackId ? ` (preferred track: ${req.trackId})` : ""), req.unitsPerSemester, req.lockedPlacements, done)
   let prompt = user
   let attempts = 0
   let last: { raw: RawPlan; plan: Plan; report: EngineReport } | null = null
@@ -141,7 +152,7 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
       attempts, runId: run.rec.run_id }
   } else {
     // deterministic fallback; keeps any valid electives the model chose
-    const trackId = typeof last?.raw.trackId === "string" && dag.tracks[last.raw.trackId] ? last.raw.trackId : guessTrack(req.goalText)
+    const trackId = typeof last?.raw.trackId === "string" && dag.tracks[last.raw.trackId] ? last.raw.trackId : (req.trackId ?? guessTrack(req.goalText))
     const keep = last ? last.plan.semesters.flatMap(s => s.courseIds).filter(c => dag.requirements.some(r => r.type === "choose_units" && r.courses.includes(c))) : []
     const electives = pickElectives(dag, { courses: req.lockedPlacements.filter(l => l.semester <= done).map(l => ({ code: l.courseId, grade: "C" })) }, trackId, keep)
     const completed = req.lockedPlacements.filter(l => l.semester <= done)

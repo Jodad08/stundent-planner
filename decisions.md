@@ -336,3 +336,12 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser checks (CSC 220 hover shows CSC 215 → CSC 220 → CSC 413; slot filled by CSC 645; list drag moved CSC 340 Spring 2028 → Fall 2029)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-033: Simulated AI interview before Auto Plan
+- Step: 10 (human request)
+- Decision: "✦ Auto plan it" opens a chat-style Plan advisor (labeled Simulated AI) that asks 5 personalized questions one at a time, with typing delays and a reaction to each answer: goal; a follow-up chosen by the goal's track; where they want to work (free text, e.g. "Pakistan"); industry vs grad school; course load (can change courses per semester). It ends with a summary, then builds the plan. The answers become the goal text; the track chosen in the interview is sent as a new optional `PlanRequest.trackId` so keyword matching can't flip it ("Building ML systems" contains "systems"). The toolbar's Auto Plan also sends the saved track. Scripted, no model call; the reasoning's first line restates the answers in plain English.
+- Why: human request 2026-10-02 ~15:32.
+- Evidence: browser run (Shehryar → Machine learning engineer → Building ML systems → Pakistan → Industry → Keep it → AI & Data plan, 0 rule errors)
+- Risk / undo: Location and path answers shape the explanation only; required courses come from the Bulletin regardless.
+- Critic: PASS (scan) [critic: mock]
+- Status: active

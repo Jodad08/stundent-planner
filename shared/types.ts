@@ -143,6 +143,7 @@ export type PlanRequest = {
   lockedPlacements: { courseId: CourseId; semester: number }[]
   completedSemesters?: number // 0..7; locked placements in these semesters are courses already taken
   unitsEarned?: number
+  trackId?: string // preferred DAG track (from the onboarding interview, D-033)
 }
 
 export type PlanResponse = {
