@@ -6,6 +6,8 @@ const prompts = require("./prompts.js");
 const { validate } = require("./schema.js");
 
 const MAX_REPAIRS = 2;
+// warnings the model must also fix: a plan that retakes finished requirements or breaks standing is not acceptable (D-024)
+const REPAIR_WARNINGS = new Set(["ALREADY_SATISFIED", "STANDING_NOT_MET"]);
 
 function httpError(status, code, message) {
   const e = new Error(message);
@@ -74,11 +76,12 @@ function buildContext(req) {
 function matchDirection(goalText) {
   const words = new Set(goalText.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 1));
   const synonyms = { ai: "ml", machine: "ml", learning: "ml", data: "data", security: "security", cyber: "security",
-    hacker: "security", game: "games", games: "games", graphics: "graphics", quant: "math", trading: "math",
+    hacker: "security", cybersecurity: "security", infosec: "security", penetration: "security", pentest: "security",
+    pentesting: "security", game: "games", games: "games", graphics: "graphics", quant: "math", trading: "math",
     finance: "math", web: "web", frontend: "web", backend: "software-eng", software: "software-eng",
     research: "research", phd: "research", network: "networks", networking: "networks", systems: "systems",
     embedded: "systems", professor: "research" };
-  const tokens = new Set([...words].map(w => synonyms[w] || w));
+  const tokens = new Set([...words, ...[...words].map(w => synonyms[w]).filter(Boolean)]);
   let best = null;
   for (const d of D.careerTags.directions) {
     const vocab = new Set([...d.signalTags, ...(d.label + " " + d.description).toLowerCase().split(/[^a-z0-9]+/)]);
@@ -150,7 +153,7 @@ async function aiPlan(req, deps = {}) {
           }
         });
         report = Planner.evaluatePlan(plan, D.catalog, ctx.program, D.policies);
-        problems.push(...report.issues.filter(x => x.severity === "error"));
+        problems.push(...report.issues.filter(x => x.severity === "error" || REPAIR_WARNINGS.has(x.code)));
         report.requirementStatus.filter(r => !r.satisfied).forEach(r => problems.push({ code: "REQ_GROUP_INCOMPLETE",
           message: `${r.title}: ${r.missingCourseIds.length ? "missing " + r.missingCourseIds.join(", ") : `${r.unitsHave} of ${r.unitsNeed} units`}.`,
           courseIds: r.missingCourseIds }));

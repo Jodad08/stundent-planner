@@ -94,6 +94,31 @@ test("evaluate keeps only suggestions the engine accepts", async () => {
   });
 });
 
+test("a plan that retakes finished requirements goes back for repair", async () => {
+  const { plan } = (await (async () => { let out; await withServer({}, async base => { out = (await post(base, "/api/plan", planReq())).body; }); return out; })());
+  const done = new Set(plan.completedCourseIds);
+  const coveredArea = ["GE-1A", "GE-1B", "GE-1C", "GE-3A", "GE-4-1"].find(p => !plan.semesters.some(s => s.courseIds.includes(p)));
+  assert.ok(coveredArea && done.size, "the sample student already covers a lower-division GE area");
+  const semesters = plan.semesters.map(s => ({ index: s.index, courseIds: s.courseIds.slice() }));
+  semesters[semesters.findIndex(s => s.courseIds.length)].courseIds.push(coveredArea);
+  let calls = 0;
+  const fake = async () => { calls++; return { json: { semesters, rationale: "x", electiveChoices: [] }, provider: "fake", model: "fake", ms: 0 }; };
+  await withServer({ completeJson: fake }, async base => {
+    const r = await post(base, "/api/plan", planReq());
+    assert.ok(r.body.steps[0].problems.some(p => p.code === "ALREADY_SATISFIED"), JSON.stringify(r.body.steps[0].problems));
+    assert.equal(calls, 3);
+    assert.equal(r.body.source, "fallback");
+  });
+});
+
+test("goal text maps to the right career direction", () => {
+  const { matchDirection } = require("./aiPlan.js");
+  assert.equal(matchDirection("Cybersecurity analyst, maybe penetration testing").id, "cybersecurity");
+  assert.equal(matchDirection("Machine learning engineer working on AI models").id, "ml-engineer");
+  assert.equal(matchDirection("Quant trading developer at a finance firm").id, "quant");
+  assert.equal(matchDirection("I want to be a backend software engineer at a startup").id, "software-engineer");
+});
+
 test("bad requests get clear error codes", async () => {
   await withServer({}, async base => {
     assert.equal((await post(base, "/api/plan", planReq({ goalText: "" }))).body.code, "BAD_GOAL");

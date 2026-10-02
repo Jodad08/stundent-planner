@@ -300,6 +300,7 @@ export type Issue = {
   message: string
   courseIds: CourseId[]
   semesterIndex?: number
+  groupId?: string        // REQ_GROUP_INCOMPLETE: which requirement group
   sourceUrl?: string
 }
 
@@ -604,6 +605,7 @@ Each item must be resolved from an official source and then moved to the data fi
 
 Add one line per contract change. Newest first.
 
+- 2026-10-02: `Issue.groupId` on REQ_GROUP_INCOMPLETE; D-023 catalog gains spare placeholders ELECTIVE-5, ELECTIVE-6; D-025 COREQ_ORDER also fires when the corequisite sits in an earlier plan term.
 - 2026-10-02: D-021 `PlanRequest` gains `startTerm` and `profile`; D-022 issue codes `STANDING_NOT_MET`, `ALREADY_SATISFIED`; D-016 `Plan` gains `startTerm`, `completedCourseIds`, `completedUnits`, `placement`; §12/§13 filled from `package.json`.
 - 2026-10-02: D-011 engine stays `web/planner.js` (plain JS); D-012 `prereq: PrereqExpr` replaces `prereqs: CourseId[][]`; D-013 course IDs keep the Bulletin space; D-014 contract files generated from `data/sfsu/`; D-017 no React Flow, SVG overlay on the existing page.
 - 2026-10-02: Initial version. Backend locked to Node + Express + TypeScript so the engine exists once in `shared/`.

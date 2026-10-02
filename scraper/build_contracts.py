@@ -228,9 +228,14 @@ def main():
     free_ids = []
     k = 0
     remaining = free
-    while remaining > 0:
+    # two spare 3-unit slots past the freshman total: a transfer or mid-degree path can need more
+    # free units (the ADT roadmap lists 12 university-elective / American Institutions units)
+    spare = 2
+    while remaining > 0 or spare > 0:
         k += 1
-        u = 3 if remaining >= 3 else remaining
+        if remaining <= 0:
+            spare -= 1
+        u = 3 if remaining >= 3 or remaining <= 0 else remaining
         pid = f"ELECTIVE-{k}"
         free_ids.append(pid)
         catalog.append({
@@ -240,7 +245,8 @@ def main():
             "conditions": [], "coreqs": [], "geAreas": [], "tags": ["elective", "placeholder"], "typicalTerms": [],
             "sourceUrl": rules["ug_units_to_graduate"]["source_url"], "sourceAccessed": ACCESSED,
             "verified": False, "isPlaceholder": True,
-            "notes": "Placeholder: units needed to reach the degree total after the major and GE.",
+            "notes": "Placeholder: units needed to reach the degree total after the major and GE." if remaining > 0
+                     else "Spare placeholder: extra free units for transfer or mid-degree paths.",
         })
         remaining -= u
     groups.append({"id": "free_electives", "title": "Free electives", "type": "units", "unitsRequired": free,

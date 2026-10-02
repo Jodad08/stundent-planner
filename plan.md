@@ -356,7 +356,7 @@ type EngineReport = {
 |---|---|---|
 | `PREREQ_ORDER` | error | A course is in semester S. For each AND group in its prereqs, at least one OR option must be in a semester strictly before S. Otherwise error. |
 | `PREREQ_MISSING` | error | The prerequisite course is not anywhere in the plan. Message names the missing options. |
-| `COREQ_ORDER` | error | A corequisite must be in the same semester or earlier. |
+| `COREQ_ORDER` | error | A corequisite must be in the same semester (Bulletin: "concurrent enrollment"); one completed before the plan still counts (D-025). |
 | `UNITS_UNDER` | warning | Semester units below `minUnitsFullTime` and semester is not empty. |
 | `UNITS_HEAVY` | warning | Units above `heavyLoadUnits`. |
 | `UNITS_OVER` | error | Units above `maxUnitsWithoutPermission`. |

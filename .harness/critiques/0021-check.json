@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T21:11:10+00:00",
+  "input": {
+    "proposal": "D-025 corequisites mean the same term (Bulletin: 'Concurrent enrollment in PHYS 220'); a coreq placed in an earlier plan term is COREQ_ORDER; one completed before the plan still counts; explicit no-placement is PREREQ_MISSING, unknown placement stays a note"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0021-check"
+}

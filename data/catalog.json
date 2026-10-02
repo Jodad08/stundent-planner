@@ -140732,5 +140732,61 @@
   "verified": false,
   "isPlaceholder": true,
   "notes": "Placeholder: units needed to reach the degree total after the major and GE."
+ },
+ {
+  "id": "ELECTIVE-5",
+  "dept": "ELECTIVE",
+  "number": "",
+  "name": "Free elective",
+  "units": 3,
+  "unitsRange": null,
+  "oneLiner": "Any course that counts toward the 120 units.",
+  "oneLinerSource": "manual",
+  "description": "",
+  "prereq": null,
+  "prereqEncoded": true,
+  "prereqNotes": "",
+  "minGrade": null,
+  "conditions": [],
+  "coreqs": [],
+  "geAreas": [],
+  "tags": [
+   "elective",
+   "placeholder"
+  ],
+  "typicalTerms": [],
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "sourceAccessed": "2026-10-02",
+  "verified": false,
+  "isPlaceholder": true,
+  "notes": "Spare placeholder: extra free units for transfer or mid-degree paths."
+ },
+ {
+  "id": "ELECTIVE-6",
+  "dept": "ELECTIVE",
+  "number": "",
+  "name": "Free elective",
+  "units": 3,
+  "unitsRange": null,
+  "oneLiner": "Any course that counts toward the 120 units.",
+  "oneLinerSource": "manual",
+  "description": "",
+  "prereq": null,
+  "prereqEncoded": true,
+  "prereqNotes": "",
+  "minGrade": null,
+  "conditions": [],
+  "coreqs": [],
+  "geAreas": [],
+  "tags": [
+   "elective",
+   "placeholder"
+  ],
+  "typicalTerms": [],
+  "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+  "sourceAccessed": "2026-10-02",
+  "verified": false,
+  "isPlaceholder": true,
+  "notes": "Spare placeholder: extra free units for transfer or mid-degree paths."
  }
 ]

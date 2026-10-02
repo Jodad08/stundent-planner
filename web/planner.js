@@ -145,11 +145,17 @@
     const doneElectives = pool.filter(c => have.has(c));
     let units = doneElectives.reduce((s, c) => s + dag.nodes[c].units, 0);
     let nonCsc = doneElectives.filter(c => !c.startsWith("CSC ")).reduce((s, c) => s + dag.nodes[c].units, 0);
-    for (const c of (keep || [])) {
+    // goal electives first, cheapest first (no extra prerequisite units), within the non-CSC budget
+    const required = new Set(dag.requirements.filter(r => r.type === "all").flatMap(r => r.courses));
+    const cost = c => dag.nodes[c] ? extraUnitsFor(dag, c, have, required, profile.placement || {}) : Infinity;
+    const keepSorted = (keep || []).map((c, i) => [c, cost(c), i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map(x => x[0]);
+    for (const c of keepSorted) {
       if (units >= req.min_units) break;
       if (have.has(c) || chosen.includes(c) || !dag.nodes[c]) continue;
+      const isCsc = c.startsWith("CSC ");
+      if (!isCsc && nonCsc + dag.nodes[c].units > req.min_units - req.min_csc_units) continue;
       chosen.push(c); units += dag.nodes[c].units;
-      if (!c.startsWith("CSC ")) nonCsc += dag.nodes[c].units;
+      if (!isCsc) nonCsc += dag.nodes[c].units;
     }
     for (const c of order) {
       if (units >= req.min_units) break;
@@ -396,8 +402,12 @@
           add("info", "PREREQ_NOTE", `${c}: prerequisites aren't checked automatically. Bulletin: "${course.prereqNotes}"`, [c], at);
         }
         unmet(course.prereq, ctx).forEach(g => {
-          if (g.kind === "placement" || (g.placement && plan.placement && plan.placement[g.placement] === undefined)) {
+          if (g.placement && (plan.placement || {})[g.placement] === undefined) {
             add("info", "PREREQ_NOTE", `${c} needs ${g.options.length ? orList(g.options) + " or " : ""}${g.placement} placement; placement isn't known for this plan.`, [c, ...g.options], at);
+            return;
+          }
+          if (g.kind === "placement") {
+            add("error", "PREREQ_MISSING", `${c} needs ${g.placement} placement, which this plan says the student doesn't have.`, [c], at);
             return;
           }
           if (g.kind === "ge_area") {
@@ -408,7 +418,7 @@
           }
           const placed = g.options.filter(o => pos.has(o));
           if (g.kind === "coreq") {
-            if (placed.length) add("error", "COREQ_ORDER", `${c} must be taken in the same term as ${g.options[0]} (or after it).`, [c, ...placed], at);
+            if (placed.length) add("error", "COREQ_ORDER", `${c} must be taken in the same term as ${g.options[0]}.`, [c, ...placed], at);
             else add("error", "PREREQ_MISSING", `${c} must be taken with ${g.options[0]}, which isn't in the plan.`, [c, ...g.options], at);
             return;
           }
@@ -417,6 +427,10 @@
           } else {
             add("error", "PREREQ_MISSING", `${c} needs ${orList(g.options)}, which ${g.options.length > 1 ? "aren't" : "isn't"} in the plan.`, [c, ...g.options], at);
           }
+        });
+        (course.coreqs || []).forEach(q => {
+          const at2 = pos.get(q);
+          if (at2 >= 1 && at2 < s.index) add("error", "COREQ_ORDER", `${c} must be taken in the same term as ${q}, not after it.`, [c, q], at);
         });
         (course.conditions || []).forEach(cond => {
           if (UD.test(cond) && unitsBefore < P("upperDivisionStandingUnits")) {
@@ -476,12 +490,14 @@
         const have = counted.reduce((t, c) => t + unitsOf(c), 0);
         const subjectShort = Object.entries(g.minUnitsInSubject || {}).filter(([subj, min]) =>
           counted.filter(c => c.startsWith(subj + " ")).reduce((t, c) => t + unitsOf(c), 0) < min);
-        statusById[g.id] = { groupId: g.id, title: g.title, satisfied: have >= g.unitsRequired && !subjectShort.length, missingCourseIds: [], unitsHave: have, unitsNeed: g.unitsRequired };
+        statusById[g.id] = { groupId: g.id, title: g.title, satisfied: have >= g.unitsRequired && !subjectShort.length, missingCourseIds: [], unitsHave: have, unitsNeed: g.unitsRequired,
+          subjectShort: subjectShort.map(([subj, min]) => ({ subject: subj, min, have: counted.filter(c => c.startsWith(subj + " ")).reduce((t, c) => t + unitsOf(c), 0) })) };
       }
     });
     const requirementStatus = program.requirementGroups.map(g => statusById[g.id]);
     requirementStatus.filter(r => !r.satisfied).forEach(r => add("warning", "REQ_GROUP_INCOMPLETE",
-      `${r.title}: ${r.missingCourseIds.length ? "missing " + r.missingCourseIds.join(", ") : `${r.unitsHave} of ${r.unitsNeed} units`}.`, r.missingCourseIds, { sourceUrl: program.sourceUrl }));
+      `${r.title}: ${r.missingCourseIds.length ? "missing " + r.missingCourseIds.join(", ") : `${r.unitsHave} of ${r.unitsNeed} units`}` +
+      (r.subjectShort || []).map(x => `; ${x.have} ${x.subject} units, needs ${x.min}`).join("") + ".", r.missingCourseIds, { groupId: r.groupId, sourceUrl: program.sourceUrl }));
 
     const totalUnitsPlanned = semesterStats.reduce((t, s) => t + s.units, 0);
     if (completedUnits + totalUnitsPlanned < program.totalUnitsRequired) {

@@ -90,6 +90,21 @@ test("concurrent prerequisite may share the term; coreqs must", () => {
   assert.equal(issuesFor(pair, "COREQ_ORDER").length, 0);
   const split = P.evaluatePlan(planWith([["PHYS 220"], ["PHYS 222"]], ["MATH 226"]), catalog, program, policies);
   assert.equal(issuesFor(split, "COREQ_ORDER", "PHYS 220").length, 1);
+  // "Concurrent enrollment in PHYS 220": the lab a term later is also wrong (D-025)
+  assert.equal(issuesFor(split, "COREQ_ORDER", "PHYS 222").length, 1);
+  // a lecture finished before the plan still counts (retaking only the lab)
+  const retake = P.evaluatePlan(planWith([["PHYS 222"]], ["MATH 226", "PHYS 220"]), catalog, program, policies);
+  assert.equal(issuesFor(retake, "COREQ_ORDER").length, 0);
+});
+
+test("placement: unknown is a note, an explicit no is an error", () => {
+  const unknown = P.evaluatePlan(planWith([["MATH 226"]], [], { placement: {} }), catalog, program, policies);
+  assert.equal(issuesFor(unknown, "PREREQ_MISSING", "MATH 226").length, 0);
+  assert.equal(issuesFor(unknown, "PREREQ_NOTE", "MATH 226").length, 1);
+  const no = P.evaluatePlan(planWith([["MATH 226"]], [], { placement: { calculus: false } }), catalog, program, policies);
+  assert.equal(issuesFor(no, "PREREQ_MISSING", "MATH 226").length, 1);
+  const yes = P.evaluatePlan(planWith([["MATH 226"]]), catalog, program, policies);
+  assert.equal(issuesFor(yes, "PREREQ_MISSING", "MATH 226").length + issuesFor(yes, "PREREQ_NOTE", "MATH 226").length, 0);
 });
 
 test("unit-load boundaries come from policies.json", () => {
@@ -141,6 +156,14 @@ test("elective group needs 15 units with at least 12 in CSC", () => {
   assert.equal(g.satisfied, false);
 });
 
+test("goal electives keep the CSC-unit minimum and prefer no extra prerequisites", () => {
+  const fresh = { courses: [], placement: { calculus: true }, unitsEarned: 0 };
+  for (const d of career.directions) {
+    const picked = P.pickElectives(dag, fresh, null, P.directionElectives(dag, catalog, d));
+    assert.ok(P.electiveRuleCheck(dag, picked).ok, `${d.id}: ${picked.join(", ")}`);
+  }
+});
+
 test("fallback plans are graduation-ready with no errors", () => {
   const fresh = P.buildFallbackPlan({ dag, catalog, program, policies, profile: { courses: [], placement: { calculus: true }, unitsEarned: 0 },
     startTerm: { season: "Fall", year: 2026 }, direction: career.directions.find(d => d.id === "ml-engineer") });
@@ -148,6 +171,12 @@ test("fallback plans are graduation-ready with no errors", () => {
   assert.equal(rf.issues.filter(x => x.severity === "error").length, 0, JSON.stringify(rf.issues.filter(x => x.severity === "error")));
   assert.equal(rf.graduationReady, true);
   assert.ok(!fresh.semesters.flatMap(s => s.courseIds).includes("MATH 199"), "calculus placement means no pre-calculus");
+  for (const d of career.directions) {
+    const p = P.buildFallbackPlan({ dag, catalog, program, policies, profile: { courses: [], placement: { calculus: true }, unitsEarned: 0 },
+      startTerm: { season: "Fall", year: 2026 }, direction: d });
+    const r = P.evaluatePlan(p, catalog, program, policies);
+    assert.equal(r.graduationReady, true, `${d.id}: ${r.issues.filter(x => x.severity !== "info").map(x => x.message).join(" | ")}`);
+  }
   const mid = P.buildFallbackPlan({ dag, catalog, program, policies, profile: sampleProfile(), startTerm: { season: "Spring", year: 2027 },
     direction: career.directions.find(d => d.id === "cybersecurity") });
   const rm = P.evaluatePlan(mid, catalog, program, policies);

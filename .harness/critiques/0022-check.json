@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T21:11:11+00:00",
+  "input": {
+    "proposal": "D-026 evals: the valid fixture is the official 4-year CS roadmap converted to a Plan; American Institutions and SF State Studies rows map to free-elective placeholders; major-elective slots are filled with goal electives whose prerequisites the roadmap already meets; expected issue sets are hand-written"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0022-check"
+}

@@ -267,3 +267,49 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - How to run: `npm install && npm test && npm start` (mock provider without a key).
 - What proves it works: 20/20 tests; harness scan clean.
 - What can still fail: real Gemini output (no key yet); board UI not yet wired to the server.
+
+## D-023: Two spare free-elective placeholders
+- Step: 4 (evals)
+- Decision: `data/catalog.json` gains `ELECTIVE-5` and `ELECTIVE-6` (3 units each, marked spare). The free-elective group still requires 10 units; the deterministic planner still uses `ELECTIVE-1..4` first.
+- Alternatives: leave the ADT roadmap 3 units short in the eval; map an American Institutions row to a real course (made up).
+- Why: The official ADT transfer roadmap lists 12 units of university electives and American Institutions; with only 3+3+3+1 placeholders it could not be written as a Plan.
+- Evidence: `data/sfsu/roadmaps.json#…/adt-roadmap` (Third and Fourth Semester rows); `scraper/build_contracts.py`
+- Risk / undo: a model could pad a plan with spare placeholders; `TOTAL_UNITS_SHORT` doesn't catch excess, but the comparison eval reports total units. Remove the `spare` loop in `build_contracts.py`.
+- Critic: PASS (0019-check) [critic: mock]
+- Status: active
+
+## D-024: The repair loop also fixes ALREADY_SATISFIED and STANDING_NOT_MET
+- Step: 4 (evals)
+- Decision: In `/api/plan`, these two warnings count as problems the model must fix, like engine errors. Other warnings (heavy terms, unverified data) don't trigger a repair.
+- Alternatives: repair on errors only (before); repair on every warning (official roadmaps carry heavy-term warnings, so nothing would pass).
+- Why: The planner-comparison eval accepted a mock plan for the mid-degree student with 156 units and 6 terms: it retook GE areas the student had finished. A plan that wastes a year isn't a good plan, even with zero errors.
+- Evidence: `evals/report.md` §3 (before: mid-degree mock "→ ai", 156 units; after: fallback, 122 units, 3 terms); `server/server.test.js` ("a plan that retakes finished requirements goes back for repair")
+- Risk / undo: more model plans end in fallback; the eval reports how often. Remove the two codes from `REPAIR_WARNINGS` in `server/aiPlan.js`.
+- Critic: PASS (0020-check) [critic: mock]
+- Status: active
+
+## D-025: A corequisite means the same term
+- Step: 4 (evals)
+- Decision: `COREQ_ORDER` also fires when the corequisite is placed in an earlier plan term. A corequisite completed before the plan still counts (retaking only the lab). An explicit `placement: {calculus: false}` makes a placement-only path `PREREQ_MISSING`; an unknown placement stays a `PREREQ_NOTE`. `plan.md` §9 COREQ_ORDER row edited to match.
+- Alternatives: `plan.md` §9 "same semester or earlier" (lets PHYS 222 sit six terms after PHYS 220).
+- Why: The Bulletin text is "Concurrent enrollment in PHYS 220"; prompt.md precedence says a sourced fact beats a planning-file statement. The seeded-error eval missed the lab-later case.
+- Evidence: `data/sfsu/courses.json#PHYS 222` ("Concurrent enrollment in PHYS 220."); `evals/report.md` S04, S15
+- Risk / undo: none known for the 59 CS courses; `coreqs` come only from DAG-encoded `coreq` leaves. Remove the `course.coreqs` loop in `evaluatePlan`.
+- Critic: PASS (0021-check) [critic: mock]
+- Status: active
+
+## D-026: Eval design
+- Step: 4 (prompt.md B.6)
+- Decision: The seeded suite's valid fixture is the official 4-year CS roadmap (QR Category 1/2) converted to a Plan by `evals/roadmaps.js`. Roadmap rows without a code map by title: GE rows to GE placeholders, American Institutions and SF State Studies rows to free-elective placeholders (the engine doesn't track them), major-elective slots to goal electives whose prerequisites the roadmap already meets. Expected issues for each seeded error are written by hand from the Bulletin prerequisites. Eval runs write to a temp folder, not `runs/`.
+- Alternatives: use the deterministic plan as the fixture (would test the engine against its own output).
+- Why: An official SFSU roadmap is independent of our code, so "0 errors on the valid fixture" means something.
+- Evidence: `evals/run_evals.js`, `evals/roadmaps.js`, `evals/report.md`
+- Risk / undo: the title mapping is ours; `evals/roadmaps.js` lists it so a reviewer can check it row by row.
+- Critic: PASS (0022-check) [critic: mock]
+- Status: active
+
+### Step 4 summary (evals)
+- What changed: `evals/run_evals.js` + `evals/roadmaps.js` (seeded errors, official roadmaps, planner comparison, anti-vacuity) → `evals/results.json`, `evals/report.md`; `EVALS.md`. Engine and planner fixes the evals found: coreq order (D-025), explicit placement, elective picker ignored the 12-CSC-unit minimum for goal electives and picked electives with extra prerequisite chains (quant plans were not graduation-ready), clearer subject-minimum message, `Issue.groupId`; goal matching missed "cybersecurity"/"penetration"; repair loop (D-024); spare placeholders (D-023).
+- How to run: `npm run evals` (exit 1 on a failed check); `npm test` (24 tests).
+- What proves it works: seeded precision 100% / recall 100% (26 issues, 15 seeded errors); 3/3 official CS roadmaps 0 errors and graduation-ready; deterministic plans valid for 4 goals × 2 students; all anti-vacuity checks pass, including a pass-everything evaluator scoring recall 0.
+- What can still fail: the Gemini variant has not run (no key). The deterministic planner packs major courses early and leaves lower-division GE for terms 7–8, with one 18-unit term: valid, but unlike the official roadmap.
