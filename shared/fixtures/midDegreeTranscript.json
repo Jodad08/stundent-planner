@@ -1,0 +1,15 @@
+{
+  "note": "Made-up student (no real person). Format from web/README.md.",
+  "placement": { "calculus": true },
+  "unitsEarned": 45,
+  "courses": [
+    { "code": "CSC 101", "grade": "A", "units": 3 },
+    { "code": "CSC 215", "grade": "B+", "units": 3 },
+    { "code": "MATH 226", "grade": "B", "units": 4 },
+    { "code": "MATH 227", "grade": "C", "units": 4 },
+    { "code": "CSC 220", "grade": "C-", "units": 3 },
+    { "code": "CSC 230", "grade": "IP", "units": 3 },
+    { "code": "PHYS 220", "grade": "IP", "units": 3 },
+    { "code": "PHYS 222", "grade": "IP", "units": 1 }
+  ]
+}

@@ -186,9 +186,10 @@
     targets.push(...opts.electives);
     const needed = new Set();
     const unreachable = [];
+    // all targets first, so an OR branch that names another target costs nothing (D-017)
+    targets.forEach(c => { if (!have.has(c)) needed.add(c); });
     for (const c of targets) {
       if (have.has(c)) continue;
-      needed.add(c);
       if (!expand(nodes[c].prereq, dag, have, needed, placement)) unreachable.push(c);
     }
     const extra = [...needed].filter(c => !targets.includes(c));

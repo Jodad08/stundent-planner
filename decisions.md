@@ -179,3 +179,29 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Pitch must say "fresh plan" honestly. Add after P0 checklist passes.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-016: Placeholders, default profile and a standing check
+- Step: 3
+- Decision: (a) GE / free-elective units are placeholder cards whose ID carries the units (`GE-3u-1`), so `Plan` keeps `courseIds` only. (b) `evaluatePlan` takes a `StudentProfile`; default = calculus placement true, matching the official "QR Category 1/2" CS roadmap. (c) New issue code `STANDING_TOO_LOW` (warning) for courses whose Bulletin conditions need upper-division (60+) or senior (90+) standing; thresholds from DAG `university` (rule `class_levels`). (d) GPA / instructor-permission conditions are listed in one `PREREQ_NOTE` info, never errors. (e) `Plan.source` adds `"roadmap"` for official roadmaps in evals.
+- Alternatives: fixed 3-unit placeholders (unit totals drift from the engine's plan); no profile (MATH 226's placement branch could never pass).
+- Why: lets `evaluatePlan` check the engine's own plans and official roadmaps exactly.
+- Evidence: DAG `MATH 226` prereq (placement branch); DAG node conditions ("upper-division standing (60+ units)"); `academic_rules.json#class_levels`
+- Risk / undo: The placement default must be visible in the UI ("Assumes calculus-ready").
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+## D-017: Fix: legacy planner added an unneeded MATH 199
+- Step: 3
+- Decision: `plan()` now marks every target course as needed before expanding prerequisites, in both `web/planner.js` and `shared/engine.ts`. The pin tests still match.
+- Alternatives: keep the bug for exact behavior preservation.
+- Why: MATH 225's prerequisite is "MATH 198 or MATH 199 or MATH 226". MATH 225 is listed before MATH 226, so the cheapest-OR search picked MATH 199 (4 extra units) even though MATH 226 is required anyway.
+- Evidence: DAG `MATH 225` prereq; `requirements[0].courses` order; engine output before/after (Fall Year 1 had both MATH 199 and MATH 226)
+- Risk / undo: none found; 15/15 engine tests pass.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
+
+### Step 3 summary
+- Changed: `shared/types.ts`, `shared/engine.ts` (port + `evaluatePlan` + `criticalCourses`), `shared/fallbackPlanner.ts`, `shared/directionScores.ts`, `shared/data.ts`, `shared/engine.test.ts`, made-up mid-degree transcript fixture.
+- Run: `npm test`.
+- Proof: 15 tests pass, including pins against `web/planner.js` (fresh + mid-degree + bottlenecks), prereq order/missing, concurrency, coreq, placement, 12/15/19 boundaries, unknown/duplicate IDs, reversed-plan control.
+- Can still fail: requirement checks ignore GE areas, SF State Studies and the 30 upper-division-unit rule (documented limits).
