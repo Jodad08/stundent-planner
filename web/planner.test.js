@@ -73,6 +73,7 @@ test("OR group: either option passes", () => {
   for (const opt of ["CSC 215", "CSC 210"]) {
     const r = P.evaluatePlan(planWith([["CSC 220"]], [opt]), catalog, program, policies);
     assert.equal(issuesFor(r, "PREREQ_MISSING", "CSC 220").length + issuesFor(r, "PREREQ_ORDER", "CSC 220").length, 0, opt);
+    assert.equal(issuesFor(r, "UNKNOWN_COURSE").length, 0, "a completed retired course is not an unknown-course error");
   }
 });
 

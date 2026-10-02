@@ -3,781 +3,1261 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>CS Degree Path</title>
+<title>GatorGraph Degree Planner</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
 <style>
-/* Layout: registrar planning sheet. Summary first, then semester columns beside a graduation checklist,
-   then the transcript check and a prerequisite map laid out on the same semester timeline. */
+/* GatorGraph board (plan.md §10, D-017, D-019): semester boxes in one row, an SVG layer of prerequisite
+   lines over them, click-to-move, a course sidebar grouped by requirement, plan tabs, AI Plan and Evaluate. */
 :root {
-  --paper: #f3f5f2;
-  --card: #ffffff;
-  --ink: #17202b;
-  --muted: #5a6573;
-  --line: #d8ddd6;
-  --accent: #2c5f8f;
-  --accent-soft: #e3ecf5;
-  --done: #2b7a57;
-  --done-soft: #e2f1e9;
-  --ip: #1d7484;
-  --ip-soft: #def0f2;
-  --crit: #c0392b;
-  --crit-soft: #fbe7e4;
-  --warn: #a8690f;
-  --warn-soft: #fbf0dc;
-  --shadow: 0 1px 2px rgba(23, 32, 43, .06), 0 4px 14px rgba(23, 32, 43, .05);
-  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
-  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --purple: #231161; --gold: #e3b53c;
+  --paper: #f4f4f7; --card: #ffffff; --ink: #18172a; --muted: #5d5b72; --line: #d9d8e3;
+  --accent: #4a35b5; --accent-soft: #ebe8fb;
+  --ok: #2b7a57; --ok-soft: #e3f2ea; --ok-line: #6fb293;
+  --ip: #1d7484; --ip-soft: #def0f2;
+  --bad: #c62f2f; --bad-soft: #fde9e7;
+  --warn: #a8690f; --warn-soft: #fbf0dc;
+  --edge: #8a88a0; --coreq: #2f6fd6;
+  --shadow: 0 1px 2px rgba(24, 23, 42, .06), 0 3px 10px rgba(24, 23, 42, .05);
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper: #11161c; --card: #19212a; --ink: #e5e9ef; --muted: #9aa5b3; --line: #2a333e;
-    --accent: #84b4e3; --accent-soft: #1d2c3b; --done: #5cc194; --done-soft: #17302a; --ip: #55bccc;
-    --ip-soft: #15303a; --crit: #f07364; --crit-soft: #3a1d1b; --warn: #e3b24f; --warn-soft: #362a14;
-    --shadow: 0 1px 2px rgba(0, 0, 0, .3); color-scheme: dark;
+    --paper: #121119; --card: #1c1b26; --ink: #ebeaf3; --muted: #a3a1b8; --line: #302e40;
+    --accent: #a597ff; --accent-soft: #272340; --ok: #5cc194; --ok-soft: #16302a; --ok-line: #3f8a68;
+    --ip: #55bccc; --ip-soft: #15303a; --bad: #ff7b6e; --bad-soft: #3b1c1b; --warn: #e3b24f; --warn-soft: #362a14;
+    --edge: #8d8aa6; --coreq: #6ea3ff; --shadow: 0 1px 2px rgba(0, 0, 0, .35); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --paper: #11161c; --card: #19212a; --ink: #e5e9ef; --muted: #9aa5b3; --line: #2a333e;
-  --accent: #84b4e3; --accent-soft: #1d2c3b; --done: #5cc194; --done-soft: #17302a; --ip: #55bccc;
-  --ip-soft: #15303a; --crit: #f07364; --crit-soft: #3a1d1b; --warn: #e3b24f; --warn-soft: #362a14;
-  --shadow: 0 1px 2px rgba(0, 0, 0, .3); color-scheme: dark;
+  --paper: #121119; --card: #1c1b26; --ink: #ebeaf3; --muted: #a3a1b8; --line: #302e40;
+  --accent: #a597ff; --accent-soft: #272340; --ok: #5cc194; --ok-soft: #16302a; --ok-line: #3f8a68;
+  --ip: #55bccc; --ip-soft: #15303a; --bad: #ff7b6e; --bad-soft: #3b1c1b; --warn: #e3b24f; --warn-soft: #362a14;
+  --edge: #8d8aa6; --coreq: #6ea3ff; --shadow: 0 1px 2px rgba(0, 0, 0, .35); color-scheme: dark;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html, body { margin: 0; }
-body { background: var(--paper); color: var(--ink); font: 400 14px/1.5 var(--f-body); }
-.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 20px; padding-block: 0 48px; }
-button, select, input { font: inherit; color: inherit; }
+body { background: var(--paper); color: var(--ink); font: 400 14px/1.45 var(--f-body); }
+button, select, input, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
-h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
-.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-
-/* top bar */
-.bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between;
-  padding-block: 18px 14px; border-bottom: 1px solid var(--line); }
-.brand { font-family: var(--f-display); font-weight: 700; font-size: 20px; display: flex; gap: 10px; align-items: center; }
-.brand svg { flex: none; }
-.bar .meta { color: var(--muted); font-size: 13px; }
-
-/* profile header */
-.profile { display: grid; grid-template-columns: 1.1fr 1.3fr 1fr; gap: 24px; padding-block: 22px; }
-.profile h1 { font-size: 30px; line-height: 1.1; }
-.profile .sub { color: var(--muted); margin-top: 6px; }
-.program { font-size: 16px; line-height: 1.6; }
-.program b { font-weight: 600; }
-.source label { display: block; margin-bottom: 6px; }
-.source select { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
-.filebtn { display: inline-flex; margin-top: 8px; font-size: 13px; color: var(--accent); gap: 6px; align-items: center; }
-.filebtn input { position: absolute; width: 1px; height: 1px; opacity: 0; }
-.filebtn span { text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-
-/* controls */
-.controls { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; padding-block: 4px 18px; }
-.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; background: var(--card); padding: 3px; gap: 3px; }
-.seg button { border: 0; background: transparent; padding: 6px 12px; border-radius: 6px; font-weight: 500; color: var(--muted); }
-.seg button[aria-pressed="true"] { background: var(--accent); color: var(--card); }
-.ctl { display: flex; gap: 10px; align-items: center; }
-.ctl select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
-
-/* summary strip */
-.summary { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; background: var(--card); border: 1px solid var(--line);
-  border-radius: 10px; box-shadow: var(--shadow); }
-.summary > div { padding: 16px 18px; min-width: 0; }
-.summary > div + div { border-left: 1px solid var(--line); }
-.big { font-family: var(--f-display); font-size: 30px; font-weight: 700; line-height: 1.1; margin-top: 4px; }
-.small { color: var(--muted); font-size: 13px; margin-top: 4px; }
-.meter { position: relative; height: 8px; border-radius: 4px; background: var(--paper); margin-top: 10px; overflow: hidden; display: flex; }
-.meter i { display: block; height: 100%; }
-.meter .m-done { background: var(--done); }
-.meter .m-ip { background: var(--ip); }
-.meter .m-plan { background: var(--accent); opacity: .45; }
-.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); margin-top: 6px; }
-.legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
-
-/* alerts */
-.alerts { display: grid; gap: 8px; margin-block: 18px; }
-.alert { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding: 10px 14px;
-  border-radius: 8px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--muted); }
-.alert.crit { border-left-color: var(--crit); background: var(--crit-soft); }
-.alert.warn { border-left-color: var(--warn); background: var(--warn-soft); }
-.alert.info { border-left-color: var(--accent); }
-.alert .k { font-weight: 600; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding-top: 1px; }
-.alert.crit .k { color: var(--crit); }
-.alert.warn .k { color: var(--warn); }
-.alert.info .k { color: var(--accent); }
-.alert p { margin: 0; }
-.chain { font-family: var(--f-mono); font-size: 12.5px; }
+h1, h2, h3 { margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.small { color: var(--muted); font-size: 12.5px; }
+.btn { border: 1px solid var(--line); background: var(--card); border-radius: 7px; padding: 6px 12px; font-weight: 500; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn.plain { background: transparent; }
+.btn:disabled { opacity: .55; cursor: default; }
 .linkish { border: 0; background: none; padding: 0; color: inherit; font-family: var(--f-mono); font-weight: 600;
   text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
 .linkish:hover { text-decoration-color: currentColor; }
+a { color: var(--accent); }
 
-/* main grid */
-.main { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
-.section-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
-.section-h h2 { font-size: 20px; }
-.roadmap { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(210px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 6px; }
-.term { background: color-mix(in srgb, var(--card) 55%, var(--paper)); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
-.term-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 2px 4px 6px; border-bottom: 1px solid var(--line); }
-.term-h b { font-family: var(--f-display); font-size: 16px; }
-.term-h .u { font-size: 12px; color: var(--muted); }
-.pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; letter-spacing: .02em; }
-.pill.ip { background: var(--ip-soft); color: var(--ip); }
-.pill.grad { background: var(--done-soft); color: var(--done); }
-.card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px 9px 12px;
-  text-align: left; width: 100%; display: grid; gap: 3px; box-shadow: var(--shadow); }
-.card:hover { border-color: var(--accent); }
-.card .row1 { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
-.card .code { font-family: var(--f-mono); font-weight: 600; font-size: 13.5px; }
-.card .units { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
-.card .title { font-size: 13px; line-height: 1.35; }
-.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
-.tag { font-size: 10.5px; font-weight: 600; letter-spacing: .03em; padding: 1px 6px; border-radius: 4px; background: var(--paper); color: var(--muted); }
-.tag.crit { background: var(--crit-soft); color: var(--crit); }
-.tag.warn { background: var(--warn-soft); color: var(--warn); }
-.tag.track { background: var(--accent-soft); color: var(--accent); }
-.card.critical { border-color: var(--crit); }
-.card.critical::before { content: ""; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 3px; border-radius: 2px; background: var(--crit); }
-.card.ipcard { background: var(--ip-soft); border-color: transparent; box-shadow: none; }
-.card.elective { border-style: dashed; }
-.card.ge { background: transparent; border-style: dashed; box-shadow: none; color: var(--muted); }
-.swapbtn { justify-self: start; margin-top: 4px; border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 500; }
-.swapbtn:hover { border-color: var(--accent); color: var(--accent); }
-.menu { display: grid; gap: 2px; background: var(--card); border: 1px solid var(--accent); border-radius: 8px; padding: 6px; box-shadow: var(--shadow); }
+/* top bar */
+.top { background: var(--purple); color: #fff; padding: 10px 20px 0; }
+.top-row { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.brand { display: flex; gap: 10px; align-items: center; font-weight: 700; font-size: 19px; }
+.brand small { font-weight: 400; font-size: 12.5px; opacity: .8; }
+.tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.tools .btn { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .25); color: #fff; }
+.tools .btn:hover { border-color: var(--gold); }
+.tools .btn.gold { background: var(--gold); border-color: var(--gold); color: #1d1406; font-weight: 600; }
+.tabs { display: flex; gap: 2px; margin-top: 10px; overflow-x: auto; }
+.tab { display: flex; align-items: center; gap: 6px; padding: 7px 12px; border-radius: 8px 8px 0 0; background: rgba(255, 255, 255, .1);
+  color: #fff; border: 0; white-space: nowrap; font-weight: 500; }
+.tab[aria-selected="true"] { background: var(--paper); color: var(--ink); }
+.tab .src { font-size: 10.5px; font-weight: 600; padding: 0 6px; border-radius: 999px; background: rgba(255, 255, 255, .18); }
+.tab[aria-selected="true"] .src { background: var(--accent-soft); color: var(--accent); }
+.tab .x { border: 0; background: none; color: inherit; opacity: .6; padding: 0 2px; font-size: 15px; line-height: 1; }
+.tab .x:hover { opacity: 1; }
+.tab input { width: 150px; padding: 1px 4px; border: 1px solid var(--accent); border-radius: 4px; background: var(--card); color: var(--ink); }
+.tab.add { background: transparent; opacity: .85; }
+
+.wrap { padding: 0 20px 48px; max-width: 1800px; margin: 0 auto; }
+
+/* profile + summary */
+.profile { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: flex-end; padding: 16px 0 12px; }
+.profile h1 { font-size: 22px; }
+.profile .who { min-width: 220px; }
+.field { display: grid; gap: 4px; }
+.field select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); min-width: 150px; }
+.check { display: flex; gap: 6px; align-items: center; font-size: 13px; }
+.filebtn { font-size: 12.5px; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+.filebtn input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.summary { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+.summary > div { padding: 12px 16px; min-width: 0; }
+.summary > div + div { border-left: 1px solid var(--line); }
+.big { font-size: 22px; font-weight: 700; line-height: 1.15; margin-top: 3px; }
+.big.bad { color: var(--bad); } .big.ok { color: var(--ok); } .big.warn { color: var(--warn); }
+.meter { height: 7px; border-radius: 4px; background: var(--paper); margin-top: 8px; overflow: hidden; display: flex; }
+.meter i { display: block; height: 100%; }
+.m-done { background: var(--ok); } .m-ip { background: var(--ip); } .m-plan { background: var(--accent); opacity: .5; }
+
+/* alerts */
+.alerts { display: grid; gap: 6px; margin: 12px 0; }
+.alert { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: start; padding: 8px 12px; border-radius: 8px;
+  background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--muted); }
+.alert.bad { border-left-color: var(--bad); background: var(--bad-soft); }
+.alert.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+.alert.info { border-left-color: var(--accent); }
+.alert .k { font-weight: 700; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; padding-top: 2px; }
+.alert.bad .k { color: var(--bad); } .alert.warn .k { color: var(--warn); } .alert.info .k { color: var(--accent); }
+.alert p { margin: 0; }
+.alert .src { font-size: 12px; white-space: nowrap; }
+.more { border: 0; background: none; color: var(--accent); padding: 2px 0; font-weight: 500; justify-self: start; }
+
+/* main */
+.main { display: grid; grid-template-columns: 250px minmax(0, 1fr); gap: 14px; align-items: start; }
+.main > section { min-width: 0; }
+.side { background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); position: sticky; top: 10px;
+  max-height: calc(100vh - 20px); display: flex; flex-direction: column; min-width: 0; }
+.side-h { padding: 12px 12px 8px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.side-h h2 { font-size: 16px; }
+.side-h input { width: 100%; padding: 6px 9px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+.chips { display: flex; flex-wrap: wrap; gap: 4px; }
+.chips button { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 2px 9px; font-size: 12px; }
+.chips button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.side-list { overflow-y: auto; padding: 4px 8px 12px; }
+.grp { margin-top: 10px; }
+.grp-h { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; padding: 2px 4px; }
+.grp-h .st { font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+.grp-h .st.ok { color: var(--ok); } .grp-h .st.no { color: var(--warn); }
+.grp-note { font-size: 11.5px; color: var(--muted); padding: 0 4px 3px; }
+.item { display: grid; grid-template-columns: 68px 1fr auto; gap: 6px; align-items: baseline; width: 100%; text-align: left;
+  border: 1px solid transparent; background: none; border-radius: 6px; padding: 4px 6px; font-size: 12.5px; }
+.item:hover { background: var(--paper); }
+.item .c { font-family: var(--f-mono); font-weight: 600; font-size: 12px; }
+.item .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.item .t { font-size: 10.5px; font-weight: 600; padding: 0 5px; border-radius: 4px; background: var(--paper); color: var(--muted); white-space: nowrap; }
+.item .t.done { background: var(--ok-soft); color: var(--ok); }
+.item.placed .c, .item.placed .n { opacity: .55; }
+.item[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+
+/* board */
+.board-h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: baseline; margin-bottom: 8px; }
+.board-h h2 { font-size: 18px; }
+.inspector { background: var(--card); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; display: grid; gap: 6px; box-shadow: var(--shadow); }
+.inspector .row { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; }
+.inspector h3 { font-size: 16px; }
+.inspector .acts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.inspector select { padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+.quote { font-size: 12.5px; color: var(--muted); border-left: 3px solid var(--line); padding-left: 8px; margin: 0; }
+.board { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(124px, 1fr); gap: 10px; overflow-x: auto; padding: 4px 4px 10px; align-items: stretch; }
+.board.has-done { grid-template-columns: minmax(118px, .85fr); }
+.sem { border: 2px dashed var(--line); border-radius: 12px; padding: 6px; display: flex; flex-direction: column; gap: 6px; min-height: 300px; min-width: 0;
+  background: color-mix(in srgb, var(--card) 40%, transparent); transition: border-color .2s, background-color .2s; }
+.sem.s-ok { border-color: var(--ok-line); background: color-mix(in srgb, var(--ok-soft) 55%, transparent); }
+.sem.s-under { border-color: var(--bad); background: color-mix(in srgb, var(--bad-soft) 60%, transparent); }
+.sem.s-heavy { border-color: var(--warn); background: color-mix(in srgb, var(--warn-soft) 55%, transparent); }
+.sem.s-over { border: 2px solid var(--bad); background: var(--bad-soft); }
+.sem.target { cursor: copy; }
+.sem.done-col { border-style: solid; border-color: var(--line); background: transparent; }
+.sem-h { display: grid; gap: 1px; padding: 0 2px 6px; border-bottom: 1px solid var(--line); }
+.sem-h .r { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 6px; align-items: baseline; }
+.sem-h b { font-size: 14px; }
+.sem-h .u { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.stchip { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+.stchip.under, .stchip.over { background: var(--bad); color: #fff; }
+.stchip.heavy { background: var(--warn); color: #fff; }
+.stchip.ok { background: var(--ok-soft); color: var(--ok); }
+.stchip.ip { background: var(--ip-soft); color: var(--ip); }
+.cc { position: relative; z-index: 1; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--edge); border-radius: 8px;
+  padding: 5px 7px; display: grid; gap: 1px; box-shadow: var(--shadow); cursor: pointer; transition: opacity .15s, border-color .15s; }
+.cc:hover { border-color: var(--accent); }
+.cc .r1 { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
+.cc .code { font-family: var(--f-mono); font-weight: 600; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.cc .u { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
+.cc .nm { font-size: 11.5px; line-height: 1.3; padding-right: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
+.cc.k-major { border-left-color: var(--accent); }
+.cc.k-math { border-left-color: #8e44ad; }
+.cc.k-elective { border-left-color: var(--gold); }
+.cc.k-ge, .cc.k-free { border-style: dashed; border-left-style: solid; border-left-color: var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); box-shadow: none; }
+.cc.k-done { background: var(--ok-soft); border-color: transparent; border-left-color: var(--ok); box-shadow: none; }
+.cc.k-ip { background: var(--ip-soft); border-color: transparent; border-left-color: var(--ip); box-shadow: none; }
+.cc.sel { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.cc.dim { opacity: .25; }
+.cc .err { position: absolute; top: -4px; right: -4px; width: 11px; height: 11px; border-radius: 50%; background: var(--bad); border: 2px solid var(--card); }
+.cc .badges { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
+.ghost { border: 1px dashed var(--bad); background: var(--card); color: var(--bad); border-radius: 4px; font-size: 10.5px; font-weight: 600; padding: 0 5px; }
+.ghost:hover { background: var(--bad-soft); }
+.badge { font-size: 10.5px; font-weight: 600; padding: 0 5px; border-radius: 4px; background: var(--warn-soft); color: var(--warn); }
+.dots { position: absolute; right: 4px; bottom: 3px; border: 0; background: none; color: var(--muted); font-weight: 700; padding: 0 4px; border-radius: 4px; line-height: 1.2; }
+.dots:hover { background: var(--paper); color: var(--ink); }
+.menu { position: fixed; z-index: 25; min-width: 200px; background: var(--card); border: 1px solid var(--accent); border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .18); padding: 5px; display: grid; gap: 1px; cursor: default; }
 .menu .mh { font-size: 11px; color: var(--muted); padding: 2px 6px 4px; }
-.menu button { border: 0; background: transparent; text-align: left; padding: 5px 6px; border-radius: 5px; display: grid; gap: 1px; }
+.menu button { border: 0; background: none; text-align: left; padding: 5px 7px; border-radius: 5px; display: flex; justify-content: space-between; gap: 10px; }
 .menu button:hover { background: var(--accent-soft); }
-.menu .m1 { display: flex; justify-content: space-between; gap: 8px; }
-.menu .m2 { font-size: 11.5px; color: var(--muted); }
+.menu button[disabled] { opacity: .45; cursor: default; background: none; }
+.menu .rm { color: var(--bad); border-top: 1px solid var(--line); border-radius: 0 0 5px 5px; margin-top: 3px; }
+.drop { margin-top: auto; border: 1.5px dashed var(--accent); background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 8px; font-weight: 600; font-size: 12.5px; }
+.morecourses { font-size: 12px; color: var(--muted); padding: 2px; }
+.sem-f { margin-top: auto; font-size: 11.5px; color: var(--muted); text-align: right; }
+svg.edges { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+svg.edges.under { z-index: 0; }
+svg.edges.over { z-index: 2; }
+.e { fill: none; stroke: var(--edge); stroke-width: 1.4; opacity: .55; }
+.e.or { stroke-dasharray: 6 4; }
+.e.conc { stroke-dasharray: 2 3; }
+.e.coreq { stroke: var(--coreq); stroke-dasharray: 2 3; opacity: .8; }
+.e.chain { stroke: var(--accent); opacity: 1; stroke-width: 2; }
+.e.faint { opacity: .12; }
+.e.broken { stroke: var(--bad); stroke-width: 3; opacity: 1; stroke-dasharray: 8 5; animation: dash 1s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -26; } }
+@media (prefers-reduced-motion: reduce) { .e.broken { animation: none; } }
+.ewarn circle { fill: var(--bad); } .ewarn text { fill: #fff; font: 700 11px var(--f-body); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--muted); margin-top: 8px; align-items: center; }
+.legend svg { vertical-align: middle; margin-right: 5px; }
+.legend .box { display: inline-block; width: 14px; height: 11px; border: 2px dashed; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
 
-/* requirements rail */
-.rail { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; box-shadow: var(--shadow); position: sticky; top: 12px; }
-.rail h2 { font-size: 20px; margin-bottom: 4px; }
-.req { margin-top: 14px; }
-.req-h { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 4px; }
-.req-h .u { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
-.ri { display: grid; grid-template-columns: 18px 1fr auto; gap: 8px; align-items: center; padding: 3px 0; font-size: 13px; }
-.ri .st { font-size: 12px; color: var(--muted); white-space: nowrap; }
-.ri .nm { min-width: 0; }
-.ri .nm button { font-weight: 600; }
-.ic { width: 16px; height: 16px; display: block; }
+/* hover card */
+.hover { position: fixed; z-index: 20; width: 290px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .18); display: grid; gap: 5px; font-size: 12.5px; }
+.hover h4 { margin: 0; font-size: 14px; }
+.unv { font-size: 10.5px; font-weight: 700; padding: 0 6px; border-radius: 4px; background: var(--warn-soft); color: var(--warn); }
 
-/* transcript */
-details.panel { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
-details.panel > summary { cursor: pointer; padding: 14px 16px; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+/* panels */
+details.panel { margin-top: 20px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+details.panel > summary { cursor: pointer; padding: 12px 16px; list-style: none; display: flex; justify-content: space-between; gap: 12px; align-items: baseline; }
 details.panel > summary::-webkit-details-marker { display: none; }
-details.panel > summary h2 { font-size: 20px; }
+details.panel > summary h2 { font-size: 16px; }
 .tablewrap { overflow-x: auto; border-top: 1px solid var(--line); }
-table { border-collapse: collapse; width: 100%; font-size: 13px; }
-th, td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { text-align: left; padding: 6px 12px; border-bottom: 1px solid var(--line); white-space: nowrap; }
 th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 td.t { white-space: normal; min-width: 180px; }
 td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); }
-.conf { font-family: var(--f-mono); }
 .conf.low { color: var(--warn); font-weight: 600; }
-.chip { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
-.chip.ok { background: var(--done-soft); color: var(--done); }
-.chip.ip { background: var(--ip-soft); color: var(--ip); }
-.chip.warn { background: var(--warn-soft); color: var(--warn); }
-.chip.crit { background: var(--crit-soft); color: var(--crit); }
+.chip { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
+.chip.ok { background: var(--ok-soft); color: var(--ok); } .chip.ip { background: var(--ip-soft); color: var(--ip); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); } .chip.crit { background: var(--bad-soft); color: var(--bad); }
 
-/* map */
-.mapwrap { overflow-x: auto; border-top: 1px solid var(--line); padding: 8px 0; }
-.map text { font-family: var(--f-mono); font-size: 11.5px; fill: var(--ink); }
-.map .colh { font-family: var(--f-body); font-size: 11px; font-weight: 600; letter-spacing: .06em; fill: var(--muted); }
-.map .node rect { fill: var(--card); stroke: var(--line); stroke-width: 1.2; }
-.map .node.done rect { fill: var(--done-soft); stroke: var(--done); }
-.map .node.ip rect { fill: var(--ip-soft); stroke: var(--ip); }
-.map .node.crit rect { stroke: var(--crit); stroke-width: 2.2; }
-.map .node { cursor: pointer; }
-.map .node:hover rect { stroke: var(--accent); }
-.map .edge { fill: none; stroke: var(--muted); stroke-opacity: .45; stroke-width: 1.3; }
-.map .edge.or { stroke-dasharray: 5 4; }
-.map .edge.soft { stroke-dasharray: 1.5 3; }
-.map .edge.crit { stroke: var(--crit); stroke-opacity: .9; stroke-width: 2.2; }
-.maplegend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); padding: 0 16px 12px; }
+/* drawer (evaluate) and modal (AI plan) */
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(460px, 100%); background: var(--card); border-left: 1px solid var(--line);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, .15); padding: 18px 20px 30px; overflow-y: auto; z-index: 30; }
+.drawer h2 { font-size: 20px; padding-right: 70px; }
+.drawer .x { position: absolute; right: 14px; top: 14px; }
+.dsec { margin-top: 18px; }
+.dsec-h { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 6px; }
+.label { font-size: 10.5px; font-weight: 700; letter-spacing: .04em; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
+.label.engine { background: var(--ok-soft); color: var(--ok); }
+.label.ai { background: var(--accent-soft); color: var(--accent); }
+.label.mock { background: var(--warn-soft); color: var(--warn); }
+.verdict { padding: 10px 12px; border-radius: 8px; font-weight: 600; margin-top: 12px; }
+.verdict.ok { background: var(--ok-soft); color: var(--ok); } .verdict.bad { background: var(--bad-soft); color: var(--bad); } .verdict.warn { background: var(--warn-soft); color: var(--warn); }
+.ilist { display: grid; gap: 5px; margin: 0; padding: 0; list-style: none; }
+.ilist li { font-size: 13px; padding: 6px 8px; border-radius: 6px; background: var(--paper); }
+.bars { display: grid; gap: 5px; }
+.bar { display: grid; grid-template-columns: 150px 1fr 34px; gap: 8px; align-items: center; font-size: 12.5px; }
+.bar .tr { height: 8px; border-radius: 4px; background: var(--paper); overflow: hidden; }
+.bar .tr i { display: block; height: 100%; background: var(--accent); }
+.bar.top { font-weight: 600; }
+.sug { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; display: grid; gap: 4px; font-size: 13px; }
+.scrim { position: fixed; inset: 0; background: rgba(10, 8, 30, .45); z-index: 40; display: grid; place-items: center; padding: 16px; }
+.modal { background: var(--card); border-radius: 12px; width: min(620px, 100%); max-height: calc(100vh - 32px); overflow-y: auto; padding: 20px 22px; display: grid; gap: 12px; box-shadow: 0 20px 60px rgba(0, 0, 0, .3); }
+.modal h2 { font-size: 20px; }
+.modal textarea { width: 100%; min-height: 76px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); resize: vertical; }
+.modal .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.modal select { padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+.steps { margin: 0; padding-left: 18px; font-size: 12.5px; }
+.steps li { margin: 2px 0; }
+.foot { margin-top: 24px; color: var(--muted); font-size: 12px; max-width: 90ch; }
+.foot p { margin: 5px 0; }
 
-/* drawer */
-.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--card); border-left: 1px solid var(--line);
-  box-shadow: -8px 0 30px rgba(0, 0, 0, .12); padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px)); overflow-y: auto; z-index: 10;
-  padding-top: calc(18px + env(safe-area-inset-top, 0px)); }
-.drawer h3 { font-size: 22px; }
-.drawer .x { position: absolute; right: 14px; top: calc(14px + env(safe-area-inset-top, 0px)); border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 2px 10px; }
-.drawer .dsec { margin-top: 16px; }
-.drawer .dsec > .eyebrow { margin-bottom: 6px; }
-.tree { list-style: none; margin: 0; padding-left: 0; }
-.tree .tree { padding-left: 16px; border-left: 2px solid var(--line); margin-left: 4px; }
-.tree li { padding: 3px 0; }
-.op { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
-.quote { font-size: 13px; color: var(--muted); border-left: 3px solid var(--line); padding-left: 10px; margin: 0; }
-.drawer select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
-.drawer a { color: var(--accent); }
-.foot { margin-top: 28px; color: var(--muted); font-size: 12.5px; max-width: 80ch; }
-.foot p { margin: 6px 0; }
-
-@media (max-width: 1080px) {
+@media (max-width: 1000px) {
   .main { grid-template-columns: 1fr; }
-  .rail { position: static; }
-  .profile { grid-template-columns: 1fr 1fr; }
-  .profile .source { grid-column: 1 / -1; }
-}
-@media (max-width: 720px) {
-  .wrap { padding-inline: 16px; }
-  .profile { grid-template-columns: 1fr; gap: 14px; }
+  .side { position: static; max-height: 360px; }
   .summary { grid-template-columns: 1fr 1fr; }
   .summary > div:nth-child(3) { border-left: 0; }
   .summary > div:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .roadmap { grid-auto-flow: row; grid-auto-columns: auto; }
-  .big { font-size: 26px; }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .card, .swapbtn, .seg button { transition: border-color .15s, background-color .15s, color .15s; }
+@media (max-width: 640px) {
+  .wrap, .top { padding-inline: 16px; }
+  .alert { grid-template-columns: 1fr; }
+  svg.edges.under { display: none; }
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="bar">
+<header class="top">
+  <div class="top-row">
     <div class="brand">
-      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="5" cy="13" r="3.5" fill="var(--done)"/><circle cx="13" cy="6" r="3.5" fill="var(--accent)"/><circle cx="21" cy="13" r="3.5" fill="var(--crit)"/><path d="M5 13 L13 6 L21 13" fill="none" stroke="var(--ink)" stroke-width="1.6"/></svg>
-      Degree Path
+      <svg width="24" height="24" viewBox="0 0 26 26" aria-hidden="true"><circle cx="5" cy="13" r="3.5" fill="#e3b53c"/><circle cx="13" cy="6" r="3.5" fill="#fff"/><circle cx="21" cy="13" r="3.5" fill="#ff8a7a"/><path d="M5 13 L13 6 L21 13" fill="none" stroke="#fff" stroke-width="1.6"/></svg>
+      <span>GatorGraph <small>B.S. Computer Science · SF State Bulletin 2026–27 · unofficial</small></span>
     </div>
-    <div class="meta">Unofficial planner · data from the SF State Bulletin 2026–27</div>
-  </header>
+    <div class="tools">
+      <button type="button" class="btn" data-act="new">+ New plan</button>
+      <button type="button" class="btn" data-act="dup">Duplicate</button>
+      <button type="button" class="btn" data-act="reset">Clear plan</button>
+      <button type="button" class="btn gold" data-act="ai">AI Plan</button>
+      <button type="button" class="btn" data-act="eval">Evaluate</button>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Plans"></nav>
+</header>
 
-  <section class="profile">
-    <div>
-      <h1 id="student-name">Sample student</h1>
-      <div class="sub" id="student-sub"></div>
-    </div>
-    <div class="program">
-      <div class="eyebrow">Program</div>
-      <div><b>Bachelor of Science</b> majoring in <b>Computer Science</b></div>
-      <div class="sub">74 major units · 120 units to graduate · grades of C or better in major courses · no CR/NC in the major</div>
-    </div>
-    <div class="source">
-      <label class="eyebrow" for="source-select">Populating with data from</label>
-      <select id="source-select">
-        <option value="sample">Sample transcript (demo data)</option>
+<div class="wrap">
+  <section class="profile" aria-label="Student">
+    <div class="who"><div class="eyebrow">Student</div><h1 id="student-name"></h1><div class="small" id="student-sub"></div></div>
+    <div class="field"><label class="eyebrow" for="profile-select">Student data</label>
+      <select id="profile-select">
+        <option value="freshman">New freshman (no transcript)</option>
+        <option value="sample">Sample transcript (made-up student)</option>
         <option value="upload" disabled>Uploaded transcript</option>
       </select>
-      <label class="filebtn" for="file-input"><input id="file-input" type="file" accept="application/json,.json"><span>Load extracted transcript (JSON)</span></label>
-      <div class="small" id="upload-msg"></div>
+      <label class="filebtn"><input id="file-input" type="file" accept="application/json,.json">Load extracted transcript (JSON)</label>
     </div>
-  </section>
-
-  <section class="controls" aria-label="Plan settings">
-    <div class="ctl"><span class="eyebrow">Career track</span><div class="seg" id="track-seg" role="group" aria-label="Career track"></div></div>
-    <div class="ctl"><label class="eyebrow" for="max-units">Units per semester</label>
-      <select id="max-units"></select></div>
+    <div class="field" id="start-field"><label class="eyebrow" for="start-select">First semester</label><select id="start-select"></select></div>
+    <label class="check" id="placement-field"><input type="checkbox" id="placement"> Placed into calculus (MATH 226)</label>
+    <div class="field"><label class="eyebrow" for="max-units">Units per semester (planner target)</label><select id="max-units"></select></div>
+    <div class="small" id="upload-msg"></div>
   </section>
 
   <section class="summary" aria-label="Summary">
-    <div><div class="eyebrow">Projected graduation</div><div class="big" id="s-grad"></div><div class="small" id="s-grad-sub"></div></div>
-    <div><div class="eyebrow">Units toward 120</div><div class="big mono" id="s-units"></div>
-      <div class="meter" id="s-units-meter"></div>
-      <div class="legend"><span><i style="background:var(--done)"></i>Earned</span><span><i style="background:var(--ip)"></i>In progress</span><span><i style="background:var(--accent);opacity:.45"></i>Planned</span></div></div>
-    <div><div class="eyebrow">Major units</div><div class="big mono" id="s-major"></div><div class="meter" id="s-major-meter"></div><div class="small" id="s-major-sub"></div></div>
-    <div><div class="eyebrow">Critical-path courses</div><div class="big mono" id="s-crit"></div><div class="small" id="s-crit-sub"></div></div>
+    <div><div class="eyebrow">Graduation</div><div class="big" id="s-grad"></div><div class="small" id="s-grad-sub"></div></div>
+    <div><div class="eyebrow">Units toward <span id="s-total"></span></div><div class="big mono" id="s-units"></div><div class="meter" id="s-meter"></div><div class="small" id="s-units-sub"></div></div>
+    <div><div class="eyebrow">Plan check · rules engine</div><div class="big" id="s-check"></div><div class="small" id="s-check-sub"></div></div>
+    <div><div class="eyebrow">Career direction</div><div class="big" id="s-dir"></div><div class="small" id="s-dir-sub"></div></div>
   </section>
 
-  <section class="alerts" id="alerts" aria-label="Warnings"></section>
+  <section class="alerts" id="alerts" aria-label="Problems and warnings"></section>
 
   <div class="main">
-    <section aria-labelledby="roadmap-h">
-      <div class="section-h"><h2 id="roadmap-h">Semester roadmap</h2><span class="small">Click a course for prerequisites and offerings</span></div>
-      <div class="roadmap" id="roadmap"></div>
-    </section>
-    <aside class="rail" aria-labelledby="req-h">
-      <h2 id="req-h">Graduation requirements</h2>
-      <div class="small">B.S. Computer Science, 2026–27 Bulletin</div>
-      <div id="reqs"></div>
+    <aside class="side" aria-labelledby="side-h">
+      <div class="side-h">
+        <h2 id="side-h">Courses</h2>
+        <input id="side-q" type="search" placeholder="Search ID or name" aria-label="Search courses">
+        <div class="chips" id="side-chips" role="group" aria-label="Filter"></div>
+      </div>
+      <div class="side-list" id="side-list"></div>
     </aside>
+
+    <section aria-labelledby="board-h">
+      <div class="board-h">
+        <h2 id="board-h">Semester board</h2>
+        <span class="small" id="board-hint">Click a course to see its chain. Then click a semester to move it there, or use ⋯</span>
+        <label class="check"><input type="checkbox" id="show-all" checked> All prerequisite lines</label>
+      </div>
+      <div class="inspector" id="inspector" hidden></div>
+      <div class="board" id="board"></div>
+      <div class="legend">
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.6" fill="none"/></svg>prerequisite</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.6" stroke-dasharray="6 4" fill="none"/></svg>one of several options</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.6" stroke-dasharray="2 3" fill="none"/></svg>same term allowed</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--coreq)" stroke-width="1.6" stroke-dasharray="2 3" fill="none"/></svg>corequisite (same term)</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--bad)" stroke-width="3" stroke-dasharray="8 5" fill="none"/></svg>broken: prerequisite not earlier</span>
+        <span><i class="box" style="border-color:var(--ok-line)"></i>units OK</span>
+        <span><i class="box" style="border-color:var(--warn)"></i>heavy (over <span class="mono" id="lg-heavy"></span>)</span>
+        <span><i class="box" style="border-color:var(--bad)"></i>below <span class="mono" id="lg-min"></span> or over <span class="mono" id="lg-max"></span></span>
+      </div>
+    </section>
   </div>
 
-  <details class="panel" id="transcript-panel" open>
+  <details class="panel" id="transcript-panel">
     <summary><h2>Transcript check</h2><span class="small" id="tx-sub"></span></summary>
     <div class="tablewrap"><table id="tx-table"></table></div>
   </details>
 
-  <details class="panel" open>
-    <summary><h2>Prerequisite map</h2><span class="small">Columns follow your semesters</span></summary>
-    <div class="maplegend">
-      <span>━ requires</span><span>╍ one of several options</span><span>┈ can be taken the same term</span><span style="color:var(--crit)">━ critical path</span>
-    </div>
-    <div class="mapwrap"><svg class="map" id="map" role="img" aria-label="Prerequisite map"></svg></div>
-  </details>
-
   <footer class="foot">
-    <p>Prerequisites, units and requirements come from the SF State Bulletin 2026–27. The planner treats “or permission of the instructor” as not available, assumes in-progress courses pass, and fills open seats with GE or free-elective units until you reach 120.</p>
-    <p>The bulletin doesn't say which semesters a course runs. Every course is assumed to run each fall and spring unless you set its offering in the course details.</p>
+    <p>Courses, prerequisites, units and requirements come from the SF State Bulletin 2026–27; every course links to its Bulletin page. Nothing has been checked by an advisor yet (shown as “Unverified”). The rules engine decides whether a plan is valid; AI only proposes plans and explains them.</p>
+    <p>GE and free-elective boxes stand for any approved course in that area. SF State Studies, American Institutions and residence units are not tracked. The Bulletin doesn't say which terms a course runs; set it per course if you know.</p>
   </footer>
 </div>
 
-<aside class="drawer" id="drawer" hidden aria-label="Course details"></aside>
+<div class="hover" id="hover" hidden></div>
+<div class="menu" id="menu" role="menu" hidden></div>
+<aside class="drawer" id="drawer" hidden aria-label="Evaluate plan"></aside>
+<div class="scrim" id="ai-scrim" hidden></div>
 
 <script src="data.js"></script>
 <script src="planner.js"></script>
 <script>
 (function () {
   "use strict";
-  const DAG = window.DAG, CATALOG = window.CATALOG, P = window.Planner;
-  const NODES = DAG.nodes;
+  const P = window.Planner, DAG = window.DAG, GG = window.GG, CATALOG = window.CATALOG;
+  const PROGRAM = GG.program, POLICIES = GG.policies, CAREER = GG.career;
+  const pol = k => POLICIES[k].value;
+  const N_SEM = 8;
+  const STORE = "gatorgraph.v1";
   const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const clone = x => JSON.parse(JSON.stringify(x));
   const GRADES = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "CR", "NC", "W", "IP"];
-  const REQ_SHORT = { mathematics_and_physics: "Math & Physics", core_computer_science_requirements: "Core",
-    advanced_computer_science_requirements: "Advanced", electives: "Elective" };
-  const UD_RE = /upper-division standing/i, GPA_RE = /GPA 3\.0/;
+  const GROUP_KIND = { mathematics_and_physics: "math", core_computer_science_requirements: "major",
+    advanced_computer_science_requirements: "major", electives: "elective", general_education: "ge", free_electives: "free" };
+  const groupOf = {};
+  PROGRAM.requirementGroups.forEach(g => g.courseIds.forEach(c => { if (!groupOf[c]) groupOf[c] = g; }));
 
+  // ------------------------------------------------------------------ state
+  const freshman = () => ({ student: "New freshman", source: "No transcript", current_term: null,
+    start: { season: "Fall", year: 2026 }, placement: { calculus: true }, courses: [] });
   const state = {
-    transcript: JSON.parse(JSON.stringify(window.SAMPLE_TRANSCRIPT)),
-    track: "systems",
-    maxUnits: DAG.university.normal_load_units[1],
-    electives: null,
-    offerings: Object.assign({}, DAG.term_offerings || {}),
-    openSwap: null,
-    selected: null,
+    profileId: "freshman", transcript: freshman(),
+    maxUnits: pol("heavyLoadUnits"), offerings: {},
+    plans: [], activeId: null,
+    sel: null, menu: null, showAll: true, sideFilter: "all", sideQuery: "",
+    server: null, evalOpen: false, evalAi: {}, ai: null, editTab: null, showAllIssues: false,
   };
+  let uid = 1;
+  const newId = () => "p" + Date.now().toString(36) + (uid++);
+  const emptySems = () => Array.from({ length: N_SEM }, () => []);
+  const active = () => state.plans.find(p => p.id === state.activeId) || state.plans[0];
 
-  const reqOf = {};
-  DAG.requirements.forEach(r => r.courses.forEach(c => { reqOf[c] = r; }));
-  const trackOf = c => Object.entries(DAG.tracks).filter(([, t]) => t.courses.includes(c)).map(([k]) => k);
-  const titleOf = c => (NODES[c] && NODES[c].title) || (CATALOG[c] && CATALOG[c][0]) || "Not in the SF State catalog";
+  function save() {
+    try {
+      localStorage.setItem(STORE, JSON.stringify({ v: 1, profileId: state.profileId === "upload" ? "freshman" : state.profileId,
+        start: state.transcript.start, placement: state.profileId === "freshman" ? state.transcript.placement : undefined,
+        maxUnits: state.maxUnits, offerings: state.offerings, plans: state.plans, activeId: state.activeId }));
+    } catch (e) { /* storage unavailable: the page still works for this visit */ }
+  }
+  function load() {
+    try {
+      const s = JSON.parse(localStorage.getItem(STORE) || "null");
+      if (!s || s.v !== 1 || !Array.isArray(s.plans) || !s.plans.length) return false;
+      state.profileId = s.profileId === "sample" ? "sample" : "freshman";
+      state.transcript = state.profileId === "sample" ? clone(window.SAMPLE_TRANSCRIPT) : freshman();
+      if (s.start && state.profileId === "freshman") state.transcript.start = s.start;
+      if (s.placement && state.profileId === "freshman") state.transcript.placement = s.placement;
+      state.maxUnits = s.maxUnits || state.maxUnits;
+      state.offerings = s.offerings || {};
+      state.plans = s.plans.filter(p => p && Array.isArray(p.semesters)).map(p => Object.assign({ meta: {} }, p,
+        { semesters: Array.from({ length: N_SEM }, (_, i) => (p.semesters[i] || []).filter(c => typeof c === "string")) }));
+      state.activeId = s.activeId;
+      return state.plans.length > 0;
+    } catch (e) { return false; }
+  }
+
+  // ------------------------------------------------------------------ profile, catalog, plan contract
+  function profile() {
+    const rows = state.transcript.courses;
+    const ok = r => r.include !== false && (r.grade === "IP" || P.passes(r.grade, null));
+    const earned = rows.filter(r => ok(r) && r.grade !== "IP").reduce((s, r) => s + Number(r.units || 0), 0);
+    const graded = rows.filter(r => r.include !== false && r.grade in P.GRADE_POINTS);
+    const gu = graded.reduce((s, r) => s + Number(r.units), 0);
+    const gpa = gu ? graded.reduce((s, r) => s + P.GRADE_POINTS[r.grade] * r.units, 0) / gu : null;
+    const inProgUnits = rows.filter(r => r.include !== false && r.grade === "IP").reduce((s, r) => s + Number(r.units || 0), 0);
+    return { courses: rows, placement: state.transcript.placement || {}, unitsEarned: earned, gpa, inProgUnits };
+  }
   const nextTerm = t => t.season === "Fall" ? { season: "Spring", year: t.year + 1 } : { season: "Fall", year: t.year };
+  const startTerm = () => state.transcript.current_term ? nextTerm(state.transcript.current_term) : state.transcript.start;
 
-  // ---------------------------------------------------------------- transcript -> profile
+  let CAT = [], CATI = new Map();
+  function buildCatalog() {
+    const offer = state.offerings;
+    CAT = GG.catalog.map(c => offer[c.id] ? Object.assign({}, c, { typicalTerms: offer[c.id].map(s => s.toLowerCase()) }) : c);
+    const have = new Set(CAT.map(c => c.id));
+    state.transcript.courses.forEach(r => {
+      if (have.has(r.code)) return;
+      have.add(r.code);
+      const cat = CATALOG[r.code];
+      CAT.push({ id: r.code, dept: r.code.split(" ")[0], number: "", name: cat ? cat[0] : "Transfer course", units: Number(r.units) || (cat ? Number(cat[1]) || 0 : 0),
+        prereq: null, prereqEncoded: true, prereqNotes: "", conditions: [], coreqs: [], geAreas: GG.geAreas[r.code] || [], tags: [],
+        typicalTerms: [], sourceUrl: "", verified: false, isPlaceholder: false, notes: "From the transcript" });
+    });
+    CATI = P.indexCatalog(CAT);
+  }
+  const C = id => CATI.get(id);
+  const nameOf = id => (C(id) && C(id).name) || (CATALOG[id] && CATALOG[id][0]) || id;
+  const unitsOf = id => (C(id) ? Number(C(id).units) || 0 : 0);
+
+  function doneInfo(prof) {
+    const sets = P.profileSets(DAG, prof);
+    const done = new Set([...sets.passed, ...sets.inProgress]);
+    prof.courses.forEach(r => { if (r.include !== false && !DAG.nodes[r.code] && (r.grade === "IP" || P.passes(r.grade, null))) done.add(r.code); });
+    const units = prof.courses.filter(r => r.include !== false && (r.grade === "IP" || P.passes(r.grade, null))).reduce((t, r) => t + Number(r.units || 0), 0);
+    return { done, passed: sets.passed, inProgress: new Set([...sets.inProgress, ...prof.courses.filter(r => r.grade === "IP" && r.include !== false).map(r => r.code)]),
+      retake: sets.retake, units };
+  }
+
+  function contractPlan(tab, R0) {
+    const start = R0.start;
+    return {
+      id: tab.id, name: tab.name, programId: PROGRAM.id, goalText: (tab.meta && tab.meta.goalText) || "", createdAt: tab.createdAt || new Date(0).toISOString(),
+      startTerm: start,
+      semesters: tab.semesters.map((ids, i) => { const t = P.termAt(start, i); return { index: i + 1, label: t.label, season: t.season.toLowerCase(), courseIds: ids.slice() }; }),
+      completedCourseIds: [...R0.doneInfo.done], completedUnits: R0.doneInfo.units, placement: R0.prof.placement,
+      source: (tab.meta && tab.meta.source) || "manual", electiveChoices: [],
+    };
+  }
+
+  function recommended(prof, goalText, direction) {
+    const plan = P.buildFallbackPlan({ dag: DAG, catalog: CAT, program: PROGRAM, policies: POLICIES, profile: prof,
+      startTerm: startTerm(), direction, maxUnits: state.maxUnits, offerings: state.offerings, goalText: goalText || "" });
+    return plan.semesters.map(s => s.courseIds.slice());
+  }
+
+  // ------------------------------------------------------------------ compute
+  let R = null;
+  function compute() {
+    buildCatalog();
+    const prof = profile();
+    const start = startTerm();
+    const R0 = { prof, start, doneInfo: doneInfo(prof) };
+    const tab = active();
+    const plan = contractPlan(tab, R0);
+    const report = P.evaluatePlan(plan, CAT, PROGRAM, POLICIES);
+    const dirs = P.directionScores(plan, CAT, CAREER);
+    const pos = new Map();
+    plan.semesters.forEach(s => s.courseIds.forEach(c => { if (!pos.has(c)) pos.set(c, s.index); }));
+    const byCourse = {};
+    report.issues.forEach(i => { const c = i.courseIds[0]; if (c) (byCourse[c] = byCourse[c] || []).push(i); });
+    // bottlenecks of the fastest schedule for this student (the scheduler, not this plan)
+    let bn = null;
+    try {
+      const electiveGroup = PROGRAM.requirementGroups.find(g => g.id === "electives");
+      let electives = [...pos.keys()].filter(c => electiveGroup.courseIds.includes(c) && DAG.nodes[c]);
+      electives = P.pickElectives(DAG, prof, null, electives);
+      bn = P.bottlenecks(DAG, prof, { start, maxUnits: state.maxUnits, electives, offerings: state.offerings });
+    } catch (e) { bn = null; }
+    R = Object.assign(R0, { tab, plan, report, dirs, pos, byCourse, bn });
+  }
+
+  // ------------------------------------------------------------------ helpers
+  function readable(expr) {
+    if (!expr) return "none";
+    if (typeof expr === "string") return expr;
+    if (expr.and) return expr.and.map(readable).map(x => (/ or /.test(x) ? `(${x})` : x)).join(" and ");
+    if (expr.or) return expr.or.map(readable).join(" or ");
+    if (expr.course) return expr.course + (expr.concurrent ? " (same term ok)" : "");
+    if (expr.coreq) return expr.coreq + " (same term)";
+    if (expr.placement) return expr.placement + " placement";
+    if (expr.ge_area) return "GE Area " + expr.ge_area;
+    return "?";
+  }
+  function edgeLeaves(expr, inOr, out) {
+    out = out || [];
+    if (!expr) return out;
+    if (typeof expr === "string") out.push({ code: expr, kind: inOr ? "or" : "req" });
+    else if (expr.and) expr.and.forEach(e => edgeLeaves(e, inOr, out));
+    else if (expr.or) expr.or.forEach(e => edgeLeaves(e, true, out));
+    else if (expr.course) out.push({ code: expr.course, kind: expr.concurrent ? "conc" : inOr ? "or" : "req" });
+    else if (expr.coreq) out.push({ code: expr.coreq, kind: "coreq" });
+    return out;
+  }
+  const kindOf = id => {
+    if (R.doneInfo.inProgress.has(id) && !R.pos.has(id)) return "ip";
+    if (R.doneInfo.done.has(id) && !R.pos.has(id)) return "done";
+    const g = groupOf[id];
+    return g ? GROUP_KIND[g.id] || "major" : "major";
+  };
+  const semLabel = i => P.termAt(R.start, i - 1).label;
+  const cbtn = c => `<button type="button" class="linkish" data-sel="${esc(c)}">${esc(c)}</button>`;
+  const providerLabel = (prov, src) => src === "fallback" ? ["Deterministic planner", "engine"]
+    : prov === "gemini" ? ["Generated by Gemini", "ai"] : prov === "mock" ? ["Mock model (not AI)", "mock"] : ["Manual", "engine"];
+
+  // ------------------------------------------------------------------ render: tabs, profile, summary
+  function renderTabs() {
+    const html = state.plans.map(p => {
+      const src = p.meta && p.meta.source;
+      const tag = src === "ai" ? (p.meta.aiProvider === "gemini" ? "Gemini" : "Mock") : src === "fallback" ? "Auto" : src === "replay" ? "Replay" : "";
+      const label = state.editTab === p.id
+        ? `<input id="tab-edit" value="${esc(p.name)}" aria-label="Plan name" maxlength="60">`
+        : `<span data-rename="${esc(p.id)}">${esc(p.name)}</span>`;
+      return `<div class="tab" role="tab" aria-selected="${p.id === state.activeId}" data-tab="${esc(p.id)}" title="Double-click to rename">${label}${tag ? `<span class="src">${tag}</span>` : ""}${state.plans.length > 1 ? `<button type="button" class="x" data-close-tab="${esc(p.id)}" aria-label="Delete ${esc(p.name)}">×</button>` : ""}</div>`;
+    }).join("");
+    document.getElementById("tabs").innerHTML = html + `<button type="button" class="tab add" data-act="new">+ New</button>`;
+    const inp = document.getElementById("tab-edit");
+    if (inp) { inp.focus(); inp.select(); }
+  }
+
+  function renderProfile() {
+    const p = R.prof, U = DAG.university, t = state.transcript;
+    const units = p.unitsEarned;
+    const standing = units >= U.senior_standing_units ? "Senior" : units >= U.upper_division_standing_units ? "Junior" : units >= U.sophomore_standing_units ? "Sophomore" : "Freshman";
+    document.getElementById("student-name").textContent = t.student || "Student";
+    document.getElementById("student-sub").innerHTML = t.current_term
+      ? `${standing} · <span class="mono">${units}</span> units earned · GPA <span class="mono">${p.gpa != null ? p.gpa.toFixed(2) : "–"}</span> · enrolled ${esc(t.current_term.season + " " + t.current_term.year)}`
+      : `Starting ${esc(R.start.season + " " + R.start.year)} with no units`;
+    document.getElementById("profile-select").value = state.profileId;
+    const fresh = !t.current_term;
+    document.getElementById("start-field").hidden = !fresh;
+    document.getElementById("placement-field").hidden = !fresh;
+    if (fresh) {
+      const opts = [{ season: "Fall", year: 2026 }, { season: "Spring", year: 2027 }, { season: "Fall", year: 2027 }];
+      document.getElementById("start-select").innerHTML = opts.map(o => `<option value="${o.season} ${o.year}"${o.season === t.start.season && o.year === t.start.year ? " selected" : ""}>${o.season} ${o.year}</option>`).join("");
+      document.getElementById("placement").checked = !!(t.placement && t.placement.calculus);
+    }
+    const sel = document.getElementById("max-units");
+    const lo = pol("minUnitsFullTime"), hi = pol("heavyLoadUnits"), max = pol("maxUnitsWithoutPermission");
+    const vals = [lo, Math.round((lo + hi) / 2), hi, max].filter((v, i, a) => a.indexOf(v) === i);
+    sel.innerHTML = vals.map(v => `<option value="${v}"${v === state.maxUnits ? " selected" : ""}>${v}${v === max ? " (registration max)" : v === hi ? " (normal load)" : v === lo ? " (full time)" : ""}</option>`).join("");
+    document.getElementById("lg-heavy").textContent = hi;
+    document.getElementById("lg-min").textContent = lo;
+    document.getElementById("lg-max").textContent = max;
+  }
+
+  function verdict(rep) {
+    const errs = rep.issues.filter(i => i.severity === "error").length;
+    if (errs) return ["bad", `Fix ${errs} error${errs > 1 ? "s" : ""} first`];
+    if (!rep.graduationReady) return ["warn", "Valid but incomplete"];
+    return ["ok", "Valid plan"];
+  }
+
+  function renderSummary() {
+    const rep = R.report, plan = R.plan;
+    const last = plan.semesters.filter(s => s.courseIds.length).map(s => s.label).pop();
+    const open = rep.requirementStatus.filter(r => !r.satisfied).length;
+    const g = document.getElementById("s-grad");
+    g.textContent = rep.graduationReady ? last : "Not yet";
+    g.className = "big " + (rep.graduationReady ? "ok" : "warn");
+    document.getElementById("s-grad-sub").textContent = rep.graduationReady
+      ? `${plan.semesters.filter(s => s.courseIds.length).length} semesters with courses`
+      : `${open} requirement group${open === 1 ? "" : "s"} still open`;
+    const total = PROGRAM.totalUnitsRequired;
+    document.getElementById("s-total").textContent = total;
+    const planned = rep.totalUnitsPlanned, earned = R.prof.unitsEarned, ip = R.doneInfo.units - earned;
+    document.getElementById("s-units").textContent = `${R.doneInfo.units + planned} / ${total}`;
+    document.getElementById("s-meter").innerHTML = [["m-done", earned], ["m-ip", ip], ["m-plan", planned]]
+      .map(([c, v]) => `<i class="${c}" style="width:${Math.max(0, Math.min(100, v / Math.max(total, R.doneInfo.units + planned) * 100))}%"></i>`).join("");
+    document.getElementById("s-units-sub").textContent = `${earned} earned · ${ip} in progress · ${planned} planned`;
+    const [cls, text] = verdict(rep);
+    const ch = document.getElementById("s-check");
+    ch.textContent = text;
+    ch.className = "big " + cls;
+    const w = rep.issues.filter(i => i.severity === "warning").length;
+    document.getElementById("s-check-sub").textContent = `${rep.issues.filter(i => i.severity === "error").length} errors · ${w} warnings`;
+    const top = R.dirs[0];
+    document.getElementById("s-dir").textContent = top && top.score > 0 ? top.label : "–";
+    document.getElementById("s-dir-sub").textContent = top && top.score > 0 ? `score ${top.score}/100 from your electives · project-defined directions` : "Add electives to see a direction";
+  }
+
+  // ------------------------------------------------------------------ render: alerts
+  function renderAlerts() {
+    const out = [];
+    const rep = R.report;
+    const src = i => i.sourceUrl ? `<a class="src" href="${esc(i.sourceUrl)}" target="_blank" rel="noopener">source</a>` : "<span></span>";
+    const withLinks = (msg, ids) => { let m = esc(msg); [...new Set(ids)].sort((a, b) => b.length - a.length).forEach(c => { m = m.split(esc(c)).join(cbtn(c)); }); return m; };
+    rep.issues.filter(i => i.severity === "error").forEach(i => out.push(["bad", "Error", withLinks(i.message, i.courseIds), src(i)]));
+    rep.issues.filter(i => i.severity === "warning" && i.code !== "REQ_GROUP_INCOMPLETE" && i.code !== "TOTAL_UNITS_SHORT")
+      .forEach(i => out.push(["warn", i.code === "UNITS_HEAVY" ? "Heavy" : i.code === "UNITS_UNDER" ? "Light" : "Warning", withLinks(i.message, i.courseIds), src(i)]));
+    if (R.bn && R.bn.flags.length && R.bn.base.gradTerm) {
+      R.bn.flags.slice(0, 3).forEach(f => out.push(["info", "Bottleneck",
+        `${cbtn(f.code)} is on the critical path: if it isn't taken by ${esc(f.term.label)}, the earliest possible graduation moves from ${esc(R.bn.base.gradTerm.label)} to ${esc(f.altGrad ? f.altGrad.label : "later")}.`, "<span></span>"]));
+    }
+    if (R.bn) R.bn.base.retake.forEach(r => out.push(["warn", "Retake", `${cbtn(r.code)} needs ${esc(r.min || "a passing grade")} or better for the major; the transcript shows ${esc(r.grade)}.`, "<span></span>"]));
+    state.transcript.courses.filter(r => r.include !== false && r.confidence != null && r.confidence < 0.8).forEach(r =>
+      out.push(["warn", "Confirm", `${cbtn(r.code)} was read as <b>${esc(r.grade)}</b> with ${Math.round(r.confidence * 100)}% confidence. Check it in the transcript table.`, "<span></span>"]));
+    const limit = state.showAllIssues ? out.length : 5;
+    document.getElementById("alerts").innerHTML = out.slice(0, limit).map(([cls, k, html, s]) =>
+      `<div class="alert ${cls}"><span class="k">${k}</span><p>${html}</p>${s}</div>`).join("") +
+      (out.length > 5 ? `<button type="button" class="more" data-act="issues">${state.showAllIssues ? "Show fewer" : `Show all ${out.length}`}</button>` : "");
+  }
+
+  // ------------------------------------------------------------------ render: sidebar
+  const FILTERS = [["all", "All"], ["required", "Required"], ["electives", "Electives"], ["ge", "GE & free"], ["open", "Not placed"]];
+  function renderSide() {
+    document.getElementById("side-chips").innerHTML = FILTERS.map(([k, l]) => `<button type="button" data-filter="${k}" aria-pressed="${state.sideFilter === k}">${l}</button>`).join("");
+    const q = state.sideQuery.trim().toLowerCase();
+    const statusById = {};
+    R.report.requirementStatus.forEach(s => { statusById[s.groupId] = s; });
+    const inGroups = new Set(PROGRAM.requirementGroups.flatMap(g => g.courseIds));
+    const extra = Object.keys(DAG.nodes).filter(c => !inGroups.has(c) && CATI.has(c));
+    const groups = PROGRAM.requirementGroups.map(g => ({ id: g.id, title: g.title, ids: g.courseIds, g }))
+      .concat([{ id: "other", title: "Other prerequisites", ids: extra, g: null }]);
+    const show = gr => state.sideFilter === "all" || state.sideFilter === "open" ||
+      (state.sideFilter === "required" && /requirements|mathematics/.test(gr.id)) ||
+      (state.sideFilter === "electives" && gr.id === "electives") || (state.sideFilter === "ge" && /general_education|free_electives/.test(gr.id));
+    const html = groups.filter(show).map(gr => {
+      const st = statusById[gr.id];
+      let stText = "";
+      if (st) stText = st.satisfied ? "✓ met" : st.unitsNeed != null ? `${st.unitsHave} of ${st.unitsNeed} units` : `${gr.ids.length - st.missingCourseIds.length} of ${gr.ids.length}`;
+      const items = gr.ids.filter(c => {
+        if (q && !(c.toLowerCase().includes(q) || nameOf(c).toLowerCase().includes(q))) return false;
+        if (state.sideFilter === "open" && (R.pos.has(c) || R.doneInfo.done.has(c))) return false;
+        if (gr.g && (gr.g.excludedCourseIds || []).includes(c)) return false;
+        return true;
+      }).map(c => {
+        const placed = R.pos.get(c);
+        const done = R.doneInfo.done.has(c);
+        const tag = done ? `<span class="t done">${R.doneInfo.inProgress.has(c) ? "In progress" : "Done"}</span>` : placed ? `<span class="t">${esc(semLabel(placed))}</span>` : `<span class="t mono">${unitsOf(c)}u</span>`;
+        return `<button type="button" class="item${placed || done ? " placed" : ""}" data-sel="${esc(c)}" aria-pressed="${state.sel === c}"><span class="c">${esc(c)}</span><span class="n">${esc(nameOf(c))}</span>${tag}</button>`;
+      }).join("");
+      if (!items) return "";
+      const note = gr.g && gr.g.minUnitsInSubject ? `<div class="grp-note">At least ${Object.entries(gr.g.minUnitsInSubject).map(([s, n]) => `${n} units in ${s}`).join(", ")}</div>` : "";
+      return `<div class="grp"><div class="grp-h"><span class="eyebrow">${esc(gr.title)}</span><span class="st ${st ? (st.satisfied ? "ok" : "no") : ""}">${esc(stText)}</span></div>${note}${items}</div>`;
+    }).join("");
+    document.getElementById("side-list").innerHTML = html || '<div class="small" style="padding:10px">No courses match.</div>';
+  }
+
+  // ------------------------------------------------------------------ render: board
+  function cardHtml(id, opts) {
+    const kind = opts.kind || kindOf(id);
+    const issues = R.byCourse[id] || [];
+    const errs = issues.filter(i => i.severity === "error");
+    const badges = [];
+    issues.filter(i => i.code === "PREREQ_MISSING").forEach(i => {
+      const opt = i.courseIds.slice(1).filter(c => CATI.has(c));
+      const area = (i.message.match(/GE Area (\w+)/) || [])[1];
+      const add = opt[0] || (area ? (PROGRAM.requirementGroups.find(g => g.id === "general_education").courseIds.find(p => (C(p).geAreas || []).includes(area)) || "") : "");
+      const text = opt.length ? `needs ${opt.slice(0, 2).join(" or ")}` : area ? `needs GE ${area}` : "needs placement";
+      badges.push(add ? `<button type="button" class="ghost" data-fix="${esc(id)}" data-add="${esc(add)}" title="Add ${esc(add)} to an earlier semester">${esc(text)}</button>` : `<span class="ghost">${esc(text)}</span>`);
+    });
+    if (issues.some(i => i.code === "STANDING_NOT_MET")) badges.push(`<span class="badge">needs ${pol("upperDivisionStandingUnits")}+ units</span>`);
+    if (issues.some(i => i.code === "ALREADY_SATISFIED")) badges.push(`<span class="badge">already covered</span>`);
+    if (issues.some(i => i.code === "TERM_NOT_OFFERED")) badges.push(`<span class="badge">${esc((C(id).typicalTerms || []).join("/"))} only</span>`);
+    if (issues.some(i => i.code === "DUPLICATE_COURSE")) badges.push(`<span class="badge">duplicate</span>`);
+    const sel = state.sel === id;
+    const dim = R.chain && !R.chain.has(id);
+    const movable = opts.movable;
+    return `<div class="cc k-${kind}${sel ? " sel" : ""}${dim ? " dim" : ""}" data-card="${esc(id)}" data-sel="${esc(id)}" tabindex="0" role="button" aria-pressed="${sel}" aria-label="${esc(id)} ${esc(nameOf(id))}">
+      ${errs.length ? '<span class="err" title="Has an error"></span>' : ""}
+      <span class="r1"><span class="code">${esc(id)}</span><span class="u">${unitsOf(id)}u</span></span>
+      <span class="nm">${esc(nameOf(id))}</span>
+      ${badges.length ? `<span class="badges">${badges.join("")}</span>` : ""}
+      ${movable ? `<button type="button" class="dots" data-menu="${esc(id)}" aria-label="Move ${esc(id)}" aria-expanded="${state.menu === id}">⋯</button>` : ""}</div>`;
+  }
+
+  function renderBoard() {
+    const cols = [];
+    const di = R.doneInfo;
+    const doneProgram = [...di.done].filter(c => CATI.has(c) && (groupOf[c] || DAG.nodes[c]) && !R.pos.has(c));
+    const otherDone = [...di.done].filter(c => !doneProgram.includes(c) && !R.pos.has(c));
+    const board = document.getElementById("board");
+    board.classList.toggle("has-done", di.done.size > 0);
+    if (di.done.size) {
+      const order = c => (di.inProgress.has(c) ? 1 : 0);
+      cols.push(`<div class="sem done-col"><div class="sem-h"><span class="eyebrow">Transcript</span><div class="r"><b>Done</b><span class="stchip ip">${di.inProgress.size ? "incl. in progress" : "finished"}</span></div></div>
+        ${doneProgram.sort((a, b) => order(a) - order(b) || (a < b ? -1 : 1)).map(c => cardHtml(c, { kind: di.inProgress.has(c) ? "ip" : "done" })).join("")}
+        ${otherDone.length ? `<div class="morecourses">+ ${otherDone.length} other course${otherDone.length > 1 ? "s" : ""} (GE, transfer)</div>` : ""}
+        <div class="sem-f"><span class="mono">${di.units}</span> units</div></div>`);
+    }
+    const lo = pol("minUnitsFullTime"), hi = pol("heavyLoadUnits"), max = pol("maxUnitsWithoutPermission");
+    const chipText = { under: `Below ${lo}`, heavy: `Heavy`, over: `Over ${max}`, ok: "OK", empty: "" };
+    R.plan.semesters.forEach((s, i) => {
+      const stat = R.report.semesterStats[i];
+      const target = state.sel && R.pos.get(state.sel) !== s.index && !(di.done.has(state.sel) && !R.pos.has(state.sel));
+      const verb = R.pos.has(state.sel) ? "Move" : "Add";
+      cols.push(`<div class="sem s-${stat.status}${target ? " target" : ""}" data-sem="${s.index}">
+        <div class="sem-h"><span class="eyebrow">Year ${Math.floor(i / 2) + 1}</span><div class="r"><b>${esc(s.label)}</b>${stat.status !== "empty" ? `<span class="stchip ${stat.status}">${chipText[stat.status]}</span>` : ""}</div>
+          <div class="r"><span class="u">${stat.units} units</span>${stat.status === "heavy" ? `<span class="small">over ${hi}</span>` : ""}</div></div>
+        ${s.courseIds.map(c => cardHtml(c, { movable: true })).join("")}
+        ${target ? `<button type="button" class="drop" data-move="${esc(state.sel)}" data-to="${s.index}">${verb} ${esc(state.sel)} here</button>` : ""}
+      </div>`);
+    });
+    board.innerHTML = `<svg class="edges under" id="edges-under" aria-hidden="true"></svg><svg class="edges over" id="edges-over" aria-hidden="true"></svg>` + cols.join("");
+    requestAnimationFrame(drawEdges);
+    renderMenu();
+  }
+
+  // "Move to…" popover, outside the scrolling board so it is never clipped
+  function renderMenu() {
+    const m = document.getElementById("menu");
+    const id = state.menu;
+    const card = id && document.querySelector(`#board [data-card="${CSS.escape(id)}"]`);
+    if (!card) { m.hidden = true; m.innerHTML = ""; return; }
+    const cur = R.pos.get(id);
+    m.innerHTML = `<div class="mh">Move ${esc(id)} to</div>` +
+      R.plan.semesters.map(s => `<button type="button" role="menuitem" data-move="${esc(id)}" data-to="${s.index}"${s.index === cur ? " disabled" : ""}><span>${esc(s.label)}${s.index === cur ? " (now)" : ""}</span><span class="mono small">${R.report.semesterStats[s.index - 1].units}u</span></button>`).join("") +
+      `<button type="button" role="menuitem" class="rm" data-remove="${esc(id)}"><span>Remove from plan</span></button>`;
+    m.hidden = false;
+    clearTimeout(hoverTimer);
+    hideHover();
+    const r = card.getBoundingClientRect();
+    m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.left)) + "px";
+    m.style.top = (r.bottom + 4 + m.offsetHeight < window.innerHeight ? r.bottom + 4 : Math.max(8, r.top - m.offsetHeight - 4)) + "px";
+    const first = m.querySelector("button:not([disabled])");
+    if (first && document.activeElement && document.activeElement.dataset && document.activeElement.dataset.menu === id) first.focus();
+  }
+
+  // edges among cards on the board; broken ones come from the engine's PREREQ_ORDER / COREQ_ORDER issues
+  function boardEdges() {
+    const ids = [...document.querySelectorAll("#board [data-card]")].map(e => e.dataset.card);
+    const on = new Set(ids);
+    const edges = new Map();
+    ids.forEach(c => {
+      const course = C(c);
+      if (!course) return;
+      edgeLeaves(course.prereq).forEach(l => {
+        if (!on.has(l.code) || l.code === c) return;
+        if (l.kind === "coreq" && edges.has(c + ">" + l.code)) return;
+        edges.set(l.code + ">" + c, { from: l.code, to: c, kind: l.kind, broken: false });
+      });
+    });
+    R.report.issues.filter(i => i.code === "PREREQ_ORDER" || i.code === "COREQ_ORDER").forEach(i => {
+      const c = i.courseIds[0];
+      i.courseIds.slice(1).forEach(p => {
+        if (!on.has(p) || !on.has(c)) return;
+        const k = edges.has(p + ">" + c) ? p + ">" + c : edges.has(c + ">" + p) ? c + ">" + p : p + ">" + c;
+        const e = edges.get(k) || { from: p, to: c, kind: i.code === "COREQ_ORDER" ? "coreq" : "req" };
+        e.broken = true;
+        edges.set(k, e);
+      });
+    });
+    return [...edges.values()];
+  }
+
+  function chainOf(id, edges) {
+    if (!id) return null;
+    const up = new Map(), down = new Map();
+    edges.forEach(e => { (up.get(e.to) || up.set(e.to, []).get(e.to)).push(e.from); (down.get(e.from) || down.set(e.from, []).get(e.from)).push(e.to); });
+    const seen = new Set([id]);
+    const walk = (m, s) => { (m.get(s) || []).forEach(n => { if (!seen.has(n)) { seen.add(n); walk(m, n); } }); };
+    walk(up, id); walk(down, id);
+    return seen;
+  }
+
+  function drawEdges() {
+    const board = document.getElementById("board");
+    const under = document.getElementById("edges-under"), over = document.getElementById("edges-over");
+    if (!board || !under) return;
+    const edges = boardEdges();
+    const chain = state.sel && document.querySelector(`#board [data-card="${CSS.escape(state.sel)}"]`) ? chainOf(state.sel, edges) : null;
+    if (chain && !R.chain) { R.chain = chain; renderBoard(); return; }  // re-render once to dim cards outside the chain
+    const br = board.getBoundingClientRect();
+    const box = el => { const r = el.getBoundingClientRect(); return { l: r.left - br.left + board.scrollLeft, r: r.right - br.left + board.scrollLeft, t: r.top - br.top + board.scrollTop, b: r.bottom - br.top + board.scrollTop }; };
+    const W = board.scrollWidth, H = board.scrollHeight;
+    [under, over].forEach(s => { s.setAttribute("width", W); s.setAttribute("height", H); s.setAttribute("viewBox", `0 0 ${W} ${H}`); });
+    const defs = `<defs>${[["a-edge", "var(--edge)"], ["a-bad", "var(--bad)"], ["a-chain", "var(--accent)"], ["a-coreq", "var(--coreq)"]].map(([id, col]) =>
+      `<marker id="${id}" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="${col}"/></marker>`).join("")}</defs>`;
+    let u = defs, o = defs;
+    edges.forEach(e => {
+      const a = document.querySelector(`#board [data-card="${CSS.escape(e.from)}"]`), z = document.querySelector(`#board [data-card="${CSS.escape(e.to)}"]`);
+      if (!a || !z) return;
+      const A = box(a), Z = box(z);
+      const ya = (A.t + A.b) / 2, yz = (Z.t + Z.b) / 2;
+      let pts;
+      if (A.r <= Z.l + 1) { const dx = Math.max(24, (Z.l - A.r) / 2); pts = [[A.r, ya], [A.r + dx, ya], [Z.l - dx, yz], [Z.l, yz]]; }
+      else if (Math.abs(A.l - Z.l) < 8) { pts = [[A.r, ya], [A.r + 34, ya], [Z.r + 34, yz], [Z.r, yz]]; }
+      else { const dx = Math.max(30, (A.l - Z.r) / 2); pts = [[A.l, ya], [A.l - dx, ya], [Z.r + dx, yz], [Z.r, yz]]; }
+      const d = `M${pts[0]} C${pts[1]} ${pts[2]} ${pts[3]}`;
+      const inChain = chain && chain.has(e.from) && chain.has(e.to);
+      if (e.broken) {
+        const mx = (pts[0][0] + 3 * pts[1][0] + 3 * pts[2][0] + pts[3][0]) / 8, my = (pts[0][1] + 3 * pts[1][1] + 3 * pts[2][1] + pts[3][1]) / 8;
+        o += `<path class="e broken" d="${d}" marker-end="url(#a-bad)"/><g class="ewarn"><circle cx="${mx}" cy="${my}" r="8"/><text x="${mx}" y="${my + 4}" text-anchor="middle">!</text></g>`;
+      } else if (inChain) {
+        o += `<path class="e chain${e.kind === "or" ? " or" : ""}" d="${d}" marker-end="url(#a-chain)"/>`;
+      } else if (state.showAll || e.kind === "coreq") {
+        u += `<path class="e ${e.kind}${chain ? " faint" : ""}" d="${d}" marker-end="url(#${e.kind === "coreq" ? "a-coreq" : "a-edge"})"/>`;
+      }
+    });
+    under.innerHTML = u;
+    over.innerHTML = o;
+  }
+
+  // ------------------------------------------------------------------ render: inspector
+  function renderInspector() {
+    const el = document.getElementById("inspector");
+    const id = state.sel;
+    if (!id || !C(id)) { el.hidden = true; el.innerHTML = ""; return; }
+    const c = C(id);
+    const where = R.pos.has(id) ? `Planned for ${semLabel(R.pos.get(id))}` : R.doneInfo.inProgress.has(id) ? "In progress" : R.doneInfo.done.has(id) ? "Done" : "Not in this plan";
+    const unlocks = CAT.filter(x => (groupOf[x.id] || DAG.nodes[x.id]) && edgeLeaves(x.prereq).some(l => l.code === id)).map(x => x.id);
+    const issues = (R.byCourse[id] || []).filter(i => i.severity !== "info" || i.code === "TERM_NOT_OFFERED");
+    const off = state.offerings[id];
+    const offVal = !off ? "both" : off[0];
+    el.innerHTML = `<div class="row"><h3><span class="mono">${esc(id)}</span> ${esc(c.name)}</h3><span class="small">${unitsOf(id)} units · ${esc(where)} · ${esc(groupOf[id] ? groupOf[id].title : DAG.nodes[id] ? "Prerequisite course" : "")}</span>${c.isPlaceholder ? "" : '<span class="unv">Unverified</span>'}</div>
+      ${c.oneLiner ? `<div>${esc(c.oneLiner)}</div>` : ""}
+      <div class="row"><span><span class="eyebrow">Needs</span> ${esc(readable(c.prereq))}</span>${(c.conditions || []).length ? `<span><span class="eyebrow">Also</span> ${esc(c.conditions.join("; "))}</span>` : ""}<span><span class="eyebrow">Unlocks</span> ${unlocks.length ? unlocks.map(cbtn).join(", ") : "nothing else in this program"}</span></div>
+      ${c.prereqNotes ? `<p class="quote">Bulletin: ${esc(c.prereqNotes)}</p>` : ""}
+      ${issues.length ? `<div class="row">${issues.map(i => `<span class="${i.severity === "error" ? "ghost" : "badge"}">${esc(i.message)}</span>`).join("")}</div>` : ""}
+      <div class="acts">
+        ${R.doneInfo.done.has(id) && !R.pos.has(id) ? "" : `<span class="small">${R.pos.has(id) ? "Click a semester to move it, or" : "Click a semester to add it."}</span>`}
+        ${R.pos.has(id) ? `<button type="button" class="btn" data-remove="${esc(id)}">Remove from plan</button>` : ""}
+        ${c.isPlaceholder ? "" : `<label class="small">Offered <select data-offer="${esc(id)}"><option value="both"${offVal === "both" ? " selected" : ""}>Fall and spring</option><option value="Fall"${offVal === "Fall" ? " selected" : ""}>Fall only</option><option value="Spring"${offVal === "Spring" ? " selected" : ""}>Spring only</option></select></label>`}
+        ${c.sourceUrl ? `<a href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">View in Bulletin</a>` : ""}
+        <button type="button" class="btn plain" data-act="unselect">Close</button>
+      </div>`;
+    el.hidden = false;
+  }
+
+  // ------------------------------------------------------------------ hover card
+  let hoverTimer = null, hideTimer = null;
+  function showHover(card) {
+    const id = card.dataset.card, c = C(id);
+    if (!c || state.menu || !card.isConnected) return;
+    const h = document.getElementById("hover");
+    h.innerHTML = `<h4><span class="mono">${esc(id)}</span> · ${esc(c.name)}</h4>
+      ${c.oneLiner ? `<div>${esc(c.oneLiner)}</div>` : ""}
+      <div><b class="mono">${unitsOf(id)}</b> units${c.isPlaceholder ? " · placeholder" : ' · <span class="unv">Unverified</span>'}</div>
+      <div><span class="eyebrow">Prerequisites</span><br>${esc(readable(c.prereq))}</div>
+      ${c.sourceUrl ? `<a href="${esc(c.sourceUrl)}" target="_blank" rel="noopener">View in Bulletin</a>` : ""}`;
+    h.hidden = false;
+    const r = card.getBoundingClientRect();
+    const left = r.right + 300 < window.innerWidth ? r.right + 8 : Math.max(8, r.left - 298);
+    h.style.left = left + "px";
+    h.style.top = Math.max(8, Math.min(window.innerHeight - h.offsetHeight - 8, r.top)) + "px";
+  }
+  const hideHover = () => { const h = document.getElementById("hover"); h.hidden = true; };
+
+  // ------------------------------------------------------------------ transcript table
   function checkRow(row) {
-    const cat = CATALOG[row.code];
-    const node = NODES[row.code];
+    const cat = CATALOG[row.code], node = DAG.nodes[row.code];
     if (!cat) return { cls: "warn", text: "Not in SF State catalog: counts as transfer units" };
     if (row.grade === "IP") return { cls: "ip", text: "In progress" };
     if (row.confidence != null && row.confidence < 0.8) return { cls: "warn", text: "Low confidence: confirm the grade" };
     if (node && !P.passes(row.grade, node.min_grade)) return { cls: "crit", text: "Below " + (node.min_grade || "passing") + ": retake needed" };
-    if (String(cat[1]) !== String(row.units) && !/-/.test(cat[1])) return { cls: "warn", text: "Units differ from catalog (" + cat[1] + ")" };
     return { cls: "ok", text: "Matches catalog" };
   }
-  function profile() {
-    const rows = state.transcript.courses;
-    const earned = rows.filter(r => r.include !== false && r.grade !== "IP" && P.passes(r.grade, null)).reduce((s, r) => s + Number(r.units || 0), 0);
-    const graded = rows.filter(r => r.include !== false && r.grade in P.GRADE_POINTS);
-    const gpaUnits = graded.reduce((s, r) => s + Number(r.units), 0);
-    const gpa = gpaUnits ? graded.reduce((s, r) => s + P.GRADE_POINTS[r.grade] * r.units, 0) / gpaUnits : null;
-    return { courses: rows, placement: state.transcript.placement || {}, unitsEarned: earned, gpa };
-  }
-
-  // ---------------------------------------------------------------- compute
-  let R = null;
-  function compute() {
-    const prof = profile();
-    if (!state.electives) state.electives = P.pickElectives(DAG, prof, state.track);
-    else state.electives = P.pickElectives(DAG, prof, state.track, state.electives);
-    const cur = state.transcript.current_term || { season: "Fall", year: 2026 };
-    const opts = { start: nextTerm(cur), maxUnits: state.maxUnits, electives: state.electives, offerings: state.offerings };
-    const res = P.bottlenecks(DAG, prof, opts);
-    const critical = new Set(res.flags.map(f => f.code));
-    // edges along each flagged chain, for the map
-    const critEdges = new Set();
-    res.flags.forEach(f => f.chain.forEach((c, i) => { if (i) critEdges.add(f.chain[i - 1] + ">" + c); }));
-    R = Object.assign({ prof, opts, cur, critical, critEdges }, res);
-  }
-
-  function statusOf(code) {
-    const b = R.base;
-    if (b.passed.has(code)) return { status: "done", label: "Done" };
-    if (b.inProgress.has(code)) return { status: "ip", label: "In progress" };
-    if (code in b.placedTerm) return { status: "planned", label: b.terms[b.placedTerm[code]].term.label, t: b.placedTerm[code] };
-    if (b.unscheduled.includes(code)) return { status: "blocked", label: "Can't schedule" };
-    return { status: "none", label: "Not planned" };
-  }
-
-  // ---------------------------------------------------------------- render: header + summary
-  function renderHeader() {
-    const p = R.prof;
-    const U = DAG.university;
-    const standing = p.unitsEarned >= U.senior_standing_units ? "Senior" : p.unitsEarned >= U.upper_division_standing_units ? "Junior"
-      : p.unitsEarned >= U.sophomore_standing_units ? "Sophomore" : "Freshman";
-    document.getElementById("student-name").textContent = state.transcript.student || "Student";
-    document.getElementById("student-sub").innerHTML =
-      `${standing} · <span class="mono">${p.unitsEarned}</span> units earned · GPA <span class="mono">${p.gpa != null ? p.gpa.toFixed(2) : "–"}</span><br>Currently enrolled: ${esc(R.cur.season + " " + R.cur.year)}`;
-    const seg = document.getElementById("track-seg");
-    seg.innerHTML = Object.entries(DAG.tracks).map(([k, t]) =>
-      `<button type="button" data-track="${k}" aria-pressed="${k === state.track}">${esc(t.label)}</button>`).join("");
-  }
-
-  function meter(el, parts, total) {
-    el.innerHTML = parts.map(([cls, v]) => `<i class="${cls}" style="width:${Math.max(0, Math.min(100, v / total * 100))}%"></i>`).join("");
-  }
-
-  function renderSummary() {
-    const b = R.base;
-    const grad = b.gradTerm ? b.gradTerm.label : "Not reachable";
-    document.getElementById("s-grad").textContent = grad;
-    document.getElementById("s-grad-sub").textContent = b.gradTerm
-      ? `${b.terms.length} more semester${b.terms.length === 1 ? "" : "s"} after ${R.cur.season} ${R.cur.year}, at up to ${state.maxUnits} units`
-      : `${b.unscheduled.length} course(s) can't be scheduled`;
-    const ipUnits = b.startUnits - R.prof.unitsEarned;
-    const planned = b.finalUnits - b.startUnits;
-    document.getElementById("s-units").textContent = `${b.startUnits} → ${Math.min(b.finalUnits, 999)}`;
-    meter(document.getElementById("s-units-meter"), [["m-done", R.prof.unitsEarned], ["m-ip", ipUnits], ["m-plan", planned]], Math.max(120, b.finalUnits));
-    let majDone = 0, majIp = 0, majPlan = 0;
-    DAG.requirements.forEach(r => {
-      const list = r.type === "all" ? r.courses : r.courses.filter(c => b.passed.has(c) || b.inProgress.has(c) || state.electives.includes(c));
-      list.forEach(c => {
-        const u = NODES[c].units;
-        if (b.passed.has(c)) majDone += u; else if (b.inProgress.has(c)) majIp += u; else if (c in b.placedTerm) majPlan += u;
-      });
-    });
-    const majTotal = DAG.program.major_units;
-    document.getElementById("s-major").textContent = `${majDone + majIp} / ${majTotal}`;
-    meter(document.getElementById("s-major-meter"), [["m-done", majDone], ["m-ip", majIp], ["m-plan", majPlan]], majTotal);
-    document.getElementById("s-major-sub").textContent = `${majDone} done · ${majIp} in progress · ${majPlan} planned`;
-    document.getElementById("s-crit").textContent = R.flags.length;
-    document.getElementById("s-crit-sub").textContent = R.flags.length
-      ? "Missing any of them pushes graduation back" : "Every remaining course has slack";
-  }
-
-  // ---------------------------------------------------------------- render: alerts
-  const cbtn = c => `<button type="button" class="linkish" data-course="${esc(c)}">${esc(c)}</button>`;
-  function renderAlerts() {
-    const b = R.base, out = [];
-    R.flags.forEach(f => {
-      const sem = f.delay === 1 ? "1 semester" : f.delay + " semesters";
-      const chain = f.chain.length > 1 ? ` It unlocks <span class="chain">${f.chain.slice(1).map(cbtn).join(" → ")}</span>.` : "";
-      out.push(["crit", "Bottleneck", `${cbtn(f.code)} is on the critical path. If you don't take it in ${esc(f.term.label)}, graduation slips from ${esc(b.gradTerm.label)} to ${esc(f.altGrad ? f.altGrad.label : "later")} (+${sem}).${chain}`]);
-    });
-    b.retake.forEach(r => out.push(["warn", "Retake", `${cbtn(r.code)} needs ${esc(r.min || "a passing grade")} or better for the major; the transcript shows ${esc(r.grade)}. It's back in the plan${r.code in b.placedTerm ? " for " + esc(b.terms[b.placedTerm[r.code]].term.label) : ""}.`]));
-    b.ipWarnings.forEach(w => out.push(["warn", "Check", `${cbtn(w.code)} is in progress, but the transcript doesn't show its prerequisite ${w.missing.map(cbtn).join(", ")} with the required grade.`]));
-    state.transcript.courses.filter(r => r.include !== false && r.confidence != null && r.confidence < 0.8).forEach(r => {
-      const node = NODES[r.code];
-      out.push(["warn", "Confirm", `${cbtn(r.code)} was read as <b>${esc(r.grade)}</b> with ${Math.round(r.confidence * 100)}% confidence.${node && node.min_grade ? ` Anything below ${esc(node.min_grade)} means a retake.` : ""} Check it in the transcript table below.`]);
-    });
-    const gpa = R.prof.gpa;
-    const gated = Object.keys(b.placedTerm).filter(c => NODES[c].conditions.some(x => GPA_RE.test(x)));
-    if (gpa != null && gpa < 3 && gated.length) {
-      out.push(["warn", "GPA", `Your GPA is ${gpa.toFixed(2)}. ${gated.map(cbtn).join(", ")} require a 3.0 GPA or the instructor's permission.`]);
-    }
-    const limited = Object.entries(state.offerings).filter(([, v]) => v && v.length === 1);
-    if (limited.length) out.push(["info", "Offerings", `Using your offering settings: ${limited.map(([c, v]) => cbtn(c) + " " + esc(v[0]) + " only").join(", ")}.`]);
-    if (b.unscheduled.length) out.push(["crit", "Blocked", `Can't fit ${b.unscheduled.map(cbtn).join(", ")} in the plan. Check prerequisites and offerings.`]);
-    document.getElementById("alerts").innerHTML = out.map(([cls, k, html]) =>
-      `<div class="alert ${cls}"><span class="k">${k}</span><p>${html}</p></div>`).join("");
-  }
-
-  // ---------------------------------------------------------------- render: roadmap
-  function courseCard(c, opts) {
-    const node = NODES[c];
-    const r = reqOf[c];
-    const isElective = state.electives.includes(c);
-    const tags = [];
-    if (r) tags.push(`<span class="tag ${isElective ? "track" : ""}">${esc(isElective ? "Elective · " + (DAG.tracks[state.track].courses.includes(c) ? DAG.tracks[state.track].label : (trackOf(c)[0] ? DAG.tracks[trackOf(c)[0]].label : "Open")) : REQ_SHORT[r.id] || r.label)}</span>`);
-    else if (node) tags.push(`<span class="tag">Prerequisite</span>`);
-    if (R.critical.has(c)) tags.push(`<span class="tag crit">Critical path</span>`);
-    if (node && node.conditions.some(x => GPA_RE.test(x))) tags.push(`<span class="tag warn">GPA 3.0+</span>`);
-    if (c === DAG.university.gwar_course) tags.push(`<span class="tag">GWAR</span>`);
-    const cls = ["card", R.critical.has(c) ? "critical" : "", opts.ip ? "ipcard" : "", isElective && !opts.ip ? "elective" : ""].join(" ");
-    const units = node ? node.units : (opts.units || (CATALOG[c] && CATALOG[c][1]) || "");
-    let swap = "";
-    if (isElective && !opts.ip) {
-      swap = `<button type="button" class="swapbtn" data-swap="${esc(c)}" aria-expanded="${state.openSwap === c}">Swap elective</button>`;
-      if (state.openSwap === c) swap += swapMenu(c);
-    }
-    return `<div class="${cls}"><button type="button" class="linkish" data-course="${esc(c)}" style="all:unset;cursor:pointer;display:grid;gap:3px">
-      <span class="row1"><span class="code">${esc(c)}</span><span class="units">${esc(units)} u</span></span>
-      <span class="title">${esc(titleOf(c))}</span></button>
-      ${tags.length ? `<div class="tags">${tags.join("")}</div>` : ""}${swap}</div>`;
-  }
-
-  function swapMenu(current) {
-    const b = R.base;
-    const pool = P.electivePool(DAG);
-    const order = [...DAG.tracks[state.track].courses, ...Object.values(DAG.tracks).flatMap(t => t.courses), ...pool];
-    const seen = new Set();
-    const neededSansCurrent = new Set(b.needed.filter(c => c !== current));
-    const items = [];
-    for (const c of order) {
-      if (seen.has(c) || !pool.includes(c) || c === current || state.electives.includes(c) || b.have.has(c)) continue;
-      seen.add(c);
-      const extra = P.extraUnitsFor(DAG, c, b.have, neededSansCurrent, R.prof.placement);
-      const notes = [];
-      if (extra) notes.push(`+${extra} units of prerequisites`);
-      const prereqCodes = P.leaves(NODES[c].prereq).map(l => l.code).filter(x => NODES[x] && !b.have.has(x));
-      if (prereqCodes.length) notes.push("after " + [...new Set(prereqCodes)].slice(0, 3).join(", "));
-      if (NODES[c].conditions.some(x => GPA_RE.test(x))) notes.push("GPA 3.0+");
-      const tr = trackOf(c).map(k => DAG.tracks[k].label)[0] || "Open elective";
-      items.push(`<button type="button" data-pick="${esc(c)}" data-for="${esc(current)}"><span class="m1"><span class="mono">${esc(c)}</span><span class="small" style="margin:0">${esc(tr)}</span></span><span>${esc(NODES[c].title)}</span><span class="m2">${esc(notes.join(" · ") || "No extra prerequisites")}</span></button>`);
-      if (items.length >= 8) break;
-    }
-    return `<div class="menu" role="menu"><div class="mh">Replace ${esc(current)} with</div>${items.join("")}</div>`;
-  }
-
-  function renderRoadmap() {
-    const b = R.base;
-    const cols = [];
-    const ipRows = state.transcript.courses.filter(r => r.grade === "IP" && r.include !== false);
-    const ipUnits = ipRows.reduce((s, r) => s + Number(r.units || 0), 0);
-    cols.push(`<div class="term"><div class="term-h"><b>${esc(R.cur.season + " " + R.cur.year)}</b><span class="pill ip">In progress</span></div>
-      ${ipRows.map(r => courseCard(r.code, { ip: true, units: r.units })).join("")}
-      <div class="small" style="text-align:right"><span class="mono">${ipUnits}</span> units</div></div>`);
-    b.terms.forEach((t, i) => {
-      const last = i === b.terms.length - 1;
-      const cards = t.courses.map(c => courseCard(c, {})).join("");
-      const ge = t.generalUnits ? `<div class="card ge"><span class="row1"><span class="code">GE / free elective</span><span class="units">${t.generalUnits} u</span></span><span class="title">Open units toward 120</span></div>` : "";
-      cols.push(`<div class="term"><div class="term-h"><b>${esc(t.term.label)}</b>${last ? '<span class="pill grad">Graduate</span>' : `<span class="u mono">${t.totalUnits} u</span>`}</div>
-        ${cards}${ge}${last ? `<div class="small" style="text-align:right"><span class="mono">${t.totalUnits}</span> units</div>` : ""}</div>`);
-    });
-    document.getElementById("roadmap").innerHTML = cols.join("");
-  }
-
-  // ---------------------------------------------------------------- render: requirements rail
-  const ICONS = {
-    done: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="var(--done)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" fill="none" stroke="var(--card)" stroke-width="1.8"/></svg>',
-    ip: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.6" fill="none" stroke="var(--ip)" stroke-width="1.8"/><path d="M8 1.4a6.6 6.6 0 0 1 0 13.2z" fill="var(--ip)"/></svg>',
-    planned: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.6" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="2.6 2"/></svg>',
-    warn: '<svg class="ic" viewBox="0 0 16 16"><path d="M8 1.2l7.2 13.3H.8z" fill="var(--warn)"/><path d="M8 6v4M8 11.6v1" stroke="var(--card)" stroke-width="1.6"/></svg>',
-    crit: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="var(--crit)"/><path d="M5.2 5.2l5.6 5.6M10.8 5.2l-5.6 5.6" stroke="var(--card)" stroke-width="1.8"/></svg>',
-    info: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="var(--muted)"/><path d="M8 7v5M8 4.2v1" stroke="var(--card)" stroke-width="1.7"/></svg>',
-  };
-  function reqRow(icon, name, st) {
-    return `<div class="ri">${ICONS[icon]}<span class="nm">${name}</span><span class="st">${esc(st)}</span></div>`;
-  }
-  function renderReqs() {
-    const b = R.base;
-    const html = [];
-    DAG.requirements.forEach(r => {
-      let list = r.courses;
-      if (r.type === "choose_units") list = [...r.courses.filter(c => b.passed.has(c) || b.inProgress.has(c)), ...state.electives.filter(c => !b.passed.has(c) && !b.inProgress.has(c))];
-      const rows = list.map(c => {
-        const s = statusOf(c);
-        const retake = b.retake.some(x => x.code === c);
-        const icon = s.status === "done" ? "done" : s.status === "ip" ? "ip" : s.status === "planned" ? (retake ? "warn" : "planned") : "crit";
-        const lbl = retake ? "Retake · " + s.label : s.label;
-        return reqRow(icon, `${cbtn(c)} <span style="color:var(--muted)">${esc(NODES[c].title)}</span>`, lbl);
-      });
-      if (r.type === "choose_units") {
-        const chk = P.electiveRuleCheck(DAG, list);
-        rows.push(reqRow(chk.ok ? "planned" : "warn", `${chk.units} of ${chk.minUnits} units, ${chk.cscUnits} in CSC (12 required)`, chk.ok ? "Rule met" : "Short"));
-      }
-      html.push(`<div class="req"><div class="req-h"><span class="eyebrow">${esc(r.label)}</span><span class="u">${r.units} units</span></div>${rows.join("")}</div>`);
-    });
-    // university-level requirements
-    const gpa = R.prof.gpa;
-    const gw = statusOf(DAG.university.gwar_course);
-    let udUnits = 0;
-    state.transcript.courses.forEach(r => { const n = parseInt((r.code.match(/\d+/) || ["0"])[0], 10); if (r.include !== false && n >= 300 && n < 700 && (r.grade === "IP" || P.passes(r.grade, null))) udUnits += Number(r.units || 0); });
-    Object.keys(b.placedTerm).forEach(c => { const n = parseInt(c.match(/\d+/)[0], 10); if (n >= 300 && n < 700) udUnits += NODES[c].units; });
-    const uni = [
-      reqRow(b.finalUnits >= DAG.university.min_units ? (b.startUnits >= DAG.university.min_units ? "done" : "planned") : "warn", `At least ${DAG.university.min_units} units`, `${b.finalUnits} planned`),
-      reqRow(gpa == null ? "info" : gpa >= 2 ? "done" : "crit", "GPA of 2.0 or better (overall, SF State, major)", gpa == null ? "–" : gpa.toFixed(2)),
-      reqRow(gw.status === "done" ? "done" : gw.status === "ip" ? "ip" : gw.status === "planned" ? "planned" : "crit", `Writing requirement (GWAR): ${cbtn(DAG.university.gwar_course)}, C- or better`, gw.label),
-      reqRow(udUnits >= DAG.university.upper_division_units_required ? "planned" : "warn", `At least ${DAG.university.upper_division_units_required} upper-division units`, `${udUnits} planned`),
-      reqRow("info", "30 units in residence at SF State, incl. 24 upper-division", "Not tracked"),
-      reqRow("info", "General Education, SF State Studies, American Institutions", "Not tracked"),
-    ];
-    html.push(`<div class="req"><div class="req-h"><span class="eyebrow">University requirements</span><span class="u">120 units</span></div>${uni.join("")}</div>`);
-    document.getElementById("reqs").innerHTML = html.join("");
-  }
-
-  // ---------------------------------------------------------------- render: transcript table
   function renderTranscript() {
     const rows = state.transcript.courses;
+    const panel = document.getElementById("transcript-panel");
+    panel.hidden = !rows.length;
+    if (!rows.length) return;
     const checks = rows.map(checkRow);
-    const issues = checks.filter(c => c.cls === "warn" || c.cls === "crit").length;
-    document.getElementById("tx-sub").textContent = `${rows.length} courses · ${issues} to review · ${esc(state.transcript.source || "")}`;
+    document.getElementById("tx-sub").textContent = `${rows.length} courses · ${checks.filter(c => c.cls === "warn" || c.cls === "crit").length} to review · ${state.transcript.source || ""}`;
     document.getElementById("tx-table").innerHTML = `<thead><tr><th>Use</th><th>Course</th><th>Title</th><th>Term</th><th>Units</th><th>Grade</th><th>Confidence</th><th>Check</th></tr></thead><tbody>` +
-      rows.map((r, i) => {
-        const ck = checks[i];
-        const conf = r.confidence != null ? Math.round(r.confidence * 100) + "%" : "–";
-        const opts = GRADES.map(g => `<option${g === r.grade ? " selected" : ""}>${g}</option>`).join("");
-        return `<tr><td><input type="checkbox" id="use-${i}" data-use="${i}"${r.include === false ? "" : " checked"} aria-label="Use ${esc(r.code)}"></td>
-          <td class="mono">${NODES[r.code] ? cbtn(r.code) : esc(r.code)}</td><td class="t">${esc(CATALOG[r.code] ? CATALOG[r.code][0] : "Transfer course")}</td>
-          <td>${esc(r.term || "")}</td><td class="mono">${esc(r.units)}</td>
-          <td><select id="grade-${i}" data-grade="${i}" aria-label="Grade for ${esc(r.code)}">${opts}</select></td>
-          <td class="conf${r.confidence != null && r.confidence < 0.8 ? " low" : ""}">${conf}</td>
-          <td><span class="chip ${ck.cls}">${esc(ck.text)}</span></td></tr>`;
-      }).join("") + "</tbody>";
+      rows.map((r, i) => `<tr><td><input type="checkbox" data-use="${i}"${r.include === false ? "" : " checked"} aria-label="Use ${esc(r.code)}"></td>
+        <td class="mono">${esc(r.code)}</td><td class="t">${esc(CATALOG[r.code] ? CATALOG[r.code][0] : "Transfer course")}</td><td>${esc(r.term || "")}</td><td class="mono">${esc(r.units)}</td>
+        <td><select data-grade="${i}" aria-label="Grade for ${esc(r.code)}">${GRADES.map(g => `<option${g === r.grade ? " selected" : ""}>${g}</option>`).join("")}</select></td>
+        <td class="conf${r.confidence != null && r.confidence < 0.8 ? " low" : ""}">${r.confidence != null ? Math.round(r.confidence * 100) + "%" : "–"}</td>
+        <td><span class="chip ${checks[i].cls}">${esc(checks[i].text)}</span></td></tr>`).join("") + "</tbody>";
   }
 
-  // ---------------------------------------------------------------- render: prerequisite map
-  function renderMap() {
-    const b = R.base;
-    const show = new Set([...b.needed, ...[...b.passed].filter(c => NODES[c]), ...[...b.inProgress].filter(c => NODES[c])]);
-    // keep only nodes that are part of the degree: targets, needed, or prerequisites of shown courses
-    const cols = [{ key: "done", label: "COMPLETED" }, { key: "ip", label: (R.cur.season + " " + R.cur.year).toUpperCase() }]
-      .concat(b.terms.map((t, i) => ({ key: "t" + i, label: t.term.label.toUpperCase() })));
-    const colOf = c => b.passed.has(c) ? 0 : b.inProgress.has(c) ? 1 : (c in b.placedTerm ? 2 + b.placedTerm[c] : null);
-    const byCol = cols.map(() => []);
-    show.forEach(c => { const k = colOf(c); if (k != null) byCol[k].push(c); });
-    // order within a column by the mean row of prerequisites (one barycenter pass), then by code
-    const rowOf = {};
-    byCol.forEach((list, k) => {
-      list.sort((a, z) => {
-        const bc = c => { const ps = P.leaves(NODES[c].prereq).map(l => rowOf[l.code]).filter(v => v != null); return ps.length ? ps.reduce((s, v) => s + v, 0) / ps.length : -1; };
-        return bc(a) - bc(z) || (a < z ? -1 : 1);
-      });
-      list.forEach((c, i) => { rowOf[c] = i; });
-    });
-    const CW = 150, NW = 104, NH = 26, RH = 38, TOP = 34, LEFT = 14;
-    const maxRows = Math.max(...byCol.map(l => l.length), 1);
-    const W = LEFT * 2 + cols.length * CW, H = TOP + maxRows * RH + 10;
-    const pos = {};
-    byCol.forEach((list, k) => list.forEach((c, i) => { pos[c] = { x: LEFT + k * CW, y: TOP + i * RH }; }));
-    const edges = [];
-    show.forEach(c => {
-      if (!pos[c]) return;
-      const expr = NODES[c].prereq;
-      const walk = (e, inOr) => {
-        if (!e) return;
-        if (typeof e === "string") return add(e, inOr, false);
-        if (e.and) return e.and.forEach(x => walk(x, inOr));
-        if (e.or) return e.or.forEach(x => walk(x, true));
-        if (e.course) return add(e.course, inOr, !!e.concurrent);
-        if (e.coreq) return add(e.coreq, inOr, true);
-      };
-      const add = (p, inOr, soft) => {
-        if (!pos[p] || p === c) return;
-        const a = pos[p], z = pos[c];
-        const x1 = a.x + NW, y1 = a.y + NH / 2, x2 = z.x, y2 = z.y + NH / 2;
-        const same = a.x === z.x;
-        const d = same ? `M${a.x + NW / 2},${a.y + NH} C${a.x + NW / 2 + 30},${(a.y + z.y) / 2 + NH / 2} ${z.x + NW / 2 + 30},${(a.y + z.y) / 2 + NH / 2} ${z.x + NW / 2},${z.y}`
-          : `M${x1},${y1} C${x1 + 30},${y1} ${x2 - 30},${y2} ${x2},${y2}`;
-        const crit = R.critEdges.has(p + ">" + c);
-        edges.push(`<path class="edge${inOr ? " or" : ""}${soft ? " soft" : ""}${crit ? " crit" : ""}" d="${d}"/>`);
-      };
-      walk(expr, false);
-    });
-    const heads = cols.map((col, k) => `<text class="colh" x="${LEFT + k * CW}" y="16">${esc(col.label)}</text>`).join("");
-    const nodes = [...show].filter(c => pos[c]).map(c => {
-      const s = statusOf(c);
-      const cls = ["node", s.status === "done" ? "done" : s.status === "ip" ? "ip" : "", R.critical.has(c) ? "crit" : ""].join(" ");
-      return `<g class="${cls}" data-course="${esc(c)}" tabindex="0" role="button" aria-label="${esc(c)}"><rect x="${pos[c].x}" y="${pos[c].y}" width="${NW}" height="${NH}" rx="6"/><text x="${pos[c].x + 9}" y="${pos[c].y + 17}">${esc(c)}</text></g>`;
-    }).join("");
-    const svg = document.getElementById("map");
-    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
-    svg.setAttribute("width", W);
-    svg.setAttribute("height", H);
-    svg.innerHTML = heads + edges.join("") + nodes;
-  }
-
-  // ---------------------------------------------------------------- drawer
-  function tree(t) {
-    if (!t) return '<span class="small">No course prerequisites</span>';
-    if (t.type === "and" || t.type === "or") {
-      return `<span class="op">${t.type === "and" ? "ALL OF" : "ONE OF"}</span><ul class="tree">${t.items.map(i => `<li>${tree(i)}</li>`).join("")}</ul>`;
-    }
-    if (t.type === "placement") return `${ICONS[t.status === "done" ? "done" : "info"].replace('class="ic"', 'class="ic" style="display:inline-block;vertical-align:-3px"')} Math placement into calculus`;
-    const icon = { done: "done", ip: "ip", planned: "planned", blocked: "crit", none: "info", external: "info" }[t.status] || "info";
-    const extra = t.concurrent ? " (can be taken the same term)" : t.coreq ? " (take in the same term)" : "";
-    return `${ICONS[icon].replace('class="ic"', 'class="ic" style="display:inline-block;vertical-align:-3px"')} ${NODES[t.code] ? cbtn(t.code) : `<span class="mono">${esc(t.code)}</span>`} <span class="small">${esc(t.label)}${esc(extra)}</span>`;
-  }
-  function renderDrawer() {
+  // ------------------------------------------------------------------ evaluate drawer
+  function renderEval() {
     const d = document.getElementById("drawer");
-    const c = state.selected;
-    if (!c) { d.hidden = true; return; }
-    const node = NODES[c];
-    if (!node) { d.hidden = true; return; }
-    const s = statusOf(c);
-    const lookup = code => {
-      if (code.startsWith("placement:")) return { status: R.prof.placement[code.slice(10)] ? "done" : "none" };
-      if (!NODES[code]) return { status: "external", label: R.base.passed.has(code) ? "Done" : "Not in this plan" };
-      return statusOf(code);
-    };
-    const tr = P.explain(node.prereq, lookup);
-    const unlocks = Object.values(NODES).filter(n => P.leaves(n.prereq).some(l => l.code === c)).map(n => n.code);
-    const off = state.offerings[c];
-    const offVal = !off ? "both" : off.length === 1 ? off[0] : "both";
-    d.innerHTML = `<button type="button" class="x" data-close="1" aria-label="Close">Close</button>
-      <div class="eyebrow">${esc(reqOf[c] ? reqOf[c].label : "Prerequisite course")} · ${node.units} units</div>
-      <h3><span class="mono">${esc(c)}</span><br>${esc(node.title)}</h3>
-      <div class="small">Status: <b>${esc(s.label)}</b>${R.critical.has(c) ? ' · <span style="color:var(--crit);font-weight:600">Critical path</span>' : ""}</div>
-      <div class="dsec"><div class="eyebrow">Prerequisites</div>${tree(tr)}</div>
-      ${node.min_grade ? `<div class="dsec small">Prerequisites need a grade of ${esc(node.min_grade)} or better.</div>` : ""}
-      ${node.conditions.length ? `<div class="dsec"><div class="eyebrow">Also required</div><div class="tags">${node.conditions.map(x => `<span class="tag ${GPA_RE.test(x) ? "warn" : ""}">${esc(x)}</span>`).join("")}</div></div>` : ""}
-      ${node.bulletin_prerequisite_text ? `<div class="dsec"><div class="eyebrow">Bulletin text</div><p class="quote">${esc(node.bulletin_prerequisite_text)}</p></div>` : ""}
-      <div class="dsec"><div class="eyebrow">Unlocks</div>${unlocks.length ? unlocks.map(cbtn).join(", ") : '<span class="small">Nothing else in this program</span>'}</div>
-      <div class="dsec"><label class="eyebrow" for="offer-select">Offered</label><div style="margin-top:6px"><select id="offer-select" data-offer="${esc(c)}">
-        <option value="both"${offVal === "both" ? " selected" : ""}>Fall and spring</option>
-        <option value="Fall"${offVal === "Fall" ? " selected" : ""}>Fall only</option>
-        <option value="Spring"${offVal === "Spring" ? " selected" : ""}>Spring only</option></select></div>
-        <div class="small">The bulletin doesn't list offering terms. Set this from the class schedule to see how it moves your graduation date.</div></div>
-      <div class="dsec"><a href="${esc(node.url)}" target="_blank" rel="noopener">Open in the bulletin</a></div>`;
+    if (!state.evalOpen) { d.hidden = true; return; }
+    const rep = R.report;
+    const [cls, text] = verdict(rep);
+    const errs = rep.issues.filter(i => i.severity === "error"), warns = rep.issues.filter(i => i.severity === "warning" && i.code !== "REQ_GROUP_INCOMPLETE"), infos = rep.issues.filter(i => i.severity === "info");
+    const missing = rep.requirementStatus.filter(r => !r.satisfied);
+    const li = i => `<li>${esc(i.message)} ${i.courseIds[0] ? cbtn(i.courseIds[0]) : ""}${i.sourceUrl ? ` · <a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener">source</a>` : ""}</li>`;
+    const key = R.tab.id + ":" + JSON.stringify(R.tab.semesters);
+    const ai = state.evalAi[key];
+    let aiHtml;
+    if (!state.server) aiHtml = `<p class="small">The AI explanation needs the server (<span class="mono">npm start</span>). The engine results above don't.</p>`;
+    else if (!ai || ai.loading) aiHtml = `<p class="small">Asking the model…</p>`;
+    else if (ai.error || ai.aiStatus !== "ok") aiHtml = `<p class="small">The model didn't answer (${esc(ai.error || "failed")}). The engine results above still stand.</p>`;
+    else {
+      aiHtml = `<p>${esc(ai.ai.summary)}</p>` + (ai.ai.suggestions.length ? `<div class="dsec-h"><span class="eyebrow">Suggestions (checked by the engine before showing)</span></div>` +
+        ai.ai.suggestions.map((s, k) => `<div class="sug"><div>${s.remove ? `Swap ${cbtn(s.remove)} for ` : "Add "}${cbtn(s.add)} in ${esc(semLabel(s.semester))}</div><div class="small">${esc(s.reason)}</div><button type="button" class="btn" data-apply="${k}">Apply</button></div>`).join("")
+        : `<p class="small">No swaps suggested.</p>`);
+    }
+    const [aiLabel, aiCls] = ai && ai.aiProvider ? providerLabel(ai.aiProvider, "ai") : state.server ? providerLabel(state.server.provider, "ai") : ["AI", "ai"];
+    d.innerHTML = `<button type="button" class="btn x" data-act="close-eval">Close</button>
+      <h2>Evaluate: ${esc(R.tab.name)}</h2>
+      <div class="verdict ${cls}">${esc(text)}</div>
+      <div class="dsec"><div class="dsec-h"><span class="eyebrow">Errors (${errs.length})</span><span class="label engine">Checked by rules engine</span></div>${errs.length ? `<ul class="ilist">${errs.map(li).join("")}</ul>` : '<p class="small">None.</p>'}</div>
+      <div class="dsec"><div class="dsec-h"><span class="eyebrow">Warnings (${warns.length})</span><span class="label engine">Checked by rules engine</span></div>${warns.length ? `<ul class="ilist">${warns.map(li).join("")}</ul>` : '<p class="small">None.</p>'}</div>
+      <div class="dsec"><div class="dsec-h"><span class="eyebrow">Missing requirements (${missing.length})</span><span class="label engine">Checked by rules engine</span></div>${missing.length ? `<ul class="ilist">${missing.map(m => `<li><b>${esc(m.title)}</b>: ${m.missingCourseIds.length ? m.missingCourseIds.map(cbtn).join(", ") : `${m.unitsHave} of ${m.unitsNeed} units`}${(m.subjectShort || []).map(x => `; ${x.have} ${esc(x.subject)} units, needs ${x.min}`).join("")}</li>`).join("")}</ul>` : '<p class="small">All requirement groups are met.</p>'}</div>
+      <div class="dsec"><div class="dsec-h"><span class="eyebrow">Career direction</span><span class="label engine">Scores by rules engine</span></div>
+        <div class="bars">${R.dirs.map((x, i) => `<div class="bar${i === 0 && x.score > 0 ? " top" : ""}"><span>${esc(x.label)}</span><span class="tr"><i style="width:${x.score}%"></i></span><span class="mono">${x.score}</span></div>`).join("")}</div>
+        ${ai && ai.ai ? `<p style="margin-top:8px">${esc(ai.ai.directionExplanation)} <span class="label ${aiCls}">${esc(aiLabel)}</span></p>` : ""}
+        <p class="small">Directions are project-defined groupings of electives, not SF State tracks.</p></div>
+      <div class="dsec"><div class="dsec-h"><span class="eyebrow">Explanation</span><span class="label ${aiCls}">${esc(aiLabel)}</span></div>${aiHtml}</div>
+      <div class="dsec"><details><summary class="eyebrow">Notes (${infos.length})</summary><ul class="ilist" style="margin-top:6px">${infos.slice(0, 40).map(li).join("")}</ul></details></div>`;
     d.hidden = false;
   }
 
-  // ---------------------------------------------------------------- orchestration
-  function renderLoadOptions() {
-    const u = DAG.university, sel = document.getElementById("max-units");
-    if (sel.options.length) return;
-    const [lo, hi] = u.normal_load_units, max = u.max_units_priority_registration;
-    const opts = [...new Set([lo, hi, Math.round((hi + max) / 2), max])];
-    sel.innerHTML = opts.map(v => `<option value="${v}"${v === state.maxUnits ? " selected" : ""}>${v}${
-      v === max ? " (registration maximum)" : v <= hi ? " (normal load)" : ""}</option>`).join("");
+  async function fetchEval() {
+    if (!state.server) return;
+    const key = R.tab.id + ":" + JSON.stringify(R.tab.semesters);
+    if (state.evalAi[key] && !state.evalAi[key].error) return;
+    state.evalAi[key] = { loading: true };
+    renderEval();
+    try {
+      const res = await fetch("api/evaluate", { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ plan: R.plan, goalText: R.tab.meta && R.tab.meta.goalText }) });
+      const body = await res.json();
+      state.evalAi[key] = res.ok ? body : { error: body.error || res.status };
+    } catch (e) { state.evalAi[key] = { error: e.message }; }
+    if (state.evalOpen) render();
   }
 
+  // ------------------------------------------------------------------ AI plan modal
+  function renderAI() {
+    const s = document.getElementById("ai-scrim");
+    const ai = state.ai;
+    if (!ai) { s.hidden = true; s.innerHTML = ""; return; }
+    const lo = pol("minUnitsFullTime"), max = pol("maxUnitsWithoutPermission");
+    const unitOpts = []; for (let u = lo; u <= max; u++) unitOpts.push(u);
+    const res = ai.result;
+    let resHtml = "";
+    if (ai.busy) resHtml = `<p class="small">${state.server ? "Asking the model, then checking its plan with the rules engine…" : "Building…"}</p>`;
+    else if (ai.error) resHtml = `<p class="small" style="color:var(--bad)">${esc(ai.error)}</p>`;
+    else if (res) {
+      const [lab, cls] = providerLabel(res.aiProvider, res.source);
+      resHtml = `<div class="dsec-h"><span class="eyebrow">What happened</span><span><span class="label ${cls}">${esc(lab)}</span> <span class="label engine">Checked by rules engine</span></span></div>
+        <ol class="steps">${(res.steps || []).map(st => `<li>${esc(st.step === "plan" ? "Model proposed a plan" : st.step === "repair" ? "Model repaired it" : st.step === "fallback" ? "Deterministic planner built the plan" : st.step)}: ${st.ok ? "passed the engine" : st.error ? esc("failed: " + st.error) : `${(st.problems || []).length} problem(s), e.g. ${esc(((st.problems || [])[0] || {}).message || "")}`}</li>`).join("")}</ol>
+        <p class="small">${esc(res.rationale || "")}</p><p class="small">Opened as a new tab. ${res.runId ? `Saved as run <span class="mono">${esc(res.runId)}</span>.` : ""}</p>`;
+    }
+    const runs = ai.runs ? `<div class="dsec"><div class="dsec-h"><span class="eyebrow">Saved runs (replay with no model call)</span></div>${ai.runs.length ? ai.runs.slice(0, 8).map(r => `<div class="row" style="justify-content:space-between"><span class="small"><span class="mono">${esc(r.run_id)}</span> ${esc(r.goalText || "")} ${r.scores ? `· ${r.scores.errors} errors · ${r.scores.graduationReady ? "graduation-ready" : "incomplete"}` : ""}</span><button type="button" class="btn" data-replay="${esc(r.run_id)}">Open</button></div>`).join("") : '<p class="small">None yet.</p>'}</div>` : "";
+    s.innerHTML = `<div class="modal" role="dialog" aria-modal="true" aria-labelledby="ai-h">
+      <h2 id="ai-h">AI Plan</h2>
+      <label for="ai-goal">What do you want to do in life?</label>
+      <textarea id="ai-goal" maxlength="500" placeholder="e.g. I want to build trading systems at a quant firm">${esc(ai.goal)}</textarea>
+      <div class="chips">${CAREER.directions.map(d => `<button type="button" data-chip="${esc(d.label)}">${esc(d.label)}</button>`).join("")}</div>
+      <div class="row"><label>Units per semester <select id="ai-units">${unitOpts.map(u => `<option${u === ai.units ? " selected" : ""}>${u}</option>`).join("")}</select></label>
+        <label class="check"><input type="checkbox" id="ai-keep"${ai.keep ? " checked" : ""}> Keep the courses in my current plan</label></div>
+      <p class="small">${state.server ? `Model: <b>${esc(providerLabel(state.server.provider, "ai")[0])}</b>${state.server.model && state.server.model !== "mock" ? ` (${esc(state.server.model)})` : ""}. The rules engine checks every plan before it shows; after 2 failed repairs the deterministic planner takes over.` : "The server isn't running, so this builds the plan with the deterministic planner (no AI). Run <span class=\"mono\">npm start</span> for the AI planner."}</p>
+      <div class="row" style="justify-content:flex-end"><button type="button" class="btn" data-act="close-ai">Close</button><button type="button" class="btn primary" data-act="run-ai"${ai.busy ? " disabled" : ""}>Make plan</button></div>
+      ${resHtml}${runs}</div>`;
+    s.hidden = false;
+  }
+
+  async function runAI() {
+    const ai = state.ai;
+    ai.goal = document.getElementById("ai-goal").value.trim();
+    ai.units = Number(document.getElementById("ai-units").value);
+    ai.keep = document.getElementById("ai-keep").checked;
+    if (!ai.goal) { ai.error = "Write a goal first."; renderAI(); return; }
+    ai.busy = true; ai.error = null; ai.result = null; renderAI();
+    const cur = active();
+    const locked = ai.keep ? cur.semesters.flatMap((ids, i) => ids.map(c => ({ courseId: c, semester: i + 1 }))) : [];
+    const name = ai.goal.length > 28 ? ai.goal.slice(0, 27) + "…" : ai.goal;
+    try {
+      let semesters, meta;
+      if (state.server) {
+        const res = await fetch("api/plan", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({
+          goalText: ai.goal, programId: PROGRAM.id, unitsPerSemester: ai.units, lockedPlacements: locked, startTerm: startTerm(),
+          profile: { courses: state.transcript.courses.filter(r => r.include !== false), placement: state.transcript.placement || {} } }) });
+        const body = await res.json();
+        if (!res.ok) throw new Error(body.error || "The server refused the request.");
+        semesters = body.plan.semesters.map(s => s.courseIds.slice());
+        meta = { source: body.source, aiProvider: body.aiProvider, goalText: ai.goal, runId: body.runId, rationale: body.rationale, attempts: body.attempts };
+        ai.result = body;
+      } else {
+        const prev = state.maxUnits;
+        state.maxUnits = ai.units;
+        buildCatalog();
+        const dir = P.matchDirection(ai.goal, CAREER);
+        semesters = recommended(profile(), ai.goal, dir);
+        state.maxUnits = prev;
+        meta = { source: "fallback", goalText: ai.goal, rationale: `Deterministic planner using the ${dir.label} direction.` };
+        ai.result = { source: "fallback", steps: [{ step: "fallback", ok: true }], rationale: meta.rationale };
+      }
+      while (semesters.length < N_SEM) semesters.push([]);
+      const tab = { id: newId(), name, semesters: semesters.slice(0, N_SEM), meta, createdAt: new Date().toISOString() };
+      state.plans.push(tab);
+      state.activeId = tab.id;
+      state.sel = null; state.menu = null;
+      save();
+    } catch (e) { ai.error = e.message; }
+    ai.busy = false;
+    render();
+  }
+
+  async function loadRuns() {
+    if (!state.server || !state.ai) return;
+    try {
+      const list = await (await fetch("api/runs")).json();
+      state.ai.runs = list.filter(r => r.variant === "plan");
+    } catch (e) { state.ai.runs = []; }
+    renderAI();
+  }
+  async function replay(id) {
+    try {
+      const run = await (await fetch("api/runs/" + encodeURIComponent(id))).json();
+      const plan = run.final_state && run.final_state.plan;
+      if (!plan) throw new Error("This run has no plan.");
+      const tab = { id: newId(), name: "Replay " + id.slice(-8), createdAt: new Date().toISOString(),
+        semesters: Array.from({ length: N_SEM }, (_, i) => ((plan.semesters[i] || {}).courseIds || []).slice()),
+        meta: { source: "replay", runId: id, goalText: plan.goalText, rationale: run.final_state.rationale } };
+      state.plans.push(tab); state.activeId = tab.id; state.ai = null; save(); render();
+    } catch (e) { state.ai.error = "Couldn't open that run: " + e.message; renderAI(); }
+  }
+
+  // ------------------------------------------------------------------ actions
+  const edited = () => { const tab = active(); if (tab.meta) tab.meta.auto = false; return tab; };
+  function moveTo(id, sem) {
+    const tab = edited();
+    tab.semesters.forEach(ids => { const k = ids.indexOf(id); if (k >= 0) ids.splice(k, 1); });
+    tab.semesters[sem - 1].push(id);
+    state.menu = null;
+    save();
+    render();
+  }
+  function removeCourse(id) {
+    edited().semesters.forEach(ids => { const k = ids.indexOf(id); if (k >= 0) ids.splice(k, 1); });
+    state.menu = null;
+    if (state.sel === id) state.sel = null;
+    save(); render();
+  }
+  // add a missing prerequisite to the earliest semester where it fits, before the course that needs it
+  function fixMissing(course, add) {
+    const tab = edited();
+    const at = R.pos.get(course) || 1;
+    let placed = false;
+    for (let s = 1; s < at && !placed; s++) {
+      tab.semesters[s - 1].push(add);
+      compute();
+      // its own missing prerequisites are fine (they show as chips); wrong order, standing or overload are not
+      const bad = (R.byCourse[add] || []).some(i => /^(PREREQ_ORDER|COREQ|STANDING)/.test(i.code)) || R.report.semesterStats[s - 1].status === "over";
+      if (bad) tab.semesters[s - 1].pop(); else placed = true;
+    }
+    if (!placed) tab.semesters[Math.max(1, at - 1) - 1].push(add);
+    save(); render();
+  }
+  function select(id) {
+    state.sel = state.sel === id ? null : id;
+    state.menu = null;
+    render();
+  }
+
+  // ------------------------------------------------------------------ orchestration
   function render() {
-    renderLoadOptions();
     compute();
-    renderHeader();
+    R.chain = null;
+    renderTabs();
+    renderProfile();
     renderSummary();
     renderAlerts();
-    renderRoadmap();
-    renderReqs();
+    renderSide();
+    renderBoard();
+    renderInspector();
     renderTranscript();
-    renderMap();
-    renderDrawer();
+    renderEval();
+    renderAI();
+  }
+
+  function initPlans() {
+    buildCatalog();
+    const prof = profile();
+    state.plans = [
+      { id: newId(), name: "Recommended", semesters: recommended(prof, "", null), meta: { source: "fallback", auto: true }, createdAt: new Date().toISOString() },
+      { id: newId(), name: "My plan", semesters: emptySems(), meta: { source: "manual" }, createdAt: new Date().toISOString() },
+    ];
+    state.activeId = state.plans[0].id;
+  }
+  function rebuildAuto() {
+    buildCatalog();
+    const prof = profile();
+    state.plans.filter(p => p.meta && p.meta.auto).forEach(p => { p.semesters = recommended(prof, "", null); });
   }
 
   document.addEventListener("click", e => {
-    const t = e.target.closest("[data-track],[data-swap],[data-pick],[data-course],[data-close]");
-    if (!t) { if (state.openSwap && !e.target.closest(".menu")) { state.openSwap = null; render(); } return; }
-    if (t.dataset.track) { state.track = t.dataset.track; state.electives = P.pickElectives(DAG, profile(), state.track); state.openSwap = null; render(); return; }
-    if (t.dataset.swap) { state.openSwap = state.openSwap === t.dataset.swap ? null : t.dataset.swap; render(); return; }
-    if (t.dataset.pick) {
-      const i = state.electives.indexOf(t.dataset.for);
-      if (i >= 0) state.electives[i] = t.dataset.pick;
-      state.openSwap = null; render(); return;
+    const t = e.target.closest("[data-act],[data-tab],[data-close-tab],[data-sel],[data-menu],[data-move],[data-remove],[data-fix],[data-filter],[data-chip],[data-apply],[data-replay]");
+    if (!t) {
+      const sem = e.target.closest("[data-sem]");
+      if (sem && state.sel && sem.classList.contains("target")) { moveTo(state.sel, Number(sem.dataset.sem)); return; }
+      if (state.menu && !e.target.closest(".menu")) { state.menu = null; renderMenu(); }
+      if (e.target.id === "ai-scrim") { state.ai = null; renderAI(); }
+      return;
     }
-    if (t.dataset.close) { state.selected = null; renderDrawer(); return; }
-    if (t.dataset.course && NODES[t.dataset.course]) { state.selected = t.dataset.course; renderDrawer(); }
+    const d = t.dataset;
+    if (d.act) {
+      const a = d.act;
+      if (a === "new") { const tab = { id: newId(), name: "Plan " + (state.plans.length + 1), semesters: emptySems(), meta: { source: "manual" }, createdAt: new Date().toISOString() }; state.plans.push(tab); state.activeId = tab.id; }
+      else if (a === "dup") { const cur = active(); const tab = { id: newId(), name: cur.name + " (copy)", semesters: clone(cur.semesters), meta: Object.assign({}, cur.meta, { auto: false }), createdAt: new Date().toISOString() }; state.plans.push(tab); state.activeId = tab.id; }
+      else if (a === "reset") { const cur = active(); cur.semesters = emptySems(); cur.meta = { source: "manual" }; }
+      else if (a === "ai") { state.ai = { goal: "", units: state.maxUnits, keep: false, busy: false, result: null, error: null, runs: null }; renderAI(); loadRuns(); setTimeout(() => { const g = document.getElementById("ai-goal"); if (g) g.focus(); }, 0); return; }
+      else if (a === "close-ai") { state.ai = null; renderAI(); return; }
+      else if (a === "run-ai") { runAI(); return; }
+      else if (a === "eval") { state.evalOpen = true; render(); fetchEval(); return; }
+      else if (a === "close-eval") { state.evalOpen = false; renderEval(); return; }
+      else if (a === "issues") { state.showAllIssues = !state.showAllIssues; renderAlerts(); return; }
+      else if (a === "unselect") { state.sel = null; }
+      state.sel = a === "unselect" ? null : state.sel; state.menu = null;
+      save(); render(); return;
+    }
+    if (d.closeTab) { e.stopPropagation(); state.plans = state.plans.filter(p => p.id !== d.closeTab); if (state.activeId === d.closeTab) state.activeId = state.plans[0].id; save(); render(); return; }
+    if (d.tab) { if (state.activeId !== d.tab) { state.activeId = d.tab; state.sel = null; state.menu = null; save(); render(); } return; }
+    if (d.menu) { e.stopPropagation(); state.menu = state.menu === d.menu ? null : d.menu; renderMenu(); return; }
+    if (d.move) { if (t.disabled) return; moveTo(d.move, Number(d.to)); return; }
+    if (d.remove) { removeCourse(d.remove); return; }
+    if (d.fix) { e.stopPropagation(); fixMissing(d.fix, d.add); return; }
+    if (d.filter) { state.sideFilter = d.filter; renderSide(); return; }
+    if (d.chip) { const g = document.getElementById("ai-goal"); g.value = d.chip; state.ai.goal = d.chip; return; }
+    if (d.replay) { replay(d.replay); return; }
+    if (d.apply) {
+      const key = R.tab.id + ":" + JSON.stringify(R.tab.semesters);
+      const s = state.evalAi[key].ai.suggestions[Number(d.apply)];
+      const tab = edited();
+      if (s.remove) tab.semesters.forEach(ids => { const k = ids.indexOf(s.remove); if (k >= 0) ids.splice(k, 1); });
+      tab.semesters.forEach(ids => { const k = ids.indexOf(s.add); if (k >= 0) ids.splice(k, 1); });
+      tab.semesters[s.semester - 1].push(s.add);
+      save(); render(); fetchEval(); return;
+    }
+    if (d.sel) {
+      if (state.sel && t.closest("[data-sem].target") && !t.closest(".cc")) { moveTo(state.sel, Number(t.closest("[data-sem]").dataset.sem)); return; }
+      select(d.sel);
+    }
   });
+  document.addEventListener("dblclick", e => {
+    const t = e.target.closest("[data-rename]");
+    if (t) { state.editTab = t.dataset.rename; renderTabs(); }
+  });
+  function commitRename(input) {
+    const tab = state.plans.find(p => p.id === state.editTab);
+    if (tab && input.value.trim()) tab.name = input.value.trim().slice(0, 60);
+    state.editTab = null; save(); renderTabs();
+  }
+  document.addEventListener("focusout", e => { if (e.target.id === "tab-edit") commitRename(e.target); });
   document.addEventListener("keydown", e => {
-    if (e.key === "Escape") { state.selected = null; state.openSwap = null; render(); }
-    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("g.node")) { state.selected = e.target.dataset.course; renderDrawer(); e.preventDefault(); }
+    if (e.target.id === "tab-edit") { if (e.key === "Enter") commitRename(e.target); if (e.key === "Escape") { state.editTab = null; renderTabs(); } return; }
+    if (e.key === "Escape") {
+      if (state.ai) { state.ai = null; renderAI(); return; }
+      if (state.menu || state.sel) { state.menu = null; state.sel = null; render(); return; }
+      if (state.evalOpen) { state.evalOpen = false; renderEval(); }
+      return;
+    }
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches(".cc")) { e.preventDefault(); select(e.target.dataset.card); }
+  });
+  document.addEventListener("input", e => {
+    if (e.target.id === "side-q") { state.sideQuery = e.target.value; renderSide(); }
   });
   document.addEventListener("change", e => {
     const t = e.target;
-    if (t.id === "max-units") { state.maxUnits = Number(t.value); render(); }
-    else if (t.dataset.use != null) { state.transcript.courses[t.dataset.use].include = t.checked; render(); }
-    else if (t.dataset.grade != null) { const r = state.transcript.courses[t.dataset.grade]; r.grade = t.value; r.confidence = 1; render(); }
-    else if (t.dataset.offer) { if (t.value === "both") delete state.offerings[t.dataset.offer]; else state.offerings[t.dataset.offer] = [t.value]; render(); }
-    else if (t.id === "source-select" && t.value === "sample") { state.transcript = JSON.parse(JSON.stringify(window.SAMPLE_TRANSCRIPT)); state.electives = null; render(); }
+    if (t.id === "max-units") { state.maxUnits = Number(t.value); rebuildAuto(); }
+    else if (t.id === "show-all") { state.showAll = t.checked; drawEdges(); return; }
+    else if (t.id === "start-select") { const [season, year] = t.value.split(" "); state.transcript.start = { season, year: Number(year) }; rebuildAuto(); }
+    else if (t.id === "placement") { state.transcript.placement = { calculus: t.checked }; rebuildAuto(); }
+    else if (t.id === "profile-select") {
+      if (t.value === "sample") { state.profileId = "sample"; state.transcript = clone(window.SAMPLE_TRANSCRIPT); }
+      else if (t.value === "freshman") { state.profileId = "freshman"; state.transcript = freshman(); }
+      state.sel = null; rebuildAuto();
+    }
+    else if (t.dataset.offer) { if (t.value === "both") delete state.offerings[t.dataset.offer]; else state.offerings[t.dataset.offer] = [t.value]; }
+    else if (t.dataset.use != null) { state.transcript.courses[t.dataset.use].include = t.checked; }
+    else if (t.dataset.grade != null) { const r = state.transcript.courses[t.dataset.grade]; r.grade = t.value; r.confidence = 1; }
     else if (t.id === "file-input" && t.files && t.files[0]) {
-      const reader = new FileReader();
+      const file = t.files[0], reader = new FileReader();
       reader.onload = () => {
         const msg = document.getElementById("upload-msg");
         try {
           const data = JSON.parse(reader.result);
           const courses = Array.isArray(data) ? data : data.courses;
-          if (!Array.isArray(courses) || !courses.every(r => r && typeof r.code === "string" && r.grade)) throw new Error("Expected a list of {code, grade, units, confidence}");
-          state.transcript = Object.assign({ student: "Uploaded transcript", source: t.files[0].name, current_term: { season: "Fall", year: 2026 }, placement: { calculus: true } },
+          if (!Array.isArray(courses) || !courses.every(r => r && typeof r.code === "string" && r.grade)) throw new Error("expected a list of {code, grade, units, confidence}");
+          state.transcript = Object.assign({ student: "Uploaded transcript", source: file.name, current_term: { season: "Fall", year: 2026 }, placement: { calculus: true } },
             Array.isArray(data) ? {} : data, { courses: courses.map(r => Object.assign({ units: CATALOG[r.code] ? Number(CATALOG[r.code][1]) || 0 : 0 }, r)) });
-          state.electives = null;
-          const sel = document.getElementById("source-select");
+          state.profileId = "upload";
+          const sel = document.getElementById("profile-select");
           sel.querySelector('option[value="upload"]').disabled = false;
-          sel.value = "upload";
-          msg.textContent = `Loaded ${courses.length} courses from ${t.files[0].name}.`;
-          render();
-        } catch (err) {
-          msg.textContent = "Couldn't read that file: " + err.message + ".";
-        }
+          msg.textContent = `Loaded ${courses.length} courses from ${file.name}. It stays in this browser tab only.`;
+          rebuildAuto(); render();
+        } catch (err) { msg.textContent = "Couldn't read that file: " + err.message + "."; }
       };
-      reader.readAsText(t.files[0]);
+      reader.readAsText(file);
+      return;
+    }
+    else return;
+    save(); render();
+  });
+  document.addEventListener("mouseover", e => {
+    const card = e.target.closest && e.target.closest(".cc");
+    if (e.target.closest && e.target.closest("#hover")) { clearTimeout(hideTimer); return; }
+    if (!card || state.menu) return;
+    clearTimeout(hideTimer); clearTimeout(hoverTimer);
+    hoverTimer = setTimeout(() => showHover(card), 150);
+  });
+  document.addEventListener("mouseout", e => {
+    if (e.target.closest && (e.target.closest(".cc") || e.target.closest("#hover"))) {
+      clearTimeout(hoverTimer);
+      hideTimer = setTimeout(hideHover, 160);
     }
   });
+  window.addEventListener("resize", () => requestAnimationFrame(drawEdges));
+  document.addEventListener("scroll", () => { hideHover(); if (state.menu) { state.menu = null; renderMenu(); } }, true);
 
+  // ------------------------------------------------------------------ boot
+  if (!load()) initPlans();
+  if (!state.plans.some(p => p.id === state.activeId)) state.activeId = state.plans[0].id;
   render();
+  (async () => {
+    if (location.protocol === "file:") return;
+    try {
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 2000);
+      const res = await fetch("api/health", { signal: ctl.signal });
+      clearTimeout(timer);
+      const body = res.ok ? await res.json() : null;
+      if (body && body.ok) { state.server = body; render(); }
+    } catch (e) { /* static mode: engine-only, no AI */ }
+  })();
 })();
 </script>
 </body>

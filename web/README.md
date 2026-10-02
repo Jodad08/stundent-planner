@@ -1,30 +1,36 @@
-# Degree Path: B.S. Computer Science planner
+# GatorGraph web board
 
-Semester roadmap + prerequisite bottleneck flags for SF State's B.S. Computer Science,
-built on the 2026-27 Bulletin data in `data/sfsu/`.
+`index.html` is the semester board for SF State's B.S. Computer Science (2026–27 Bulletin). It uses the same rules
+engine (`planner.js`) as the server.
 
 ## Run it
 
 ```
-cd web && python3 -m http.server 8000     # then open http://localhost:8000
-# or open web/dist/degree-path.html directly (single self-contained file)
+npm install && npm start          # from the repo root, then open http://localhost:3000
 ```
+
+With the server, AI Plan and Evaluate call `/api/plan` and `/api/evaluate`. The model is a mock unless
+`GEMINI_API_KEY` and `GEMINI_MODEL` are set. Without the server (`web/dist/gatorgraph.html` opened as a file, or
+`python3 -m http.server` in `web/`), the page is engine-only and AI Plan uses the deterministic planner.
 
 Rebuild after data changes:
 
 ```
-python3 scraper/build_cs_dag.py    # data/sfsu/dags/bs-computer-science.json (validated against bulletin text)
-python3 web/make_data.py           # web/data.js
-python3 web/bundle.py              # web/dist/degree-path.html
+python3 scraper/build_cs_dag.py && python3 scraper/build_contracts.py   # data/
+python3 web/make_data.py                                                # web/data.js
+python3 web/bundle.py                                                   # web/dist/gatorgraph.html
 ```
 
-## Pieces
+## Using the board
 
-| File | Role |
-|---|---|
-| `data/sfsu/dags/bs-computer-science.json` | Prerequisite DAG with AND/OR logic, coreqs, "may be taken concurrently", standing/GPA conditions, requirement groups, elective rules, career-track tags, `term_offerings` (empty: fill from the class schedule) |
-| `web/planner.js` | Pure planning engine (browser + Node): `plan`, `bottlenecks`, `pickElectives`, `explain` |
-| `web/index.html` | UI: summary, bottleneck alerts, semester columns, requirements checklist, transcript check, prerequisite map |
+- **Move a course:** click it, then click a semester (or its "Move … here" button). Or use the ⋯ menu on the card.
+- **Add a course:** click it in the left list, then click a semester.
+- **Lines:** grey for prerequisites, dashed for "one of", dotted for same-term and corequisites. Red animated with a "!"
+  marker means the prerequisite isn't in an earlier semester.
+- **Semester colours:** green is fine, amber is above the normal load, red is below full time or above the
+  registration maximum. The numbers come from `data/policies.json`.
+- **"needs X" chip:** adds the missing prerequisite to the earliest semester where it fits.
+- **Tabs:** plans are saved in this browser (`localStorage`). Double-click a tab to rename it.
 
 ## Transcript input (what the extraction step should return)
 
@@ -40,20 +46,5 @@ python3 web/bundle.py              # web/dist/degree-path.html
 }
 ```
 
-`grade` is a letter grade, `CR`, `NC`, `W`, or `IP` (in progress). Codes use the bulletin format (`"CSC 300GW"`, `"AA S 106"`).
-The UI checks each row against the catalog (code exists, units match, grade meets the C minimum) and flags rows
-with `confidence < 0.8`. A plain array of course rows also works.
-
-## How planning works
-
-1. Completed courses with a passing grade (C or better where the major requires it) and in-progress courses are removed.
-2. Remaining required courses + 5 chosen electives are expanded with the cheapest prerequisite path through OR branches.
-3. Each course gets a height: the longest chain of hard prerequisites it starts. Concurrent/coreq links add no term.
-4. Semesters are filled greedily by height under the unit cap, honoring coreqs (PHYS 220 + 222), same-term
-   concurrency (MATH 227 with CSC 230), upper-division/senior standing (60/90 units), and offering terms.
-   Leftover capacity is GE / free-elective units until 120.
-5. Bottlenecks: for each course that unlocks later courses, re-plan with it blocked from its term. If graduation
-   moves later, it's on the critical path and the alert states how many semesters it costs.
-
-Limits: "or permission of the instructor" alternatives are not used; GPA 3.0 conditions warn but don't block;
-GE, SF State Studies, American Institutions and residence units are not tracked course-by-course.
+An uploaded transcript isn't saved to `localStorage`. With the server running, AI Plan and Evaluate send it to your
+local server, which saves each call in `runs/` (gitignored).

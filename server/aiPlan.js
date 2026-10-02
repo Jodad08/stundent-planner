@@ -74,21 +74,7 @@ function buildContext(req) {
 
 /** Match a free-text goal to a career direction by word overlap (code, not AI). */
 function matchDirection(goalText) {
-  const words = new Set(goalText.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 1));
-  const synonyms = { ai: "ml", machine: "ml", learning: "ml", data: "data", security: "security", cyber: "security",
-    hacker: "security", cybersecurity: "security", infosec: "security", penetration: "security", pentest: "security",
-    pentesting: "security", game: "games", games: "games", graphics: "graphics", quant: "math", trading: "math",
-    finance: "math", web: "web", frontend: "web", backend: "software-eng", software: "software-eng",
-    research: "research", phd: "research", network: "networks", networking: "networks", systems: "systems",
-    embedded: "systems", professor: "research" };
-  const tokens = new Set([...words, ...[...words].map(w => synonyms[w]).filter(Boolean)]);
-  let best = null;
-  for (const d of D.careerTags.directions) {
-    const vocab = new Set([...d.signalTags, ...(d.label + " " + d.description).toLowerCase().split(/[^a-z0-9]+/)]);
-    const score = [...tokens].filter(t => vocab.has(t)).length;
-    if (!best || score > best.score) best = { d, score };
-  }
-  return best && best.score > 0 ? best.d : D.careerTags.directions.find(d => d.id === "software-engineer");
+  return Planner.matchDirection(goalText, D.careerTags);
 }
 
 function toPlan(json, ctx, source) {

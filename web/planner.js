@@ -370,8 +370,9 @@
         add("error", "DUPLICATE_COURSE", `${c} appears more than once in the plan.`, [c], { semesterIndex: s.index });
       } else pos.set(c, s.index);
     }));
-    for (const c of pos.keys()) {
-      if (!cat.has(c)) add("error", "UNKNOWN_COURSE", `${c} is not in the 2026-27 catalog.`, [c]);
+    // completed courses may be transfer or retired courses (e.g. CSC 210); only planned ones must be in the catalog
+    for (const [c, at] of pos) {
+      if (at > 0 && !cat.has(c)) add("error", "UNKNOWN_COURSE", `${c} is not in the 2026-27 catalog.`, [c]);
     }
     const areas = {};
     for (const c of pos.keys()) if (cat.has(c)) areas[c] = cat.get(c).geAreas || [];
@@ -508,6 +509,27 @@
     const graduationReady = !issues.some(x => x.severity === "error") && requirementStatus.every(r => r.satisfied) &&
       completedUnits + totalUnitsPlanned >= program.totalUnitsRequired;
     return { issues, semesterStats, requirementStatus, totalUnitsPlanned, graduationReady };
+  }
+
+  // ================================================================== goal text -> career direction
+  // Word overlap with each direction's tags, label and description, plus a few synonyms.
+  // Falls back to Software Engineer when nothing matches.
+  function matchDirection(goalText, career) {
+    const words = new Set(goalText.toLowerCase().split(/[^a-z0-9]+/).filter(w => w.length > 1));
+    const synonyms = { ai: "ml", machine: "ml", learning: "ml", data: "data", security: "security", cyber: "security",
+      hacker: "security", cybersecurity: "security", infosec: "security", penetration: "security", pentest: "security",
+      pentesting: "security", game: "games", games: "games", graphics: "graphics", quant: "math", trading: "math",
+      finance: "math", web: "web", frontend: "web", backend: "software-eng", software: "software-eng",
+      research: "research", phd: "research", network: "networks", networking: "networks", systems: "systems",
+      embedded: "systems", professor: "research" };
+    const tokens = new Set([...words, ...[...words].map(w => synonyms[w]).filter(Boolean)]);
+    let best = null;
+    for (const d of career.directions) {
+      const vocab = new Set([...d.signalTags, ...(d.label + " " + d.description).toLowerCase().split(/[^a-z0-9]+/)]);
+      const score = [...tokens].filter(t => vocab.has(t)).length;
+      if (!best || score > best.score) best = { d, score };
+    }
+    return best && best.score > 0 ? best.d : career.directions.find(d => d.id === "software-engineer");
   }
 
   // ================================================================== deterministic fallback planner
@@ -696,5 +718,5 @@
 
   return { plan, bottlenecks, evaluate, explain, leaves, expand, passes, termAt, pickElectives,
     electivePool, electiveRuleCheck, extraUnitsFor, profileSets, GRADE_POINTS,
-    evaluatePlan, buildFallbackPlan, repairPlan, directionScores, directionElectives, indexCatalog, unmet };
+    evaluatePlan, buildFallbackPlan, repairPlan, directionScores, directionElectives, indexCatalog, unmet, matchDirection };
 });

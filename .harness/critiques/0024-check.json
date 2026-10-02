@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T21:28:26+00:00",
+  "input": {
+    "proposal": "D-028 saved runs (runs/*.json) are gitignored because a run stores the request profile, which can be an uploaded real transcript"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0024-check"
+}

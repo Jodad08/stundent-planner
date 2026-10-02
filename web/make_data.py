@@ -1,4 +1,4 @@
-"""Generate web/data.js (DAG + compact catalog + sample transcript) for the planner UI.
+"""Generate web/data.js (DAG + compact catalog + sample transcript + board contract data) for the planner UI.
 
 Usage: python3 web/make_data.py
 """
@@ -46,6 +46,44 @@ SAMPLE = {
 }
 
 
+def board_data(dag):
+    """Contract files for the board (architecture.md §8): the CS program's catalog subset, program,
+    policies and career directions, so the page runs the same engine as the server with no server."""
+    root = os.path.join(HERE, "..", "data")
+    catalog = json.load(open(os.path.join(root, "catalog.json")))
+    program = json.load(open(os.path.join(root, "programs", "bs-computer-science.json")))
+    ids = {c for g in program["requirementGroups"] for c in g["courseIds"]} | set(dag["nodes"])
+    for g in program["requirementGroups"]:
+        ids |= set(g.get("excludedCourseIds", [])) | set(g.get("notAutoPlanned", []))
+
+    def refs(expr):
+        if isinstance(expr, str):
+            return [expr]
+        if not isinstance(expr, dict):
+            return []
+        out = []
+        for k in ("and", "or"):
+            for e in expr.get(k, []):
+                out += refs(e)
+        for k in ("course", "coreq"):
+            if k in expr:
+                out.append(expr[k])
+        return out
+    by_id = {c["id"]: c for c in catalog}
+    for c in list(ids):
+        if c in by_id:
+            ids |= set(refs(by_id[c]["prereq"]))
+    subset = [c for c in catalog if c["id"] in ids or c.get("isPlaceholder")]
+    return {
+        "catalog": subset,
+        "program": program,
+        "policies": json.load(open(os.path.join(root, "policies.json"))),
+        "career": json.load(open(os.path.join(root, "career_tags.json"))),
+        # GE areas of every catalog course, so a transcript's finished GE courses cover their areas
+        "geAreas": {c["id"]: c["geAreas"] for c in catalog if c.get("geAreas") and not c.get("isPlaceholder")},
+    }
+
+
 def main():
     dag = json.load(open(os.path.join(DATA, "dags", "bs-computer-science.json")))
     courses = json.load(open(os.path.join(DATA, "courses.json")))
@@ -58,6 +96,7 @@ def main():
         f.write("window.DAG = " + json.dumps(dag, ensure_ascii=False, separators=(",", ":")) + ";\n")
         f.write("window.CATALOG = " + json.dumps(catalog, ensure_ascii=False, separators=(",", ":")) + ";\n")
         f.write("window.SAMPLE_TRANSCRIPT = " + json.dumps(SAMPLE, ensure_ascii=False, indent=1) + ";\n")
+        f.write("window.GG = " + json.dumps(board_data(dag), ensure_ascii=False, separators=(",", ":")) + ";\n")
     print("wrote web/data.js", os.path.getsize(os.path.join(HERE, "data.js")) // 1024, "KB")
 
 

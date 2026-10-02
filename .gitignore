@@ -13,3 +13,6 @@ Student Center.pdf
 # Critic harness: keep critiques (evidence), ignore the change-tracking baseline
 .harness/state.json
 node_modules/
+
+# Saved runs can contain an uploaded transcript (PII): keep them local
+runs/*.json

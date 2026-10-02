@@ -313,3 +313,23 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - How to run: `npm run evals` (exit 1 on a failed check); `npm test` (24 tests).
 - What proves it works: seeded precision 100% / recall 100% (26 issues, 15 seeded errors); 3/3 official CS roadmaps 0 errors and graduation-ready; deterministic plans valid for 4 goals × 2 students; all anti-vacuity checks pass, including a pass-everything evaluator scoring recall 0.
 - What can still fail: the Gemini variant has not run (no key). The deterministic planner packs major courses early and leaves lower-division GE for terms 7–8, with one 18-unit term: valid, but unlike the official roadmap.
+
+## D-027: The board replaces the old roadmap page
+- Step: 4 (prompt.md B.5 step 10 UI; plan.md §10 adapted by D-017/D-019)
+- Decision: `web/index.html` is now the GatorGraph board. It has editable plan tabs stored in `localStorage`, 8 semester boxes coloured by `evaluatePlan` (OK / heavy / below minimum / over maximum), and a course sidebar grouped by requirement group with progress. An SVG layer draws prerequisite lines (dashed for "one of", dotted for same-term and corequisites). Broken prerequisites show as bold red animated lines with a "!" marker. Courses move through a "Move to…" menu or by selecting a course and then clicking a semester. "needs X" chips add a missing prerequisite to an earlier semester. Clicking a course highlights its prerequisite chain. Hover cards show units, prerequisites and the Bulletin link. The AI Plan modal and the Evaluate drawer call the server; without a server the page stays engine-only, AI Plan uses the deterministic planner, and the page says so. `web/data.js` now carries the CS catalog subset, program, policies, career directions and a GE-area map, so the page runs the same engine as the server. The old requirements rail and prerequisite map are removed: the sidebar and the SVG layer cover them. Bottleneck alerts and the transcript check stay.
+- Alternatives: keep the scheduler-driven roadmap (not editable); React Flow (rejected by D-017).
+- Why: P0 needs a plan the student edits and the engine checks live (`plan.md` §4 P0, demo script §15 steps 2–7).
+- Evidence: headless-browser run at 1440×900 and 390×844 (no page errors, no horizontal page scroll): move CSC 340 into Fall 2026 → 2 red broken lines and "Fix 2 errors first"; move back → "Valid plan"; AI Plan (mock) → new tab via fallback with the steps listed; Evaluate → engine sections plus labelled mock explanation; reload keeps tabs.
+- Risk / undo: SFSU colours (#231161, #e3b53c) are taken from `plan.md` §10.9 and were not checked against the SFSU brand page. `git revert` the board commit to restore the old page.
+- Critic: PASS (0023-check) [critic: mock]
+- Status: active
+
+## D-028: Saved runs stay local
+- Step: 4
+- Decision: `runs/*.json` is gitignored.
+- Alternatives: commit demo runs as evidence.
+- Why: A run stores the request, including the profile, and a student may upload a real transcript (prompt.md Part A privacy rule). Eval runs already go to a temp folder (D-026).
+- Evidence: `server/runs.js` `saveRun` (stores `input`); `.gitignore`
+- Risk / undo: demo runs must be re-created on the demo machine; commit a made-up run by hand if needed.
+- Critic: PASS (0024-check) [critic: mock]
+- Status: active

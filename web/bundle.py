@@ -1,7 +1,7 @@
 """Inline data.js and planner.js into a single self-contained HTML file.
 
 Usage:
-  python3 web/bundle.py                      -> web/dist/degree-path.html (full document, open or host anywhere)
+  python3 web/bundle.py                      -> web/dist/gatorgraph.html (full document, open or host anywhere)
   python3 web/bundle.py --fragment OUT.html  -> body-level fragment (no <html>/<head>/<body> wrapper)
 """
 import os
@@ -26,7 +26,7 @@ def main():
         print("wrote", sys.argv[2], len(frag) // 1024, "KB")
         return
     os.makedirs(os.path.join(HERE, "dist"), exist_ok=True)
-    out = os.path.join(HERE, "dist", "degree-path.html")
+    out = os.path.join(HERE, "dist", "gatorgraph.html")
     open(out, "w").write(html)
     print("wrote", out, len(html) // 1024, "KB")
 
