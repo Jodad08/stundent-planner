@@ -36,7 +36,7 @@ cp .env.example .env      # add GEMINI_API_KEY (works without it in mock mode)
 npm run dev               # simulated AI, no API calls (default); board http://localhost:5173, API :3000
 npm run dev:gemini        # live Gemini (needs GEMINI_API_KEY with quota)
 npm test                  # engine tests
-npm run evals             # writes evals/results.json (Proof panel)
+AI_PROVIDER=mock npm run evals   # writes evals/results.json (Justification panel)
 npm run build && npm start   # single server on http://localhost:3000 (simulated AI; start:gemini for live)
 ```
 
