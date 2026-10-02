@@ -36,12 +36,20 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   const trackId = guessTrack(goal)
   const allTaken = taken.slice(0, doneSems).flat()
 
+  /** Adds one or more codes ("CSC 101, MATH 226"); bad codes stay in the box with a warning. */
   function addCourse(sem: number) {
-    const code = draft.trim().toUpperCase().replace(/^([A-Z]+)\s*(\d)/, "$1 $2")
-    if (!code) return
-    if (!dag.nodes[code]) { setWarn(`${code} is not a B.S. CS course in the 2026-27 Bulletin data.`); return }
-    if (allTaken.includes(code)) { setWarn(`${code} is already listed.`); return }
-    setTaken(t => t.map((l, i) => (i === sem ? [...l, code] : l))); setDraft(""); setWarn(null)
+    const parts = draft.split(/[,;]+/).map(x => x.trim().toUpperCase().replace(/^([A-Z]+)\s*(\d)/, "$1 $2")).filter(Boolean)
+    if (!parts.length) return
+    const ok: CourseId[] = [], bad: string[] = [], dup: string[] = []
+    for (const code of parts) {
+      if (!dag.nodes[code]) bad.push(code)
+      else if (allTaken.includes(code) || ok.includes(code)) dup.push(code)
+      else ok.push(code)
+    }
+    if (ok.length) setTaken(t => t.map((l, i) => (i === sem ? [...l, ...ok] : l)))
+    setDraft(bad.join(", "))
+    setWarn(bad.length ? `${bad.join(", ")} ${bad.length > 1 ? "are" : "is"} not a B.S. CS course in the 2026-27 Bulletin data.`
+      : dup.length ? `${dup.join(", ")} already listed.` : null)
   }
 
   async function build() {
@@ -119,9 +127,13 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
           const sem = step - 2
           return <>
             <h1 className="text-2xl font-semibold text-white">What did you take in {termName(dag, sem + 1)}?</h1>
-            <p className="mt-1 text-sm text-zinc-500">Type a course code and press Enter. Only CS-major courses; GE counts through your units.</p>
-            <input autoFocus list="gg-codes" className={`${input} mt-4 font-mono`} value={draft} onChange={e => setDraft(e.target.value)}
-              placeholder="e.g. CSC 215" onKeyDown={e => { if (e.key === "Enter") addCourse(sem) }} />
+            <p className="mt-1 text-sm text-zinc-500">Type a course code and press + or Enter. Add several at once with commas. Only CS-major courses; GE counts through your units.</p>
+            <div className="mt-4 flex gap-2">
+              <input autoFocus list="gg-codes" className={`${input} font-mono`} value={draft} onChange={e => setDraft(e.target.value)}
+                placeholder="e.g. CSC 215, MATH 226" onKeyDown={e => { if (e.key === "Enter") addCourse(sem) }} />
+              <button onClick={() => addCourse(sem)} disabled={!draft.trim()} title="Add course(s)"
+                className="shrink-0 rounded-lg border border-teal-300/40 px-4 font-mono text-lg text-teal-300 hover:bg-teal-300/10 disabled:opacity-30">+</button>
+            </div>
             <datalist id="gg-codes">{codes.filter(c => !allTaken.includes(c)).map(c => <option key={c} value={c}>{dag.nodes[c].title}</option>)}</datalist>
             {warn && <div className="mt-2 font-mono text-[11px] text-amber-300">{warn}</div>}
             <div className="mt-3 flex min-h-8 flex-wrap gap-2">
