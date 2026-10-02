@@ -8611,544 +8611,553 @@
     ],
     "items": [
      {
-      "code": "AA S 106",
-      "codes": [
-       "AA S 106"
+      "type": "choose",
+      "instruction": "Select one:",
+      "instruction_source": "text above the table",
+      "units": "",
+      "courses": [
+       {
+        "code": "AA S 106",
+        "codes": [
+         "AA S 106"
+        ],
+        "title": "Asian American Activism (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 338",
+        "codes": [
+         "AA S 338"
+        ],
+        "title": "Okinawan American Heritage and Culture (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 360",
+        "codes": [
+         "AA S 360"
+        ],
+        "title": "Koreans in the United States (Area 6, AERM, GP, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 512",
+        "codes": [
+         "AA S 512"
+        ],
+        "title": "Asian American Children's/Adolescent Literature (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 520",
+        "codes": [
+         "AA S 520"
+        ],
+        "title": "Asian American Musical Communities (Area 6, AERM)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 521",
+        "codes": [
+         "AA S 521"
+        ],
+        "title": "Community Building Through The Performing Arts: Methods and Strategies (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 587",
+        "codes": [
+         "AA S 587"
+        ],
+        "title": "Asian Americans and Environmental Justice (Area 6, AERM, ESCA)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 593",
+        "codes": [
+         "AA S 593"
+        ],
+        "title": "Asian Americans in Education (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 595",
+        "codes": [
+         "AA S 595"
+        ],
+        "title": "Asian American Communities and Public Policy (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AA S 597",
+        "codes": [
+         "AA S 597"
+        ],
+        "title": "Asian Transnational Communities (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 202",
+        "codes": [
+         "AFRS 202"
+        ],
+        "title": "Black Men's Studies (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 205",
+        "codes": [
+         "AFRS 205"
+        ],
+        "title": "Black Youth Development, Youth Activism, and Digital Media Literacy (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 214",
+        "codes": [
+         "AFRS 214"
+        ],
+        "title": "Second Year Written Composition: Africana Studies (Area 6, AERM)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 233",
+        "codes": [
+         "AFRS 233"
+        ],
+        "title": "Critical Race Theory & Critical Black Consciousness (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 240",
+        "codes": [
+         "AFRS 240"
+        ],
+        "title": "Introduction to African American Theatre (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 260",
+        "codes": [
+         "AFRS 260"
+        ],
+        "title": "Power, Racism, and Africana Liberation (Area 6, AERM, GP)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 290",
+        "codes": [
+         "AFRS 290"
+        ],
+        "title": "Malcolm X in the Context of Black Nationalism (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 300",
+        "codes": [
+         "AFRS 300"
+        ],
+        "title": "From Africa to Olmec America: Ancient African Prehistory and History (Area 6, AERM, GP)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 303",
+        "codes": [
+         "AFRS 303"
+        ],
+        "title": "African American History (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 320",
+        "codes": [
+         "AFRS 320"
+        ],
+        "title": "Black Politics, Mass Movements, and Liberation Themes (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 340",
+        "codes": [
+         "AFRS 340"
+        ],
+        "title": "Economics of the Black Community (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 345",
+        "codes": [
+         "AFRS 345"
+        ],
+        "title": "Blacks in Urban America (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 525",
+        "codes": [
+         "AFRS 525"
+        ],
+        "title": "Black Child Development (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 675",
+        "codes": [
+         "AFRS 675"
+        ],
+        "title": "Variable Topics in Africana Studies (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AFRS 678",
+        "codes": [
+         "AFRS 678"
+        ],
+        "title": "Urban Issues of Black Children and Youth (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 100",
+        "codes": [
+         "AIS 100"
+        ],
+        "title": "Introduction to American Indian Studies (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 160",
+        "codes": [
+         "AIS 160"
+        ],
+        "title": "Survey of Native California (Area 6, AERM, ES)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 162",
+        "codes": [
+         "AIS 162"
+        ],
+        "title": "American Indian Oral Literature (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 235",
+        "codes": [
+         "AIS 235"
+        ],
+        "title": "American Indians: Image and Issues in the Mass Media (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 410",
+        "codes": [
+         "AIS 410"
+        ],
+        "title": "Perspectives of Native California Indians (Area 6, AERM)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 550",
+        "codes": [
+         "AIS 550"
+        ],
+        "title": "American Indians in Contemporary U.S. History (Area 6, AERM, SJ, USH)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "AIS 570",
+        "codes": [
+         "AIS 570"
+        ],
+        "title": "State Terrorism and Native Abolition (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "HIST 466",
+        "codes": [
+         "HIST 466"
+        ],
+        "title": "History of People of Color in the U.S. (Area 6, AERM, SJ, USH)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "ETHS 200",
+        "codes": [
+         "ETHS 200"
+        ],
+        "title": "Introduction to Race, Ethnicity, and Health (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "JOUR 536",
+        "codes": [
+         "JOUR 536"
+        ],
+        "title": "Latina/o Journalism (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 222",
+        "codes": [
+         "LTNS 222"
+        ],
+        "title": "Latina/o/x Art History (Area 6, AERM, GP)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 380",
+        "codes": [
+         "LTNS 380"
+        ],
+        "title": "Afro/Latina/o Diasporas (Area 6, AERM, GP)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 400",
+        "codes": [
+         "LTNS 400"
+        ],
+        "title": "Latina Girlhood (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 415",
+        "codes": [
+         "LTNS 415"
+        ],
+        "title": "Latina/o Economic Empowerment (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 435",
+        "codes": [
+         "LTNS 435"
+        ],
+        "title": "Oral History, Community Memory, and Collective Stories (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 445",
+        "codes": [
+         "LTNS 445"
+        ],
+        "title": "Gendered Borders: Latinas and Globalization (Area 6, AERM, GP)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 465",
+        "codes": [
+         "LTNS 465"
+        ],
+        "title": "Mexican American and Chicana/x/o History (Area 6, AERM, GP)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 500",
+        "codes": [
+         "LTNS 500"
+        ],
+        "title": "Latina/o Community Mental Health (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 505",
+        "codes": [
+         "LTNS 505"
+        ],
+        "title": "Latina/o/x Sexualities and Genders (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "LTNS 536",
+        "codes": [
+         "LTNS 536"
+        ],
+        "title": "Latina/o Journalism (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 220",
+        "codes": [
+         "RRS 220"
+        ],
+        "title": "Race and Dis/Ability (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 260",
+        "codes": [
+         "RRS 260"
+        ],
+        "title": "Introduction to Arab and Arab American Feminisms (Area 6, GP, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 285",
+        "codes": [
+         "RRS 285"
+        ],
+        "title": "Race, Sports, and Society (Area 6, AERM)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 295",
+        "codes": [
+         "RRS 295"
+        ],
+        "title": "Race, Public Art, and Creative Resistance (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 365",
+        "codes": [
+         "RRS 365"
+        ],
+        "title": "Race and Comedy in the United States (Area 6, AERM)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 375",
+        "codes": [
+         "RRS 375"
+        ],
+        "title": "Queer and Trans Arabs in the U.S. (Area 6, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 405",
+        "codes": [
+         "RRS 405"
+        ],
+        "title": "Pacific Islander Community Organizing in the Bay Area (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 425",
+        "codes": [
+         "RRS 425"
+        ],
+        "title": "Critical Exposures: Race, Racism, and Resistance in Photography (Area 6, AERM, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 490",
+        "codes": [
+         "RRS 490"
+        ],
+        "title": "Race, Art, and Social Justice (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 520",
+        "codes": [
+         "RRS 520"
+        ],
+        "title": "Race, Radicalism and Revolution (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 566",
+        "codes": [
+         "RRS 566"
+        ],
+        "title": "Gender and Modernity in the Muslim and Arab Worlds (Area 6, AERM, GP, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "RRS 600",
+        "codes": [
+         "RRS 600"
+        ],
+        "title": "History of People of Color in the U.S. (Area 6, AERM, SJ, USH)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "WGS 445",
+        "codes": [
+         "WGS 445"
+        ],
+        "title": "Gendered Borders: Latinas and Globalization (Area 6, AERM, GP, SJ)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "WGS 505",
+        "codes": [
+         "WGS 505"
+        ],
+        "title": "Latina/o/x Sexualities and Genders (Area 6)",
+        "units": "3",
+        "type": "course"
+       },
+       {
+        "code": "WGS 566",
+        "codes": [
+         "WGS 566"
+        ],
+        "title": "Gender and Modernity in the Muslim and Arab Worlds (Area 6, AERM, GP, SJ)",
+        "units": "3",
+        "type": "course"
+       }
       ],
-      "title": "Asian American Activism (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 338",
-      "codes": [
-       "AA S 338"
-      ],
-      "title": "Okinawan American Heritage and Culture (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 360",
-      "codes": [
-       "AA S 360"
-      ],
-      "title": "Koreans in the United States (Area 6, AERM, GP, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 512",
-      "codes": [
-       "AA S 512"
-      ],
-      "title": "Asian American Children's/Adolescent Literature (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 520",
-      "codes": [
-       "AA S 520"
-      ],
-      "title": "Asian American Musical Communities (Area 6, AERM)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 521",
-      "codes": [
-       "AA S 521"
-      ],
-      "title": "Community Building Through The Performing Arts: Methods and Strategies (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 587",
-      "codes": [
-       "AA S 587"
-      ],
-      "title": "Asian Americans and Environmental Justice (Area 6, AERM, ESCA)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 593",
-      "codes": [
-       "AA S 593"
-      ],
-      "title": "Asian Americans in Education (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 595",
-      "codes": [
-       "AA S 595"
-      ],
-      "title": "Asian American Communities and Public Policy (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AA S 597",
-      "codes": [
-       "AA S 597"
-      ],
-      "title": "Asian Transnational Communities (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 202",
-      "codes": [
-       "AFRS 202"
-      ],
-      "title": "Black Men's Studies (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 205",
-      "codes": [
-       "AFRS 205"
-      ],
-      "title": "Black Youth Development, Youth Activism, and Digital Media Literacy (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 214",
-      "codes": [
-       "AFRS 214"
-      ],
-      "title": "Second Year Written Composition: Africana Studies (Area 6, AERM)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 233",
-      "codes": [
-       "AFRS 233"
-      ],
-      "title": "Critical Race Theory & Critical Black Consciousness (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 240",
-      "codes": [
-       "AFRS 240"
-      ],
-      "title": "Introduction to African American Theatre (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 260",
-      "codes": [
-       "AFRS 260"
-      ],
-      "title": "Power, Racism, and Africana Liberation (Area 6, AERM, GP)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 290",
-      "codes": [
-       "AFRS 290"
-      ],
-      "title": "Malcolm X in the Context of Black Nationalism (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 300",
-      "codes": [
-       "AFRS 300"
-      ],
-      "title": "From Africa to Olmec America: Ancient African Prehistory and History (Area 6, AERM, GP)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 303",
-      "codes": [
-       "AFRS 303"
-      ],
-      "title": "African American History (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 320",
-      "codes": [
-       "AFRS 320"
-      ],
-      "title": "Black Politics, Mass Movements, and Liberation Themes (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 340",
-      "codes": [
-       "AFRS 340"
-      ],
-      "title": "Economics of the Black Community (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 345",
-      "codes": [
-       "AFRS 345"
-      ],
-      "title": "Blacks in Urban America (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 525",
-      "codes": [
-       "AFRS 525"
-      ],
-      "title": "Black Child Development (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 675",
-      "codes": [
-       "AFRS 675"
-      ],
-      "title": "Variable Topics in Africana Studies (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AFRS 678",
-      "codes": [
-       "AFRS 678"
-      ],
-      "title": "Urban Issues of Black Children and Youth (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 100",
-      "codes": [
-       "AIS 100"
-      ],
-      "title": "Introduction to American Indian Studies (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 160",
-      "codes": [
-       "AIS 160"
-      ],
-      "title": "Survey of Native California (Area 6, AERM, ES)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 162",
-      "codes": [
-       "AIS 162"
-      ],
-      "title": "American Indian Oral Literature (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 235",
-      "codes": [
-       "AIS 235"
-      ],
-      "title": "American Indians: Image and Issues in the Mass Media (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 410",
-      "codes": [
-       "AIS 410"
-      ],
-      "title": "Perspectives of Native California Indians (Area 6, AERM)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 550",
-      "codes": [
-       "AIS 550"
-      ],
-      "title": "American Indians in Contemporary U.S. History (Area 6, AERM, SJ, USH)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "AIS 570",
-      "codes": [
-       "AIS 570"
-      ],
-      "title": "State Terrorism and Native Abolition (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "HIST 466",
-      "codes": [
-       "HIST 466"
-      ],
-      "title": "History of People of Color in the U.S. (Area 6, AERM, SJ, USH)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "ETHS 200",
-      "codes": [
-       "ETHS 200"
-      ],
-      "title": "Introduction to Race, Ethnicity, and Health (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "JOUR 536",
-      "codes": [
-       "JOUR 536"
-      ],
-      "title": "Latina/o Journalism (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 222",
-      "codes": [
-       "LTNS 222"
-      ],
-      "title": "Latina/o/x Art History (Area 6, AERM, GP)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 380",
-      "codes": [
-       "LTNS 380"
-      ],
-      "title": "Afro/Latina/o Diasporas (Area 6, AERM, GP)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 400",
-      "codes": [
-       "LTNS 400"
-      ],
-      "title": "Latina Girlhood (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 415",
-      "codes": [
-       "LTNS 415"
-      ],
-      "title": "Latina/o Economic Empowerment (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 435",
-      "codes": [
-       "LTNS 435"
-      ],
-      "title": "Oral History, Community Memory, and Collective Stories (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 445",
-      "codes": [
-       "LTNS 445"
-      ],
-      "title": "Gendered Borders: Latinas and Globalization (Area 6, AERM, GP)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 465",
-      "codes": [
-       "LTNS 465"
-      ],
-      "title": "Mexican American and Chicana/x/o History (Area 6, AERM, GP)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 500",
-      "codes": [
-       "LTNS 500"
-      ],
-      "title": "Latina/o Community Mental Health (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 505",
-      "codes": [
-       "LTNS 505"
-      ],
-      "title": "Latina/o/x Sexualities and Genders (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "LTNS 536",
-      "codes": [
-       "LTNS 536"
-      ],
-      "title": "Latina/o Journalism (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 220",
-      "codes": [
-       "RRS 220"
-      ],
-      "title": "Race and Dis/Ability (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 260",
-      "codes": [
-       "RRS 260"
-      ],
-      "title": "Introduction to Arab and Arab American Feminisms (Area 6, GP, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 285",
-      "codes": [
-       "RRS 285"
-      ],
-      "title": "Race, Sports, and Society (Area 6, AERM)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 295",
-      "codes": [
-       "RRS 295"
-      ],
-      "title": "Race, Public Art, and Creative Resistance (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 365",
-      "codes": [
-       "RRS 365"
-      ],
-      "title": "Race and Comedy in the United States (Area 6, AERM)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 375",
-      "codes": [
-       "RRS 375"
-      ],
-      "title": "Queer and Trans Arabs in the U.S. (Area 6, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 405",
-      "codes": [
-       "RRS 405"
-      ],
-      "title": "Pacific Islander Community Organizing in the Bay Area (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 425",
-      "codes": [
-       "RRS 425"
-      ],
-      "title": "Critical Exposures: Race, Racism, and Resistance in Photography (Area 6, AERM, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 490",
-      "codes": [
-       "RRS 490"
-      ],
-      "title": "Race, Art, and Social Justice (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 520",
-      "codes": [
-       "RRS 520"
-      ],
-      "title": "Race, Radicalism and Revolution (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 566",
-      "codes": [
-       "RRS 566"
-      ],
-      "title": "Gender and Modernity in the Muslim and Arab Worlds (Area 6, AERM, GP, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "RRS 600",
-      "codes": [
-       "RRS 600"
-      ],
-      "title": "History of People of Color in the U.S. (Area 6, AERM, SJ, USH)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "WGS 445",
-      "codes": [
-       "WGS 445"
-      ],
-      "title": "Gendered Borders: Latinas and Globalization (Area 6, AERM, GP, SJ)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "WGS 505",
-      "codes": [
-       "WGS 505"
-      ],
-      "title": "Latina/o/x Sexualities and Genders (Area 6)",
-      "units": "3",
-      "type": "course"
-     },
-     {
-      "code": "WGS 566",
-      "codes": [
-       "WGS 566"
-      ],
-      "title": "Gender and Modernity in the Muslim and Arab Worlds (Area 6, AERM, GP, SJ)",
-      "units": "3",
-      "type": "course"
+      "select_count": 1
      }
     ],
     "courses": [

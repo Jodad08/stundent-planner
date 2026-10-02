@@ -272,7 +272,7 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
   <section class="controls" aria-label="Plan settings">
     <div class="ctl"><span class="eyebrow">Career track</span><div class="seg" id="track-seg" role="group" aria-label="Career track"></div></div>
     <div class="ctl"><label class="eyebrow" for="max-units">Units per semester</label>
-      <select id="max-units"><option>12</option><option selected>15</option><option>17</option><option>19</option></select></div>
+      <select id="max-units"></select></div>
   </section>
 
   <section class="summary" aria-label="Summary">
@@ -335,7 +335,7 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
   const state = {
     transcript: JSON.parse(JSON.stringify(window.SAMPLE_TRANSCRIPT)),
     track: "systems",
-    maxUnits: 15,
+    maxUnits: DAG.university.normal_load_units[1],
     electives: null,
     offerings: Object.assign({}, DAG.term_offerings || {}),
     openSwap: null,
@@ -396,7 +396,9 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
   // ---------------------------------------------------------------- render: header + summary
   function renderHeader() {
     const p = R.prof;
-    const standing = p.unitsEarned >= 90 ? "Senior" : p.unitsEarned >= 60 ? "Junior" : p.unitsEarned >= 30 ? "Sophomore" : "Freshman";
+    const U = DAG.university;
+    const standing = p.unitsEarned >= U.senior_standing_units ? "Senior" : p.unitsEarned >= U.upper_division_standing_units ? "Junior"
+      : p.unitsEarned >= U.sophomore_standing_units ? "Sophomore" : "Freshman";
     document.getElementById("student-name").textContent = state.transcript.student || "Student";
     document.getElementById("student-sub").innerHTML =
       `${standing} · <span class="mono">${p.unitsEarned}</span> units earned · GPA <span class="mono">${p.gpa != null ? p.gpa.toFixed(2) : "–"}</span><br>Currently enrolled: ${esc(R.cur.season + " " + R.cur.year)}`;
@@ -567,10 +569,10 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
     state.transcript.courses.forEach(r => { const n = parseInt((r.code.match(/\d+/) || ["0"])[0], 10); if (r.include !== false && n >= 300 && n < 700 && (r.grade === "IP" || P.passes(r.grade, null))) udUnits += Number(r.units || 0); });
     Object.keys(b.placedTerm).forEach(c => { const n = parseInt(c.match(/\d+/)[0], 10); if (n >= 300 && n < 700) udUnits += NODES[c].units; });
     const uni = [
-      reqRow(b.finalUnits >= 120 ? (b.startUnits >= 120 ? "done" : "planned") : "warn", "At least 120 units", `${b.finalUnits} planned`),
+      reqRow(b.finalUnits >= DAG.university.min_units ? (b.startUnits >= DAG.university.min_units ? "done" : "planned") : "warn", `At least ${DAG.university.min_units} units`, `${b.finalUnits} planned`),
       reqRow(gpa == null ? "info" : gpa >= 2 ? "done" : "crit", "GPA of 2.0 or better (overall, SF State, major)", gpa == null ? "–" : gpa.toFixed(2)),
       reqRow(gw.status === "done" ? "done" : gw.status === "ip" ? "ip" : gw.status === "planned" ? "planned" : "crit", `Writing requirement (GWAR): ${cbtn(DAG.university.gwar_course)}, C- or better`, gw.label),
-      reqRow(udUnits >= 30 ? "planned" : "warn", "At least 30 upper-division units", `${udUnits} planned`),
+      reqRow(udUnits >= DAG.university.upper_division_units_required ? "planned" : "warn", `At least ${DAG.university.upper_division_units_required} upper-division units`, `${udUnits} planned`),
       reqRow("info", "30 units in residence at SF State, incl. 24 upper-division", "Not tracked"),
       reqRow("info", "General Education, SF State Studies, American Institutions", "Not tracked"),
     ];
@@ -705,7 +707,17 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
   }
 
   // ---------------------------------------------------------------- orchestration
+  function renderLoadOptions() {
+    const u = DAG.university, sel = document.getElementById("max-units");
+    if (sel.options.length) return;
+    const [lo, hi] = u.normal_load_units, max = u.max_units_priority_registration;
+    const opts = [...new Set([lo, hi, Math.round((hi + max) / 2), max])];
+    sel.innerHTML = opts.map(v => `<option value="${v}"${v === state.maxUnits ? " selected" : ""}>${v}${
+      v === max ? " (registration maximum)" : v <= hi ? " (normal load)" : ""}</option>`).join("");
+  }
+
   function render() {
+    renderLoadOptions();
     compute();
     renderHeader();
     renderSummary();

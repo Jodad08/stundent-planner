@@ -461,6 +461,31 @@ CHOICE_RE = re.compile(
     r"a minimum|at least|any|up to|no more than)\b|\b(?:of|from) the following\b|from:\s*$", re.I)
 
 
+NUM_WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9,
+             "ten": 10, "eleven": 11, "twelve": 12, "a": 1, "an": 1}
+
+
+def parse_choice(text):
+    """'Select Two:' -> {count: 2}; 'Select 6 units' -> {units: '6'}; 'Select a Maximum of One' -> {count: 1, qualifier: 'maximum'}."""
+    out = {}
+    t = text.lower()
+    q = re.search(r"\b(maximum|minimum|at least|at most|no more than|up to)(?:\s+of)?\s+"
+                  r"(?:\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\b", t)
+    if q and not re.search(r"\b(?:prefix|prefixes|categories|areas|departments|disciplines)\b", t[q.end():q.end() + 30]):
+        out["qualifier"] = q.group(1)
+    m = re.search(r"(\d+(?:\s*[-–]\s*\d+)?)\s*(?:semester\s+)?units?\b", t)
+    if m:
+        out["units"] = m.group(1).replace(" ", "").replace("–", "-")
+    m = re.search(r"\b(?:select|choose|complete|take|pick)\s+(?:a\s+)?(?:maximum\s+of\s+|minimum\s+of\s+|at\s+least\s+|"
+                  r"up\s+to\s+|any\s+)?(\d+|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)\b"
+                  r"(?!\d|(?:\s*[-–]\s*\d+)?\s*(?:semester\s+)?units?)", t)
+    if m:
+        out["count"] = int(m.group(1)) if m.group(1).isdigit() else NUM_WORDS[m.group(1)]
+    elif re.match(r"^\s*(?:select|choose)\s+(?:one|a course)\b", t) or re.search(r"\bselect one\b", t):
+        out["count"] = 1
+    return out
+
+
 def structure_courselist(rows):
     """Group raw rows into requirement items: single courses, OR-alternatives, choose-from lists.
 
@@ -495,7 +520,8 @@ def structure_courselist(rows):
         elif r["type"] in ("comment", "header"):
             text = r["text"]
             if CHOICE_RE.search(text):
-                group = {"type": "choose", "instruction": text, "units": r.get("units", ""), "courses": []}
+                group = {"type": "choose", "instruction": text, "units": r.get("units", ""), "courses": [],
+                         **{"select_" + k: v for k, v in parse_choice(text).items()}}
                 indented_seen = False
                 items.append(group)
                 continue
@@ -546,16 +572,51 @@ def requirement_blocks(container):
             rows = parse_courselist_rows(el)
             heading = heading_path[-1][1] if heading_path else ""
             m = UNITS_IN_HEADING.search(heading)
+            items = structure_courselist(rows)
+            lead = next((n for n in reversed(pending_notes) if len(n) < 250 and CHOICE_RE.search(n)), None)
+            if lead is None and CHOICE_RE.search(heading):
+                lead = heading
+            if lead and not any(it["type"] == "choose" for it in items):
+                items = wrap_choice(items, lead, m.group(1).replace(" ", "").replace("–", "-") if m else "")
             blocks.append({
                 "heading_path": [h[1] for h in heading_path],
                 "units": m.group(1).replace(" ", "").replace("–", "-") if m else None,
                 "notes": pending_notes,
-                "items": structure_courselist(rows),
+                "items": items,
                 "courses": sorted({c for r in rows if r["type"] == "course" for c in r["codes"]}),
             })
             pending_notes = []
     flush_trailing()
     return blocks
+
+
+def wrap_choice(items, instruction, block_units):
+    """The bulletin sometimes puts 'Select two:' in a paragraph above the table. Turn the table's
+    courses into a choose group (one group per area header when the table has headers)."""
+    segments, cur_header, cur = [], None, []
+    for it in items:
+        if it["type"] == "header":
+            if cur:
+                segments.append((cur_header, cur))
+            cur_header, cur = it["text"], []
+        elif it["type"] in ("course", "one_of"):
+            cur.append(it)
+        else:
+            cur.append(it)
+    if cur:
+        segments.append((cur_header, cur))
+    out = []
+    for header, seg in segments:
+        courses = [x for x in seg if x["type"] in ("course", "one_of")]
+        rest = [x for x in seg if x["type"] not in ("course", "one_of")]
+        if header:
+            out.append({"type": "header", "text": header})
+        if courses:
+            out.append({"type": "choose", "instruction": instruction, "instruction_source": "text above the table",
+                        "units": "" if header else block_units, "courses": courses,
+                        **{"select_" + k: v for k, v in parse_choice(instruction).items()}})
+        out += rest
+    return out
 
 
 TOTAL_RE = re.compile(r"(?:—|–|-|\(|:)\s*(?:(?:a\s+)?minimum(?:\s+of)?|min\.?|at least)?\s*(\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?)\s+(?:semester\s+)?units?\b\)?(?:\s+(?:minimum|min\.?|maximum|total|required))?\s*$", re.I)

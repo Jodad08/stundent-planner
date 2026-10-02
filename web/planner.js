@@ -216,8 +216,10 @@
 
     const coreqs = c => leaves(nodes[c].prereq).filter(l => l.coreq).map(l => l.code);
     const offered = (c, season) => !opts.offerings[c] || opts.offerings[c].includes(season);
+    const uni = dag.university || {};
+    const udStanding = uni.upper_division_standing_units, seniorStanding = uni.senior_standing_units;
     const standingOK = (c, units) => nodes[c].conditions.every(cond =>
-      !(UD.test(cond) && units < 60) && !(SENIOR.test(cond) && units < 90));
+      !(UD.test(cond) && units < udStanding) && !(SENIOR.test(cond) && units < seniorStanding));
 
     const inProgressUnits = profile.inProgressUnits != null ? profile.inProgressUnits
       : profile.courses.filter(r => r.grade === "IP" && r.include !== false).reduce((s, r) => s + (r.units || 0), 0);

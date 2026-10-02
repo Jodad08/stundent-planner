@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T20:45:30+00:00",
+  "input": {
+    "proposal": "D-008 rename DAG university fields: upper_division_standing_units 60, upper_division_units_required 30, max_units_priority_registration 19; planner and UI read them from the DAG"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0005-check"
+}

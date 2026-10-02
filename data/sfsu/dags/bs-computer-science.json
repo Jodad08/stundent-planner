@@ -1275,6 +1275,12 @@
    "title": null,
    "in_catalog": false,
    "note": "alternative path; counts if already completed (e.g. transfer credit)"
+  },
+  "CSC 308": {
+   "code": "CSC 308",
+   "title": null,
+   "in_catalog": false,
+   "note": "named only as recommended preparation for CSC 647 (\"Upper-division standing; CSC 415* and either MATH 225* or MATH 325* with a grade of C or better; CSC 308, CSC 309, and CSC 656 recommended; GPA of 3.0 or higher; or permission of the instructor.\"); not in the 2026-27 catalog; not a prerequisite edge"
   }
  },
  "tracks": {
@@ -1330,10 +1336,26 @@
  "university": {
   "min_units": 120,
   "min_gpa": 2.0,
-  "max_units_per_term": 19,
-  "typical_units_per_term": 15,
-  "upper_division_units": 60,
-  "senior_units": 90,
-  "gwar_course": "CSC 300GW"
+  "upper_division_units_required": 30,
+  "sophomore_standing_units": 30,
+  "upper_division_standing_units": 60,
+  "senior_standing_units": 90,
+  "normal_load_units": [
+   12,
+   15
+  ],
+  "max_units_priority_registration": 19,
+  "gwar_course": "CSC 300GW",
+  "rule_ids": {
+   "min_units": "ug_units_to_graduate",
+   "min_gpa": "ug_min_gpa_graduation",
+   "upper_division_units_required": "ug_upper_division_units",
+   "sophomore_standing_units": "class_levels",
+   "upper_division_standing_units": "class_levels",
+   "senior_standing_units": "class_levels",
+   "normal_load_units": "normal_load",
+   "max_units_priority_registration": "ug_max_units_priority_registration"
+  },
+  "notes": "upper_division_standing_units/senior_standing_units are class-level thresholds (junior 60+, senior 90+), not units required. 19 is the undergraduate fall/spring registration maximum; more needs the Exceed Maximum Units Petition."
  }
 }

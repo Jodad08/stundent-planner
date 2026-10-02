@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T20:45:35+00:00",
+  "input": {
+    "proposal": "D-014 generate the architecture contract files data/catalog.json, data/programs/bs-computer-science.json, data/policies.json, data/career_tags.json from data/sfsu with scraper/build_contracts.py"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0010-check"
+}

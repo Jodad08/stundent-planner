@@ -35,11 +35,11 @@ Scraped from all 1,109 sitemap pages of https://bulletin.sfsu.edu by `scraper/` 
 | File | Contents |
 |---|---|
 | `courses.json` | 4,995 courses: code, title, units, level, description, structured prerequisite segments (`*` = enforced at registration), GE areas, SF State Studies, GWAR, grading, `is_prerequisite_for`, `used_in_programs` |
-| `programs.json` | 416 programs with requirement blocks ("one of", "select N", notes). **Includes B.S. Business Administration: Concentration in Information Systems**, the program in the PDFs |
+| `programs.json` | 423 programs with requirement blocks ("one of", "select N" groups with parsed `select_count`/`select_units`, notes). **Includes B.S. Business Administration: Concentration in Information Systems**, the program in the PDFs |
 | `roadmaps.json` | 367 official semester-by-semester roadmaps. CS has three: QR Category 1/2, QR Category 3/4, and the COMP ADT transfer roadmap |
-| `academic_rules.json` | 83 curated rules, each with values, a verbatim `quote`, and a `source_url`. `scraper/build_rules.py` fails if a quote is not on the source page |
+| `academic_rules.json` | 113 curated rules, each with a `topic`, values, the full source sentence as `quote`, a `source_excerpt`, `conflicts` where the Bulletin contradicts itself (5), and a `source_url`. `scraper/build_rules.py` fails if a quote is not on the source page |
 | `policies.json`, `departments.json`, `colleges.json`, `lookup.json`, `program_index.json`, `course_index.json` | Policy pages, org pages, fast lookups |
-| `rag/chunks.jsonl` + `scraper/search.py` | 12k RAG chunks and a dependency-free BM25 search |
+| `rag/chunks.jsonl` + `scraper/search.py` | 11,457 RAG chunks and a dependency-free BM25 search |
 | `dags/bs-computer-science.json` | **Hand-checked prerequisite DAG for B.S. CS**, described in 0.2 |
 
 **The data step from `plan.md` §8 (scraping) is done.** Do not re-scrape unless a decision says why. Do not hand-type a second catalog. If the architecture's `Course` shape is needed, *derive* it from `data/sfsu/` with a build script (the way `web/make_data.py` already does), and record the decision.
@@ -61,9 +61,9 @@ Scraped from all 1,109 sitemap pages of https://bulletin.sfsu.edu by `scraper/` 
 - Notes: C or better is required in Math/Physics, Core and Advanced. CR/NC is not accepted in the major.
 
 Known issues you must look at (the critic will keep flagging them until resolved):
-1. **CSC 308** is listed in a node's `recommended` list but is not in `courses.json` or `external`. Find out whether it was dropped from the 2026-27 catalog or is a parse error. Fix it or declare it, with evidence.
-2. `university.upper_division_units: 60` is ambiguous. The Bulletin rule `ug_upper_division_units` says a degree needs **30 upper-division units**. The 60 is most likely the *upper-division standing* threshold that `web/README.md` mentions ("upper-division/senior standing (60/90 units)"). Rename or document it so nobody reads it as "60 UD units required".
-3. `university.max_units_per_term: 19` comes from the **priority-registration** cap (rule `ug_max_units_priority_registration`), not an absolute maximum. Label it that way in the UI.
+1. **CSC 308** is listed in a node's `recommended` list but is not in `courses.json` or `external`. Find out whether it was dropped from the 2026-27 catalog or is a parse error. Fix it or declare it, with evidence. **Resolved (D-007):** not in the 2026-27 catalog; named only as recommended preparation for CSC 647; now declared in `external`.
+2. `university.upper_division_units: 60` is ambiguous. The Bulletin rule `ug_upper_division_units` says a degree needs **30 upper-division units**. The 60 is most likely the *upper-division standing* threshold that `web/README.md` mentions ("upper-division/senior standing (60/90 units)"). Rename or document it so nobody reads it as "60 UD units required". **Resolved (D-008):** now `upper_division_standing_units: 60`, with `upper_division_units_required: 30` alongside.
+3. `university.max_units_per_term: 19` comes from the **priority-registration** cap (rule `ug_max_units_priority_registration`), not an absolute maximum. Label it that way in the UI. **Resolved (D-008):** now `max_units_priority_registration: 19`; the UI labels it "registration maximum".
 
 ### 0.3 Existing planner (`web/`)
 
@@ -112,7 +112,7 @@ Major requirements shown for BSBA-ISYS (69 units):
 |---|---|
 | Prerequisites (9-12 units) | DS 110 or MATH 110; ECON 101; ISYS 263 (can be met by CLEP) |
 | Core (39 units) | ACCT 100, ACCT 101, BUS 300GW or DS 660GW (GWAR), BUS 682, BUS 690, DS/ECON 212 or MATH 124, DS 412, ECON 102, FIN 350, IBUS 330, ISYS 363, MGMT 405, MKTG 431 |
-| Concentration (21 units) | ISYS 350, 463, 464, 565, 663 + 6 units of electives from a list of 12. The PDF shows only 10 (ISYS 412, 475, 556, 567, 568, 569, 573, 574, 575, 650). `programs.json` names the same 10 ISYS electives. The other 2 are **UNKNOWN** (possibly non-ISYS courses). Read the program's requirement blocks in `programs.json` / the Bulletin page before listing them. Do not guess |
+| Concentration (21 units) | ISYS 350, 463, 464, 565, 663 + 6 units of electives. **Bulletin (checked, D-009):** "Select Two" from exactly 10 ISYS courses (ISYS 412, 475, 556, 567, 568, 569, 573, 574, 575, 650); `programs.json` now holds them as a choose group with `select_count: 2`. The DPR's "list of 12" is not in the public Bulletin; the 2 extra courses stay **UNKNOWN** and must not be shown |
 | Rules | At most 6 core units CR/NC. Concentration courses must be letter grade. 2.0 GPA in core and concentration. At most 2 concentration courses from outside departments, with advisor approval |
 
 The DPR's "When" column shows term text such as "Fall, Spring, Summer" or "Periodically offered" (for example ISYS 565, ISYS 573, ISYS 574, DS 660GW). It is the only term-offering hint you have, and it comes from a private report. Do not put it in `term_offerings` without a public class-schedule source.
@@ -147,7 +147,7 @@ What the real system DOES do, so never claim otherwise: it auto-suggests courses
 |---|---|---|
 | `normal_load` | 12-15 (fall/spring), 8 (summer) | "normal academic load for undergraduates" |
 | `ug_average_load` | 15 | average full-time load |
-| `fa_enrollment_status` | 12 | full time for financial aid |
+| `enrollment_status_levels` | 12-19 | undergraduate full time (enrollment verification, including financial aid). Replaces `fa_enrollment_status`, which turned out to be the Pell Grant rule (now `pell_enrollment_status`), D-009 |
 | `ug_max_units_priority_registration` | 19 (incl. 8 waitlisted) | maximum at priority registration |
 | `ug_exceed_max_units` | GPA 3.0 + petition | needed to go above the maximum |
 | `ug_25_units` | 25 | advisor + dean approval required |

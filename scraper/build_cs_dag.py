@@ -180,6 +180,13 @@ def main():
                 external[u] = {"code": u, "title": cat["title"] if cat else None,
                                "in_catalog": bool(cat),
                                "note": "alternative path; counts if already completed (e.g. transfer credit)"}
+    # recommended-only codes that the 2026-27 catalog no longer has (e.g. CSC 308 under CSC 647)
+    for n in nodes.values():
+        for u in n["recommended"]:
+            if u not in nodes and u not in courses:
+                external[u] = {"code": u, "title": None, "in_catalog": False,
+                               "note": f"named only as recommended preparation for {n['code']} "
+                                       f"(\"{n['bulletin_prerequisite_text']}\"); not in the 2026-27 catalog; not a prerequisite edge"}
     # requirements, straight from programs.json
     reqs = []
     for b in program["requirements"]:
@@ -241,8 +248,28 @@ def main():
         "external": external,
         "tracks": TRACKS,
         "term_offerings": {},
-        "university": {"min_units": 120, "min_gpa": 2.0, "max_units_per_term": 19, "typical_units_per_term": 15,
-                       "upper_division_units": 60, "senior_units": 90, "gwar_course": "CSC 300GW"},
+        "university": {
+            "min_units": 120,
+            "min_gpa": 2.0,
+            "upper_division_units_required": 30,
+            "sophomore_standing_units": 30,
+            "upper_division_standing_units": 60,
+            "senior_standing_units": 90,
+            "normal_load_units": [12, 15],
+            "max_units_priority_registration": 19,
+            "gwar_course": "CSC 300GW",
+            "rule_ids": {
+                "min_units": "ug_units_to_graduate", "min_gpa": "ug_min_gpa_graduation",
+                "upper_division_units_required": "ug_upper_division_units",
+                "sophomore_standing_units": "class_levels", "upper_division_standing_units": "class_levels",
+                "senior_standing_units": "class_levels",
+                "normal_load_units": "normal_load",
+                "max_units_priority_registration": "ug_max_units_priority_registration",
+            },
+            "notes": "upper_division_standing_units/senior_standing_units are class-level thresholds (junior 60+, "
+                     "senior 90+), not units required. 19 is the undergraduate fall/spring registration maximum; "
+                     "more needs the Exceed Maximum Units Petition.",
+        },
     }
     out_dir = os.path.join(DATA, "dags")
     os.makedirs(out_dir, exist_ok=True)
