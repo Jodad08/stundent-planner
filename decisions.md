@@ -241,3 +241,29 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - Risk / undo: a policy number hardcoded in `web/planner.js` would no longer be flagged; the engine reads every threshold from `policies.json` (tests use `POL(...)`). Revert the three lines in `harness.py`.
 - Critic: PASS (0016-check) [critic: mock]
 - Status: active
+
+## D-021: Server in plain Node + Express with one model adapter and a repair loop
+- Step: 4 (prompt.md B.5 steps 4–7)
+- Decision: `server/` is plain Node + Express 5. One model adapter, `server/gemini.js`, with providers `gemini|mock` (`AI_PROVIDER`; mock is the default when `GEMINI_API_KEY` is unset; `GEMINI_MODEL` is required for gemini, never hardcoded). All prompts and response schemas live in `server/prompts.js`. `POST /api/plan` checks the schema, rejects unknown IDs (never auto-corrects), runs `evaluatePlan`, allows at most 2 repairs, then falls back to `buildFallbackPlan`. Every plan/evaluate call is saved to `runs/` and replays without a model call. `PlanRequest` adds `startTerm` and `profile`.
+- Alternatives: TypeScript server (D-011 ditched the TS port); call the model from the browser (puts the key in the frontend).
+- Why: Keeps the key on the server, keeps validity in the engine, and lets every step run and be tested without an API key.
+- Evidence: `npm test` (`server/server.test.js` 6/6: mock pipeline + replay, invented IDs rejected after 3 calls, schema-invalid → fallback, model exception → fallback, suggestion filtering, bad-request codes)
+- Risk / undo: the mock is deterministic code, not AI; the UI must label it "Mock model". The real Gemini call is untested until a key is supplied.
+- Critic: PASS (0017-check) [critic: mock]
+- Status: active
+
+## D-022: Engine adds STANDING_NOT_MET and ALREADY_SATISFIED
+- Step: 4
+- Decision: `evaluatePlan` reports `STANDING_NOT_MET` (a course needing upper-division standing placed before the student has the units) and `ALREADY_SATISFIED` (a GE placeholder whose area a completed or planned real course already covers). Both are warnings. Real courses cover GE areas before placeholders do.
+- Alternatives: leave standing to the scheduler only; silently ignore redundant placeholders.
+- Why: The mock run for the sample student re-took GE areas already done and still looked valid; standing violations only showed in the scheduler, not in a checked plan.
+- Evidence: `web/planner.test.js` ("upper-division standing is checked against units before the term"); mock smoke run for the sample cybersecurity student
+- Risk / undo: remove the two codes from `evaluatePlan` and `architecture.md` §6 IssueCode.
+- Critic: PASS (0018-check) [critic: mock]
+- Status: active
+
+### Step 4 summary (engine + server)
+- What changed: `web/planner.js` exports `evaluatePlan`, `buildFallbackPlan`, `repairPlan`, `directionScores`; `web/planner.test.js` (14 tests); `server/` (data, schema, prompts, mock model, Gemini adapter, plan pipeline, evaluate, runs, API) with `server/server.test.js` (6 tests); `package.json`; `architecture.md` §6/§9/§12/§13/§16.
+- How to run: `npm install && npm test && npm start` (mock provider without a key).
+- What proves it works: 20/20 tests; harness scan clean.
+- What can still fail: real Gemini output (no key yet); board UI not yet wired to the server.

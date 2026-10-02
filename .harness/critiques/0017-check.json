@@ -1,0 +1,17 @@
+{
+  "mode": "check",
+  "provider": "mock",
+  "created_at": "2026-10-02T21:01:41+00:00",
+  "input": {
+    "proposal": "D-021 server in plain Node + Express 5; one model adapter server/gemini.js with gemini|mock (mock default without GEMINI_API_KEY); prompts only in server/prompts.js; /api/plan with schema check, unknown-ID rejection, max 2 repairs, deterministic fallback; runs saved to runs/; PlanRequest adds startTerm and profile"
+  },
+  "critique": {
+    "verdict": "PASS",
+    "summary": "MOCK CRITIC: deterministic scan only. No LLM reviewed the reasoning, claims or scope.",
+    "findings": [],
+    "direction": "Set ANTHROPIC_API_KEY for a real critique; mock PASS is not approval.",
+    "cut": [],
+    "questions_for_human": []
+  },
+  "critique_id": "0017-check"
+}

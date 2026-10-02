@@ -12,3 +12,4 @@ Student Center.pdf
 
 # Critic harness: keep critiques (evidence), ignore the change-tracking baseline
 .harness/state.json
+node_modules/

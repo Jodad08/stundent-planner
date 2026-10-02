@@ -277,8 +277,12 @@ export type Plan = {
   programId: string
   goalText: string
   createdAt: string          // ISO
-  semesters: SemesterPlan[]  // length is always 8
+  semesters: SemesterPlan[]  // length is always 8; labels are real terms from startTerm (D-016)
   source: "manual" | "ai" | "fallback"
+  startTerm?: { season: "Fall" | "Spring"; year: number }   // D-016
+  completedCourseIds?: CourseId[]  // done or in progress, counted before semester 1 (D-016)
+  completedUnits?: number          // includes transfer units outside the catalog (D-016)
+  placement?: Record<string, boolean>
 }
 
 export type IssueCode =
@@ -287,6 +291,7 @@ export type IssueCode =
   | "DUPLICATE_COURSE" | "REQ_GROUP_INCOMPLETE" | "TOTAL_UNITS_SHORT"
   | "TERM_NOT_OFFERED" | "UNVERIFIED_DATA" | "PREREQ_NOTE"
   | "UNKNOWN_COURSE"
+  | "STANDING_NOT_MET" | "ALREADY_SATISFIED"   // D-022 (warnings)
 
 export type Issue = {
   id: string
@@ -410,6 +415,8 @@ type PlanRequest = {
   programId: string
   unitsPerSemester: number         // integer
   lockedPlacements: { courseId: CourseId; semester: number }[]
+  startTerm: { season: "Fall" | "Spring"; year: number }   // D-021
+  profile?: { courses: { code: CourseId; grade: string; units: number }[]; placement?: Record<string, boolean> }  // D-021
 }
 
 type PlanResponse = {
@@ -531,10 +538,11 @@ Commands (fill in the exact scripts in `package.json` and keep this table true):
 | Task | Command |
 |---|---|
 | Install | `npm install` |
-| Dev (web + server) | `TODO(verify): set in package.json` |
-| Test engine | `TODO(verify): set in package.json` |
+| Dev (web + server) | `npm start` (http://localhost:3000; `AI_PROVIDER=mock` without a key) |
+| Test engine + server | `npm test` |
 | Validate data | `python scripts/validate_catalog.py` |
-| Build | `TODO(verify): set in package.json` |
+| Build data + web bundle | `npm run build:data` |
+| Evals | `npm run evals` |
 
 Update this table as soon as scripts exist. An agent must not run a command that is not in this table without checking `package.json`.
 
@@ -546,12 +554,12 @@ Do not write versions from memory. After install, copy the real versions from `p
 
 | Package | Version |
 |---|---|
-| node | TODO(verify) |
+| node | 22.22.0 |
 | @xyflow/react | TODO(verify) |
 | react | TODO(verify) |
 | zustand | TODO(verify) |
-| express | TODO(verify) |
-| @google/genai | TODO(verify) |
+| express | 5.2.1 |
+| @google/genai | 2.27.0 |
 | tailwindcss | TODO(verify) |
 | vitest | TODO(verify) |
 
@@ -596,5 +604,6 @@ Each item must be resolved from an official source and then moved to the data fi
 
 Add one line per contract change. Newest first.
 
+- 2026-10-02: D-021 `PlanRequest` gains `startTerm` and `profile`; D-022 issue codes `STANDING_NOT_MET`, `ALREADY_SATISFIED`; D-016 `Plan` gains `startTerm`, `completedCourseIds`, `completedUnits`, `placement`; §12/§13 filled from `package.json`.
 - 2026-10-02: D-011 engine stays `web/planner.js` (plain JS); D-012 `prereq: PrereqExpr` replaces `prereqs: CourseId[][]`; D-013 course IDs keep the Bulletin space; D-014 contract files generated from `data/sfsu/`; D-017 no React Flow, SVG overlay on the existing page.
 - 2026-10-02: Initial version. Backend locked to Node + Express + TypeScript so the engine exists once in `shared/`.

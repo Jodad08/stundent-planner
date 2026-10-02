@@ -454,11 +454,14 @@
         let have = 0;
         g.courseIds.forEach(p => {
           const want = cat.get(p).geAreas;
-          let cover = pos.has(p) ? p : null;
-          if (!cover) {
-            cover = [...pos.keys()].find(c => !used.has(c) && cat.has(c) && !cat.get(c).isPlaceholder &&
-              (cat.get(c).geAreas || []).some(a => want.includes(a)));
+          // real courses count first; a placeholder only fills an area nothing else covers
+          let cover = [...pos.keys()].find(c => !used.has(c) && cat.has(c) && !cat.get(c).isPlaceholder &&
+            (cat.get(c).geAreas || []).some(a => want.includes(a)));
+          if (cover && pos.has(p)) {
+            add("warning", "ALREADY_SATISFIED", `${p} isn't needed: ${cover} already covers GE Area ${want.join("/")}.`, [p, cover],
+              { semesterIndex: pos.get(p), sourceUrl: cat.get(p).sourceUrl });
           }
+          if (!cover && pos.has(p)) cover = p;
           if (cover) { used.add(cover); have += unitsOf(p); } else missing.push(p);
         });
         statusById[g.id] = { groupId: g.id, title: g.title, satisfied: !missing.length, missingCourseIds: missing, unitsHave: have, unitsNeed: g.unitsRequired };

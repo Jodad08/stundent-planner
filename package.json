@@ -1,0 +1,19 @@
+{
+  "name": "gatorgraph",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Rules-checked degree planner for SFSU (SF Hacks x GDG AI Hackathon)",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test web/planner.test.js server/server.test.js",
+    "evals": "node evals/run_evals.js",
+    "build:data": "python3 scraper/build_cs_dag.py && python3 scraper/build_contracts.py && python3 scripts/validate_catalog.py && python3 web/make_data.py && python3 web/bundle.py"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@google/genai": "^2.27.0",
+    "express": "^5.2.1"
+  }
+}
