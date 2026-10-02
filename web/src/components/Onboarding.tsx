@@ -34,6 +34,9 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
       i < (saved?.completedSemesters ?? 0) ? (savedPlan?.semesters[i]?.courseIds ?? []).filter(c => dag.nodes[c]) : [] as CourseId[]),
     units: saved?.unitsDone ?? 0, grad: 8, cps: saved?.coursesPerSemester ?? 5, goal: saved?.goal ?? "" })
   const [interview, setInterview] = useState(false)
+  // course step: pick one course, press +, repeat, then Done (D-038)
+  const [picked, setPicked] = useState<CourseId[]>([])
+  const [pickWarn, setPickWarn] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<{ resp: PlanResponse; trace: ReturnType<typeof traceOf>; trackId: string } | null>(null)
   const [err, setErr] = useState<string | null>(null)
@@ -55,7 +58,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const a = A.current
-  const askCourses = (k: number) => say([`Which major courses did you take in ${termName(dag, k + 1)}? Type the codes, like "CSC 101, MATH 226", or "none".`], "courses")
+  const askCourses = (k: number) => say([`Which major courses did you take in ${termName(dag, k + 1)}? Add them one by one with +, then press Done.`], "courses")
   const units = () => Math.min(policies.maxUnitsWithoutPermission.value, Math.max(policies.minUnitsFullTime.value, a.cps * 3))
 
   function reply(raw: string) {
@@ -124,6 +127,16 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
     }
   }
 
+  function addPick() {
+    const codes = parseCodes(draft)
+    if (!codes.length) { setPickWarn('Type a course code like "CSC 101".'); return }
+    const bad = codes.filter(c => !dag.nodes[c]), dup = codes.filter(c => picked.includes(c) || a.taken.flat().includes(c))
+    const ok = [...new Set(codes)].filter(c => dag.nodes[c] && !dup.includes(c))
+    if (ok.length) setPicked(p => [...p, ...ok])
+    setDraft(bad.join(", "))
+    setPickWarn(bad.length ? `${bad.join(", ")} isn't a Computer Science major course in the 2026-27 Bulletin.` : dup.length ? `${dup.join(", ")} is already added.` : null)
+  }
+
   const chips: Record<Step, string[]> = {
     back: ["Go to my plan", "Update my answers"], name: [], major: ["Computer Science"],
     sems: ["Just starting", "1", "2", "4"], courses: ["None"], units: ["0", "Not sure"], grad: ["Spring 2030", "Fall 2029"],
@@ -189,15 +202,39 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
             {err && <div className="text-xs text-red-400">{err}</div>}
             <div ref={end} />
           </div>
-          {step !== "done" && (
+          {step === "courses" && !typing && (
+            <div className="border-t border-white/10 p-3">
+              <div className="mb-2 text-[11px] text-zinc-400">Courses you took in {termName(dag, a.sem + 1)}</div>
+              <div className="flex gap-2">
+                <input autoFocus list="pe-codes" value={draft} onChange={e => { setDraft(e.target.value); setPickWarn(null) }}
+                  onKeyDown={e => { if (e.key === "Enter") addPick() }} placeholder="Start typing, e.g. CSC 101"
+                  className="flex-1 rounded-full border border-white/10 bg-transparent px-4 py-2 font-mono text-sm text-white outline-none placeholder:font-sans placeholder:text-zinc-600 focus:border-lime-300/60" />
+                <button onClick={addPick} disabled={!draft.trim()} title="Add this course"
+                  className="w-10 rounded-full border border-lime-300/50 text-lg text-lime-300 hover:bg-lime-300/10 disabled:opacity-30">+</button>
+              </div>
+              {pickWarn && <div className="mt-1.5 text-[11px] text-amber-300">{pickWarn}</div>}
+              <div className="mt-2 flex min-h-8 flex-wrap gap-1.5">
+                {picked.map(c => (
+                  <span key={c} className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 font-mono text-[12px] text-zinc-100">
+                    {c}<button className="text-zinc-500 hover:text-red-400" onClick={() => setPicked(p => p.filter(x => x !== c))}>×</button>
+                  </span>))}
+                {!picked.length && <span className="py-1 text-[11px] text-zinc-600">No courses added yet</span>}
+              </div>
+              <button onClick={() => { const list = picked.join(", "); setPicked([]); setDraft(""); reply(list || "none") }}
+                className="mt-2 w-full rounded-full bg-lime-300 py-2 text-sm font-medium text-zinc-900">
+                {picked.length ? `Done with ${termName(dag, a.sem + 1)}` : `I didn't take any major courses in ${termName(dag, a.sem + 1)}`}
+              </button>
+              <datalist id="pe-codes">{Object.keys(dag.nodes).sort().filter(c => !picked.includes(c) && !a.taken.flat().includes(c)).map(c => <option key={c} value={c}>{dag.nodes[c].title}</option>)}</datalist>
+            </div>
+          )}
+          {step !== "done" && step !== "courses" && (
             <div className="border-t border-white/10 p-3">
               <div className="mb-2 flex min-h-7 flex-wrap gap-1.5">
                 {!typing && chips[step].map(c => <button key={c} onClick={() => reply(c)} className="rounded-full border border-white/15 px-3 py-1 text-[12px] text-zinc-200 hover:border-lime-300 hover:text-white">{c}</button>)}
               </div>
               <div className="flex gap-2">
-                <input autoFocus list={step === "courses" ? "pe-codes" : undefined} value={draft} onChange={e => setDraft(e.target.value)} onKeyDown={e => { if (e.key === "Enter") reply(draft) }}
+                <input autoFocus value={draft} onChange={e => setDraft(e.target.value)} onKeyDown={e => { if (e.key === "Enter") reply(draft) }}
                   placeholder={typing ? "…" : "Type your answer"} className="flex-1 rounded-full border border-white/10 bg-transparent px-4 py-2 text-sm text-white outline-none placeholder:text-zinc-600 focus:border-lime-300/60" />
-                <datalist id="pe-codes">{Object.keys(dag.nodes).sort().map(c => <option key={c} value={c}>{dag.nodes[c].title}</option>)}</datalist>
                 <button onClick={() => reply(draft)} disabled={!draft.trim() || typing} className="rounded-full bg-lime-300 px-4 text-sm font-medium text-zinc-900 disabled:opacity-40">Send</button>
               </div>
             </div>

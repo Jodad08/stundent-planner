@@ -1,0 +1,643 @@
+{
+ "run_id": "2026-10-02T22-49-20-858Z_gemini_plan_f11ec9",
+ "variant": "gemini_plan",
+ "input": {
+  "goalText": "Systems & Security: Systems & Security. Focus: skip to the plan. Wants to work: Not sure yet. After graduating: Undecided.",
+  "programId": "bs-cs",
+  "unitsPerSemester": 15,
+  "lockedPlacements": [
+   {
+    "courseId": "CSC 215",
+    "semester": 2
+   }
+  ],
+  "completedSemesters": 2,
+  "trackId": "systems",
+  "unitsEarned": 30
+ },
+ "config": {
+  "provider": "mock",
+  "model": "gemini-3.8-flash",
+  "maxRepairs": 2
+ },
+ "steps": [
+  {
+   "name": "model_plan",
+   "detail": {
+    "provider": "mock",
+    "model": "simulated",
+    "ms": 1409,
+    "raw": {
+     "trackId": "systems",
+     "semesters": [
+      {
+       "index": 1,
+       "courseIds": []
+      },
+      {
+       "index": 2,
+       "courseIds": [
+        "CSC 215"
+       ]
+      },
+      {
+       "index": 3,
+       "courseIds": [
+        "MATH 226",
+        "CSC 220",
+        "CSC 101"
+       ]
+      },
+      {
+       "index": 4,
+       "courseIds": [
+        "CSC 230",
+        "MATH 227",
+        "PHYS 220",
+        "CSC 317",
+        "PHYS 222",
+        "CSC 340"
+       ]
+      },
+      {
+       "index": 5,
+       "courseIds": [
+        "CSC 256",
+        "MATH 324",
+        "PHYS 230",
+        "PHYS 232"
+       ]
+      },
+      {
+       "index": 6,
+       "courseIds": [
+        "CSC 413",
+        "CSC 415",
+        "CSC 300GW",
+        "CSC 510",
+        "MATH 225"
+       ]
+      },
+      {
+       "index": 7,
+       "courseIds": [
+        "CSC 615",
+        "CSC 645",
+        "CSC 648",
+        "CSC 651",
+        "CSC 652"
+       ]
+      },
+      {
+       "index": 8,
+       "courseIds": [
+        "CSC 653"
+       ]
+      }
+     ],
+     "thoughts": [
+      "You want to be a systems & Security, focused on skip to the plan, open to working anywhere, and heading into whatever comes next after graduating. That lines up with the department's Systems & Security track, so its electives come first.",
+      "2 semesters are already done (CSC 215), so I'm planning from semester 3.",
+      "The longest prerequisite chain is CSC 101 → CSC 215 → CSC 220 → CSC 317 → CSC 413 → CSC 648, so CSC 101 has to start early.",
+      "Electives (15 units): CSC 615, CSC 645, CSC 651, CSC 652, CSC 653.",
+      "Keeping each semester near 15 units, under the 19-unit priority-registration cap."
+     ],
+     "rationale": "I matched \"Systems & Security: Systems & Security. Focus: skip to the plan. Wants to work: Not sure yet. After graduating: Undecided.\" to Systems & Security and chose Embedded Linux Systems and Physical Computing, Computer Networks, System Administration and more, because they build directly on your core courses and point at that career.",
+     "electiveChoices": [
+      {
+       "courseId": "CSC 615",
+       "reason": "Embedded Linux Systems and Physical Computing sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 645",
+       "reason": "Computer Networks sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 651",
+       "reason": "System Administration sits in the Systems & Security track, and it builds on CSC 413 and CSC 415."
+      },
+      {
+       "courseId": "CSC 652",
+       "reason": "Introduction to Security and Data Privacy sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 653",
+       "reason": "Network Security sits in the Systems & Security track, and it builds on CSC 415."
+      }
+     ]
+    }
+   },
+   "at": "2026-10-02T22:49:22.268Z"
+  },
+  {
+   "name": "engine_check",
+   "detail": {
+    "attempt": 1,
+    "dropped": [],
+    "problems": [
+     "CSC 215 is in Spring Year 1, but CSC 101 (Fall Year 2) must come earlier. Rule: CSC 101.",
+     "CSC 340 is in Spring Year 2, but CSC 230 (Spring Year 2) must come earlier. Rule: CSC 220 and CSC 230."
+    ],
+    "errors": 2
+   },
+   "at": "2026-10-02T22:49:22.271Z"
+  },
+  {
+   "name": "model_repair_1",
+   "detail": {
+    "provider": "mock",
+    "model": "simulated",
+    "ms": 1404,
+    "raw": {
+     "trackId": "systems",
+     "semesters": [
+      {
+       "index": 1,
+       "courseIds": []
+      },
+      {
+       "index": 2,
+       "courseIds": [
+        "CSC 215"
+       ]
+      },
+      {
+       "index": 3,
+       "courseIds": [
+        "MATH 226",
+        "CSC 220",
+        "CSC 101"
+       ]
+      },
+      {
+       "index": 4,
+       "courseIds": [
+        "CSC 230",
+        "MATH 227",
+        "PHYS 220",
+        "CSC 317",
+        "PHYS 222"
+       ]
+      },
+      {
+       "index": 5,
+       "courseIds": [
+        "CSC 256",
+        "CSC 340",
+        "MATH 324",
+        "PHYS 230",
+        "PHYS 232"
+       ]
+      },
+      {
+       "index": 6,
+       "courseIds": [
+        "CSC 413",
+        "CSC 415",
+        "CSC 300GW",
+        "CSC 510",
+        "MATH 225"
+       ]
+      },
+      {
+       "index": 7,
+       "courseIds": [
+        "CSC 615",
+        "CSC 645",
+        "CSC 648",
+        "CSC 651",
+        "CSC 652"
+       ]
+      },
+      {
+       "index": 8,
+       "courseIds": [
+        "CSC 653"
+       ]
+      }
+     ],
+     "thoughts": [
+      "The rules engine rejected my draft: CSC 340 needs CSC 220 and CSC 230 completed first, and I had them in the same semester.",
+      "Moving CSC 340 one semester later. Nothing that depends on it shifts past the last semester, so graduation stays on time."
+     ],
+     "rationale": "Repaired: CSC 340 now follows CSC 220 and CSC 230. Electives stay focused on Systems & Security.",
+     "electiveChoices": [
+      {
+       "courseId": "CSC 615",
+       "reason": "Embedded Linux Systems and Physical Computing sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 645",
+       "reason": "Computer Networks sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 651",
+       "reason": "System Administration sits in the Systems & Security track, and it builds on CSC 413 and CSC 415."
+      },
+      {
+       "courseId": "CSC 652",
+       "reason": "Introduction to Security and Data Privacy sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 653",
+       "reason": "Network Security sits in the Systems & Security track, and it builds on CSC 415."
+      }
+     ]
+    }
+   },
+   "at": "2026-10-02T22:49:23.675Z"
+  },
+  {
+   "name": "engine_check",
+   "detail": {
+    "attempt": 2,
+    "dropped": [],
+    "problems": [
+     "CSC 215 is in Spring Year 1, but CSC 101 (Fall Year 2) must come earlier. Rule: CSC 101."
+    ],
+    "errors": 1
+   },
+   "at": "2026-10-02T22:49:23.676Z"
+  },
+  {
+   "name": "model_repair_2",
+   "detail": {
+    "provider": "mock",
+    "model": "simulated",
+    "ms": 1404,
+    "raw": {
+     "trackId": "systems",
+     "semesters": [
+      {
+       "index": 1,
+       "courseIds": []
+      },
+      {
+       "index": 2,
+       "courseIds": [
+        "CSC 215"
+       ]
+      },
+      {
+       "index": 3,
+       "courseIds": [
+        "MATH 226",
+        "CSC 220",
+        "CSC 101"
+       ]
+      },
+      {
+       "index": 4,
+       "courseIds": [
+        "CSC 230",
+        "MATH 227",
+        "PHYS 220",
+        "CSC 317",
+        "PHYS 222"
+       ]
+      },
+      {
+       "index": 5,
+       "courseIds": [
+        "CSC 256",
+        "CSC 340",
+        "MATH 324",
+        "PHYS 230",
+        "PHYS 232"
+       ]
+      },
+      {
+       "index": 6,
+       "courseIds": [
+        "CSC 413",
+        "CSC 415",
+        "CSC 300GW",
+        "CSC 510",
+        "MATH 225"
+       ]
+      },
+      {
+       "index": 7,
+       "courseIds": [
+        "CSC 615",
+        "CSC 645",
+        "CSC 648",
+        "CSC 651",
+        "CSC 652"
+       ]
+      },
+      {
+       "index": 8,
+       "courseIds": [
+        "CSC 653"
+       ]
+      }
+     ],
+     "thoughts": [
+      "The rules engine rejected my draft: CSC 340 needs CSC 220 and CSC 230 completed first, and I had them in the same semester.",
+      "Moving CSC 340 one semester later. Nothing that depends on it shifts past the last semester, so graduation stays on time."
+     ],
+     "rationale": "Repaired: CSC 340 now follows CSC 220 and CSC 230. Electives stay focused on Systems & Security.",
+     "electiveChoices": [
+      {
+       "courseId": "CSC 615",
+       "reason": "Embedded Linux Systems and Physical Computing sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 645",
+       "reason": "Computer Networks sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 651",
+       "reason": "System Administration sits in the Systems & Security track, and it builds on CSC 413 and CSC 415."
+      },
+      {
+       "courseId": "CSC 652",
+       "reason": "Introduction to Security and Data Privacy sits in the Systems & Security track, and it builds on CSC 415."
+      },
+      {
+       "courseId": "CSC 653",
+       "reason": "Network Security sits in the Systems & Security track, and it builds on CSC 415."
+      }
+     ]
+    }
+   },
+   "at": "2026-10-02T22:49:25.080Z"
+  },
+  {
+   "name": "engine_check",
+   "detail": {
+    "attempt": 3,
+    "dropped": [],
+    "problems": [
+     "CSC 215 is in Spring Year 1, but CSC 101 (Fall Year 2) must come earlier. Rule: CSC 101."
+    ],
+    "errors": 1
+   },
+   "at": "2026-10-02T22:49:25.080Z"
+  },
+  {
+   "name": "fallback",
+   "detail": {
+    "trackId": "systems",
+    "electives": [
+     "CSC 615",
+     "CSC 645",
+     "CSC 651",
+     "CSC 652",
+     "CSC 653"
+    ],
+    "reason": "model plan still invalid after repairs"
+   },
+   "at": "2026-10-02T22:49:25.082Z"
+  }
+ ],
+ "final_state": {
+  "plan": {
+   "id": "plan_fb_2026-10-02T22-49-20-858Z_gemini_plan_f11ec9",
+   "name": "Systems & Security: Systems & Se (engine fallback)",
+   "programId": "bs-cs",
+   "goalText": "Systems & Security: Systems & Security. Focus: skip to the plan. Wants to work: Not sure yet. After graduating: Undecided.",
+   "createdAt": "2026-10-02T22:49:25.082Z",
+   "semesters": [
+    {
+     "index": 1,
+     "label": "Fall Year 1",
+     "season": "fall",
+     "courseIds": [
+      "GE-3u-1",
+      "GE-3u-2",
+      "GE-3u-3",
+      "GE-3u-4",
+      "GE-3u-5"
+     ]
+    },
+    {
+     "index": 2,
+     "label": "Spring Year 1",
+     "season": "spring",
+     "courseIds": [
+      "CSC 215",
+      "GE-3u-6",
+      "GE-3u-7",
+      "GE-3u-8",
+      "GE-2u-9"
+     ]
+    },
+    {
+     "index": 3,
+     "label": "Fall Year 2",
+     "season": "fall",
+     "courseIds": [
+      "MATH 226",
+      "CSC 220",
+      "CSC 101",
+      "GE-3u-10",
+      "GE-2u-11"
+     ]
+    },
+    {
+     "index": 4,
+     "label": "Spring Year 2",
+     "season": "spring",
+     "courseIds": [
+      "CSC 230",
+      "MATH 227",
+      "PHYS 220",
+      "CSC 317",
+      "PHYS 222",
+      "GE-1u-12"
+     ]
+    },
+    {
+     "index": 5,
+     "label": "Fall Year 3",
+     "season": "fall",
+     "courseIds": [
+      "CSC 256",
+      "CSC 340",
+      "MATH 324",
+      "PHYS 230",
+      "PHYS 232",
+      "GE-2u-13"
+     ]
+    },
+    {
+     "index": 6,
+     "label": "Spring Year 3",
+     "season": "spring",
+     "courseIds": [
+      "CSC 413",
+      "CSC 415",
+      "CSC 300GW",
+      "CSC 510",
+      "MATH 225"
+     ]
+    },
+    {
+     "index": 7,
+     "label": "Fall Year 4",
+     "season": "fall",
+     "courseIds": [
+      "CSC 615",
+      "CSC 645",
+      "CSC 648",
+      "CSC 651",
+      "CSC 652"
+     ]
+    },
+    {
+     "index": 8,
+     "label": "Spring Year 4",
+     "season": "spring",
+     "courseIds": [
+      "CSC 653",
+      "GE-3u-14",
+      "GE-3u-15",
+      "GE-3u-16",
+      "GE-3u-17"
+     ]
+    }
+   ],
+   "source": "fallback",
+   "completedSemesters": 2
+  },
+  "report": {
+   "issues": [
+    {
+     "id": "PREREQ_ORDER-0",
+     "severity": "error",
+     "code": "PREREQ_ORDER",
+     "message": "CSC 215 is in Spring Year 1, but CSC 101 (Fall Year 2) must come earlier. Rule: CSC 101.",
+     "courseIds": [
+      "CSC 215",
+      "CSC 101"
+     ],
+     "semesterIndex": 2,
+     "sourceUrl": "https://bulletin.sfsu.edu/courses/csc/",
+     "quote": "CSC 101 with a grade of C or better."
+    },
+    {
+     "id": "PREREQ_NOTE-1",
+     "severity": "info",
+     "code": "PREREQ_NOTE",
+     "message": "Not checked by the engine (GPA or instructor-permission conditions): CSC 317, MATH 324, CSC 300GW, CSC 615, CSC 645, CSC 648, CSC 652, CSC 653.",
+     "courseIds": [
+      "CSC 317",
+      "MATH 324",
+      "CSC 300GW",
+      "CSC 615",
+      "CSC 645",
+      "CSC 648",
+      "CSC 652",
+      "CSC 653"
+     ]
+    },
+    {
+     "id": "UNVERIFIED_DATA-2",
+     "severity": "info",
+     "code": "UNVERIFIED_DATA",
+     "message": "Course data is scraped from the 2026-27 Bulletin and machine-checked, not yet checked by a person. Confirm with an advisor.",
+     "courseIds": []
+    }
+   ],
+   "semesterStats": [
+    {
+     "index": 1,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 2,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 3,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 4,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 5,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 6,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 7,
+     "units": 15,
+     "status": "ok"
+    },
+    {
+     "index": 8,
+     "units": 15,
+     "status": "ok"
+    }
+   ],
+   "requirementStatus": [
+    {
+     "groupId": "mathematics_and_physics",
+     "title": "Mathematics and Physics",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "core_computer_science_requirements",
+     "title": "Core Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "advanced_computer_science_requirements",
+     "title": "Advanced Computer Science Requirements",
+     "satisfied": true,
+     "missingCourseIds": []
+    },
+    {
+     "groupId": "electives",
+     "title": "Electives",
+     "satisfied": true,
+     "missingCourseIds": [],
+     "unitsHave": 15,
+     "unitsNeed": 15
+    }
+   ],
+   "totalUnitsPlanned": 120,
+   "graduationReady": false
+  },
+  "rationale": "The AI plan did not pass the rules engine after 3 attempt(s), so this plan comes from the deterministic planner.",
+  "electiveChoices": [],
+  "attempts": 3,
+  "runId": "2026-10-02T22-49-20-858Z_gemini_plan_f11ec9"
+ },
+ "scores": {
+  "accepted": false,
+  "attempts": 3,
+  "source": "fallback",
+  "errors": 1,
+  "graduationReady": false,
+  "directions": [
+   {
+    "directionId": "systems",
+    "label": "Systems & Security",
+    "score": 100
+   },
+   {
+    "directionId": "web",
+    "label": "Web & Mobile",
+    "score": 0
+   }
+  ]
+ },
+ "errors": [],
+ "created_at": "2026-10-02T22:49:20.858Z"
+}
