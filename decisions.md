@@ -1,5 +1,8 @@
 # Decisions
 
+## D-055 Graph as a game: level bubbles, levels, XP
+Courses are 64px bubbles with the code inside (arrows attach to the bubble edge, so they never cross text), units badge, ✓ when taken, the next semester's bubbles bob. Semesters are "Level N" (next one highlighted, taken ones "cleared"). XP bar = planned units / degree units, 🏆 when complete. Bubbles pop in.
+
 ## D-054 Gator acts when the semester's credits are met
 On reaching the credit target it thinks, says "Evaluating your plan…", and opens Evaluate itself. Afterwards it rotates tips every 7s (Evaluate, Export, plan the whole degree if a later semester is light, show the graph), with "…" between them; each button runs through the same think-then-act step.
 

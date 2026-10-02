@@ -33,3 +33,9 @@ body { background: #e7e7ea; color: #27272a; font-family: var(--font-sans); }
 .gator-hop { animation: hop .7s ease-out; transform-origin: 50% 90%; }
 .gator-shake { animation: shake .6s ease-in-out; transform-origin: 50% 90%; }
 .gator-happy { animation: wiggle .9s ease-in-out; transform-origin: 50% 90%; }
+
+/* graph level bubbles (D-055) */
+.bubble-in { animation: bubble-in .45s cubic-bezier(.34,1.56,.64,1) both; }
+@keyframes bubble-in { from { transform: scale(.3); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+.bubble-current { animation: bubble-bob 2.4s ease-in-out infinite; }
+@keyframes bubble-bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-4px) } }

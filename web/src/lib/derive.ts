@@ -6,11 +6,12 @@ import { semX, COURSE_STEP, COURSE_X, COURSE_Y0, SEM_W, SEM_Y } from "./layout"
 
 export const slug = (id: CourseId) => "course-" + id.replace(/\s+/g, "-")
 
-export type SemesterData = { index: number; label: string; termName: string; units: number; status: string; year: number; policyMin: number; geUnits: number; drop: boolean; done: boolean }
+export type SemesterData = { index: number; label: string; termName: string; units: number; status: string; year: number; policyMin: number; geUnits: number; drop: boolean; done: boolean; next?: boolean }
 export type CourseData = {
   id: CourseId; title: string; units: number; placeholder: boolean; category: string
   hasError: boolean; critical: null | { slack: number; chain: CourseId[] }; dim: boolean; highlight: boolean
   geIds?: CourseId[] // grouped GE placeholders of one semester
+  done?: boolean; current?: boolean // taken already / in the next semester (D-055)
 }
 export type EdgeData = { state: "satisfied" | "violated"; kind: "prereq" | "prereqOr" | "coreq"; dim: boolean; label: boolean }
 
@@ -110,7 +111,8 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
       nodes.push({ id: slug(id), type: "course", position: { x: x + COURSE_X, y: COURSE_Y0 + r * COURSE_STEP }, zIndex: 2,
         data: { id, title: dag.nodes[id]?.title ?? "Unknown course", units: dag.nodes[id]?.units ?? 0, placeholder: false, category: category(dag, id),
           hasError: errored.has(id), critical: c && c.slack <= 0 ? c : null,
-          dim: near ? !near.has(id) : false, highlight: near ? near.has(id) : false } satisfies CourseData })
+          dim: near ? !near.has(id) : false, highlight: near ? near.has(id) : false,
+          done: s.index <= (plan.completedSemesters ?? 0), current: s.index === (plan.completedSemesters ?? 0) + 1 } satisfies CourseData })
     })
     if (ge.length) {
       // one quiet "ge" dot per semester, under that semester's courses
@@ -124,7 +126,7 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
       className: "pointer-events-none",
       style: { width: SEM_W, height: 0 }, // height set below once maxRow is known
       data: { index: s.index, label: s.label, termName: termName(dag, s.index), units: stat.units, status: stat.status, year: Math.ceil(s.index / 2), policyMin: minUnits,
-        geUnits, drop: dropTarget === s.index, done: s.index <= (plan.completedSemesters ?? 0) } satisfies SemesterData })
+        geUnits, drop: dropTarget === s.index, done: s.index <= (plan.completedSemesters ?? 0), next: s.index === (plan.completedSemesters ?? 0) + 1 } satisfies SemesterData })
   })
   const height = COURSE_Y0 + (maxRow + 1) * COURSE_STEP + 10
   nodes.forEach(n => { if (n.type === "semester") n.style = { width: SEM_W, height } })

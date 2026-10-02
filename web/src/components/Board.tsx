@@ -124,6 +124,15 @@ export function Board() {
           <b className="w-28 text-white">{winTo - winFrom + 1} semester{winTo > winFrom ? "s" : ""}</b>
         </div>
       </Panel>
+      <Panel position="top-right">
+        {/* XP: planned units toward the degree (D-055) */}
+        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/70 px-4 py-2 font-mono text-[11px] text-zinc-300 backdrop-blur">
+          <span className="font-bold text-lime-300">XP</span>
+          <div className="h-2 w-40 overflow-hidden rounded-full bg-white/10"><div className="h-2 rounded-full bg-gradient-to-r from-lime-300 to-teal-300 transition-all duration-700" style={{ width: `${Math.min(100, report.totalUnitsPlanned / dag.program.degree_units * 100)}%` }} /></div>
+          <span>{report.totalUnitsPlanned}/{dag.program.degree_units}</span>
+          {report.totalUnitsPlanned >= dag.program.degree_units && <span>🏆</span>}
+        </div>
+      </Panel>
       <Panel position="bottom-left"><Legend /></Panel>
       {flash && (
         <Panel position="top-center">

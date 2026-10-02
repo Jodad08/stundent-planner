@@ -162,7 +162,7 @@ export function Pet() {
       { text: <>{termName(dag, sem)} has {units} units ✅ Now evaluate your plan!</>, label: "🔍 Evaluate", run: () => act("Evaluating your plan…", evaluate) },
       { text: <>Ready for your advisor? I'll make a one-page {termName(dag, sem)} plan.</>, label: "⬇ Export", run: () => act("Making your one-page plan…", () => exportSemester(plan, dag, sem, student?.name ?? "Student")) },
       ...(after ? [{ text: <>{termName(dag, after.index)} is light. Want me to plan the whole degree?</>, label: "✦ Plan it", run: () => act("Planning your whole degree…", () => window.dispatchEvent(new Event("planed:whole-degree"))) }] : []),
-      { text: <>Want to see how your courses connect?</>, label: "Show graph", run: () => act("Drawing your prerequisite map…", () => st.setView("graph")) },
+      ...(st.view === "cards" ? [{ text: <>Want to see how your courses connect?</>, label: "Show graph", run: () => act("Drawing your prerequisite map…", () => st.setView("graph")) }] : []),
     ]
     const t = tips[tip % tips.length]
     msg = t.text
