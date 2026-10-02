@@ -20,3 +20,7 @@ export const majors = load<{ id: string; name: string; degree: string | null; st
   .filter(p => p.status === "Active" && /^B\./.test(p.degree ?? ""))
   .map(p => ({ id: p.id, name: p.name, degree: p.degree as string, url: p.url, mapped: p.id === dag.program.id }))
   .sort((a, b) => a.name.localeCompare(b.name))
+
+/** Real SFSU GE courses by area (Cal-GETC numbering: 1A…6, 2UD…5UD) for the sidebar's GE tab (D-053). */
+export const geCourses = load<{ code: string; title: string; units_min: number | null; ge_areas: string[] | null }[]>("data/sfsu/courses.json")
+  .flatMap(c => (c.ge_areas ?? []).filter(a => /^\d/.test(a)).map(area => ({ code: c.code, title: c.title, units: c.units_min || 3, area })))

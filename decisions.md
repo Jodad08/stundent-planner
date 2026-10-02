@@ -1,5 +1,8 @@
 # Decisions
 
+## D-053 Real SFSU GE courses in the sidebar; tour shows the gator's options; bigger graph circles
+GE tab lists the 938 GE-tagged courses from data/sfsu/courses.json by area (1A…6, UD). Adding one places a GE placeholder of its units (engine unchanged) and a display-only name map (localStorage) shows the code on cards and the export. Tour text cut to one line per step, with 3 new steps that open the gator menu (Auto plan, Evaluate, Export). Graph dots 14→22px with wider nodes.
+
 ## D-052 Major question autocompletes all SFSU majors
 Onboarding major input uses a native datalist of the 117 active bachelor programs (/api/majors). Only B.S. CS is mapped; others say so and fall back to CS.
 

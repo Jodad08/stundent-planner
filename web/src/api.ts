@@ -26,6 +26,7 @@ export const api = {
   health: () => call<Health>("/health"),
   program: () => call<Dag>("/programs/bs-cs"),
   majors: () => call<{ id: string; name: string; degree: string; url: string; mapped: boolean }[]>("/majors"),
+  ge: () => call<{ code: string; title: string; units: number; area: string }[]>("/ge"),
   descriptions: () => call<Record<string, string>>("/descriptions"),
   policies: () => call<Policies>("/policies"),
   careers: () => call<CareerDirection[]>("/career-directions"),

@@ -1,7 +1,9 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { electiveSlotId, isPlaceholder, placeholderId, unitsOf } from "../../../shared/engine"
 import { useActivePlan, useStore } from "../store"
 import { termName } from "../lib/derive"
+import { api } from "../api"
+import { geName, nameGe } from "../lib/geNames"
 
 /** Course list as cards (D-027): search, recommended/all, drag onto a semester or press + to add to the next open semester. */
 export function Sidebar() {
@@ -20,6 +22,25 @@ export function Sidebar() {
   }, [plan])
   const nextSlot = useMemo(() => { let n = 1; while (placed.has(electiveSlotId(n))) n++; return electiveSlotId(n) }, [placed])
   const nextGe = useMemo(() => { let n = 1; while (placed.has(placeholderId(3, n))) n++; return placeholderId(3, n) }, [placed])
+  // real SFSU GE courses by area (D-053); placing one adds a GE placeholder of its units, named for display
+  type Ge = { code: string; title: string; units: number; area: string }
+  const [geList, setGeList] = useState<Ge[]>([])
+  const [area, setArea] = useState<string | null>(null)
+  useEffect(() => { api.ge().then(setGeList).catch(() => setGeList([])) }, [])
+  const geTaken = new Set([...placed.keys()].map(geName).filter(Boolean))
+  const areas = useMemo(() => [...new Set(geList.map(c => c.area))].sort((a, b) => Number(a.includes("UD")) - Number(b.includes("UD")) || a.localeCompare(b)), [geList])
+  /** Named GE ids start at 1000 so the gator's unnamed GE units (GE-3u-1, 2, …) never inherit a name. */
+  const geId = (c: Ge) => { let n = 1000; while (placed.has(placeholderId(c.units, n))) n++; const id = placeholderId(c.units, n); nameGe(id, c.code); return id }
+  const geRow = (c: Ge) => (
+    <div key={c.area + c.code} draggable onDragStart={e => drag(geId(c))(e)} title={`${c.code} · ${c.title} · ${c.units} credits · ${c.area}`}
+      className="group flex cursor-grab items-center gap-2 rounded-xl bg-white px-2.5 py-1.5 shadow-sm transition hover:shadow-md active:cursor-grabbing">
+      <span className="w-4 text-center text-xs text-zinc-400">{c.units}</span>
+      <div className="min-w-0 flex-1">
+        <div className="truncate text-[10.5px] text-zinc-500 group-hover:whitespace-normal group-hover:text-zinc-800">{c.title}</div>
+        <div className="text-[15px] font-bold leading-tight">{c.code}</div>
+      </div>
+      <button title="Add to the next open semester" onClick={() => add(geId(c))} className="text-xl leading-none text-zinc-400 hover:text-zinc-900">+</button>
+    </div>)
   const drag = (id: string) => (e: React.DragEvent) => { e.dataTransfer.setData("application/gatorgraph", id); e.dataTransfer.effectAllowed = "move" }
   const geUnits = [...placed.keys()].filter(c => isPlaceholder(c) && c.startsWith("GE-")).reduce((s, id) => s + unitsOf(dag, id), 0)
   const rec = student && !showAll ? new Set(dag.tracks[student.trackId]?.courses ?? []) : null
@@ -107,6 +128,21 @@ export function Sidebar() {
             GE or free elective · 3 cr
             <button title="Add 3 GE units to the next open semester" onClick={() => add(nextGe)} className="text-xl leading-none text-zinc-400 hover:text-zinc-900">+</button>
           </div>
+          <div className="mt-3 space-y-1">
+            {areas.map(a => {
+              const list = geList.filter(c => c.area === a && !geTaken.has(c.code))
+              return <div key={a}>
+                <button onClick={() => setArea(area === a ? null : a)} className="flex w-full items-center justify-between rounded-lg px-2 py-1.5 text-left text-[12px] hover:bg-zinc-200">
+                  <span><b>{a.split(":")[0]}</b> {a.split(":")[1]}</span><span className="text-[10px] text-zinc-400">{list.length} {area === a ? "▾" : "▸"}</span></button>
+                {area === a && <div className="mt-1 space-y-1.5">{list.map(geRow)}</div>}
+              </div>
+            })}
+          </div>
+        </div>}
+        {q && geList.some(c => (c.code + " " + c.title).toLowerCase().includes(q.toLowerCase())) && <div>
+          <div className="mb-1.5 text-[11px] font-semibold uppercase tracking-wide text-zinc-500">GE courses</div>
+          <div className="space-y-1.5">{geList.filter(c => !geTaken.has(c.code) && (c.code + " " + c.title).toLowerCase().includes(q.toLowerCase()))
+            .filter((c, i, l) => l.findIndex(x => x.code === c.code) === i).slice(0, 20).map(geRow)}</div>
         </div>}
       </div>
     </aside>

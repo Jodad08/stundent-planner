@@ -15,11 +15,11 @@ export function CourseNode({ data }: NodeProps<Node<CourseData>>) {
   const dag = useStore(s => s.dag)
   const unplace = useStore(s => s.unplaceCourse)
   const c = data.hasError ? "#ff3b3b" : COLOR[data.category]
-  const size = data.placeholder ? 8 : 14
+  const size = data.placeholder ? 12 : 22
   return (
     <div onMouseEnter={() => { t.current = setTimeout(() => setHover(true), 150) }}
       onMouseLeave={() => { clearTimeout(t.current); setHover(false) }}
-      className={`group relative flex h-[28px] w-[104px] items-center gap-2 ${data.dim ? "dimmed" : ""}`}>
+      className={`group relative flex h-[32px] w-[124px] items-center gap-3 ${data.dim ? "dimmed" : ""}`}>
       <span className={`dot shrink-0 rounded-full ${data.hasError ? "dot-error" : ""}`}
         style={{ width: size, height: size, border: `2px solid ${c}`, background: data.placeholder ? "transparent" : `${c}33`,
           ["--glow" as string]: data.highlight || data.hasError ? c : `${c}55` }} />

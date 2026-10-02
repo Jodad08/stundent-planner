@@ -1,7 +1,7 @@
 import { Router } from "express"
 import { readFileSync } from "node:fs"
 import { repoRoot } from "../../shared/data"
-import { careers, dag, descriptions, majors, policies } from "../../shared/data"
+import { careers, dag, descriptions, geCourses, majors, policies } from "../../shared/data"
 import { providerName } from "../gemini"
 import { getRun, listRuns } from "../runs"
 
@@ -14,6 +14,7 @@ dataRoutes.get("/programs/:id", (req, res) => {
   res.json(dag)
 })
 dataRoutes.get("/majors", (_req, res) => { res.json(majors) })
+dataRoutes.get("/ge", (_req, res) => { res.json(geCourses) })
 dataRoutes.get("/descriptions", (_req, res) => { res.json(descriptions) })
 dataRoutes.get("/policies", (_req, res) => { res.json(policies) })
 dataRoutes.get("/career-directions", (_req, res) => { res.json(careers) })

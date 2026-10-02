@@ -1,13 +1,15 @@
 import { useEffect, useLayoutEffect, useState } from "react"
 
 /** First-load walkthrough (D-022): spotlight one part of the UI at a time. */
-const STEPS: { target: string; title: string; body: string }[] = [
-  { target: "[data-tour=semester], .react-flow__node-semester", title: "This is a semester", body: "Your degree is 8 columns, Fall 2026 to Spring 2030. The credits bar at the bottom turns amber or red when a semester breaks SFSU's load rules." },
-  { target: "[data-tour=card], .react-flow__node-course", title: "This is a course", body: "Color shows the type: violet core CS, teal math/physics, amber elective. A red outline means it breaks a rule. Its prerequisites turn green once they are planned earlier. Drag it to another semester." },
-  { target: "[data-tour=view]", title: "Cards or graph", body: "Switch to the graph to see every prerequisite as a line, the whole chain at once. Drag a course before its prerequisite and it turns red in both views." },
-  { target: "[data-tour=courses]", title: "This is your course list", body: "Every B.S. Computer Science requirement from the 2026-27 Bulletin. Drag a course onto the canvas: the semester under it lights up." },
-  { target: "[data-tour=status]", title: "The rules engine", body: "Every move is checked against the Bulletin rules: prerequisites, corequisites, standing and unit loads. No AI decides this." },
-  { target: "[data-tour=pet]", title: "This is your gator", body: "It tells you what to add next until your semester has enough credits. Click it for Auto plan, Evaluate, and Export for SFSU. Drag it anywhere." },
+const STEPS: { target: string; title: string; body: string; petMenu?: boolean }[] = [
+  { target: "[data-tour=semester], .react-flow__node-semester", title: "A semester", body: "Turns red when it has too few credits." },
+  { target: "[data-tour=card], .react-flow__node-course", title: "A course", body: "Drag it to another semester. A red outline means it breaks a rule." },
+  { target: "[data-tour=courses]", title: "Your course list", body: "Core, math, electives and GE. Drag a course onto a semester, or press +." },
+  { target: "[data-tour=view]", title: "Cards or graph", body: "The graph shows how your courses connect." },
+  { target: "[data-tour=pet]", title: "Your gator 🐊", body: "Tells you what to add next. Click it for options. Drag it anywhere." },
+  { target: "[data-tour=pet-auto]", title: "Auto plan", body: "AI fills your next semester, or your whole degree.", petMenu: true },
+  { target: "[data-tour=pet-evaluate]", title: "Evaluate", body: "AI checks your plan: where it leads, careers, and broken rules.", petMenu: true },
+  { target: "[data-tour=pet-export]", title: "Export for SFSU", body: "Downloads your next semester as a one-page plan for your advisor.", petMenu: true },
 ]
 
 export function Tour({ onDone }: { onDone: () => void }) {
@@ -20,6 +22,9 @@ export function Tour({ onDone }: { onDone: () => void }) {
     const t = setInterval(find, 300) // board refits after load
     return () => clearInterval(t)
   }, [step.target])
+  // open the gator's menu while its options are explained
+  useEffect(() => { window.dispatchEvent(new CustomEvent("planed:pet-menu", { detail: !!step.petMenu })) }, [step.petMenu])
+  useEffect(() => () => { window.dispatchEvent(new CustomEvent("planed:pet-menu", { detail: false })) }, [])
   useEffect(() => {
     const k = (e: KeyboardEvent) => {
       if (e.key === "Escape") onDone()
@@ -31,7 +36,7 @@ export function Tour({ onDone }: { onDone: () => void }) {
   }, [i, onDone])
   const pad = 8
   const r = rect ?? new DOMRect(window.innerWidth / 2, window.innerHeight / 2, 0, 0)
-  const W = 340, Hc = 190, vw = window.innerWidth, vh = window.innerHeight
+  const W = 340, Hc = 150, vw = window.innerWidth, vh = window.innerHeight
   // first spot that fits: below, right, left, above; never on top of the target
   const spot = r.bottom + Hc + 24 < vh ? { top: r.bottom + pad + 12, left: r.left }
     : r.right + W + 24 < vw ? { top: r.top, left: r.right + pad + 12 }

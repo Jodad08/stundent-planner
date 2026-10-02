@@ -3,6 +3,7 @@ import { leaves, nextCourses, suggestSemester, unitsOf } from "../../../shared/e
 import { aiName } from "./Thinking"
 import type { Dag, Plan } from "../../../shared/types"
 import { termName } from "../lib/derive"
+import { geName } from "../lib/geNames"
 import { useActivePlan, useStore } from "../store"
 import { useReport } from "./Board"
 
@@ -13,7 +14,7 @@ export const nextSemester = (p: Plan) => Math.min(8, (p.completedSemesters ?? 0)
 export function exportSemester(p: Plan, dag: Dag, sem: number, name: string) {
   const ids = p.semesters[sem - 1].courseIds
   const rows = ids.map(c => dag.nodes[c] ? `<tr><td><b>${c}</b></td><td>${dag.nodes[c].title}</td><td>${dag.nodes[c].units}</td></tr>`
-    : `<tr><td>GE</td><td>General education / free elective</td><td>${unitsOf(dag, c)}</td></tr>`).join("")
+    : `<tr><td>${geName(c) ?? "GE"}</td><td>General education / free elective</td><td>${unitsOf(dag, c)}</td></tr>`).join("")
   const total = ids.reduce((a, c) => a + unitsOf(dag, c), 0)
   const html = `<!doctype html><meta charset="utf-8"><title>${name} - ${termName(dag, sem)} plan</title>
 <style>body{font-family:system-ui,sans-serif;max-width:640px;margin:40px auto;color:#18181b}table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #e4e4e7;padding:8px;text-align:left}small{color:#71717a}</style>
@@ -39,6 +40,11 @@ export function Pet() {
   const [pos, setPos] = useState({ right: 16, bottom: 16 })
   const drag = useRef<{ x: number; y: number; right: number; bottom: number; moved: boolean } | null>(null)
   const ask = useStore(s => s.petAsk)
+  // the tutorial opens the menu to explain each option
+  useEffect(() => {
+    const f = (e: Event) => { setMenu((e as CustomEvent<boolean>).detail); setOpen(true) }
+    window.addEventListener("planed:pet-menu", f); return () => window.removeEventListener("planed:pet-menu", f)
+  }, [])
   const [filling, setFilling] = useState<string | null>(null)
   const ai = aiName(useStore.getState().health?.aiProvider)
   /** Why this course, from the prerequisite map and the student's goal track. */
@@ -96,9 +102,9 @@ export function Pet() {
   if (menu) {
     msg = <div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ What should I do?</div>
     action = <div className="-mx-1 flex flex-col text-[13px]">
-      <button className={item} onClick={() => { setMenu(false); st.setPetAsk(true) }}><span>✦</span><span><b>Auto plan</b><span className="block text-[11px] text-zinc-500">Fill {termName(dag, sem)} or the whole degree</span></span></button>
-      <button className={item} onClick={() => { setMenu(false); window.dispatchEvent(new Event("planed:evaluate")) }}><span>🔍</span><span><b>Evaluate</b><span className="block text-[11px] text-zinc-500">Where your plan leads, careers, rule check</span></span></button>
-      <button className={item} onClick={() => { setMenu(false); exportSemester(plan, dag, sem, student?.name ?? "Student") }}><span>⬇</span><span><b>Export for SFSU</b><span className="block text-[11px] text-zinc-500">{termName(dag, sem)} as a one-page plan</span></span></button>
+      <button data-tour="pet-auto" className={item} onClick={() => { setMenu(false); st.setPetAsk(true) }}><span>✦</span><span><b>Auto plan</b><span className="block text-[11px] text-zinc-500">Fill {termName(dag, sem)} or the whole degree</span></span></button>
+      <button data-tour="pet-evaluate" className={item} onClick={() => { setMenu(false); window.dispatchEvent(new Event("planed:evaluate")) }}><span>🔍</span><span><b>Evaluate</b><span className="block text-[11px] text-zinc-500">Where your plan leads, careers, rule check</span></span></button>
+      <button data-tour="pet-export" className={item} onClick={() => { setMenu(false); exportSemester(plan, dag, sem, student?.name ?? "Student") }}><span>⬇</span><span><b>Export for SFSU</b><span className="block text-[11px] text-zinc-500">{termName(dag, sem)} as a one-page plan</span></span></button>
     </div>
   } else if (ask) {
     msg = <><div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ {ai}</div>What should I plan, {student?.name ?? "friend"}? 🐊</>

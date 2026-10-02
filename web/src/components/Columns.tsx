@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react"
+import { geName } from "../lib/geNames"
 import { isElectiveSlot, isPlaceholder, leaves, placeholderUnits, suggestSemester } from "../../../shared/engine"
 import type { CourseId, Dag, PrereqExpr } from "../../../shared/types"
 import { category, termName } from "../lib/derive"
@@ -107,7 +108,7 @@ export function Columns() {
                 ))}
                 {ge.length > 0 && (
                   <div className="flex items-center justify-between rounded-xl border-2 border-dashed border-zinc-400/70 px-3 py-2 text-xs text-zinc-600">
-                    <span>GE and free electives</span>
+                    <span>GE and free electives{ge.some(geName) && <span className="block text-[11px] font-semibold text-zinc-800">{ge.map(geName).filter(Boolean).join(", ")}</span>}</span>
                     <span className="flex items-center gap-2"><b>{ge.reduce((a, c) => a + placeholderUnits(c), 0)} cr</b>
                       <button title="Remove 3 GE units" className="text-zinc-500 hover:text-red-600" onClick={() => st.unplaceCourse(ge[ge.length - 1])}>−</button></span>
                   </div>
