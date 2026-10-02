@@ -12,7 +12,7 @@ Hard rules:
 3. Every prerequisite must be in an EARLIER semester. "(may be same term)" means same semester or earlier. "(same term or earlier)" is a corequisite.
 4. Courses that need upper-division standing (60+ units) or senior standing (90+ units) must come late enough. Assume the student earns about the target units each semester.
 5. Every course in every "all" requirement group must appear.
-6. Electives: choose courses from the elective list totaling at least 15 units, at least 12 units of them CSC. Pick the ones that best fit the goal.
+6. Electives: choose courses from the elective group that meet its unit rules (shown with the group). Pick the ones that best fit the goal.
 7. Plan only major courses. Do NOT add general education courses; code fills the remaining units.
 8. Keep each semester's major units at or below the target.
 
