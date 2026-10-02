@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CS Degree Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: registrar planning sheet. Summary first, then semester columns beside a graduation checklist,
+   then the transcript check and a prerequisite map laid out on the same semester timeline. */
+:root {
+  --paper: #f3f5f2;
+  --card: #ffffff;
+  --ink: #17202b;
+  --muted: #5a6573;
+  --line: #d8ddd6;
+  --accent: #2c5f8f;
+  --accent-soft: #e3ecf5;
+  --done: #2b7a57;
+  --done-soft: #e2f1e9;
+  --ip: #1d7484;
+  --ip-soft: #def0f2;
+  --crit: #c0392b;
+  --crit-soft: #fbe7e4;
+  --warn: #a8690f;
+  --warn-soft: #fbf0dc;
+  --shadow: 0 1px 2px rgba(23, 32, 43, .06), 0 4px 14px rgba(23, 32, 43, .05);
+  --f-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #11161c; --card: #19212a; --ink: #e5e9ef; --muted: #9aa5b3; --line: #2a333e;
+    --accent: #84b4e3; --accent-soft: #1d2c3b; --done: #5cc194; --done-soft: #17302a; --ip: #55bccc;
+    --ip-soft: #15303a; --crit: #f07364; --crit-soft: #3a1d1b; --warn: #e3b24f; --warn-soft: #362a14;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .3); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #11161c; --card: #19212a; --ink: #e5e9ef; --muted: #9aa5b3; --line: #2a333e;
+  --accent: #84b4e3; --accent-soft: #1d2c3b; --done: #5cc194; --done-soft: #17302a; --ip: #55bccc;
+  --ip-soft: #15303a; --crit: #f07364; --crit-soft: #3a1d1b; --warn: #e3b24f; --warn-soft: #362a14;
+  --shadow: 0 1px 2px rgba(0, 0, 0, .3); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font: 400 14px/1.5 var(--f-body); }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: 20px; padding-block: 0 48px; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+h1, h2, h3 { font-family: var(--f-display); text-wrap: balance; margin: 0; letter-spacing: -.01em; }
+.eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* top bar */
+.bar { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline; justify-content: space-between;
+  padding-block: 18px 14px; border-bottom: 1px solid var(--line); }
+.brand { font-family: var(--f-display); font-weight: 700; font-size: 20px; display: flex; gap: 10px; align-items: center; }
+.brand svg { flex: none; }
+.bar .meta { color: var(--muted); font-size: 13px; }
+
+/* profile header */
+.profile { display: grid; grid-template-columns: 1.1fr 1.3fr 1fr; gap: 24px; padding-block: 22px; }
+.profile h1 { font-size: 30px; line-height: 1.1; }
+.profile .sub { color: var(--muted); margin-top: 6px; }
+.program { font-size: 16px; line-height: 1.6; }
+.program b { font-weight: 600; }
+.source label { display: block; margin-bottom: 6px; }
+.source select { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+.filebtn { display: inline-flex; margin-top: 8px; font-size: 13px; color: var(--accent); gap: 6px; align-items: center; }
+.filebtn input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.filebtn span { text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* controls */
+.controls { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; padding-block: 4px 18px; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; background: var(--card); padding: 3px; gap: 3px; }
+.seg button { border: 0; background: transparent; padding: 6px 12px; border-radius: 6px; font-weight: 500; color: var(--muted); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--card); }
+.ctl { display: flex; gap: 10px; align-items: center; }
+.ctl select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+
+/* summary strip */
+.summary { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; background: var(--card); border: 1px solid var(--line);
+  border-radius: 10px; box-shadow: var(--shadow); }
+.summary > div { padding: 16px 18px; min-width: 0; }
+.summary > div + div { border-left: 1px solid var(--line); }
+.big { font-family: var(--f-display); font-size: 30px; font-weight: 700; line-height: 1.1; margin-top: 4px; }
+.small { color: var(--muted); font-size: 13px; margin-top: 4px; }
+.meter { position: relative; height: 8px; border-radius: 4px; background: var(--paper); margin-top: 10px; overflow: hidden; display: flex; }
+.meter i { display: block; height: 100%; }
+.meter .m-done { background: var(--done); }
+.meter .m-ip { background: var(--ip); }
+.meter .m-plan { background: var(--accent); opacity: .45; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); margin-top: 6px; }
+.legend i { display: inline-block; width: 8px; height: 8px; border-radius: 2px; margin-right: 5px; vertical-align: 0; }
+
+/* alerts */
+.alerts { display: grid; gap: 8px; margin-block: 18px; }
+.alert { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding: 10px 14px;
+  border-radius: 8px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--muted); }
+.alert.crit { border-left-color: var(--crit); background: var(--crit-soft); }
+.alert.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+.alert.info { border-left-color: var(--accent); }
+.alert .k { font-weight: 600; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding-top: 1px; }
+.alert.crit .k { color: var(--crit); }
+.alert.warn .k { color: var(--warn); }
+.alert.info .k { color: var(--accent); }
+.alert p { margin: 0; }
+.chain { font-family: var(--f-mono); font-size: 12.5px; }
+.linkish { border: 0; background: none; padding: 0; color: inherit; font-family: var(--f-mono); font-weight: 600;
+  text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+.linkish:hover { text-decoration-color: currentColor; }
+
+/* main grid */
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.section-h { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 10px; }
+.section-h h2 { font-size: 20px; }
+.roadmap { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(210px, 1fr); gap: 12px; overflow-x: auto; padding-bottom: 6px; }
+.term { background: color-mix(in srgb, var(--card) 55%, var(--paper)); border: 1px solid var(--line); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.term-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 2px 4px 6px; border-bottom: 1px solid var(--line); }
+.term-h b { font-family: var(--f-display); font-size: 16px; }
+.term-h .u { font-size: 12px; color: var(--muted); }
+.pill { display: inline-block; font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; letter-spacing: .02em; }
+.pill.ip { background: var(--ip-soft); color: var(--ip); }
+.pill.grad { background: var(--done-soft); color: var(--done); }
+.card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 9px 10px 9px 12px;
+  text-align: left; width: 100%; display: grid; gap: 3px; box-shadow: var(--shadow); }
+.card:hover { border-color: var(--accent); }
+.card .row1 { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.card .code { font-family: var(--f-mono); font-weight: 600; font-size: 13.5px; }
+.card .units { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.card .title { font-size: 13px; line-height: 1.35; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 3px; }
+.tag { font-size: 10.5px; font-weight: 600; letter-spacing: .03em; padding: 1px 6px; border-radius: 4px; background: var(--paper); color: var(--muted); }
+.tag.crit { background: var(--crit-soft); color: var(--crit); }
+.tag.warn { background: var(--warn-soft); color: var(--warn); }
+.tag.track { background: var(--accent-soft); color: var(--accent); }
+.card.critical { border-color: var(--crit); }
+.card.critical::before { content: ""; position: absolute; left: -1px; top: 8px; bottom: 8px; width: 3px; border-radius: 2px; background: var(--crit); }
+.card.ipcard { background: var(--ip-soft); border-color: transparent; box-shadow: none; }
+.card.elective { border-style: dashed; }
+.card.ge { background: transparent; border-style: dashed; box-shadow: none; color: var(--muted); }
+.swapbtn { justify-self: start; margin-top: 4px; border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 500; }
+.swapbtn:hover { border-color: var(--accent); color: var(--accent); }
+.menu { display: grid; gap: 2px; background: var(--card); border: 1px solid var(--accent); border-radius: 8px; padding: 6px; box-shadow: var(--shadow); }
+.menu .mh { font-size: 11px; color: var(--muted); padding: 2px 6px 4px; }
+.menu button { border: 0; background: transparent; text-align: left; padding: 5px 6px; border-radius: 5px; display: grid; gap: 1px; }
+.menu button:hover { background: var(--accent-soft); }
+.menu .m1 { display: flex; justify-content: space-between; gap: 8px; }
+.menu .m2 { font-size: 11.5px; color: var(--muted); }
+
+/* requirements rail */
+.rail { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; box-shadow: var(--shadow); position: sticky; top: 12px; }
+.rail h2 { font-size: 20px; margin-bottom: 4px; }
+.req { margin-top: 14px; }
+.req-h { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 4px; margin-bottom: 4px; }
+.req-h .u { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.ri { display: grid; grid-template-columns: 18px 1fr auto; gap: 8px; align-items: center; padding: 3px 0; font-size: 13px; }
+.ri .st { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.ri .nm { min-width: 0; }
+.ri .nm button { font-weight: 600; }
+.ic { width: 16px; height: 16px; display: block; }
+
+/* transcript */
+details.panel { margin-top: 28px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+details.panel > summary { cursor: pointer; padding: 14px 16px; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+details.panel > summary::-webkit-details-marker { display: none; }
+details.panel > summary h2 { font-size: 20px; }
+.tablewrap { overflow-x: auto; border-top: 1px solid var(--line); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 12px; border-bottom: 1px solid var(--line); vertical-align: middle; white-space: nowrap; }
+th { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+td.t { white-space: normal; min-width: 180px; }
+td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); }
+.conf { font-family: var(--f-mono); }
+.conf.low { color: var(--warn); font-weight: 600; }
+.chip { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+.chip.ok { background: var(--done-soft); color: var(--done); }
+.chip.ip { background: var(--ip-soft); color: var(--ip); }
+.chip.warn { background: var(--warn-soft); color: var(--warn); }
+.chip.crit { background: var(--crit-soft); color: var(--crit); }
+
+/* map */
+.mapwrap { overflow-x: auto; border-top: 1px solid var(--line); padding: 8px 0; }
+.map text { font-family: var(--f-mono); font-size: 11.5px; fill: var(--ink); }
+.map .colh { font-family: var(--f-body); font-size: 11px; font-weight: 600; letter-spacing: .06em; fill: var(--muted); }
+.map .node rect { fill: var(--card); stroke: var(--line); stroke-width: 1.2; }
+.map .node.done rect { fill: var(--done-soft); stroke: var(--done); }
+.map .node.ip rect { fill: var(--ip-soft); stroke: var(--ip); }
+.map .node.crit rect { stroke: var(--crit); stroke-width: 2.2; }
+.map .node { cursor: pointer; }
+.map .node:hover rect { stroke: var(--accent); }
+.map .edge { fill: none; stroke: var(--muted); stroke-opacity: .45; stroke-width: 1.3; }
+.map .edge.or { stroke-dasharray: 5 4; }
+.map .edge.soft { stroke-dasharray: 1.5 3; }
+.map .edge.crit { stroke: var(--crit); stroke-opacity: .9; stroke-width: 2.2; }
+.maplegend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--muted); padding: 0 16px 12px; }
+
+/* drawer */
+.drawer { position: fixed; top: 0; right: 0; bottom: 0; width: min(440px, 100%); background: var(--card); border-left: 1px solid var(--line);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, .12); padding: 18px 20px calc(18px + env(safe-area-inset-bottom, 0px)); overflow-y: auto; z-index: 10;
+  padding-top: calc(18px + env(safe-area-inset-top, 0px)); }
+.drawer h3 { font-size: 22px; }
+.drawer .x { position: absolute; right: 14px; top: calc(14px + env(safe-area-inset-top, 0px)); border: 1px solid var(--line); background: var(--paper); border-radius: 6px; padding: 2px 10px; }
+.drawer .dsec { margin-top: 16px; }
+.drawer .dsec > .eyebrow { margin-bottom: 6px; }
+.tree { list-style: none; margin: 0; padding-left: 0; }
+.tree .tree { padding-left: 16px; border-left: 2px solid var(--line); margin-left: 4px; }
+.tree li { padding: 3px 0; }
+.op { font-size: 11px; font-weight: 700; letter-spacing: .06em; color: var(--muted); }
+.quote { font-size: 13px; color: var(--muted); border-left: 3px solid var(--line); padding-left: 10px; margin: 0; }
+.drawer select { padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+.drawer a { color: var(--accent); }
+.foot { margin-top: 28px; color: var(--muted); font-size: 12.5px; max-width: 80ch; }
+.foot p { margin: 6px 0; }
+
+@media (max-width: 1080px) {
+  .main { grid-template-columns: 1fr; }
+  .rail { position: static; }
+  .profile { grid-template-columns: 1fr 1fr; }
+  .profile .source { grid-column: 1 / -1; }
+}
+@media (max-width: 720px) {
+  .wrap { padding-inline: 16px; }
+  .profile { grid-template-columns: 1fr; gap: 14px; }
+  .summary { grid-template-columns: 1fr 1fr; }
+  .summary > div:nth-child(3) { border-left: 0; }
+  .summary > div:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .roadmap { grid-auto-flow: row; grid-auto-columns: auto; }
+  .big { font-size: 26px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .card, .swapbtn, .seg button { transition: border-color .15s, background-color .15s, color .15s; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="bar">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="5" cy="13" r="3.5" fill="var(--done)"/><circle cx="13" cy="6" r="3.5" fill="var(--accent)"/><circle cx="21" cy="13" r="3.5" fill="var(--crit)"/><path d="M5 13 L13 6 L21 13" fill="none" stroke="var(--ink)" stroke-width="1.6"/></svg>
+      Degree Path
+    </div>
+    <div class="meta">Unofficial planner · data from the SF State Bulletin 2026–27</div>
+  </header>
+
+  <section class="profile">
+    <div>
+      <h1 id="student-name">Sample student</h1>
+      <div class="sub" id="student-sub"></div>
+    </div>
+    <div class="program">
+      <div class="eyebrow">Program</div>
+      <div><b>Bachelor of Science</b> majoring in <b>Computer Science</b></div>
+      <div class="sub">74 major units · 120 units to graduate · grades of C or better in major courses · no CR/NC in the major</div>
+    </div>
+    <div class="source">
+      <label class="eyebrow" for="source-select">Populating with data from</label>
+      <select id="source-select">
+        <option value="sample">Sample transcript (demo data)</option>
+        <option value="upload" disabled>Uploaded transcript</option>
+      </select>
+      <label class="filebtn" for="file-input"><input id="file-input" type="file" accept="application/json,.json"><span>Load extracted transcript (JSON)</span></label>
+      <div class="small" id="upload-msg"></div>
+    </div>
+  </section>
+
+  <section class="controls" aria-label="Plan settings">
+    <div class="ctl"><span class="eyebrow">Career track</span><div class="seg" id="track-seg" role="group" aria-label="Career track"></div></div>
+    <div class="ctl"><label class="eyebrow" for="max-units">Units per semester</label>
+      <select id="max-units"><option>12</option><option selected>15</option><option>17</option><option>19</option></select></div>
+  </section>
+
+  <section class="summary" aria-label="Summary">
+    <div><div class="eyebrow">Projected graduation</div><div class="big" id="s-grad"></div><div class="small" id="s-grad-sub"></div></div>
+    <div><div class="eyebrow">Units toward 120</div><div class="big mono" id="s-units"></div>
+      <div class="meter" id="s-units-meter"></div>
+      <div class="legend"><span><i style="background:var(--done)"></i>Earned</span><span><i style="background:var(--ip)"></i>In progress</span><span><i style="background:var(--accent);opacity:.45"></i>Planned</span></div></div>
+    <div><div class="eyebrow">Major units</div><div class="big mono" id="s-major"></div><div class="meter" id="s-major-meter"></div><div class="small" id="s-major-sub"></div></div>
+    <div><div class="eyebrow">Critical-path courses</div><div class="big mono" id="s-crit"></div><div class="small" id="s-crit-sub"></div></div>
+  </section>
+
+  <section class="alerts" id="alerts" aria-label="Warnings"></section>
+
+  <div class="main">
+    <section aria-labelledby="roadmap-h">
+      <div class="section-h"><h2 id="roadmap-h">Semester roadmap</h2><span class="small">Click a course for prerequisites and offerings</span></div>
+      <div class="roadmap" id="roadmap"></div>
+    </section>
+    <aside class="rail" aria-labelledby="req-h">
+      <h2 id="req-h">Graduation requirements</h2>
+      <div class="small">B.S. Computer Science, 2026–27 Bulletin</div>
+      <div id="reqs"></div>
+    </aside>
+  </div>
+
+  <details class="panel" id="transcript-panel" open>
+    <summary><h2>Transcript check</h2><span class="small" id="tx-sub"></span></summary>
+    <div class="tablewrap"><table id="tx-table"></table></div>
+  </details>
+
+  <details class="panel" open>
+    <summary><h2>Prerequisite map</h2><span class="small">Columns follow your semesters</span></summary>
+    <div class="maplegend">
+      <span>━ requires</span><span>╍ one of several options</span><span>┈ can be taken the same term</span><span style="color:var(--crit)">━ critical path</span>
+    </div>
+    <div class="mapwrap"><svg class="map" id="map" role="img" aria-label="Prerequisite map"></svg></div>
+  </details>
+
+  <footer class="foot">
+    <p>Prerequisites, units and requirements come from the SF State Bulletin 2026–27. The planner treats “or permission of the instructor” as not available, assumes in-progress courses pass, and fills open seats with GE or free-elective units until you reach 120.</p>
+    <p>The bulletin doesn't say which semesters a course runs. Every course is assumed to run each fall and spring unless you set its offering in the course details.</p>
+  </footer>
+</div>
+
+<aside class="drawer" id="drawer" hidden aria-label="Course details"></aside>
+
+<script src="data.js"></script>
+<script src="planner.js"></script>
+<script>
+(function () {
+  "use strict";
+  const DAG = window.DAG, CATALOG = window.CATALOG, P = window.Planner;
+  const NODES = DAG.nodes;
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const GRADES = ["A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F", "CR", "NC", "W", "IP"];
+  const REQ_SHORT = { mathematics_and_physics: "Math & Physics", core_computer_science_requirements: "Core",
+    advanced_computer_science_requirements: "Advanced", electives: "Elective" };
+  const UD_RE = /upper-division standing/i, GPA_RE = /GPA 3\.0/;
+
+  const state = {
+    transcript: JSON.parse(JSON.stringify(window.SAMPLE_TRANSCRIPT)),
+    track: "systems",
+    maxUnits: 15,
+    electives: null,
+    offerings: Object.assign({}, DAG.term_offerings || {}),
+    openSwap: null,
+    selected: null,
+  };
+
+  const reqOf = {};
+  DAG.requirements.forEach(r => r.courses.forEach(c => { reqOf[c] = r; }));
+  const trackOf = c => Object.entries(DAG.tracks).filter(([, t]) => t.courses.includes(c)).map(([k]) => k);
+  const titleOf = c => (NODES[c] && NODES[c].title) || (CATALOG[c] && CATALOG[c][0]) || "Not in the SF State catalog";
+  const nextTerm = t => t.season === "Fall" ? { season: "Spring", year: t.year + 1 } : { season: "Fall", year: t.year };
+
+  // ---------------------------------------------------------------- transcript -> profile
+  function checkRow(row) {
+    const cat = CATALOG[row.code];
+    const node = NODES[row.code];
+    if (!cat) return { cls: "warn", text: "Not in SF State catalog: counts as transfer units" };
+    if (row.grade === "IP") return { cls: "ip", text: "In progress" };
+    if (row.confidence != null && row.confidence < 0.8) return { cls: "warn", text: "Low confidence: confirm the grade" };
+    if (node && !P.passes(row.grade, node.min_grade)) return { cls: "crit", text: "Below " + (node.min_grade || "passing") + ": retake needed" };
+    if (String(cat[1]) !== String(row.units) && !/-/.test(cat[1])) return { cls: "warn", text: "Units differ from catalog (" + cat[1] + ")" };
+    return { cls: "ok", text: "Matches catalog" };
+  }
+  function profile() {
+    const rows = state.transcript.courses;
+    const earned = rows.filter(r => r.include !== false && r.grade !== "IP" && P.passes(r.grade, null)).reduce((s, r) => s + Number(r.units || 0), 0);
+    const graded = rows.filter(r => r.include !== false && r.grade in P.GRADE_POINTS);
+    const gpaUnits = graded.reduce((s, r) => s + Number(r.units), 0);
+    const gpa = gpaUnits ? graded.reduce((s, r) => s + P.GRADE_POINTS[r.grade] * r.units, 0) / gpaUnits : null;
+    return { courses: rows, placement: state.transcript.placement || {}, unitsEarned: earned, gpa };
+  }
+
+  // ---------------------------------------------------------------- compute
+  let R = null;
+  function compute() {
+    const prof = profile();
+    if (!state.electives) state.electives = P.pickElectives(DAG, prof, state.track);
+    else state.electives = P.pickElectives(DAG, prof, state.track, state.electives);
+    const cur = state.transcript.current_term || { season: "Fall", year: 2026 };
+    const opts = { start: nextTerm(cur), maxUnits: state.maxUnits, electives: state.electives, offerings: state.offerings };
+    const res = P.bottlenecks(DAG, prof, opts);
+    const critical = new Set(res.flags.map(f => f.code));
+    // edges along each flagged chain, for the map
+    const critEdges = new Set();
+    res.flags.forEach(f => f.chain.forEach((c, i) => { if (i) critEdges.add(f.chain[i - 1] + ">" + c); }));
+    R = Object.assign({ prof, opts, cur, critical, critEdges }, res);
+  }
+
+  function statusOf(code) {
+    const b = R.base;
+    if (b.passed.has(code)) return { status: "done", label: "Done" };
+    if (b.inProgress.has(code)) return { status: "ip", label: "In progress" };
+    if (code in b.placedTerm) return { status: "planned", label: b.terms[b.placedTerm[code]].term.label, t: b.placedTerm[code] };
+    if (b.unscheduled.includes(code)) return { status: "blocked", label: "Can't schedule" };
+    return { status: "none", label: "Not planned" };
+  }
+
+  // ---------------------------------------------------------------- render: header + summary
+  function renderHeader() {
+    const p = R.prof;
+    const standing = p.unitsEarned >= 90 ? "Senior" : p.unitsEarned >= 60 ? "Junior" : p.unitsEarned >= 30 ? "Sophomore" : "Freshman";
+    document.getElementById("student-name").textContent = state.transcript.student || "Student";
+    document.getElementById("student-sub").innerHTML =
+      `${standing} · <span class="mono">${p.unitsEarned}</span> units earned · GPA <span class="mono">${p.gpa != null ? p.gpa.toFixed(2) : "–"}</span><br>Currently enrolled: ${esc(R.cur.season + " " + R.cur.year)}`;
+    const seg = document.getElementById("track-seg");
+    seg.innerHTML = Object.entries(DAG.tracks).map(([k, t]) =>
+      `<button type="button" data-track="${k}" aria-pressed="${k === state.track}">${esc(t.label)}</button>`).join("");
+  }
+
+  function meter(el, parts, total) {
+    el.innerHTML = parts.map(([cls, v]) => `<i class="${cls}" style="width:${Math.max(0, Math.min(100, v / total * 100))}%"></i>`).join("");
+  }
+
+  function renderSummary() {
+    const b = R.base;
+    const grad = b.gradTerm ? b.gradTerm.label : "Not reachable";
+    document.getElementById("s-grad").textContent = grad;
+    document.getElementById("s-grad-sub").textContent = b.gradTerm
+      ? `${b.terms.length} more semester${b.terms.length === 1 ? "" : "s"} after ${R.cur.season} ${R.cur.year}, at up to ${state.maxUnits} units`
+      : `${b.unscheduled.length} course(s) can't be scheduled`;
+    const ipUnits = b.startUnits - R.prof.unitsEarned;
+    const planned = b.finalUnits - b.startUnits;
+    document.getElementById("s-units").textContent = `${b.startUnits} → ${Math.min(b.finalUnits, 999)}`;
+    meter(document.getElementById("s-units-meter"), [["m-done", R.prof.unitsEarned], ["m-ip", ipUnits], ["m-plan", planned]], Math.max(120, b.finalUnits));
+    let majDone = 0, majIp = 0, majPlan = 0;
+    DAG.requirements.forEach(r => {
+      const list = r.type === "all" ? r.courses : r.courses.filter(c => b.passed.has(c) || b.inProgress.has(c) || state.electives.includes(c));
+      list.forEach(c => {
+        const u = NODES[c].units;
+        if (b.passed.has(c)) majDone += u; else if (b.inProgress.has(c)) majIp += u; else if (c in b.placedTerm) majPlan += u;
+      });
+    });
+    const majTotal = DAG.program.major_units;
+    document.getElementById("s-major").textContent = `${majDone + majIp} / ${majTotal}`;
+    meter(document.getElementById("s-major-meter"), [["m-done", majDone], ["m-ip", majIp], ["m-plan", majPlan]], majTotal);
+    document.getElementById("s-major-sub").textContent = `${majDone} done · ${majIp} in progress · ${majPlan} planned`;
+    document.getElementById("s-crit").textContent = R.flags.length;
+    document.getElementById("s-crit-sub").textContent = R.flags.length
+      ? "Missing any of them pushes graduation back" : "Every remaining course has slack";
+  }
+
+  // ---------------------------------------------------------------- render: alerts
+  const cbtn = c => `<button type="button" class="linkish" data-course="${esc(c)}">${esc(c)}</button>`;
+  function renderAlerts() {
+    const b = R.base, out = [];
+    R.flags.forEach(f => {
+      const sem = f.delay === 1 ? "1 semester" : f.delay + " semesters";
+      const chain = f.chain.length > 1 ? ` It unlocks <span class="chain">${f.chain.slice(1).map(cbtn).join(" → ")}</span>.` : "";
+      out.push(["crit", "Bottleneck", `${cbtn(f.code)} is on the critical path. If you don't take it in ${esc(f.term.label)}, graduation slips from ${esc(b.gradTerm.label)} to ${esc(f.altGrad ? f.altGrad.label : "later")} (+${sem}).${chain}`]);
+    });
+    b.retake.forEach(r => out.push(["warn", "Retake", `${cbtn(r.code)} needs ${esc(r.min || "a passing grade")} or better for the major; the transcript shows ${esc(r.grade)}. It's back in the plan${r.code in b.placedTerm ? " for " + esc(b.terms[b.placedTerm[r.code]].term.label) : ""}.`]));
+    b.ipWarnings.forEach(w => out.push(["warn", "Check", `${cbtn(w.code)} is in progress, but the transcript doesn't show its prerequisite ${w.missing.map(cbtn).join(", ")} with the required grade.`]));
+    state.transcript.courses.filter(r => r.include !== false && r.confidence != null && r.confidence < 0.8).forEach(r => {
+      const node = NODES[r.code];
+      out.push(["warn", "Confirm", `${cbtn(r.code)} was read as <b>${esc(r.grade)}</b> with ${Math.round(r.confidence * 100)}% confidence.${node && node.min_grade ? ` Anything below ${esc(node.min_grade)} means a retake.` : ""} Check it in the transcript table below.`]);
+    });
+    const gpa = R.prof.gpa;
+    const gated = Object.keys(b.placedTerm).filter(c => NODES[c].conditions.some(x => GPA_RE.test(x)));
+    if (gpa != null && gpa < 3 && gated.length) {
+      out.push(["warn", "GPA", `Your GPA is ${gpa.toFixed(2)}. ${gated.map(cbtn).join(", ")} require a 3.0 GPA or the instructor's permission.`]);
+    }
+    const limited = Object.entries(state.offerings).filter(([, v]) => v && v.length === 1);
+    if (limited.length) out.push(["info", "Offerings", `Using your offering settings: ${limited.map(([c, v]) => cbtn(c) + " " + esc(v[0]) + " only").join(", ")}.`]);
+    if (b.unscheduled.length) out.push(["crit", "Blocked", `Can't fit ${b.unscheduled.map(cbtn).join(", ")} in the plan. Check prerequisites and offerings.`]);
+    document.getElementById("alerts").innerHTML = out.map(([cls, k, html]) =>
+      `<div class="alert ${cls}"><span class="k">${k}</span><p>${html}</p></div>`).join("");
+  }
+
+  // ---------------------------------------------------------------- render: roadmap
+  function courseCard(c, opts) {
+    const node = NODES[c];
+    const r = reqOf[c];
+    const isElective = state.electives.includes(c);
+    const tags = [];
+    if (r) tags.push(`<span class="tag ${isElective ? "track" : ""}">${esc(isElective ? "Elective · " + (DAG.tracks[state.track].courses.includes(c) ? DAG.tracks[state.track].label : (trackOf(c)[0] ? DAG.tracks[trackOf(c)[0]].label : "Open")) : REQ_SHORT[r.id] || r.label)}</span>`);
+    else if (node) tags.push(`<span class="tag">Prerequisite</span>`);
+    if (R.critical.has(c)) tags.push(`<span class="tag crit">Critical path</span>`);
+    if (node && node.conditions.some(x => GPA_RE.test(x))) tags.push(`<span class="tag warn">GPA 3.0+</span>`);
+    if (c === DAG.university.gwar_course) tags.push(`<span class="tag">GWAR</span>`);
+    const cls = ["card", R.critical.has(c) ? "critical" : "", opts.ip ? "ipcard" : "", isElective && !opts.ip ? "elective" : ""].join(" ");
+    const units = node ? node.units : (opts.units || (CATALOG[c] && CATALOG[c][1]) || "");
+    let swap = "";
+    if (isElective && !opts.ip) {
+      swap = `<button type="button" class="swapbtn" data-swap="${esc(c)}" aria-expanded="${state.openSwap === c}">Swap elective</button>`;
+      if (state.openSwap === c) swap += swapMenu(c);
+    }
+    return `<div class="${cls}"><button type="button" class="linkish" data-course="${esc(c)}" style="all:unset;cursor:pointer;display:grid;gap:3px">
+      <span class="row1"><span class="code">${esc(c)}</span><span class="units">${esc(units)} u</span></span>
+      <span class="title">${esc(titleOf(c))}</span></button>
+      ${tags.length ? `<div class="tags">${tags.join("")}</div>` : ""}${swap}</div>`;
+  }
+
+  function swapMenu(current) {
+    const b = R.base;
+    const pool = P.electivePool(DAG);
+    const order = [...DAG.tracks[state.track].courses, ...Object.values(DAG.tracks).flatMap(t => t.courses), ...pool];
+    const seen = new Set();
+    const neededSansCurrent = new Set(b.needed.filter(c => c !== current));
+    const items = [];
+    for (const c of order) {
+      if (seen.has(c) || !pool.includes(c) || c === current || state.electives.includes(c) || b.have.has(c)) continue;
+      seen.add(c);
+      const extra = P.extraUnitsFor(DAG, c, b.have, neededSansCurrent, R.prof.placement);
+      const notes = [];
+      if (extra) notes.push(`+${extra} units of prerequisites`);
+      const prereqCodes = P.leaves(NODES[c].prereq).map(l => l.code).filter(x => NODES[x] && !b.have.has(x));
+      if (prereqCodes.length) notes.push("after " + [...new Set(prereqCodes)].slice(0, 3).join(", "));
+      if (NODES[c].conditions.some(x => GPA_RE.test(x))) notes.push("GPA 3.0+");
+      const tr = trackOf(c).map(k => DAG.tracks[k].label)[0] || "Open elective";
+      items.push(`<button type="button" data-pick="${esc(c)}" data-for="${esc(current)}"><span class="m1"><span class="mono">${esc(c)}</span><span class="small" style="margin:0">${esc(tr)}</span></span><span>${esc(NODES[c].title)}</span><span class="m2">${esc(notes.join(" · ") || "No extra prerequisites")}</span></button>`);
+      if (items.length >= 8) break;
+    }
+    return `<div class="menu" role="menu"><div class="mh">Replace ${esc(current)} with</div>${items.join("")}</div>`;
+  }
+
+  function renderRoadmap() {
+    const b = R.base;
+    const cols = [];
+    const ipRows = state.transcript.courses.filter(r => r.grade === "IP" && r.include !== false);
+    const ipUnits = ipRows.reduce((s, r) => s + Number(r.units || 0), 0);
+    cols.push(`<div class="term"><div class="term-h"><b>${esc(R.cur.season + " " + R.cur.year)}</b><span class="pill ip">In progress</span></div>
+      ${ipRows.map(r => courseCard(r.code, { ip: true, units: r.units })).join("")}
+      <div class="small" style="text-align:right"><span class="mono">${ipUnits}</span> units</div></div>`);
+    b.terms.forEach((t, i) => {
+      const last = i === b.terms.length - 1;
+      const cards = t.courses.map(c => courseCard(c, {})).join("");
+      const ge = t.generalUnits ? `<div class="card ge"><span class="row1"><span class="code">GE / free elective</span><span class="units">${t.generalUnits} u</span></span><span class="title">Open units toward 120</span></div>` : "";
+      cols.push(`<div class="term"><div class="term-h"><b>${esc(t.term.label)}</b>${last ? '<span class="pill grad">Graduate</span>' : `<span class="u mono">${t.totalUnits} u</span>`}</div>
+        ${cards}${ge}${last ? `<div class="small" style="text-align:right"><span class="mono">${t.totalUnits}</span> units</div>` : ""}</div>`);
+    });
+    document.getElementById("roadmap").innerHTML = cols.join("");
+  }
+
+  // ---------------------------------------------------------------- render: requirements rail
+  const ICONS = {
+    done: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="var(--done)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" fill="none" stroke="var(--card)" stroke-width="1.8"/></svg>',
+    ip: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.6" fill="none" stroke="var(--ip)" stroke-width="1.8"/><path d="M8 1.4a6.6 6.6 0 0 1 0 13.2z" fill="var(--ip)"/></svg>',
+    planned: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6.6" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="2.6 2"/></svg>',
+    warn: '<svg class="ic" viewBox="0 0 16 16"><path d="M8 1.2l7.2 13.3H.8z" fill="var(--warn)"/><path d="M8 6v4M8 11.6v1" stroke="var(--card)" stroke-width="1.6"/></svg>',
+    crit: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="var(--crit)"/><path d="M5.2 5.2l5.6 5.6M10.8 5.2l-5.6 5.6" stroke="var(--card)" stroke-width="1.8"/></svg>',
+    info: '<svg class="ic" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7.5" fill="var(--muted)"/><path d="M8 7v5M8 4.2v1" stroke="var(--card)" stroke-width="1.7"/></svg>',
+  };
+  function reqRow(icon, name, st) {
+    return `<div class="ri">${ICONS[icon]}<span class="nm">${name}</span><span class="st">${esc(st)}</span></div>`;
+  }
+  function renderReqs() {
+    const b = R.base;
+    const html = [];
+    DAG.requirements.forEach(r => {
+      let list = r.courses;
+      if (r.type === "choose_units") list = [...r.courses.filter(c => b.passed.has(c) || b.inProgress.has(c)), ...state.electives.filter(c => !b.passed.has(c) && !b.inProgress.has(c))];
+      const rows = list.map(c => {
+        const s = statusOf(c);
+        const retake = b.retake.some(x => x.code === c);
+        const icon = s.status === "done" ? "done" : s.status === "ip" ? "ip" : s.status === "planned" ? (retake ? "warn" : "planned") : "crit";
+        const lbl = retake ? "Retake · " + s.label : s.label;
+        return reqRow(icon, `${cbtn(c)} <span style="color:var(--muted)">${esc(NODES[c].title)}</span>`, lbl);
+      });
+      if (r.type === "choose_units") {
+        const chk = P.electiveRuleCheck(DAG, list);
+        rows.push(reqRow(chk.ok ? "planned" : "warn", `${chk.units} of ${chk.minUnits} units, ${chk.cscUnits} in CSC (12 required)`, chk.ok ? "Rule met" : "Short"));
+      }
+      html.push(`<div class="req"><div class="req-h"><span class="eyebrow">${esc(r.label)}</span><span class="u">${r.units} units</span></div>${rows.join("")}</div>`);
+    });
+    // university-level requirements
+    const gpa = R.prof.gpa;
+    const gw = statusOf(DAG.university.gwar_course);
+    let udUnits = 0;
+    state.transcript.courses.forEach(r => { const n = parseInt((r.code.match(/\d+/) || ["0"])[0], 10); if (r.include !== false && n >= 300 && n < 700 && (r.grade === "IP" || P.passes(r.grade, null))) udUnits += Number(r.units || 0); });
+    Object.keys(b.placedTerm).forEach(c => { const n = parseInt(c.match(/\d+/)[0], 10); if (n >= 300 && n < 700) udUnits += NODES[c].units; });
+    const uni = [
+      reqRow(b.finalUnits >= 120 ? (b.startUnits >= 120 ? "done" : "planned") : "warn", "At least 120 units", `${b.finalUnits} planned`),
+      reqRow(gpa == null ? "info" : gpa >= 2 ? "done" : "crit", "GPA of 2.0 or better (overall, SF State, major)", gpa == null ? "–" : gpa.toFixed(2)),
+      reqRow(gw.status === "done" ? "done" : gw.status === "ip" ? "ip" : gw.status === "planned" ? "planned" : "crit", `Writing requirement (GWAR): ${cbtn(DAG.university.gwar_course)}, C- or better`, gw.label),
+      reqRow(udUnits >= 30 ? "planned" : "warn", "At least 30 upper-division units", `${udUnits} planned`),
+      reqRow("info", "30 units in residence at SF State, incl. 24 upper-division", "Not tracked"),
+      reqRow("info", "General Education, SF State Studies, American Institutions", "Not tracked"),
+    ];
+    html.push(`<div class="req"><div class="req-h"><span class="eyebrow">University requirements</span><span class="u">120 units</span></div>${uni.join("")}</div>`);
+    document.getElementById("reqs").innerHTML = html.join("");
+  }
+
+  // ---------------------------------------------------------------- render: transcript table
+  function renderTranscript() {
+    const rows = state.transcript.courses;
+    const checks = rows.map(checkRow);
+    const issues = checks.filter(c => c.cls === "warn" || c.cls === "crit").length;
+    document.getElementById("tx-sub").textContent = `${rows.length} courses · ${issues} to review · ${esc(state.transcript.source || "")}`;
+    document.getElementById("tx-table").innerHTML = `<thead><tr><th>Use</th><th>Course</th><th>Title</th><th>Term</th><th>Units</th><th>Grade</th><th>Confidence</th><th>Check</th></tr></thead><tbody>` +
+      rows.map((r, i) => {
+        const ck = checks[i];
+        const conf = r.confidence != null ? Math.round(r.confidence * 100) + "%" : "–";
+        const opts = GRADES.map(g => `<option${g === r.grade ? " selected" : ""}>${g}</option>`).join("");
+        return `<tr><td><input type="checkbox" id="use-${i}" data-use="${i}"${r.include === false ? "" : " checked"} aria-label="Use ${esc(r.code)}"></td>
+          <td class="mono">${NODES[r.code] ? cbtn(r.code) : esc(r.code)}</td><td class="t">${esc(CATALOG[r.code] ? CATALOG[r.code][0] : "Transfer course")}</td>
+          <td>${esc(r.term || "")}</td><td class="mono">${esc(r.units)}</td>
+          <td><select id="grade-${i}" data-grade="${i}" aria-label="Grade for ${esc(r.code)}">${opts}</select></td>
+          <td class="conf${r.confidence != null && r.confidence < 0.8 ? " low" : ""}">${conf}</td>
+          <td><span class="chip ${ck.cls}">${esc(ck.text)}</span></td></tr>`;
+      }).join("") + "</tbody>";
+  }
+
+  // ---------------------------------------------------------------- render: prerequisite map
+  function renderMap() {
+    const b = R.base;
+    const show = new Set([...b.needed, ...[...b.passed].filter(c => NODES[c]), ...[...b.inProgress].filter(c => NODES[c])]);
+    // keep only nodes that are part of the degree: targets, needed, or prerequisites of shown courses
+    const cols = [{ key: "done", label: "COMPLETED" }, { key: "ip", label: (R.cur.season + " " + R.cur.year).toUpperCase() }]
+      .concat(b.terms.map((t, i) => ({ key: "t" + i, label: t.term.label.toUpperCase() })));
+    const colOf = c => b.passed.has(c) ? 0 : b.inProgress.has(c) ? 1 : (c in b.placedTerm ? 2 + b.placedTerm[c] : null);
+    const byCol = cols.map(() => []);
+    show.forEach(c => { const k = colOf(c); if (k != null) byCol[k].push(c); });
+    // order within a column by the mean row of prerequisites (one barycenter pass), then by code
+    const rowOf = {};
+    byCol.forEach((list, k) => {
+      list.sort((a, z) => {
+        const bc = c => { const ps = P.leaves(NODES[c].prereq).map(l => rowOf[l.code]).filter(v => v != null); return ps.length ? ps.reduce((s, v) => s + v, 0) / ps.length : -1; };
+        return bc(a) - bc(z) || (a < z ? -1 : 1);
+      });
+      list.forEach((c, i) => { rowOf[c] = i; });
+    });
+    const CW = 150, NW = 104, NH = 26, RH = 38, TOP = 34, LEFT = 14;
+    const maxRows = Math.max(...byCol.map(l => l.length), 1);
+    const W = LEFT * 2 + cols.length * CW, H = TOP + maxRows * RH + 10;
+    const pos = {};
+    byCol.forEach((list, k) => list.forEach((c, i) => { pos[c] = { x: LEFT + k * CW, y: TOP + i * RH }; }));
+    const edges = [];
+    show.forEach(c => {
+      if (!pos[c]) return;
+      const expr = NODES[c].prereq;
+      const walk = (e, inOr) => {
+        if (!e) return;
+        if (typeof e === "string") return add(e, inOr, false);
+        if (e.and) return e.and.forEach(x => walk(x, inOr));
+        if (e.or) return e.or.forEach(x => walk(x, true));
+        if (e.course) return add(e.course, inOr, !!e.concurrent);
+        if (e.coreq) return add(e.coreq, inOr, true);
+      };
+      const add = (p, inOr, soft) => {
+        if (!pos[p] || p === c) return;
+        const a = pos[p], z = pos[c];
+        const x1 = a.x + NW, y1 = a.y + NH / 2, x2 = z.x, y2 = z.y + NH / 2;
+        const same = a.x === z.x;
+        const d = same ? `M${a.x + NW / 2},${a.y + NH} C${a.x + NW / 2 + 30},${(a.y + z.y) / 2 + NH / 2} ${z.x + NW / 2 + 30},${(a.y + z.y) / 2 + NH / 2} ${z.x + NW / 2},${z.y}`
+          : `M${x1},${y1} C${x1 + 30},${y1} ${x2 - 30},${y2} ${x2},${y2}`;
+        const crit = R.critEdges.has(p + ">" + c);
+        edges.push(`<path class="edge${inOr ? " or" : ""}${soft ? " soft" : ""}${crit ? " crit" : ""}" d="${d}"/>`);
+      };
+      walk(expr, false);
+    });
+    const heads = cols.map((col, k) => `<text class="colh" x="${LEFT + k * CW}" y="16">${esc(col.label)}</text>`).join("");
+    const nodes = [...show].filter(c => pos[c]).map(c => {
+      const s = statusOf(c);
+      const cls = ["node", s.status === "done" ? "done" : s.status === "ip" ? "ip" : "", R.critical.has(c) ? "crit" : ""].join(" ");
+      return `<g class="${cls}" data-course="${esc(c)}" tabindex="0" role="button" aria-label="${esc(c)}"><rect x="${pos[c].x}" y="${pos[c].y}" width="${NW}" height="${NH}" rx="6"/><text x="${pos[c].x + 9}" y="${pos[c].y + 17}">${esc(c)}</text></g>`;
+    }).join("");
+    const svg = document.getElementById("map");
+    svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    svg.setAttribute("width", W);
+    svg.setAttribute("height", H);
+    svg.innerHTML = heads + edges.join("") + nodes;
+  }
+
+  // ---------------------------------------------------------------- drawer
+  function tree(t) {
+    if (!t) return '<span class="small">No course prerequisites</span>';
+    if (t.type === "and" || t.type === "or") {
+      return `<span class="op">${t.type === "and" ? "ALL OF" : "ONE OF"}</span><ul class="tree">${t.items.map(i => `<li>${tree(i)}</li>`).join("")}</ul>`;
+    }
+    if (t.type === "placement") return `${ICONS[t.status === "done" ? "done" : "info"].replace('class="ic"', 'class="ic" style="display:inline-block;vertical-align:-3px"')} Math placement into calculus`;
+    const icon = { done: "done", ip: "ip", planned: "planned", blocked: "crit", none: "info", external: "info" }[t.status] || "info";
+    const extra = t.concurrent ? " (can be taken the same term)" : t.coreq ? " (take in the same term)" : "";
+    return `${ICONS[icon].replace('class="ic"', 'class="ic" style="display:inline-block;vertical-align:-3px"')} ${NODES[t.code] ? cbtn(t.code) : `<span class="mono">${esc(t.code)}</span>`} <span class="small">${esc(t.label)}${esc(extra)}</span>`;
+  }
+  function renderDrawer() {
+    const d = document.getElementById("drawer");
+    const c = state.selected;
+    if (!c) { d.hidden = true; return; }
+    const node = NODES[c];
+    if (!node) { d.hidden = true; return; }
+    const s = statusOf(c);
+    const lookup = code => {
+      if (code.startsWith("placement:")) return { status: R.prof.placement[code.slice(10)] ? "done" : "none" };
+      if (!NODES[code]) return { status: "external", label: R.base.passed.has(code) ? "Done" : "Not in this plan" };
+      return statusOf(code);
+    };
+    const tr = P.explain(node.prereq, lookup);
+    const unlocks = Object.values(NODES).filter(n => P.leaves(n.prereq).some(l => l.code === c)).map(n => n.code);
+    const off = state.offerings[c];
+    const offVal = !off ? "both" : off.length === 1 ? off[0] : "both";
+    d.innerHTML = `<button type="button" class="x" data-close="1" aria-label="Close">Close</button>
+      <div class="eyebrow">${esc(reqOf[c] ? reqOf[c].label : "Prerequisite course")} · ${node.units} units</div>
+      <h3><span class="mono">${esc(c)}</span><br>${esc(node.title)}</h3>
+      <div class="small">Status: <b>${esc(s.label)}</b>${R.critical.has(c) ? ' · <span style="color:var(--crit);font-weight:600">Critical path</span>' : ""}</div>
+      <div class="dsec"><div class="eyebrow">Prerequisites</div>${tree(tr)}</div>
+      ${node.min_grade ? `<div class="dsec small">Prerequisites need a grade of ${esc(node.min_grade)} or better.</div>` : ""}
+      ${node.conditions.length ? `<div class="dsec"><div class="eyebrow">Also required</div><div class="tags">${node.conditions.map(x => `<span class="tag ${GPA_RE.test(x) ? "warn" : ""}">${esc(x)}</span>`).join("")}</div></div>` : ""}
+      ${node.bulletin_prerequisite_text ? `<div class="dsec"><div class="eyebrow">Bulletin text</div><p class="quote">${esc(node.bulletin_prerequisite_text)}</p></div>` : ""}
+      <div class="dsec"><div class="eyebrow">Unlocks</div>${unlocks.length ? unlocks.map(cbtn).join(", ") : '<span class="small">Nothing else in this program</span>'}</div>
+      <div class="dsec"><label class="eyebrow" for="offer-select">Offered</label><div style="margin-top:6px"><select id="offer-select" data-offer="${esc(c)}">
+        <option value="both"${offVal === "both" ? " selected" : ""}>Fall and spring</option>
+        <option value="Fall"${offVal === "Fall" ? " selected" : ""}>Fall only</option>
+        <option value="Spring"${offVal === "Spring" ? " selected" : ""}>Spring only</option></select></div>
+        <div class="small">The bulletin doesn't list offering terms. Set this from the class schedule to see how it moves your graduation date.</div></div>
+      <div class="dsec"><a href="${esc(node.url)}" target="_blank" rel="noopener">Open in the bulletin</a></div>`;
+    d.hidden = false;
+  }
+
+  // ---------------------------------------------------------------- orchestration
+  function render() {
+    compute();
+    renderHeader();
+    renderSummary();
+    renderAlerts();
+    renderRoadmap();
+    renderReqs();
+    renderTranscript();
+    renderMap();
+    renderDrawer();
+  }
+
+  document.addEventListener("click", e => {
+    const t = e.target.closest("[data-track],[data-swap],[data-pick],[data-course],[data-close]");
+    if (!t) { if (state.openSwap && !e.target.closest(".menu")) { state.openSwap = null; render(); } return; }
+    if (t.dataset.track) { state.track = t.dataset.track; state.electives = P.pickElectives(DAG, profile(), state.track); state.openSwap = null; render(); return; }
+    if (t.dataset.swap) { state.openSwap = state.openSwap === t.dataset.swap ? null : t.dataset.swap; render(); return; }
+    if (t.dataset.pick) {
+      const i = state.electives.indexOf(t.dataset.for);
+      if (i >= 0) state.electives[i] = t.dataset.pick;
+      state.openSwap = null; render(); return;
+    }
+    if (t.dataset.close) { state.selected = null; renderDrawer(); return; }
+    if (t.dataset.course && NODES[t.dataset.course]) { state.selected = t.dataset.course; renderDrawer(); }
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { state.selected = null; state.openSwap = null; render(); }
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches("g.node")) { state.selected = e.target.dataset.course; renderDrawer(); e.preventDefault(); }
+  });
+  document.addEventListener("change", e => {
+    const t = e.target;
+    if (t.id === "max-units") { state.maxUnits = Number(t.value); render(); }
+    else if (t.dataset.use != null) { state.transcript.courses[t.dataset.use].include = t.checked; render(); }
+    else if (t.dataset.grade != null) { const r = state.transcript.courses[t.dataset.grade]; r.grade = t.value; r.confidence = 1; render(); }
+    else if (t.dataset.offer) { if (t.value === "both") delete state.offerings[t.dataset.offer]; else state.offerings[t.dataset.offer] = [t.value]; render(); }
+    else if (t.id === "source-select" && t.value === "sample") { state.transcript = JSON.parse(JSON.stringify(window.SAMPLE_TRANSCRIPT)); state.electives = null; render(); }
+    else if (t.id === "file-input" && t.files && t.files[0]) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const msg = document.getElementById("upload-msg");
+        try {
+          const data = JSON.parse(reader.result);
+          const courses = Array.isArray(data) ? data : data.courses;
+          if (!Array.isArray(courses) || !courses.every(r => r && typeof r.code === "string" && r.grade)) throw new Error("Expected a list of {code, grade, units, confidence}");
+          state.transcript = Object.assign({ student: "Uploaded transcript", source: t.files[0].name, current_term: { season: "Fall", year: 2026 }, placement: { calculus: true } },
+            Array.isArray(data) ? {} : data, { courses: courses.map(r => Object.assign({ units: CATALOG[r.code] ? Number(CATALOG[r.code][1]) || 0 : 0 }, r)) });
+          state.electives = null;
+          const sel = document.getElementById("source-select");
+          sel.querySelector('option[value="upload"]').disabled = false;
+          sel.value = "upload";
+          msg.textContent = `Loaded ${courses.length} courses from ${t.files[0].name}.`;
+          render();
+        } catch (err) {
+          msg.textContent = "Couldn't read that file: " + err.message + ".";
+        }
+      };
+      reader.readAsText(t.files[0]);
+    }
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

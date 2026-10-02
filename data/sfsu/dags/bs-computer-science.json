@@ -1,0 +1,1339 @@
+{
+ "program": {
+  "id": "science-engineering/computer-science/bs-computer-science",
+  "name": "Bachelor of Science in Computer Science",
+  "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/",
+  "major_units": 74,
+  "degree_units": 120,
+  "bulletin": "2026-2027"
+ },
+ "grammar": "\"CSC 220\"                              course must be completed before the term\n  {\"and\": [expr, ...]}                   all of\n  {\"or\": [expr, ...]}                    any of\n  {\"course\": \"MATH 227\", \"concurrent\": true}   completed earlier OR taken the same term\n  {\"coreq\": \"PHYS 222\"}                  must be taken in the same term (or earlier)\n  {\"placement\": \"calculus\"}              satisfied by a placement/HS credit flag on the student profile",
+ "notes": [
+  "Grades of C or better are required for Mathematics and Physics, Core, and Advanced CS courses; CR/NC is not accepted in the major (program page).",
+  "'or permission of the instructor' alternatives are recorded in conditions, not as graph edges.",
+  "The bulletin has no term-offering data. term_offerings is empty: fill it from the class schedule (e.g. {\"CSC 340\": [\"Fall\", \"Spring\"]}). Missing entries mean 'assume every fall and spring'."
+ ],
+ "requirements": [
+  {
+   "id": "mathematics_and_physics",
+   "label": "Mathematics and Physics",
+   "units": 22,
+   "courses": [
+    "MATH 225",
+    "MATH 226",
+    "MATH 227",
+    "MATH 324",
+    "PHYS 220",
+    "PHYS 222",
+    "PHYS 230",
+    "PHYS 232"
+   ],
+   "type": "all"
+  },
+  {
+   "id": "core_computer_science_requirements",
+   "label": "Core Computer Science Requirements",
+   "units": 28,
+   "courses": [
+    "CSC 101",
+    "CSC 215",
+    "CSC 220",
+    "CSC 230",
+    "CSC 256",
+    "CSC 300GW",
+    "CSC 317",
+    "CSC 340",
+    "CSC 413"
+   ],
+   "type": "all"
+  },
+  {
+   "id": "advanced_computer_science_requirements",
+   "label": "Advanced Computer Science Requirements",
+   "units": 9,
+   "courses": [
+    "CSC 415",
+    "CSC 510",
+    "CSC 648"
+   ],
+   "type": "all"
+  },
+  {
+   "id": "electives",
+   "label": "Electives",
+   "units": 15,
+   "courses": [
+    "CSC 520",
+    "CSC 600",
+    "CSC 603",
+    "CSC 615",
+    "CSC 620",
+    "CSC 621",
+    "CSC 630",
+    "CSC 631",
+    "CSC 641",
+    "CSC 642",
+    "CSC 645",
+    "CSC 647",
+    "CSC 651",
+    "CSC 652",
+    "CSC 653",
+    "CSC 656",
+    "CSC 659",
+    "CSC 664",
+    "CSC 665",
+    "CSC 667",
+    "CSC 668",
+    "CSC 671",
+    "CSC 675",
+    "CSC 676",
+    "CSC 680",
+    "CSC 685",
+    "CSC 686",
+    "CSC 698",
+    "CSC 699",
+    "MATH 400",
+    "MATH 425",
+    "MATH 448"
+   ],
+   "type": "choose_units",
+   "rules": [
+    "All students must complete five 3-unit senior electives. At least 12 units must be CSC courses. In addition to the courses listed below, any 600-level CSC course, with the exception of CSC 601, CSC 602, CSC 648, and CSC 694 can be used as an elective. The department also allows one CSC graduate course to be used as a senior elective (700-level or higher, and non-paired excluding CSC 895, CSC 898, CSC 897, CSC 899). Exceptions must be approved in advance by a senior advisor."
+   ],
+   "min_units": 15,
+   "min_csc_units": 12,
+   "excluded": [
+    "CSC 601",
+    "CSC 602",
+    "CSC 648",
+    "CSC 694"
+   ],
+   "auto_plan_excludes": [
+    "CSC 685",
+    "CSC 686",
+    "CSC 698",
+    "CSC 699"
+   ]
+  }
+ ],
+ "nodes": {
+  "MATH 197": {
+   "code": "MATH 197",
+   "title": "Prelude to Calculus I",
+   "units": 3,
+   "prereq": null,
+   "min_grade": null,
+   "conditions": [
+    "Category III/IV QR placement"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "First-Year Math Advising Module; Category III* and IV* placement for QR/Math.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 198": {
+   "code": "MATH 198",
+   "title": "Prelude to Calculus II",
+   "units": 3,
+   "prereq": "MATH 197",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 197 with a grade of C or better.",
+   "ge_areas": [
+    "2: MATH/Quantitative Reason",
+    "B4: Math/QR"
+   ],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 199": {
+   "code": "MATH 199",
+   "title": "Pre-Calculus",
+   "units": 4,
+   "prereq": null,
+   "min_grade": null,
+   "conditions": [
+    "First-Year Math Advising Module"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "First-Year Math Advising Module. For students who want to take pre-calculus in one semester.",
+   "ge_areas": [
+    "2: MATH/Quantitative Reason",
+    "B4: Math/QR"
+   ],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 226": {
+   "code": "MATH 226",
+   "title": "Calculus I",
+   "units": 4,
+   "prereq": {
+    "or": [
+     "MATH 198",
+     "MATH 199",
+     {
+      "placement": "calculus"
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "One of the following: MATH 198 or MATH 199 or equivalent with a grade of C or better; or MATH 226 or equivalent with a grade of C- or lower; or high school pre-calculus with B or better; or high school calculus with a grade of C or better.",
+   "ge_areas": [
+    "2: MATH/Quantitative Reason",
+    "B4: Math/QR"
+   ],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 227": {
+   "code": "MATH 227",
+   "title": "Calculus II",
+   "units": 4,
+   "prereq": "MATH 226",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "MATH 226"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 226* with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 228": {
+   "code": "MATH 228",
+   "title": "Calculus III",
+   "units": 4,
+   "prereq": "MATH 227",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "MATH 227"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 227* with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 225": {
+   "code": "MATH 225",
+   "title": "Introduction to Linear Algebra",
+   "units": 3,
+   "prereq": {
+    "or": [
+     "MATH 198",
+     "MATH 199",
+     "MATH 226"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "MATH 198",
+    "MATH 199",
+    "MATH 226"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 198* or MATH 199* or MATH 226* with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 325": {
+   "code": "MATH 325",
+   "title": "Linear Algebra",
+   "units": 4,
+   "prereq": "MATH 226",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "MATH 226"
+   ],
+   "recommended": [
+    "MATH 301GW"
+   ],
+   "bulletin_prerequisite_text": "MATH 226* with a grade of C or better; concurrent enrollment in MATH 301GW recommended.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 324": {
+   "code": "MATH 324",
+   "title": "Probability and Statistics with Computing",
+   "units": 3,
+   "prereq": "MATH 227",
+   "min_grade": "C",
+   "conditions": [
+    "computer experience approved by instructor"
+   ],
+   "enforced_at_registration": [
+    "MATH 227"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 227* with a grade of C or better; computer experience that meets the approval of the instructor; basic concepts of probability and statistics.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 209": {
+   "code": "MATH 209",
+   "title": "Mathematical Computing",
+   "units": 3,
+   "prereq": "MATH 226",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 226 with a grade of C or better or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 440": {
+   "code": "MATH 440",
+   "title": "Probability and Statistics I",
+   "units": 3,
+   "prereq": {
+    "course": "MATH 228",
+    "concurrent": true
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "MATH 228"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 228* with a grade of C or better (may be taken concurrently); or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "PHYS 220": {
+   "code": "PHYS 220",
+   "title": "General Physics with Calculus I",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "MATH 226",
+     {
+      "coreq": "PHYS 222"
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [
+    "MATH 227"
+   ],
+   "bulletin_prerequisite_text": "MATH 226 with a grade of C or better; concurrent enrollment in PHYS 222; concurrent enrollment in MATH 227 recommended.",
+   "ge_areas": [
+    "5A: Physical Science",
+    "B1: Physical Science"
+   ],
+   "url": "https://bulletin.sfsu.edu/courses/phys/"
+  },
+  "PHYS 222": {
+   "code": "PHYS 222",
+   "title": "General Physics with Calculus I Laboratory",
+   "units": 1,
+   "prereq": {
+    "coreq": "PHYS 220"
+   },
+   "min_grade": null,
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Concurrent enrollment in PHYS 220.",
+   "ge_areas": [
+    "5C: Laboratory",
+    "B3: Lab Science"
+   ],
+   "url": "https://bulletin.sfsu.edu/courses/phys/"
+  },
+  "PHYS 230": {
+   "code": "PHYS 230",
+   "title": "General Physics with Calculus II",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "PHYS 220",
+     "MATH 227",
+     {
+      "coreq": "PHYS 232"
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [
+    "MATH 228"
+   ],
+   "bulletin_prerequisite_text": "PHYS 220 and MATH 227 with grades of C or better; concurrent enrollment in PHYS 232; concurrent enrollment in MATH 228 recommended.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/phys/"
+  },
+  "PHYS 232": {
+   "code": "PHYS 232",
+   "title": "General Physics with Calculus II Laboratory",
+   "units": 1,
+   "prereq": {
+    "coreq": "PHYS 230"
+   },
+   "min_grade": null,
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Concurrent enrollment in PHYS 230.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/phys/"
+  },
+  "CSC 101": {
+   "code": "CSC 101",
+   "title": "Introduction to Computing",
+   "units": 3,
+   "prereq": null,
+   "min_grade": null,
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": null,
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 215": {
+   "code": "CSC 215",
+   "title": "Intermediate Computer Programming",
+   "units": 4,
+   "prereq": "CSC 101",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 101 with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 220": {
+   "code": "CSC 220",
+   "title": "Data Structures",
+   "units": 3,
+   "prereq": {
+    "or": [
+     "CSC 210",
+     "CSC 215"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 210 or CSC 215 with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 230": {
+   "code": "CSC 230",
+   "title": "Discrete Mathematical Structures for Computer Science",
+   "units": 3,
+   "prereq": {
+    "and": [
+     {
+      "or": [
+       "CSC 210",
+       "CSC 215",
+       "ENGR 213"
+      ]
+     },
+     {
+      "course": "MATH 227",
+      "concurrent": true
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 210 or CSC 215 or ENGR 213, and MATH 227 (may be taken concurrently) with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 256": {
+   "code": "CSC 256",
+   "title": "Machine Structures",
+   "units": 3,
+   "prereq": "CSC 230",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 230 with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 300GW": {
+   "code": "CSC 300GW",
+   "title": "Ethics, Communication, and Tools for Software Development - GWAR",
+   "units": 3,
+   "prereq": {
+    "or": [
+     "CSC 210",
+     "CSC 215"
+    ]
+   },
+   "min_grade": null,
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GE Area 1A (English Composition)",
+    "CS major or minor"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Restricted to upper-division Computer Science majors and minors; GE Area 1A/A2; CSC 210 or CSC 215.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 317": {
+   "code": "CSC 317",
+   "title": "Introduction to Web Software Development",
+   "units": 3,
+   "prereq": "CSC 220",
+   "min_grade": null,
+   "conditions": [
+    "or instructor permission"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 220 or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 340": {
+   "code": "CSC 340",
+   "title": "Programming Methodology",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 220",
+     "CSC 230"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 220 and CSC 230 with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 413": {
+   "code": "CSC 413",
+   "title": "Software Development",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 220",
+     "CSC 317"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 220 and CSC 317 with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 415": {
+   "code": "CSC 415",
+   "title": "Operating System Principles",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 256",
+     "CSC 340",
+     "MATH 324",
+     "PHYS 230"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "CSC 340"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 256, CSC 340*, MATH 324, and PHYS 230 with grades of C or better or graduate standing*.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 510": {
+   "code": "CSC 510",
+   "title": "Analysis of Algorithms I",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 340",
+     "MATH 324"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "CSC 340",
+    "MATH 324"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 340* and MATH 324* with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 648": {
+   "code": "CSC 648",
+   "title": "Software Engineering",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 317",
+     "CSC 413"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 317",
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 317* and CSC 413* with grades of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 520": {
+   "code": "CSC 520",
+   "title": "Theory of Computing",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 220",
+     "CSC 230",
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 220 and CSC 230; MATH 225 or MATH 325 with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 600": {
+   "code": "CSC 600",
+   "title": "Programming Paradigms and Languages",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 413",
+     "CSC 510"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "CSC 413",
+    "CSC 510"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 413* and CSC 510* with grades of C or better or graduate-level standing*.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 603": {
+   "code": "CSC 603",
+   "title": "Generative AI: Fundamentals and Applications",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 413 with a grade of C or better; GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 615": {
+   "code": "CSC 615",
+   "title": "Embedded Linux Systems and Physical Computing",
+   "units": 3,
+   "prereq": "CSC 415",
+   "min_grade": "C",
+   "conditions": [
+    "or instructor permission"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 415* with a grade of C or better or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 620": {
+   "code": "CSC 620",
+   "title": "Natural Language Technologies",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 413* with a grade of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 621": {
+   "code": "CSC 621",
+   "title": "Biomedical Imaging and Analysis",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 510",
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 510",
+    "MATH 225",
+    "MATH 325"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 510*; MATH 225* or MATH 325* with grades of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 630": {
+   "code": "CSC 630",
+   "title": "Computer Graphics Systems Design",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 413",
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413",
+    "MATH 225",
+    "MATH 325"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 413* and either MATH 225* or MATH 325* with grades of C or better; a GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 631": {
+   "code": "CSC 631",
+   "title": "Multiplayer Game Development",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": null,
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 413*; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 641": {
+   "code": "CSC 641",
+   "title": "Computer Performance Evaluation",
+   "units": 3,
+   "prereq": "CSC 415",
+   "min_grade": null,
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 415*; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 642": {
+   "code": "CSC 642",
+   "title": "Human-Computer Interaction",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 413* with a grade of C or better or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 645": {
+   "code": "CSC 645",
+   "title": "Computer Networks",
+   "units": 3,
+   "prereq": "CSC 415",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 415* with a grade of C or better; GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 647": {
+   "code": "CSC 647",
+   "title": "Introduction to Quantum Computing and Quantum Information Science",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 415",
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 415",
+    "MATH 225",
+    "MATH 325"
+   ],
+   "recommended": [
+    "CSC 308",
+    "CSC 309",
+    "CSC 656"
+   ],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 415* and either MATH 225* or MATH 325* with a grade of C or better; CSC 308, CSC 309, and CSC 656 recommended; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 651": {
+   "code": "CSC 651",
+   "title": "System Administration",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 413",
+     "CSC 415"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "CSC 413",
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 413* and CSC 415* with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 652": {
+   "code": "CSC 652",
+   "title": "Introduction to Security and Data Privacy",
+   "units": 3,
+   "prereq": "CSC 415",
+   "min_grade": "C",
+   "conditions": [
+    "or instructor permission"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 415* with a grade of C or better or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 653": {
+   "code": "CSC 653",
+   "title": "Network Security",
+   "units": 3,
+   "prereq": "CSC 415",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 415* with a grade of C or better; GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 656": {
+   "code": "CSC 656",
+   "title": "Computer Organization",
+   "units": 3,
+   "prereq": {
+    "course": "CSC 415",
+    "concurrent": true
+   },
+   "min_grade": null,
+   "conditions": [
+    "or instructor permission"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 415* (may be taken concurrently) or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 659": {
+   "code": "CSC 659",
+   "title": "AI Explainability and Ethics",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Restricted to upper-division students; CSC 413 with C or better; GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 664": {
+   "code": "CSC 664",
+   "title": "Multimedia Systems",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 413* with a grade of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 665": {
+   "code": "CSC 665",
+   "title": "Artificial Intelligence",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Restricted to upper-division standing; CSC 413* with a grade of C or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 667": {
+   "code": "CSC 667",
+   "title": "Internet Application Design and Development",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 413* with a grade of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 668": {
+   "code": "CSC 668",
+   "title": "Advanced Object Oriented Software Design and Development",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "senior standing (90+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Senior standing; CSC 413* with a grade of C or better; GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 671": {
+   "code": "CSC 671",
+   "title": "Deep Learning",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "CSC 510",
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 510"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 510*; MATH 225 or MATH 325 with a grade of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 675": {
+   "code": "CSC 675",
+   "title": "Introduction to Database Systems",
+   "units": 3,
+   "prereq": "CSC 413",
+   "min_grade": "C",
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 413"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; CSC 413* with a grade of C or better; GPA of 3.0 or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 676": {
+   "code": "CSC 676",
+   "title": "Soft Computing and Decision Support Systems",
+   "units": 3,
+   "prereq": null,
+   "min_grade": null,
+   "conditions": [
+    "upper-division standing (60+ units)",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing; GPA of 3.0 or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 680": {
+   "code": "CSC 680",
+   "title": "Application Development for Mobile Devices",
+   "units": 3,
+   "prereq": "CSC 415",
+   "min_grade": "C",
+   "conditions": [
+    "senior standing (90+ units)",
+    "senior CS major",
+    "GPA 3.0+ (or instructor permission)"
+   ],
+   "enforced_at_registration": [
+    "CSC 415"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Restricted to senior Computer Science majors; CSC 415* with a grade of C or better; 3.0 GPA or higher; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 685": {
+   "code": "CSC 685",
+   "title": "Instructional Methods in Computer Science Teaching",
+   "units": 1,
+   "prereq": "CSC 215",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 215 with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 686": {
+   "code": "CSC 686",
+   "title": "Experiences in Computer Science Teaching",
+   "units": 1,
+   "prereq": "CSC 215",
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "CSC 215 with a grade of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 698": {
+   "code": "CSC 698",
+   "title": "Topics in Computing",
+   "units": 3,
+   "prereq": null,
+   "min_grade": null,
+   "conditions": [
+    "upper-division standing (60+ units)"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Upper-division standing or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "CSC 699": {
+   "code": "CSC 699",
+   "title": "Independent Study",
+   "units": 3,
+   "prereq": null,
+   "min_grade": null,
+   "conditions": [
+    "department and instructor permission; approved proposal"
+   ],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "Permission of the department and instructor. An approved study proposal must be on file by the time of registration.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/csc/"
+  },
+  "MATH 400": {
+   "code": "MATH 400",
+   "title": "Numerical Analysis",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "MATH 228",
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     },
+     {
+      "or": [
+       "CSC 210",
+       "CSC 215",
+       "MATH 209",
+       "MATH 309"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 228; MATH 225 or MATH 325; and CSC 210 or CSC 215 or MATH 209 or MATH 309, all with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 425": {
+   "code": "MATH 425",
+   "title": "Applied and Computational Linear Algebra",
+   "units": 3,
+   "prereq": {
+    "and": [
+     {
+      "or": [
+       "MATH 225",
+       "MATH 325"
+      ]
+     },
+     {
+      "or": [
+       "MATH 209",
+       "MATH 309",
+       "CSC 210",
+       "CSC 215"
+      ]
+     }
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 225 or MATH 325; and MATH 209 or MATH 309 or CSC 210 or CSC 215; all with grades of C or better.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  },
+  "MATH 448": {
+   "code": "MATH 448",
+   "title": "Introduction to Statistical Learning and Data Mining",
+   "units": 3,
+   "prereq": {
+    "and": [
+     "MATH 228",
+     "MATH 325",
+     "MATH 440"
+    ]
+   },
+   "min_grade": "C",
+   "conditions": [],
+   "enforced_at_registration": [
+    "MATH 228",
+    "MATH 325",
+    "MATH 440"
+   ],
+   "recommended": [],
+   "bulletin_prerequisite_text": "MATH 228*, MATH 325*, and MATH 440* all with grades of C or better; or permission of the instructor.",
+   "ge_areas": [],
+   "url": "https://bulletin.sfsu.edu/courses/math/"
+  }
+ },
+ "external": {
+  "CSC 210": {
+   "code": "CSC 210",
+   "title": null,
+   "in_catalog": false,
+   "note": "alternative path; counts if already completed (e.g. transfer credit)"
+  },
+  "ENGR 213": {
+   "code": "ENGR 213",
+   "title": "Introduction to C Programming for Engineers",
+   "in_catalog": true,
+   "note": "alternative path; counts if already completed (e.g. transfer credit)"
+  },
+  "MATH 309": {
+   "code": "MATH 309",
+   "title": null,
+   "in_catalog": false,
+   "note": "alternative path; counts if already completed (e.g. transfer credit)"
+  }
+ },
+ "tracks": {
+  "systems": {
+   "label": "Systems & Security",
+   "courses": [
+    "CSC 645",
+    "CSC 652",
+    "CSC 653",
+    "CSC 651",
+    "CSC 615",
+    "CSC 656",
+    "CSC 641"
+   ]
+  },
+  "web": {
+   "label": "Web & Mobile",
+   "courses": [
+    "CSC 667",
+    "CSC 675",
+    "CSC 642",
+    "CSC 680",
+    "CSC 668",
+    "CSC 631"
+   ]
+  },
+  "ai": {
+   "label": "AI & Data",
+   "courses": [
+    "CSC 665",
+    "CSC 671",
+    "CSC 620",
+    "CSC 603",
+    "CSC 659",
+    "CSC 675",
+    "MATH 448"
+   ]
+  },
+  "theory": {
+   "label": "Theory & Graphics",
+   "courses": [
+    "CSC 520",
+    "CSC 600",
+    "CSC 630",
+    "CSC 647",
+    "CSC 621",
+    "MATH 425",
+    "MATH 400"
+   ]
+  }
+ },
+ "term_offerings": {},
+ "university": {
+  "min_units": 120,
+  "min_gpa": 2.0,
+  "max_units_per_term": 19,
+  "typical_units_per_term": 15,
+  "upper_division_units": 60,
+  "senior_units": 90,
+  "gwar_course": "CSC 300GW"
+ }
+}
