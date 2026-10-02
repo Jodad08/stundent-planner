@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react"
-import { nextCourses, suggestSemester, unitsOf } from "../../../shared/engine"
+import { leaves, nextCourses, suggestSemester, unitsOf } from "../../../shared/engine"
+import { aiName } from "./Thinking"
 import type { Dag, Plan } from "../../../shared/types"
 import { termName } from "../lib/derive"
 import { useActivePlan, useStore } from "../store"
@@ -33,6 +34,15 @@ export function Pet() {
   const student = useStore(s => s.student)
   const report = useReport()!
   const [open, setOpen] = useState(true)
+  const ask = useStore(s => s.petAsk)
+  const [filling, setFilling] = useState<string | null>(null)
+  const ai = aiName(useStore.getState().health?.aiProvider)
+  /** Why this course, from the prerequisite map and the student's goal track. */
+  const why = (c: string) => {
+    const later = Object.values(dag.nodes).filter(n => leaves(n.prereq).some(l => l.code === c)).map(n => n.code)
+    const goalCourse = later.find(x => student && dag.tracks[student.trackId]?.courses.includes(x))
+    return `${c}: unlocks ${later.length} later course${later.length === 1 ? "" : "s"}${goalCourse && student ? `, including ${goalCourse} on your path to ${student.goal}` : ""}`
+  }
   const sem = nextSemester(plan)
   const st = useStore.getState()
   const target = (student?.coursesPerSemester ?? 5) * 3
@@ -40,8 +50,32 @@ export function Pet() {
   const broken = report.issues.find(i => i.severity === "error" && i.courseIds[0] && plan.semesters[sem - 1].courseIds.includes(i.courseIds[0]))
   const pick = useMemo(() => nextCourses(plan, dag, sem, student?.trackId)[0], [plan, dag, sem, student])
 
+  /** Fill the next semester one course at a time so the student watches it happen (D-043). */
+  async function fillNext() {
+    st.setPetAsk(false); setFilling("Reading your prerequisite map…")
+    await new Promise(r => setTimeout(r, 700))
+    for (let k = 0; k < 8; k++) {
+      const cur = useStore.getState().plans.find(p => p.id === plan.id)!
+      const have = cur.semesters[sem - 1].courseIds.reduce((a, c) => a + unitsOf(dag, c), 0)
+      const next = nextCourses(cur, dag, sem, student?.trackId).find(c => have + dag.nodes[c].units <= target)
+      if (!next) break
+      setFilling(why(next))
+      st.placeCourse(next, sem)
+      await new Promise(r => setTimeout(r, 1100))
+    }
+    setFilling(null)
+  }
+
   let msg: React.ReactNode, action: React.ReactNode = null
-  if (broken) {
+  if (ask) {
+    msg = <><div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ {ai}</div>What should I plan, {student?.name ?? "friend"}? 🐊</>
+    action = <span className="flex gap-1.5">
+      <button onClick={fillNext} className="rounded-full bg-zinc-900 px-3 py-1 text-white">{termName(dag, sem)}</button>
+      <button onClick={() => { st.setPetAsk(false); window.dispatchEvent(new Event("planed:whole-degree")) }} className="rounded-full border border-zinc-300 px-3 py-1">Whole degree</button>
+    </span>
+  } else if (filling) {
+    msg = <><div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ {ai} is planning {termName(dag, sem)}</div>{filling}</>
+  } else if (broken) {
     const id = broken.courseIds[0], to = suggestSemester(plan, dag, policies, id)
     msg = <>Oops, <b>{id}</b> can't go in {termName(dag, sem)} yet.</>
     if (to) action = <button onClick={() => st.moveCourse(id, to)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Move it to {termName(dag, to)}</button>
@@ -55,7 +89,7 @@ export function Pet() {
 
   return (
     <div className="pointer-events-none absolute bottom-4 right-4 z-30 flex items-end gap-2">
-      {open && (
+      {(open || ask) && (
         <div className="pointer-events-auto mb-6 max-w-[260px] rounded-2xl rounded-br-sm bg-white p-3 text-[13px] text-zinc-800 shadow-xl">
           <div>{msg}</div>
           {action && <div className="mt-2 text-[12px]">{action}</div>}

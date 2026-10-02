@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { api } from "../api"
 import { useActivePlan, useStore } from "../store"
 import { useReport } from "./Board"
@@ -22,6 +22,11 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
   /** Auto Plan (D-025): fill the remaining semesters for the student's saved goal; completed semesters stay locked. */
   async function autoPlan() {
     if (!student) { st.setModal(true); return }
+    if (!useStore.getState().petAsk) { st.setPetAsk(true); return } // the gator asks: next semester or whole degree (D-043)
+    await planWholeDegree()
+  }
+  async function planWholeDegree() {
+    if (!student) return
     setPlanning(true)
     const done = plan.completedSemesters ?? 0
     const locked = plan.semesters.slice(0, done).flatMap(x => x.courseIds.filter(c => !c.startsWith("GE-")).map(courseId => ({ courseId, semester: x.index })))
@@ -36,6 +41,8 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
     } catch (e) { st.setFlash((e as Error).message) }
     setPlanning(false)
   }
+  // the gator's "Whole degree" answer runs the full planner
+  useEffect(() => { const h = () => { planWholeDegree() }; window.addEventListener("planed:whole-degree", h); return () => window.removeEventListener("planed:whole-degree", h) })
   async function check() {
     st.setPanel("evaluate"); st.setEvaluation(null)
     try { st.setEvaluation(await api.evaluate(plan, plan.goalText || undefined)) } catch (e) { st.setFlash(String((e as Error).message)) }
@@ -43,7 +50,7 @@ export function Toolbar({ onTour }: { onTour: () => void }) {
   const btn = "rounded-full px-3 py-1 text-[13px] font-medium transition"
   return (
     <header className="flex items-center gap-4 border-b border-zinc-200 bg-white px-4 py-2.5 text-zinc-800">
-      <span className="text-lg font-bold text-zinc-900">Plan<span className="text-[#b08410]">Ed</span></span>
+      <span className="text-[26px] font-extrabold leading-none tracking-tight text-zinc-900">Plan<span className="text-[#b08410]">Ed</span></span>
       {student && <span className="hidden text-[12px] text-zinc-500 xl:inline">{student.name} · Graduating {student.gradTerm}</span>}
       <div data-tour="tabs" className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto font-mono text-xs">
         {plans.map(p => (

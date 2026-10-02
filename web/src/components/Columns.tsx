@@ -133,7 +133,7 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first, fix, 
   const ring = status === "error" ? "ring-[3px] ring-red-500" : status === "warning" ? "ring-[3px] ring-amber-500" : ""
   return (
     <div data-tour={first ? "card" : undefined} draggable onDragStart={e => { e.dataTransfer.setData("application/gatorgraph", id); e.dataTransfer.effectAllowed = "move" }}
-      className={`group cursor-grab rounded-xl ${tone} ${ring} p-2 shadow-sm`}>
+      className={`pop-in group cursor-grab rounded-xl ${tone} ${ring} p-2 shadow-sm transition-all`}>
       {status && <div className={`-mx-2 -mt-2 mb-1.5 rounded-t-xl px-3 py-0.5 text-[10px] font-semibold text-white ${status === "error" ? "bg-red-500" : "bg-amber-500"}`}>{status === "error" ? "Breaks a rule" : "Warning"}</div>}
       <div className="flex items-start justify-between px-1">
         <div className="min-w-0">

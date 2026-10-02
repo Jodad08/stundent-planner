@@ -22,3 +22,5 @@ body { background: #e7e7ea; color: #27272a; font-family: var(--font-sans); }
 .dimmed { opacity: 0.12 !important; }
 .react-flow__attribution, .react-flow__handle { opacity: 0; }
 ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: #ffffff1a; border-radius: 3px; }
+@keyframes pop { from { opacity: 0; transform: translateY(-10px) scale(.96); } to { opacity: 1; transform: none; } }
+.pop-in { animation: pop .35s ease-out; }

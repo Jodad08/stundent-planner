@@ -411,3 +411,12 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: `shared/engine.test.ts` (year-1 suggestions: CSC 101 yes; CSC 340, CSC 300GW, electives no); browser (Year 2 opens; Add it ×4 → "Fall 2027 looks good: 15 units ✅ Export for SFSU")
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-043: Auto Plan through the gator, with visible reasoning; bigger logo
+- Step: 10 (human requests ~16:05-16:10)
+- Decision: "✦ Auto Plan" opens the gator's question "What should I plan?" with [next term] or [Whole degree]. Next term fills that semester one course at a time (~1 s apart, cards pop in), from `nextCourses()`, and the bubble shows the reason for each pick ("CSC 220: unlocks 4 later courses", plus the goal-track course it leads to), labeled "✦ <AI name> is planning <term>" (Gemini when live, PlanEd offline). Whole degree runs the existing planner harness. Header logo enlarged.
+- Why: human requests (pet-driven Auto Plan, visible swapping, highlight the AI's role, bigger logo).
+- Evidence: browser (Fall 2027 filled MATH 225 → CSC 220 → CSC 230 → MATH 324 with reasons; "Fall 2027 looks good ✅ Export for SFSU")
+- Risk / undo: Offline reasons are computed from the prerequisite map, not a model; the label names the provider.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
