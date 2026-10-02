@@ -5679,7 +5679,7 @@
    },
    {
     "code": "CINE 426",
-    "title": "Cinematography",
+    "title": "16mm Cinematography",
     "units": "3",
     "level": "upper-division"
    },
@@ -5727,7 +5727,7 @@
    },
    {
     "code": "CINE 448",
-    "title": "Visual Effects",
+    "title": "2D Visual Effects",
     "units": "3",
     "level": "upper-division"
    },
@@ -6027,7 +6027,7 @@
    },
    {
     "code": "CINE 660",
-    "title": "Computer Animation",
+    "title": "3D Computer Animation",
     "units": "3",
     "level": "upper-division"
    },
@@ -12521,7 +12521,7 @@
    },
    {
     "code": "ENG 512",
-    "title": "British Women Writers",
+    "title": "18th-Century British Women Writers",
     "units": "3",
     "level": "upper-division"
    },
@@ -12599,7 +12599,7 @@
    },
    {
     "code": "ENG 546",
-    "title": "Century American Jewish Women Writers",
+    "title": "20th Century American Jewish Women Writers",
     "units": "3",
     "level": "upper-division"
    },
@@ -18633,7 +18633,7 @@
    },
    {
     "code": "JS 546",
-    "title": "Century American Jewish Women Writers",
+    "title": "20th Century American Jewish Women Writers",
     "units": "3",
     "level": "upper-division"
    },
@@ -22203,7 +22203,7 @@
    },
    {
     "code": "MUS 420",
-    "title": "Century Techniques",
+    "title": "20th Century Techniques",
     "units": "3",
     "level": "upper-division"
    },
@@ -28747,7 +28747,7 @@
    },
    {
     "code": "SPAN 523",
-    "title": "Century Spanish Literature",
+    "title": "19th Century Spanish Literature",
     "units": "3",
     "level": "upper-division"
    },
@@ -28771,7 +28771,7 @@
    },
    {
     "code": "SPAN 545",
-    "title": "Century Spanish American Literature",
+    "title": "20th Century Spanish American Literature",
     "units": "3",
     "level": "upper-division"
    },
@@ -30693,7 +30693,7 @@
    },
    {
     "code": "WGS 546",
-    "title": "Century American Jewish Women Writers",
+    "title": "20th Century American Jewish Women Writers",
     "units": "3",
     "level": "upper-division"
    },

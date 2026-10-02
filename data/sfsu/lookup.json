@@ -221,7 +221,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/aa_s/"
   },
@@ -1557,7 +1558,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/afrs/"
   },
@@ -3370,10 +3372,7 @@
    "title": "Intermediate Photography",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ART 260",
-    "ART 360"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/art/"
   },
@@ -3769,9 +3768,7 @@
    "title": "Modern and Contemporary Art in a North American and European Context, 1945-present",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ARTH 202"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/arth/"
   },
@@ -3813,9 +3810,7 @@
    "title": "Global Renaissance and Baroque Art",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ARTH 201"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/arth/"
   },
@@ -3854,9 +3849,7 @@
    "title": "South Asian Art I: Neolithic to Medieval Periods",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ARTH 205"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/arth/"
   },
@@ -3864,9 +3857,7 @@
    "title": "South Asian Art II: Early Modern to Contemporary Periods",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ARTH 205"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/arth/"
   },
@@ -3874,11 +3865,7 @@
    "title": "Special Topics in Art History",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ARTH 201",
-    "ARTH 202",
-    "ARTH 205"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/arth/"
   },
@@ -4853,9 +4840,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "BECA 434",
-    "BECA 231",
-    "BECA 335"
+    "BECA 434"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/beca/"
@@ -5704,8 +5689,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "BIOL 355",
-    "BIOL 337"
+    "BIOL 355"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/biol/"
@@ -6359,8 +6343,7 @@
     "BIOL 230",
     "BIOL 240",
     "BIOL 330",
-    "CHEM 130",
-    "BIOL 492"
+    "CHEM 130"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/biol/"
@@ -6466,9 +6449,7 @@
     "BIOL 230",
     "BIOL 240",
     "CHEM 130",
-    "PHYS 121",
-    "BIOL 350",
-    "BIOL 612"
+    "PHYS 121"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/biol/"
@@ -6787,10 +6768,7 @@
    "title": "Coding Community for Data Science Components of Independent Research Projects",
    "units": "1",
    "level": "graduate",
-   "prerequisite_courses": [
-    "BIOL 806",
-    "CHEM 806"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/biol/"
   },
@@ -8590,8 +8568,7 @@
     "PHYS 230",
     "PHYS 232",
     "PHYS 121",
-    "PHYS 122",
-    "CHEM 351"
+    "PHYS 122"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/chem/"
@@ -8606,9 +8583,7 @@
     "MATH 227",
     "PHYS 121",
     "PHYS 230",
-    "PHYS 240",
-    "CHEM 340",
-    "CHEM 349"
+    "PHYS 240"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/chem/"
@@ -8623,9 +8598,7 @@
     "MATH 227",
     "PHYS 121",
     "PHYS 230",
-    "PHYS 240",
-    "CHEM 300",
-    "CHEM 349"
+    "PHYS 240"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/chem/"
@@ -8690,8 +8663,7 @@
    "prerequisite_courses": [
     "CHEM 234",
     "CHEM 340",
-    "CHEM 349",
-    "CHEM 321"
+    "CHEM 349"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/chem/"
@@ -8713,8 +8685,6 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "CHEM 233",
-    "CHEM 251",
     "MATH 228",
     "PHYS 230",
     "PHYS 232",
@@ -8955,10 +8925,7 @@
    "title": "Coding Community for Data Science Components of Independent Research Projects",
    "units": "1",
    "level": "graduate",
-   "prerequisite_courses": [
-    "BIOL 806",
-    "CHEM 806"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/chem/"
   },
@@ -10024,7 +9991,7 @@
    "url": "https://bulletin.sfsu.edu/courses/cine/"
   },
   "CINE 426": {
-   "title": "Cinematography",
+   "title": "16mm Cinematography",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -10104,7 +10071,7 @@
    "url": "https://bulletin.sfsu.edu/courses/cine/"
   },
   "CINE 448": {
-   "title": "Visual Effects",
+   "title": "2D Visual Effects",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [],
@@ -10465,13 +10432,8 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "CINE 350GW",
-    "CINE 424",
     "CINE 450",
     "CINE 454",
-    "CINE 470",
-    "CINE 474",
-    "CINE 612",
     "CINE 458",
     "CINE 601",
     "CINE 627"
@@ -10784,7 +10746,7 @@
    "url": "https://bulletin.sfsu.edu/courses/cine/"
   },
   "CINE 660": {
-   "title": "Computer Animation",
+   "title": "3D Computer Animation",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [],
@@ -11298,7 +11260,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/clas/"
   },
@@ -11309,7 +11272,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/clas/"
   },
@@ -11320,7 +11284,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/clas/"
   },
@@ -13086,9 +13051,7 @@
    "title": "Computer Programming Lab",
    "units": "1",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "CSC 309"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/csc/"
   },
@@ -13150,8 +13113,7 @@
    "units": "1",
    "level": "upper-division",
    "prerequisite_courses": [
-    "CSC 220",
-    "CSC 340"
+    "CSC 220"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/csc/"
@@ -13360,10 +13322,7 @@
    "prerequisite_courses": [
     "CSC 415",
     "MATH 225",
-    "MATH 325",
-    "CSC 308",
-    "CSC 309",
-    "CSC 656"
+    "MATH 325"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/csc/"
@@ -13979,7 +13938,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/cwl/"
   },
@@ -13990,7 +13950,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/cwl/"
   },
@@ -14001,7 +13962,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/cwl/"
   },
@@ -14012,7 +13974,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/cwl/"
   },
@@ -14184,9 +14147,7 @@
    "title": "Modern Prose of the Americas",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "CWL 400GW"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/cwl/"
   },
@@ -14194,9 +14155,7 @@
    "title": "Faulkner, García Márquez, and Morrison",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "CWL 400GW"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/cwl/"
   },
@@ -15488,7 +15447,6 @@
     "DS 212",
     "ECON 212",
     "MATH 124",
-    "ISYS 263",
     "MATH 440"
    ],
    "ge_areas": [],
@@ -15541,9 +15499,7 @@
    "prerequisite_courses": [
     "DS 212",
     "ECON 212",
-    "ISYS 263",
-    "DS 311",
-    "DS 312"
+    "ISYS 263"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/ds/"
@@ -17470,7 +17426,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/eng/"
   },
@@ -17774,7 +17731,7 @@
    "url": "https://bulletin.sfsu.edu/courses/eng/"
   },
   "ENG 512": {
-   "title": "British Women Writers",
+   "title": "18th-Century British Women Writers",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -17916,7 +17873,7 @@
    "url": "https://bulletin.sfsu.edu/courses/eng/"
   },
   "ENG 546": {
-   "title": "Century American Jewish Women Writers",
+   "title": "20th Century American Jewish Women Writers",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -20575,11 +20532,7 @@
    "title": "Surface Water Hydrology",
    "units": "4",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "MATH 226",
-    "ERTH 210",
-    "ERTH 505"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/erth/"
   },
@@ -20613,13 +20566,7 @@
    "title": "Weather Analysis and Forecasting I",
    "units": "4",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "ERTH 260",
-    "ERTH 461",
-    "MATH 227",
-    "PHYS 111",
-    "PHYS 220"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/erth/"
   },
@@ -20717,8 +20664,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "ERTH 444",
-    "CHEM 115"
+    "ERTH 444"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/erth/"
@@ -21803,8 +21749,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "FIN 353",
-    "ECON 500"
+    "FIN 353"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/fin/"
@@ -21876,8 +21821,7 @@
    "level": "graduate",
    "prerequisite_courses": [
     "FIN 785",
-    "FIN 825",
-    "FIN 828"
+    "FIN 825"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/fin/"
@@ -22069,9 +22013,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "FR 216",
-    "FR 305",
-    "FR 310"
+    "FR 216"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/fr/"
@@ -22081,8 +22023,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "FR 305",
-    "FR 400GW"
+    "FR 305"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/fr/"
@@ -22092,9 +22033,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "FR 305",
-    "FR 301",
-    "FR 306"
+    "FR 305"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/fr/"
@@ -22340,11 +22279,7 @@
    "title": "Surface Water Hydrology",
    "units": "4",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "MATH 226",
-    "ERTH 210",
-    "ERTH 505"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/geog/"
   },
@@ -25507,7 +25442,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/hum/"
   },
@@ -26456,7 +26392,6 @@
    "level": "upper-division",
    "prerequisite_courses": [
     "PLSI 200",
-    "PLSI 303",
     "I R 104"
    ],
    "ge_areas": [],
@@ -29709,7 +29644,7 @@
    "url": "https://bulletin.sfsu.edu/courses/js/"
   },
   "JS 546": {
-   "title": "Century American Jewish Women Writers",
+   "title": "20th Century American Jewish Women Writers",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -30444,8 +30379,7 @@
    "prerequisite_courses": [
     "KIN 482",
     "KIN 483",
-    "KIN 490",
-    "KIN 555"
+    "KIN 490"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/kin/"
@@ -31436,7 +31370,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/ltns/"
   },
@@ -32548,8 +32483,7 @@
    "units": "4",
    "level": "upper-division",
    "prerequisite_courses": [
-    "MATH 226",
-    "MATH 301GW"
+    "MATH 226"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/math/"
@@ -34378,10 +34312,7 @@
    "units": "3",
    "level": "lower-division",
    "prerequisite_courses": [
-    "MUS 130",
-    "MUS 221",
-    "MUS 201",
-    "MUS 202"
+    "MUS 130"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/mus/"
@@ -34767,7 +34698,7 @@
    "url": "https://bulletin.sfsu.edu/courses/mus/"
   },
   "MUS 420": {
-   "title": "Century Techniques",
+   "title": "20th Century Techniques",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -34881,10 +34812,7 @@
    "title": "Scoring for Games I",
    "units": "3",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "MUS 237",
-    "MUS 434"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/mus/"
   },
@@ -35044,9 +34972,7 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "BECA 434",
-    "BECA 231",
-    "BECA 335"
+    "BECA 434"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/mus/"
@@ -37154,7 +37080,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/phil/"
   },
@@ -38178,8 +38105,7 @@
    "level": "lower-division",
    "prerequisite_courses": [
     "MATH 226",
-    "PHYS 222",
-    "MATH 227"
+    "PHYS 222"
    ],
    "ge_areas": [
     "5A: Physical Science",
@@ -38207,8 +38133,7 @@
    "prerequisite_courses": [
     "PHYS 220",
     "MATH 227",
-    "PHYS 232",
-    "MATH 228"
+    "PHYS 232"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/phys/"
@@ -38230,8 +38155,7 @@
    "prerequisite_courses": [
     "PHYS 220",
     "MATH 227",
-    "PHYS 242",
-    "MATH 228"
+    "PHYS 242"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/phys/"
@@ -38393,9 +38317,7 @@
    "units": "4",
    "level": "upper-division",
    "prerequisite_courses": [
-    "PHYS 230",
-    "MATH 245",
-    "MATH 376"
+    "PHYS 230"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/phys/"
@@ -38427,8 +38349,7 @@
    "level": "upper-division",
    "prerequisite_courses": [
     "PHYS 320",
-    "PHYS 321",
-    "CSC 309"
+    "PHYS 321"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/phys/"
@@ -38487,9 +38408,7 @@
    "title": "Electrodynamics",
    "units": "3",
    "level": "graduate",
-   "prerequisite_courses": [
-    "PHYS 785"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/phys/"
   },
@@ -38497,9 +38416,7 @@
    "title": "Quantum Mechanics",
    "units": "3",
    "level": "graduate",
-   "prerequisite_courses": [
-    "PHYS 785"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/phys/"
   },
@@ -38972,8 +38889,7 @@
    "units": "4",
    "level": "upper-division",
    "prerequisite_courses": [
-    "PLSI 200",
-    "PLSI 303"
+    "PLSI 200"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/plsi/"
@@ -38984,7 +38900,6 @@
    "level": "upper-division",
    "prerequisite_courses": [
     "PLSI 200",
-    "PLSI 303",
     "I R 104"
    ],
    "ge_areas": [],
@@ -39003,8 +38918,7 @@
    "units": "4",
    "level": "upper-division",
    "prerequisite_courses": [
-    "PLSI 200",
-    "PLSI 303"
+    "PLSI 200"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/plsi/"
@@ -39762,9 +39676,7 @@
    "title": "Separation of Powers and Federalism",
    "units": "4",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "PLSI 478"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/plsi/"
   },
@@ -39780,9 +39692,7 @@
    "title": "Constitutional Law: First Amendment",
    "units": "4",
    "level": "upper-division",
-   "prerequisite_courses": [
-    "PLSI 478"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/plsi/"
   },
@@ -40249,7 +40159,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/prsn/"
   },
@@ -41628,7 +41539,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/rpt/"
   },
@@ -41707,8 +41619,7 @@
    "level": "upper-division",
    "prerequisite_courses": [
     "RPT 200",
-    "RPT 325",
-    "RPT 500"
+    "RPT 325"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/rpt/"
@@ -41760,8 +41671,7 @@
    "level": "upper-division",
    "prerequisite_courses": [
     "RPT 200",
-    "RPT 325",
-    "RPT 400"
+    "RPT 325"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/rpt/"
@@ -41785,8 +41695,7 @@
     "RPT 300",
     "RPT 325",
     "RPT 350",
-    "RPT 400",
-    "RPT 500"
+    "RPT 400"
    ],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/rpt/"
@@ -42002,7 +41911,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/rrs/"
   },
@@ -43792,9 +43702,6 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "MATH 124",
-    "PSY 171",
-    "ISED 160",
     "SLHS 652",
     "SLHS 655"
    ],
@@ -43806,9 +43713,6 @@
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
-    "MATH 124",
-    "PSY 171",
-    "ISED 160",
     "SLHS 651",
     "SLHS 655"
    ],
@@ -44106,14 +44010,7 @@
    "title": "Aural Rehabilitation",
    "units": "3",
    "level": "graduate",
-   "prerequisite_courses": [
-    "SLHS 654",
-    "SLHS 658",
-    "SLHS 661",
-    "SLHS 680",
-    "SLHS 656GW",
-    "SLHS 664"
-   ],
+   "prerequisite_courses": [],
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/slhs/"
   },
@@ -44929,7 +44826,7 @@
    "url": "https://bulletin.sfsu.edu/courses/span/"
   },
   "SPAN 523": {
-   "title": "Century Spanish Literature",
+   "title": "19th Century Spanish Literature",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -44969,7 +44866,7 @@
    "url": "https://bulletin.sfsu.edu/courses/span/"
   },
   "SPAN 545": {
-   "title": "Century Spanish American Literature",
+   "title": "20th Century Spanish American Literature",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -46980,6 +46877,7 @@
    "level": "upper-division",
    "prerequisite_courses": [
     "TH A 130",
+    "TH A 132",
     "TH A 202",
     "TH A 347",
     "TH A 349",
@@ -47542,7 +47440,8 @@
    "prerequisite_courses": [],
    "ge_areas": [
     "3B: Humanities",
-    "C2: Humanities"
+    "C2: Humanities",
+    "C3 or C2: Humanities/Lit."
    ],
    "url": "https://bulletin.sfsu.edu/courses/vgs/"
   },
@@ -47891,7 +47790,7 @@
    "url": "https://bulletin.sfsu.edu/courses/wgs/"
   },
   "WGS 546": {
-   "title": "Century American Jewish Women Writers",
+   "title": "20th Century American Jewish Women Writers",
    "units": "3",
    "level": "upper-division",
    "prerequisite_courses": [
@@ -48255,6 +48154,126 @@
    "ge_areas": [],
    "url": "https://bulletin.sfsu.edu/courses/wgs/"
   }
+ },
+ "former_codes": {
+  "AA S 337": "AA S 338",
+  "AA S 377": "AA S 380",
+  "BUS 320": "ACCT 320",
+  "BUS 780": "ACCT 780",
+  "HIST 501": "LTNS 501",
+  "ANTH 620": "ANTH 755",
+  "ART 430": "ART 330",
+  "ART 540": "ART 340",
+  "ART 560": "ART 360",
+  "ART 311": "ART 411",
+  "ART 513": "ART 413",
+  "ART 436": "ART 435",
+  "ART 437": "ART 435",
+  "ART 438": "ART 435",
+  "ART 645": "ART 549",
+  "ART 441": "ART 556",
+  "ART 570": "ART 671",
+  "BECA 546": "BECA 246",
+  "BECA 577": "BECA 374",
+  "BECA 560": "BECA 375",
+  "JOUR 675": "JOUR 427",
+  "BECA 452": "BECA 454",
+  "BECA 623": "BECA 463",
+  "MGMT 430": "BUS 350",
+  "MGMT 354": "BUS 354",
+  "BUS 452": "BUS 430",
+  "MGMT 433": "BUS 433",
+  "MGMT 630": "BUS 436",
+  "C J 520": "C J 200",
+  "FCS 223": "CAD 223",
+  "CAD 610": "CAD 280",
+  "CAD 410": "CAD 410GW",
+  "FCS 420": "CAD 420",
+  "FCS 426": "CAD 426",
+  "CHEM 335": "CHEM 235",
+  "CHEM 336": "CHEM 236",
+  "PRSN 550": "PRSN 320",
+  "CINE 710": "CINE 703",
+  "CINE 711": "CINE 704",
+  "CINE 740": "CINE 705",
+  "CINE 726": "CINE 706",
+  "CINE 761": "CINE 707",
+  "CINE 712": "CINE 708",
+  "CINE 730": "CINE 709",
+  "CINE 763": "CINE 750",
+  "HUM 325": "HUM 235",
+  "CMX 325": "HUM 235",
+  "HUM 540": "CMX 540",
+  "COMM 461": "COMM 564",
+  "COMM 532": "COMM 665",
+  "CSC 219": "CSC 311",
+  "CSC 508": "CSC 408",
+  "CSC 308": "CSC 411",
+  "CSC 650": "CSC 852",
+  "DES 323": "DES 200",
+  "DES 277": "DES 278",
+  "DES 377A": "DES 311",
+  "BUS 776": "DS 776",
+  "BUS 786": "DS 786",
+  "EDUC 333": "E ED 333",
+  "S ED 850": "S ED 860",
+  "BUS 783": "ECON 783",
+  "ENG 695": "ENG 660",
+  "ENGR 464": "ENGR 363",
+  "GEOG 205": "ENV 205",
+  "GEOG 500GW": "ENV 500GW",
+  "GEOG 690": "ENV 690",
+  "GEOG 789": "ENV 789",
+  "GEOG 801": "ENV 801",
+  "GEOG 815": "ENV 815",
+  "ENVS 300": "ENVS 130",
+  "A U 116": "ETHS 116",
+  "A U 117": "ETHS 117",
+  "PH 120": "ETHS 120",
+  "ETHS 500": "ETHS 200",
+  "BUS 785": "FIN 785",
+  "HH 433": "HH 435",
+  "HIST 572": "HIST 363",
+  "HUM 500": "PHIL 305",
+  "I R 308": "I R 208",
+  "I R 726": "PLSI 733",
+  "PLSI 744": "PLSI 748",
+  "ISED 585": "ISED 185",
+  "ISED 891": "ISED 770",
+  "LTNS 410": "LTNS 350",
+  "MATH 112": "MATH 111",
+  "MATH 309": "MATH 209",
+  "MATH 895": "MATH 892",
+  "MATH 896": "MATH 895",
+  "BUS 788": "MGMT 788",
+  "BUS 787": "MKTG 787",
+  "MUS 234": "TH A 234",
+  "MUS 433": "MUS 237",
+  "MUS 233": "MUS 403",
+  "MUS 238": "MUS 406",
+  "MUS 236": "MUS 408",
+  "MUS 436": "MUS 408",
+  "NURS 801": "NURS 820",
+  "NURS 802": "NURS 821",
+  "FCS 355": "NUTR 255",
+  "PRSN 450": "RELS 503",
+  "PLSI 302": "PLSI 323",
+  "RPT 660GW": "RPT 600GW",
+  "SOC 480": "USP 370",
+  "USP 470": "USP 370",
+  "SPAN 571": "SPAN 371GW",
+  "SPAN 401GW": "SPAN 401",
+  "TH A 301": "TH A 202",
+  "TH A 305": "TH A 209",
+  "TH A 125": "TH A 225",
+  "MUS 307": "TH A 307",
+  "TH A 210": "TH A 310",
+  "TH A 212": "TH A 312",
+  "TH A 213": "TH A 313",
+  "TH A 223": "TH A 423",
+  "TH A 711": "TH A 600",
+  "TH A 740": "TH A 640",
+  "CWL 270": "VGS 270"
  },
  "programs": {
   "all-university/interdisciplinary-studies-graduate": {

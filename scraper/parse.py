@@ -124,6 +124,27 @@ def norm_code(s):
     return s
 
 
+CONT_RE = re.compile(r"(\*?)(?:\s*,\s*(?:and\s+|or\s+)?|\s+(?:and|or|&)\s+|\s*/\s*)(\d{3}[A-Z]{0,4})(?![A-Za-z0-9])(\*?)")
+
+
+def code_spans(text):
+    """[(code, start, end, starred)] for every course code in text, including bare numbers that
+    continue a list after a full code, e.g. 'CHEM 300 and 340' or 'TH A 130* or 132*'."""
+    text = (text or "").replace("\xa0", " ")
+    out = []
+    for m in CODE_RE.finditer(text):
+        subj = m.group(1).replace("\xa0", " ")
+        out.append((f"{subj} {m.group(2)}", m.start(), m.end(), text[m.end():m.end() + 1] == "*"))
+        pos = m.end()
+        while True:
+            cm = CONT_RE.match(text, pos)
+            if not cm:
+                break
+            out.append((f"{subj} {cm.group(2)}", cm.start(2), cm.end(2), cm.group(3) == "*"))
+            pos = cm.end()
+    return out
+
+
 def codes_in(node_or_text):
     """Course codes referenced in an element (link titles) or a text string, in order, deduped."""
     found = []
@@ -135,8 +156,7 @@ def codes_in(node_or_text):
         text = node_or_text.get_text(" ")
     else:
         text = node_or_text or ""
-    for m in CODE_RE.finditer(text.replace("\xa0", " ")):
-        found.append(f"{m.group(1)} {m.group(2)}")
+    found += [c for c, _, _, _ in code_spans(text)]
     seen, out = set(), []
     for c in found:
         if c not in seen:
@@ -543,7 +563,6 @@ def footnotes_of(container):
 
 # --------------------------------------------------------------------------- courses
 
-TITLE_RE = re.compile(r"^(?P<code>.+?)\s{2,}(?P<title>.+?)\s*\((?P<ulabel>Units?):\s*(?P<units>[^)]*)\)\s*$")
 GRADING_RE = re.compile(r"\((?P<g>[^()]*(?:letter grade|CR/NC|credit/no credit|grade only|ABC/NC)[^()]*)\)", re.I)
 
 
@@ -565,19 +584,37 @@ def level_of(num):
     return "professional (CEU)"
 
 
+def prereq_segment(kind, applies_to, text):
+    """Split a prerequisite statement into required / recommended / concurrent-allowed course codes."""
+    required, recommended, concurrent, enforced = [], [], [], []
+    for clause in re.split(r";|(?<=\.)\s+(?=[A-Z])", text):
+        spans = code_spans(clause)
+        is_rec = re.search(r"recommend", clause, re.I) is not None
+        for i, (c, start, end, star) in enumerate(spans):
+            (recommended if is_rec else required).append(c)
+            if star and not is_rec:
+                enforced.append(c)
+            nxt = spans[i + 1][1] if i + 1 < len(spans) else len(clause)
+            after = clause[end:min(nxt, end + 60)]
+            before = clause[max(0, start - 60):start]
+            if re.match(r"\*?\s*\([^()]*concurren[^()]*\)", after, re.I) or re.search(r"concurrent(?:ly)?\s+(?:enroll\w*\s+in|with)\s*$|"
+                                                                   r"concurrent enrollment in\b[^.;]*$", before, re.I):
+                concurrent.append(c)
+    dedup = lambda xs: list(dict.fromkeys(xs))
+    return {"kind": kind, "applies_to": applies_to, "text": text,
+            "courses": dedup(required), "recommended_courses": dedup(recommended),
+            "may_be_taken_concurrently": dedup(concurrent), "enforced_at_registration": dedup(enforced)}
+
+
 def parse_courseblock(block, source_url):
     b = copy.copy(block)
     title_el = b.select_one(".courseblocktitle")
     raw_title = one_line(title_el.get_text(" ")) if title_el else ""
-    raw_title_spaced = clean(title_el.get_text()) if title_el else ""
-    m = TITLE_RE.match(raw_title_spaced.replace("\n", " ")) or TITLE_RE.match(raw_title)
-    if not m:
-        m2 = re.match(r"^(?P<code>\S+(?: \S+)?\s\d+\S*)\s+(?P<title>.+?)\s*\((?P<ulabel>Units?):\s*(?P<units>[^)]*)\)\s*$",
-                      raw_title)
-        m = m2
-    code = norm_code(m.group("code")) if m else norm_code(raw_title)
-    title = one_line(m.group("title")) if m else raw_title
-    units_raw = one_line(m.group("units")) if m else None
+    cm = CODE_RE.match(raw_title)
+    um = re.search(r"\((Units?):\s*([^)]*)\)\s*$", raw_title)
+    code = f"{cm.group(1)} {cm.group(2)}" if cm else norm_code(raw_title)
+    title = one_line(raw_title[cm.end() if cm else 0: um.start() if um else None])
+    units_raw = one_line(um.group(2)) if um else None
     umin, umax = parse_units(units_raw or "")
     if title_el:
         title_el.decompose()
@@ -595,12 +632,12 @@ def parse_courseblock(block, source_url):
         if label.lower().startswith("course attribute"):
             src = inner_list or lst
             if src is not None:
-                attributes += [one_line(li.get_text(" ")) for li in src.find_all("li")]
+                attributes += [one_line(inline(li)) for li in src.find_all("li")]
                 src.decompose()
         elif label.lower().startswith("topics"):
             src = inner_list or lst
             if src is not None:
-                topics += [one_line(li.get_text(" ")) for li in src.find_all("li")]
+                topics += [one_line(inline(li)) for li in src.find_all("li")]
                 src.decompose()
         else:
             # prerequisite text may hold several "Prerequisite for X:" segments separated by <br>
@@ -611,36 +648,52 @@ def parse_courseblock(block, source_url):
                 if pm:
                     kind = "corequisite" if pm.group(1).lower().startswith("co") else "prerequisite"
                     seg_text = pm.group("text").strip()
-                    prereqs.append({"kind": kind, "applies_to": norm_code(pm.group("for")) if pm.group("for") else None,
-                                    "text": seg_text,
-                                    "courses": codes_in(seg_text),
-                                    "enforced_at_registration": [
-                                        f"{x.group(1)} {x.group(2)}" for x in CODE_RE.finditer(seg_text)
-                                        if seg_text[x.end():x.end() + 1] == "*"]})
+                    applies = pm.group("for")
+                    if applies:
+                        applies = applies.strip()
+                        applies = f"{code.rpartition(' ')[0]} {applies}" if re.fullmatch(r"\d{3,4}[A-Z]{0,4}", applies) \
+                            else norm_code(applies)
+                    prereqs.append(prereq_segment(kind, applies, seg_text))
                 else:
                     other_extras.append(part)
         ex.decompose()
 
     desc = re.sub(r"\s+", " ", clean(inline(b))).strip()
+    if not prereqs:
+        # a few courses state "Prerequisite(s): ..." inside the description paragraph itself
+        dm = re.match(r"^(Prerequisites?|Corequisites?)\s*:\s*(.+?\.)(?=\s|$)", desc)
+        if dm:
+            kind = "corequisite" if dm.group(1).lower().startswith("co") else "prerequisite"
+            prereqs.append(dict(prereq_segment(kind, None, dm.group(2).strip()), found_in_description=True))
+    # former course numbers ("[Formerly CSC 650]") are history, not paired/cross-listed courses
+    former = []
+    for fm in re.finditer(r"\[\s*formerly\s+([^\]]*)\]", desc, re.I):
+        if not re.match(r"(part of|paired with|cross-listed with|a topic of)", fm.group(1), re.I):
+            former += codes_in(fm.group(1))
+    desc_nf = re.sub(r"\[\s*formerly[^\]]*\]", "", desc, flags=re.I)
     # derived facts from the description text
     grading = None
     gm = list(GRADING_RE.finditer(desc))
     if gm:
         grading = gm[-1].group("g").strip()
     paired = []
-    for pm in re.finditer(r"\(([^()]*?) is a paired course offering[^()]*\)", desc):
+    for pm in re.finditer(r"\(([^()]*?) is a paired course offering[^()]*\)", desc_nf):
         paired += [c for c in codes_in(pm.group(1)) if c != code]
     cross = []
-    for cm in re.finditer(r"(?:offered as|also offered as|cross-listed (?:as|with))\s+([^.;)]*)", desc, re.I):
+    for cm in re.finditer(r"(?:offered as|also offered as|(?<!formerly )cross-listed (?:as|with))\s+([^.;)]*)",
+                          desc_nf, re.I):
         cross += [c for c in codes_in(cm.group(1)) if c != code]
     rep = re.search(r"(May be repeated[^.()]*\.?)", desc)
     ge_note = re.search(r"\(Note:([^()]*(?:\([^()]*\)[^()]*)*)\)", desc)
     subject, _, num = code.rpartition(" ")
     own = set([code] + paired)
     mine = [p for p in prereqs if p["applies_to"] in (None, code)] or prereqs
+    recommended, concurrent = [], []
     for p in mine:
         prereq_codes += p["courses"]
         enforced += p["enforced_at_registration"]
+        recommended += p["recommended_courses"]
+        concurrent += p["may_be_taken_concurrently"]
     return {
         "code": code,
         "subject": subject,
@@ -655,9 +708,12 @@ def parse_courseblock(block, source_url):
         "prerequisite_text": " | ".join(p["text"] for p in mine) or None,
         "prerequisite_courses": [c for c in dict.fromkeys(prereq_codes) if c not in own],
         "prerequisites_enforced_at_registration": [c for c in dict.fromkeys(enforced) if c not in own],
+        "prerequisites_may_be_taken_concurrently": [c for c in dict.fromkeys(concurrent) if c not in own],
+        "recommended_courses": [c for c in dict.fromkeys(recommended) if c not in own],
         "restricted_to": [p["text"] for p in mine if re.search(r"\brestricted to\b", p["text"], re.I)],
         "attributes": attributes,
-        "ge_areas": [a for a in attributes if re.match(r"^(?:[1-7][A-C]?|[1-7]UD|[A-F][1-5]?|UD-[A-D]|GE-[A-F]):", a)],
+        "ge_areas": [a for a in attributes if re.match(
+            r"^(?:[1-7][A-C]?|[1-7]UD|[A-F][1-5]?(?: or [A-F][1-5]?)*|UD-[A-D]|GE-[A-F]):", a)],
         "sf_state_studies": [a for a in attributes if re.search(
             r"Ethnic & Racial|Racial Minorit|AERM|Global Perspectives|Env\. Sustain|Environmental Sustain|Social Justice",
             a, re.I)],
@@ -670,6 +726,7 @@ def parse_courseblock(block, source_url):
         "repeatable": rep.group(1).strip() if rep else None,
         "paired_with": list(dict.fromkeys(paired)),
         "cross_listed_with": list(dict.fromkeys(cross)),
+        "former_codes": [c for c in dict.fromkeys(former) if c != code],
         "extra_fee": bool(re.search(r"extra fee required", desc, re.I)),
         "notes": ([ge_note.group(1).strip()] if ge_note else []) + other_extras,
         "source_url": source_url,
@@ -738,7 +795,7 @@ def degree_info(title, index_labels):
     base = re.split(r":\s*Concentration|,\s*Concentration|\s+–\s|\s+-\s|:\s*Emphasis", t)[0]
     m = re.match(r"^(?:Bachelor|Master|Doctor) of [A-Za-z ]+? in (.+)$", base) or \
         re.match(r"^(?:Minor|(?:Graduate |Undergraduate |Graduate Business |Advanced )?Certificate) in (.+)$", base) or \
-        re.match(r"^(?:Master|Doctor) of (.+)$", base)
+        re.match(r"^(?:Bachelor|Master|Doctor) of (.+)$", base)
     if m:
         info["field"] = m.group(1).strip()
     return info

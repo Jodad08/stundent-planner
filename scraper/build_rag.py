@@ -83,6 +83,11 @@ def course_text(c, prog_names):
             lines.append(f"{p['kind'].title()}{who}: {p['text']}")
     else:
         lines.append("Prerequisites: none listed")
+    if c.get("prerequisites_may_be_taken_concurrently"):
+        lines.append("May be taken concurrently (co-enrollment allowed): " +
+                     ", ".join(c["prerequisites_may_be_taken_concurrently"]))
+    if c.get("recommended_courses"):
+        lines.append("Recommended (not required) preparation: " + ", ".join(c["recommended_courses"]))
     if c["prerequisites_enforced_at_registration"]:
         lines.append("Prerequisites enforced at registration (*): " +
                      ", ".join(c["prerequisites_enforced_at_registration"]))
@@ -109,6 +114,8 @@ def course_text(c, prog_names):
         lines.append("Paired (undergrad/grad) with: " + ", ".join(c["paired_with"]))
     if c["cross_listed_with"]:
         lines.append("Cross-listed with: " + ", ".join(c["cross_listed_with"]))
+    if c.get("former_codes"):
+        lines.append("Former course numbers (may appear on older transcripts): " + ", ".join(c["former_codes"]))
     if c["extra_fee"]:
         lines.append("Extra fee required.")
     if c["is_prerequisite_for"]:
@@ -304,6 +311,7 @@ def main():
         "courses": {c["code"]: {"title": c["title"], "units": c["units"], "level": c["level"],
                                 "prerequisite_courses": c["prerequisite_courses"], "ge_areas": c["ge_areas"],
                                 "url": c["source_url"]} for c in courses},
+        "former_codes": {f: c["code"] for c in courses for f in c.get("former_codes", [])},
         "programs": {p["id"]: {"name": p["name"], "degree": p["degree"], "award_type": p["award_type"],
                                "level": p["level"], "total_units": p["total_units"], "status": p["status"],
                                "concentration": p["concentration"], "url": p["url"],

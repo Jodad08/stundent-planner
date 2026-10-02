@@ -119409,7 +119409,7 @@
   "award_type": "bachelor",
   "level": "undergraduate",
   "concentration": "Composition",
-  "field": null,
+  "field": "Music",
   "program_index_labels": [
    "Bachelor's Concentration"
   ],
@@ -120082,7 +120082,7 @@
   "award_type": "bachelor",
   "level": "undergraduate",
   "concentration": "Instrumental Performance",
-  "field": null,
+  "field": "Music",
   "program_index_labels": [
    "Bachelor's Concentration"
   ],
@@ -120717,7 +120717,7 @@
   "award_type": "bachelor",
   "level": "undergraduate",
   "concentration": "Jazz/Ethnomusicology",
-  "field": null,
+  "field": "Music",
   "program_index_labels": [
    "Bachelor's Concentration"
   ],
@@ -121410,7 +121410,7 @@
   "award_type": "bachelor",
   "level": "undergraduate",
   "concentration": "Music Production",
-  "field": null,
+  "field": "Music",
   "program_index_labels": [
    "Bachelor's Concentration"
   ],
@@ -122070,7 +122070,7 @@
   "award_type": "bachelor",
   "level": "undergraduate",
   "concentration": "Vocal Performance",
-  "field": null,
+  "field": "Music",
   "program_index_labels": [
    "Bachelor's Concentration",
    "Bachelor's Concentration"
@@ -122706,7 +122706,7 @@
   "award_type": "bachelor",
   "level": "undergraduate",
   "concentration": "Music Teacher Preparation",
-  "field": null,
+  "field": "Music",
   "program_index_labels": [
    "Bachelor's Concentration"
   ],
