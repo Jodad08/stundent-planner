@@ -10,7 +10,7 @@ Unofficial. Nothing here is advisor-verified yet.
 
 ## Run it on your machine
 
-Needs Node 18 or newer (tested on 22) and git.
+Needs Node 20 or newer (tested on 22) and git.
 
 ```
 git clone https://github.com/Jodad08/stundent-planner.git
