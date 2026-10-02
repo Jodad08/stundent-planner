@@ -63,6 +63,15 @@ export function Pet() {
   const [mood, setMood] = useState<"idle" | "hop" | "shake" | "happy">("idle")
   const [thinking, setThinking] = useState(false)
   const prev = useRef({ units: -1, broken: false })
+  const [tip, setTip] = useState(0)
+  const [doing, setDoing] = useState<string | null>(null) // the gator acting on its own: "Evaluating your plan…"
+  /** Think for a moment, say what it's doing, then do it. */
+  const act = (label: string, run: () => void) => {
+    setDoing(label); setTimeout(() => { run(); setTimeout(() => setDoing(null), 900) }, 1200)
+  }
+  const rotating = useRef(false)
+  rotating.current = units >= target && !broken && !menu && !ask && !filling && !doing
+  const evaluate = () => window.dispatchEvent(new Event("planed:evaluate"))
   const pick = useMemo(() => nextCourses(plan, dag, sem, student?.trackId)[0], [plan, dag, sem, student])
 
   /** Fill the next semester one course at a time so the student watches it happen (D-043). */
@@ -92,10 +101,17 @@ export function Pet() {
     if (p.units >= 0) {
       const next = isBroken && !p.broken ? "shake" : units >= target && p.units < target ? "happy" : units > p.units ? "hop" : null
       if (next) { setMood(next); setTimeout(() => setMood("idle"), 900) }
+      // credits just reached: the gator evaluates the plan by itself
+      if (units >= target && p.units < target && !isBroken) { setTip(0); act("Credits met! Evaluating your plan…", evaluate) }
       setThinking(true); setTimeout(() => setThinking(false), 500) // a short "…" before the new tip
     }
     prev.current = { units, broken: isBroken }
-  }, [units, isBroken, target])
+  }, [units, isBroken, target]) // eslint-disable-line react-hooks/exhaustive-deps
+  // cycle tips every 7s with a short "…" between them (paused while a menu, question or action is up)
+  useEffect(() => {
+    const t = setInterval(() => { if (!rotating.current) return; setThinking(true); setTimeout(() => { setThinking(false); setTip(n => n + 1) }, 700) }, 7000)
+    return () => clearInterval(t)
+  }, [])
 
   let msg: React.ReactNode, action: React.ReactNode = null
   const item = "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left hover:bg-zinc-100"
@@ -137,9 +153,20 @@ export function Pet() {
       msg = <>{meter}Add more! <b>{left} units</b> to go. No major course fits yet, so add a GE course.</>
       action = <button onClick={ge} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Add a GE course</button>
     }
+  } else if (doing) {
+    msg = <><div className="mb-1 text-[10px] font-semibold uppercase tracking-wider text-violet-600">✦ {ai}</div><span className="animate-pulse">{doing}</span></>
   } else {
-    msg = <>{termName(dag, sem)} is done: {units} units ✅ Ready to send!</>
-    action = <button onClick={() => exportSemester(plan, dag, sem, student?.name ?? "Student")} className="rounded-full bg-lime-500 px-3 py-1 font-semibold text-zinc-900">Export for SFSU</button>
+    // credits met: rotate through useful next steps, each one something the gator can do (D-054)
+    const after = plan.semesters.find(x => x.index > sem && x.courseIds.reduce((a, c) => a + unitsOf(dag, c), 0) < policies.minUnitsFullTime.value)
+    const tips: { text: React.ReactNode; label: string; run: () => void }[] = [
+      { text: <>{termName(dag, sem)} has {units} units ✅ Now evaluate your plan!</>, label: "🔍 Evaluate", run: () => act("Evaluating your plan…", evaluate) },
+      { text: <>Ready for your advisor? I'll make a one-page {termName(dag, sem)} plan.</>, label: "⬇ Export", run: () => act("Making your one-page plan…", () => exportSemester(plan, dag, sem, student?.name ?? "Student")) },
+      ...(after ? [{ text: <>{termName(dag, after.index)} is light. Want me to plan the whole degree?</>, label: "✦ Plan it", run: () => act("Planning your whole degree…", () => window.dispatchEvent(new Event("planed:whole-degree"))) }] : []),
+      { text: <>Want to see how your courses connect?</>, label: "Show graph", run: () => act("Drawing your prerequisite map…", () => st.setView("graph")) },
+    ]
+    const t = tips[tip % tips.length]
+    msg = t.text
+    action = <button onClick={t.run} className="rounded-full bg-lime-500 px-3 py-1 font-semibold text-zinc-900">{t.label}</button>
   }
 
   return (

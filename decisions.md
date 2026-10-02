@@ -1,5 +1,8 @@
 # Decisions
 
+## D-054 Gator acts when the semester's credits are met
+On reaching the credit target it thinks, says "Evaluating your plan…", and opens Evaluate itself. Afterwards it rotates tips every 7s (Evaluate, Export, plan the whole degree if a later semester is light, show the graph), with "…" between them; each button runs through the same think-then-act step.
+
 ## D-053 Real SFSU GE courses in the sidebar; tour shows the gator's options; bigger graph circles
 GE tab lists the 938 GE-tagged courses from data/sfsu/courses.json by area (1A…6, UD). Adding one places a GE placeholder of its units (engine unchanged) and a display-only name map (localStorage) shows the code on cards and the export. Tour text cut to one line per step, with 3 new steps that open the gator menu (Auto plan, Evaluate, Export). Graph dots 14→22px with wider nodes.
 
