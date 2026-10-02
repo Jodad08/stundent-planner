@@ -370,3 +370,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser check (click CSC 340 → arrows from CSC 220, CSC 230 and to CSC 510 and an upper-division course; others dimmed)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-037: Card prerequisites as a dropdown
+- Step: 10 (human request)
+- Decision: Each card shows one line, "Prerequisites (n) · met ✓" (red "not met" when the engine reports a prerequisite/order problem for that course); clicking it expands the chips. Collapsed by default.
+- Why: human request 2026-10-02 ~15:47 (every card showed the full "Needs" block).
+- Evidence: browser check (CSC 340 beside CSC 220/230 → "not met", expands to CSC 220 AND CSC 230)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

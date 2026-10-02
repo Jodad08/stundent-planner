@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { isElectiveSlot, isPlaceholder, placeholderUnits } from "../../../shared/engine"
+import { isElectiveSlot, isPlaceholder, leaves, placeholderUnits } from "../../../shared/engine"
 import type { CourseId, Dag, PrereqExpr } from "../../../shared/types"
 import { category, termName } from "../lib/derive"
 import { useActivePlan, useStore } from "../store"
@@ -129,6 +129,7 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { f
   status?: "error" | "warning"; issue?: string; done: boolean; onRemove: () => void }) {
   const n = dag.nodes[id]
   const [open, setOpen] = useState(false)
+  const [needsOpen, setNeedsOpen] = useState(false)
   const desc = useStore(s => s.descriptions[id])
   // color = course type; outline = engine status (D-030)
   const cat = category(dag, id)
@@ -152,11 +153,20 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { f
         </div>
       </div>
       {n && issue && <div className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{issue}</div>}
-      {n && n.prereq && !done && (
-        <div className="mt-1.5 flex flex-wrap items-center gap-1 rounded-lg bg-white/70 px-2 py-1.5">
-          <span className="mr-0.5 text-[10px] font-semibold text-zinc-600">Needs</span><Expr e={n.prereq} sem={sem} semOf={semOf} />
-        </div>
-      )}
+      {n && n.prereq && !done && (() => {
+        // collapsed by default: one line with the count and whether they're met; click to see the chips (D-037)
+        const count = new Set(leaves(n.prereq).map(l => l.code)).size
+        const met = !issue || !/must come|Missing from the plan/.test(issue)
+        return (
+          <div className="mt-1.5 rounded-lg bg-white/70">
+            <button onClick={() => setNeedsOpen(!needsOpen)} className="flex w-full items-center justify-between px-2 py-1 text-[10.5px] font-semibold text-zinc-700">
+              <span>Prerequisites ({count}) <span className={met ? "text-lime-700" : "text-red-600"}>· {met ? "met ✓" : "not met"}</span></span>
+              <span className="text-zinc-500">{needsOpen ? "▴" : "▾"}</span>
+            </button>
+            {needsOpen && <div className="flex flex-wrap items-center gap-1 px-2 pb-1.5"><Expr e={n.prereq} sem={sem} semOf={semOf} /></div>}
+          </div>
+        )
+      })()}
       {open && n && <>
         {n.bulletin_prerequisite_text && <div className="mt-1.5 rounded-lg bg-white/85 p-2 text-[10.5px] leading-snug text-zinc-600"><b>Bulletin:</b> {n.bulletin_prerequisite_text}</div>}
         {desc && <div className="mt-1.5 line-clamp-4 rounded-lg bg-white/85 p-2 text-[10.5px] leading-snug text-zinc-600">{desc}</div>}
