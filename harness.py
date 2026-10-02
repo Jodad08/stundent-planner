@@ -66,13 +66,13 @@ DOC_FILES = set(GROUND_TRUTH_FILES) | {"decisions.md", "harness.py"}
 MAX_FILE_CHARS = 20_000
 MAX_TOTAL_CHARS = 180_000
 
-# Top-level entries allowed by architecture.md Â§5 plus the harness files.
-# If architecture.md Â§5 changes, update this list in the same change.
+# Top-level entries allowed by architecture.md §5 (including the pre-existing scraper/) plus the harness files.
+# If architecture.md §5 changes, update this list in the same change.
 ALLOWED_TOP_LEVEL = {
     "architecture.md", "plan.md", "README.md", "THIRD_PARTY.md", ".env.example", ".env",
     "package.json", "package-lock.json", "tsconfig.json", ".gitignore",
-    "data", "scripts", "shared", "server", "web", "docs",
-    # harness + skill-required artifacts (prompt.md Â§B.4 item 3)
+    "data", "scripts", "shared", "server", "web", "docs", "scraper",
+    # harness + skill-required artifacts (prompt.md §B.4 item 3)
     "prompt.md", "decisions.md", "harness.py", ".harness", "ai-hackathon-builder-skill.md",
     "VISION.md", "EVALS.md", "DEMO.md", "runs", "evals",
     "Degree planner.pdf", "Student Center.pdf",
@@ -174,8 +174,25 @@ def load_catalog_ids(root: Path) -> set[str] | None:
             return None
         if isinstance(data, dict):
             data = data.get("courses", [])
-        return {normalize_course_id(c[key]) for c in data if isinstance(c, dict) and key in c}
+        ids = {normalize_course_id(c[key]) for c in data if isinstance(c, dict) and key in c}
+        return ids | load_declared_external_ids(root)
     return None
+
+
+def load_declared_external_ids(root: Path) -> set[str]:
+    """Course IDs a program DAG explicitly declares as outside the catalog
+    (e.g. {"external": {"CSC 210": {"in_catalog": false, "note": "..."}}}). Declared and explained,
+    so not a hallucination. The LLM critic still judges whether each note is honest."""
+    out: set[str] = set()
+    dags = root / "data" / "sfsu" / "dags"
+    for p in (dags.glob("*.json") if dags.exists() else []):
+        try:
+            ext = json.loads(read_text(p)).get("external", {})
+        except (json.JSONDecodeError, AttributeError):
+            continue
+        if isinstance(ext, dict):
+            out |= {normalize_course_id(k) for k, v in ext.items() if isinstance(v, dict) and v.get("note")}
+    return out
 
 
 def load_source_prefixes(root: Path) -> list[str] | None:
@@ -194,12 +211,12 @@ def scan(root: Path = ROOT) -> list[Finding]:
     source_prefixes = load_source_prefixes(root)
     unsourced: dict[str, list[str]] = {}   # file -> unsourced URLs (aggregated, one finding per file)
 
-    # Top-level layout vs architecture.md Â§5
+    # Top-level layout vs architecture.md §5
     for entry in root.iterdir():
         if entry.name not in ALLOWED_TOP_LEVEL:
             out.append(Finding("contract_violation", "medium", entry.name, entry.name,
-                               "Top-level entry not listed in architecture.md Â§5.",
-                               "Add it to architecture.md Â§5 (and log a decision) or remove it."))
+                               "Top-level entry not listed in architecture.md §5.",
+                               "Add it to architecture.md §5 (and log a decision) or remove it."))
 
     for p in files:
         r = rel(p, root)
@@ -225,7 +242,11 @@ def scan(root: Path = ROOT) -> list[Finding]:
                                        "Move it to .env, rotate the key."))
 
         # Unsourced URLs in data files
-        if r.startswith("data/") and r != "data/sources.md" and source_prefixes is not None:
+        # Scraped Bulletin dumps (data/sfsu/*, not dags/) quote links found inside Bulletin page text;
+        # their provenance is the Bulletin page each record came from, so only hand-built data is URL-checked.
+        is_scraped = r.startswith("data/sfsu/") and not r.startswith("data/sfsu/dags/")
+        if (r.startswith("data/") and r != "data/sources.md" and source_prefixes is not None
+                and not is_scraped):
             for m in URL_RE.finditer(text):
                 url = m.group(0).rstrip(".,;")
                 if not any(url.startswith(pre) for pre in source_prefixes):
@@ -253,7 +274,6 @@ def scan(root: Path = ROOT) -> list[Finding]:
         # Course IDs not in the catalog (only once a catalog exists)
         is_catalog = r in {c for c, _ in CATALOG_FILES}
         # Scraped Bulletin dumps are the catalog's own source; checking them against it is circular.
-        is_scraped = r.startswith("data/sfsu/") and not r.startswith("data/sfsu/dags/")
         if catalog_ids is not None and not is_doc and not is_catalog and not is_scraped:
             if p.suffix in {".json", ".ts", ".tsx", ".js", ".jsx"}:
                 seen = set()
@@ -351,7 +371,7 @@ def scan_decisions(root: Path) -> list[Finding]:
         ev = re.search(r"Evidence:\s*(.*)", body)
         if ev and not ev.group(1).strip():
             out.append(Finding("fabricated_citation", "medium", f"decisions.md:{line_of(text, h.start())}",
-                               h.group(1), "Empty Evidence field.", "Cite a file Â§, PDF page, or URL, or write 'none: assumption: ...'."))
+                               h.group(1), "Empty Evidence field.", "Cite a file §, PDF page, or URL, or write 'none: assumption: ...'."))
     return out
 
 
