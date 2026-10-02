@@ -1553,7 +1553,7 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
   if (!state.plans.some(p => p.id === state.activeId)) state.activeId = state.plans[0].id;
   render();
   (async () => {
-    if (location.protocol === "file:") return;
+    if (location.protocol === "file:" || window.GG_STATIC) return;
     try {
       const ctl = new AbortController();
       const timer = setTimeout(() => ctl.abort(), 2000);

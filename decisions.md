@@ -352,3 +352,13 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - Risk / undo: wheel handling: a vertical wheel scrolls the page unless the canvas is taller than its frame. Touch pinch is basic. Revert the canvas commit to get the D-027 board back.
 - Critic: PASS (0025-check) [critic: mock]
 - Status: active
+
+## D-030: Marketing site on a separate gh-pages branch
+- Step: 4 (human request)
+- Decision: A static landing page lives on an orphan branch `gh-pages`, ready for GitHub Pages (deploy from branch, root). The layout follows Notion's site: sticky nav, centred hero with the product in a window frame, a facts strip, a today-vs-GatorGraph comparison, feature tabs with screenshots, AI Plan and Evaluate cards, a feature grid, three steps, a trust band, FAQ, a final call to action and a footer with sources and a disclaimer. Every color and font is a variable in `assets/theme.css`; `site.css` has none, and there are two presets (`data-theme="midnight"`, `"ocean"`). Screenshots show the made-up sample student only. The single-file planner is copied to `app/`. `web/bundle.py` now sets `window.GG_STATIC` so the bundled planner doesn't probe `/api/health` (no 404 on static hosts).
+- Alternatives: a `/docs` folder on the app branch (mixes site and app); GitHub Actions deploy (more setup).
+- Why: Human request, 2026-10-02 ("add a secondary branch for a website that displays our product … hosted directly on github pages … colors easy to change … notion.com as inspo").
+- Evidence: headless-browser check at 1440×900 and 390×844 under a `/stundent-planner/` subpath: no page errors, no failed requests, no horizontal scroll; tabs work by click and arrow keys; `app/` loads and shows "Valid plan". The PeopleSoft statement cites https://www.csuci.edu/cicms/ ("a shared, common suite of Oracle/PeopleSoft applications") and the eCampus News report on the CSU standardizing 23 campuses on PeopleSoft, which answers the prompt.md A.1 caution. The comparison stays within prompt.md A.4 (the Student Center does suggest courses, has locks, What-If and transfer credit).
+- Risk / undo: GitHub Pages must be switched on by the repo owner (Settings → Pages), and needs a public repo on a free plan. The `app/` copy goes stale until refreshed (steps in the branch README). Delete the `gh-pages` branch to remove the site.
+- Critic: PASS (0026-check) [critic: mock]
+- Status: active
