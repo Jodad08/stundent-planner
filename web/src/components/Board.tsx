@@ -105,7 +105,8 @@ export function Board() {
         if (!id) return
         const p = rf.screenToFlowPosition({ x: e.clientX, y: e.clientY })
         const to = semesterAt(p.x)
-        if (to) placeCourse(id, to)
+        // already planned (dragged from the course list) → move it; otherwise place it
+        if (to) (plan.semesters.some(x => x.courseIds.includes(id)) ? moveCourse : placeCourse)(id, to)
         else setFlash(`Drop ${id} onto a semester box.`)
       }}>
       <Background variant={BackgroundVariant.Dots} gap={28} size={0.8} color="#18181b" />

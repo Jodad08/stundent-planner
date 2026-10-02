@@ -59,12 +59,14 @@ export function Sidebar() {
                 {list.map(c => {
                   const sem = placed.get(c)
                   return (
-                    <div key={c} draggable={!sem} onDragStart={drag(c)}
-                      className={`flex items-center gap-2 rounded-xl bg-white px-2.5 py-1.5 shadow-sm ${sem ? "bg-white/50 shadow-none" : "cursor-grab hover:shadow"}`}>
+                    <div key={c} draggable onDragStart={drag(c)} title={`${c} · ${dag.nodes[c].title} · ${dag.nodes[c].units} credits`}
+                      className={`group flex cursor-grab items-center gap-2 rounded-xl px-2.5 py-1.5 transition hover:shadow-md active:cursor-grabbing ${sem ? "bg-white/60" : "bg-white shadow-sm"}`}>
                       <span className="w-4 text-center text-xs text-zinc-400">{dag.nodes[c].units}</span>
                       <div className="min-w-0 flex-1">
-                        <div className="truncate text-[10.5px] text-zinc-500">{dag.nodes[c].title}</div>
-                        <div className="text-[15px] font-bold leading-tight">{c}</div>
+                        {/* hover: full name and credits */}
+                        <div className="truncate text-[10.5px] text-zinc-500 group-hover:whitespace-normal group-hover:text-zinc-800">{dag.nodes[c].title}</div>
+                        <div className={`text-[15px] font-bold leading-tight ${sem ? "text-zinc-500" : ""}`}>{c}</div>
+                        <div className="hidden text-[10.5px] text-zinc-500 group-hover:block">{dag.nodes[c].units} credits · {sem ? "drag to move it" : "drag onto a semester"}</div>
                       </div>
                       {sem ? <span className="shrink-0 rounded-full bg-lime-100 px-1.5 py-0.5 text-[10px] text-lime-800">✓ {termName(dag, sem)}</span>
                         : <button title="Add to the next open semester" onClick={() => add(c)} className="text-xl leading-none text-zinc-400 hover:text-zinc-900">+</button>}
