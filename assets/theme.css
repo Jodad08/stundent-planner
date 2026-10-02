@@ -1,0 +1,58 @@
+/* ==========================================================================
+   GatorGraph site theme: EVERY color and font the site uses lives in this file.
+   site.css only reads these variables, so re-skinning the site means editing
+   this file and nothing else.
+
+   Quick re-skin:   change --brand and --accent below.
+   Try a preset:    add data-theme="midnight" or data-theme="ocean" to the
+                    <html> tag in index.html (presets are at the bottom).
+   ========================================================================== */
+
+:root {
+  /* ---- Brand: change these first -------------------------------------- */
+  --brand: #231161;            /* primary: buttons, links, highlights (SF State purple) */
+  --brand-contrast: #ffffff;   /* text and icons on top of --brand */
+  --accent: #e3b53c;           /* secondary: badges, underline marks (SF State gold) */
+  --accent-contrast: #1d1406;  /* text on top of --accent */
+
+  /* ---- Neutrals ------------------------------------------------------- */
+  --bg: #ffffff;               /* page background */
+  --surface: #f6f5f4;          /* soft panels and section bands */
+  --surface-strong: #efedea;   /* hover and pressed panels */
+  --ink: #191919;              /* headings */
+  --text: #37352f;             /* body text */
+  --muted: #6b6762;            /* captions, secondary text */
+  --line: #e7e4df;             /* borders and dividers */
+
+  /* ---- Status (matches the planner's red/amber/green) ----------------- */
+  --ok: #2b7a57;
+  --warn: #a8690f;
+  --bad: #c62f2f;
+
+  /* ---- Derived: usually leave these alone ----------------------------- */
+  --brand-soft: color-mix(in srgb, var(--brand) 8%, var(--bg));
+  --brand-hover: color-mix(in srgb, var(--brand) 86%, var(--ink));
+  --accent-soft: color-mix(in srgb, var(--accent) 22%, var(--bg));
+  --ok-soft: color-mix(in srgb, var(--ok) 12%, var(--bg));
+  --bad-soft: color-mix(in srgb, var(--bad) 10%, var(--bg));
+  --overlay: color-mix(in srgb, var(--bg) 82%, transparent);
+  --shadow-sm: 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-md: 0 4px 16px color-mix(in srgb, var(--ink) 8%, transparent);
+  --shadow-lg: 0 30px 70px -24px color-mix(in srgb, var(--ink) 30%, transparent), 0 2px 6px color-mix(in srgb, var(--ink) 6%, transparent);
+
+  /* ---- Type and shape ------------------------------------------------- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --radius: 12px;
+  --radius-lg: 18px;
+}
+
+/* ---- Presets: set <html data-theme="..."> to use one ------------------- */
+html[data-theme="midnight"] {
+  --brand: #111111; --brand-contrast: #ffffff;
+  --accent: #e3b53c; --accent-contrast: #1d1406;
+}
+html[data-theme="ocean"] {
+  --brand: #0b5cad; --brand-contrast: #ffffff;
+  --accent: #19a7a0; --accent-contrast: #ffffff;
+}

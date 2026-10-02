@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GatorGraph: your whole degree on one canvas</title>
+<meta name="description" content="GatorGraph turns the SF State Bulletin into a visual degree plan. Drag courses between semesters; a rules engine flags broken prerequisites and unit limits as you go.">
+<meta property="og:title" content="GatorGraph: your whole degree on one canvas">
+<meta property="og:description" content="A visual, rules-checked degree planner for SF State Computer Science.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="assets/theme.css">
+<link rel="stylesheet" href="assets/site.css">
+<script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a class="logo" href="#top" aria-label="GatorGraph home">
+      <span class="logo-mark"><svg viewBox="0 0 26 26" aria-hidden="true"><path class="ln" d="M5 17 L13 8 L21 17" fill="none" stroke-width="2"/><circle class="n1" cx="5" cy="17" r="3.4"/><circle class="n2" cx="13" cy="8" r="3.4"/><circle class="n2" cx="21" cy="17" r="3.4"/></svg></span>
+      GatorGraph
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Sections">
+      <a href="#why">Why</a>
+      <a href="#product">Product</a>
+      <a href="#how">How it works</a>
+      <a href="#trust">Trust</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/Jodad08/stundent-planner/tree/claude/optimistic-babbage-loeauu">GitHub</a>
+      <a class="btn btn-primary btn-sm" href="app/">Open planner</a>
+    </div>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+  <!-- hero -->
+  <section class="hero" id="top">
+    <div class="container">
+      <span class="pill"><b>New</b> For SF State Computer Science · 2026–27 Bulletin</span>
+      <h1>Your whole degree,<br> on <span class="mark">one canvas.</span></h1>
+      <p class="lede">GatorGraph turns the SF State Bulletin into a plan you can see. Drag courses between semesters, and a rules engine flags every broken prerequisite and unit limit while you plan.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="app/">Open the planner →</a>
+        <a class="btn btn-secondary" href="#product">See how it works</a>
+      </div>
+      <p class="hero-note">Free. Runs in your browser. No sign-in.</p>
+      <div class="hero-shot window reveal">
+        <div class="window-bar"><i></i><i></i><i></i><span>gatorgraph · semester canvas</span></div>
+        <img src="assets/img/canvas.jpg" width="2272" height="1208" alt="The GatorGraph canvas: Fall 2026 to Fall 2028 as semester groups holding course cards, with curved prerequisite arrows between them.">
+      </div>
+    </div>
+  </section>
+
+  <!-- facts strip -->
+  <section class="facts" aria-label="Data behind GatorGraph">
+    <div class="container">
+      <p class="eyebrow">Built on the public SF State Bulletin 2026–27</p>
+      <div class="facts-row">
+        <div class="fact"><b>4,995</b><span>courses</span></div>
+        <div class="fact"><b>423</b><span>programs</span></div>
+        <div class="fact"><b>113</b><span>policy rules, each quoted</span></div>
+        <div class="fact"><b>100%</b><span>of courses link to their Bulletin page</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- why: today vs GatorGraph -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">Why GatorGraph</p>
+        <h2>Two tools that don't talk to each other.</h2>
+        <p>Today, SF State students plan in the Student Center, which runs on the CSU's Oracle PeopleSoft system.<sup><a href="#src-1">1</a></sup> It splits the job in two: a Degree Progress Report that audits what's done, and a Degree Planner that lists courses by term. Neither shows how courses connect.</p>
+      </div>
+      <div class="compare reveal">
+        <div class="col col-old">
+          <h3><span class="tag-old">Today</span> Student Center</h3>
+          <ul>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10"/></svg><span>The audit and the planner are separate screens.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10"/></svg><span>No prerequisite information anywhere in the progress report.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10"/></svg><span>The planner lists a course per term without saying why it's there.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10"/></svg><span>Unit math only ("15 of 16"), with no load warnings from policy.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 10h10"/></svg><span>Nothing connects courses to a career goal.</span></li>
+          </ul>
+        </div>
+        <div class="col col-new">
+          <h3><span class="tag-new">New</span> GatorGraph</h3>
+          <ul>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg><span>Requirements, semesters and prerequisites on one canvas.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg><span>Every prerequisite is an arrow. A broken one turns red the moment you make it.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg><span>Hover a course to see what it needs and what it unlocks. Bottleneck alerts show which delays push graduation back.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg><span>Semester loads checked against Bulletin policy (12 full time, 15 normal, 19 maximum), with the source linked.</span></li>
+            <li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M4 10.5l4 4 8-9"/></svg><span>Electives matched to a career direction, and an AI planner that starts from your goal.</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="fair">To be fair: the Student Center already suggests courses per term, supports locks and What-If reports, and knows your transfer and AP credit. GatorGraph doesn't replace your official record. It makes the plan readable, and your advisor still signs off.</p>
+    </div>
+  </section>
+
+  <!-- product tabs -->
+  <section class="section" id="product">
+    <div class="container">
+      <div class="section-head center reveal">
+        <p class="eyebrow">Product</p>
+        <h2>Plan like you think: visually.</h2>
+        <p>Inspired by infinite canvases. Every semester is a group, every course a card, every prerequisite an arrow.</p>
+      </div>
+      <div class="tabs reveal" id="tabs">
+        <div class="tablist" role="tablist" aria-label="Product features">
+          <button class="tab" role="tab" id="t-drag" aria-controls="p-drag" aria-selected="true">Drag to plan</button>
+          <button class="tab" role="tab" id="t-broken" aria-controls="p-broken" aria-selected="false" tabindex="-1">Broken prerequisites</button>
+          <button class="tab" role="tab" id="t-trace" aria-controls="p-trace" aria-selected="false" tabindex="-1">Trace a course</button>
+          <button class="tab" role="tab" id="t-mid" aria-controls="p-mid" aria-selected="false" tabindex="-1">Already halfway?</button>
+        </div>
+        <div class="panel" role="tabpanel" id="p-drag" aria-labelledby="t-drag">
+          <div>
+            <h3>Drag a course. That's the whole interface.</h3>
+            <p>Pick up a card and drop it in another semester. Its arrows follow it as you move, and the semester you're over lights up.</p>
+            <ul><li>Drag from the course list to add, back to the list to remove</li><li>Prefer clicking? Select a course, then click a semester</li><li>Pan, zoom, minimap and Fit, like any canvas</li></ul>
+          </div>
+          <div class="window"><img src="assets/img/dragging.jpg" width="2272" height="1208" loading="lazy" alt="CSC 340 being dragged into Fall 2026; the target semester is highlighted and the card's arrows follow it."></div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-broken" aria-labelledby="t-broken" hidden>
+          <div>
+            <h3>Mistakes show up as red arrows.</h3>
+            <p>Move CSC 340 ahead of CSC 220 and CSC 230 and two red arrows appear, each with a warning marker. The semester turns amber because it's now above the normal load.</p>
+            <ul><li>Prerequisite order, corequisites, upper-division standing</li><li>Unit limits from Bulletin policy, with sources</li><li>"needs CSC 230" chips add the missing course for you</li></ul>
+          </div>
+          <div class="window"><img src="assets/img/broken.jpg" width="2272" height="1208" loading="lazy" alt="Two red dashed arrows from CSC 220 and CSC 230 back to CSC 340 in Fall 2026, which is marked Heavy."></div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-trace" aria-labelledby="t-trace" hidden>
+          <div>
+            <h3>Hover to see the chain.</h3>
+            <p>Hover any course and its prerequisites and the courses it unlocks light up. Everything else fades. Click it to follow the whole chain.</p>
+            <ul><li>Bottleneck alerts: which course, if delayed, moves graduation</li><li>Hover cards with units, prerequisites and the Bulletin link</li></ul>
+          </div>
+          <div class="window"><img src="assets/img/trace.jpg" width="2272" height="1208" loading="lazy" alt="Hovering CSC 340 highlights CSC 220 and CSC 230 before it and CSC 510 and CSC 415 after it; other courses are faded."></div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-mid" aria-labelledby="t-mid" hidden>
+          <div>
+            <h3>Start from where you are.</h3>
+            <p>Load your transcript and finished courses move to a Done column. The plan fills only the semesters you have left, and GE areas you've already covered aren't asked for again.</p>
+            <ul><li>Low-confidence grades are flagged for you to check</li><li>Below-minimum grades go back in the plan as retakes</li></ul>
+          </div>
+          <div class="window"><img src="assets/img/mid-degree.jpg" width="2272" height="1290" loading="lazy" alt="A mid-degree student: finished courses in a compact Done column, with three remaining semesters planned to the right."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI plan + evaluate -->
+  <section class="section" id="ai">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">AI, with a referee</p>
+        <h2>Tell it what you want to do in life.</h2>
+        <p>Describe a goal and the AI planner drafts all eight semesters. The rules engine checks the draft before you see it, and anything it rejects goes back to be fixed.</p>
+      </div>
+      <div class="duo">
+        <div class="card reveal">
+          <span class="label label-ai">Generated by Gemini</span>
+          <h3>AI Plan</h3>
+          <p>Pick a career direction or write your own goal. You get a new plan tab with the steps the model took and the rules engine's verdict. (The planner hosted here has no server, so it uses the built-in deterministic planner instead.)</p>
+          <div class="shot"><img src="assets/img/ai-plan.jpg" width="1240" height="566" loading="lazy" alt="The AI Plan dialog with the goal 'I want to build trading systems at a quant firm' and career direction chips."></div>
+        </div>
+        <div class="card reveal">
+          <span class="label label-engine">Checked by rules engine</span>
+          <h3>Evaluate</h3>
+          <p>A verdict, every error and warning with its source, the requirements still missing, and how your electives score across career directions.</p>
+          <div class="shot tall"><img src="assets/img/evaluate.jpg" width="920" height="1390" loading="lazy" alt="The Evaluate panel: 'Fix 2 errors first', the two prerequisite errors, two unit warnings, and career direction bars."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- feature grid -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center reveal">
+        <p class="eyebrow">Everything in the box</p>
+        <h2>Small details, checked against the Bulletin.</h2>
+      </div>
+      <div class="grid reveal">
+        <div class="cell"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h7"/></svg></span><h3>Requirement groups</h3><p>Math &amp; physics, core, advanced, 15 elective units with 12 in CSC, GE and free electives, each with live progress.</p></div>
+        <div class="cell"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M5 8l7-5 7 5"/></svg></span><h3>Unit limits from policy</h3><p>Under 12, heavy over 15 and over the 19-unit registration maximum, each linked to the policy it comes from.</p></div>
+        <div class="cell"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><h3>Bottleneck alerts</h3><p>Finds the courses where one semester of delay moves your graduation date, and by how much.</p></div>
+        <div class="cell"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 10h16M10 4v16"/></svg></span><h3>Plan tabs</h3><p>Keep several plans side by side, duplicate one to try a what-if, rename with a double-click. Saved in your browser.</p></div>
+        <div class="cell"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 4h7l4 4v12H7z"/><path d="M14 4v4h4"/></svg></span><h3>Transcript check</h3><p>Load an extracted transcript; low-confidence grades and below-minimum grades are flagged before they reach the plan.</p></div>
+        <div class="cell"><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></span><h3>Every claim sourced</h3><p>Courses, prerequisites and policies link to their Bulletin page. Nothing is marked advisor-verified until it is.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- how it works -->
+  <section class="section" id="how">
+    <div class="container">
+      <div class="section-head reveal">
+        <p class="eyebrow">How it works</p>
+        <h2>From blank to graduation-ready in three steps.</h2>
+      </div>
+      <div class="steps reveal">
+        <div class="step"><h3>Say where you are</h3><p>New freshman, or load your transcript. Set your first semester, calculus placement and target units.</p></div>
+        <div class="step"><h3>Lay out your semesters</h3><p>Start from the recommended plan, ask AI Plan for one built around your goal, or drag courses in yourself.</p></div>
+        <div class="step"><h3>Let the engine check it</h3><p>Fix anything red, then open Evaluate for the verdict, missing requirements and your career direction.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- trust -->
+  <section class="container" id="trust">
+    <div class="proof reveal">
+      <div>
+        <p class="eyebrow">Trust</p>
+        <h2>AI proposes. The rules engine decides.</h2>
+        <p>Every plan, whether you made it or the model did, goes through the same rules engine. A model plan that still breaks a rule after two repairs is replaced by a deterministic plan. Course IDs the model makes up are rejected, never auto-corrected.</p>
+      </div>
+      <div class="proof-nums">
+        <div class="num"><b>26 / 26</b><span>planted errors caught, with no false alarms</span></div>
+        <div class="num"><b>3 / 3</b><span>official SF State CS roadmaps pass with 0 errors</span></div>
+        <div class="num"><b>≤ 2</b><span>repair attempts before the deterministic fallback</span></div>
+        <div class="num"><b>24</b><span>automated engine and server tests</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- faq -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head center reveal">
+        <p class="eyebrow">FAQ</p>
+        <h2>Questions, answered.</h2>
+      </div>
+      <div class="faq">
+        <details><summary>Is this an official SF State tool?</summary><p>No. GatorGraph is an unofficial student project built for the SF Hacks × GDG AI Hackathon. It doesn't change your record or register you for anything. Confirm your plan with an advisor and your Degree Progress Report.</p></details>
+        <details><summary>Where does the data come from?</summary><p>From the public SF State Bulletin 2026–27: courses, prerequisites, units, requirements, policies and official roadmaps. Every course links back to its Bulletin page. No course has been checked by an advisor yet, and the planner says so.</p></details>
+        <details><summary>Which majors does it cover?</summary><p>The planner covers the B.S. in Computer Science today. The scraped data already includes 423 programs, and the pipeline is built to add more majors.</p></details>
+        <details><summary>Do I need an account? Where is my plan saved?</summary><p>No account. Plans are saved in your own browser (local storage). A transcript you load stays in that browser tab and isn't saved.</p></details>
+        <details><summary>Does the AI planner work on this site?</summary><p>The planner hosted here runs without a server, so AI Plan uses the built-in deterministic planner and tells you so. Run GatorGraph locally with a Gemini API key to use the AI planner; the rules engine checks its plans the same way.</p></details>
+        <details><summary>How do I know the checks are right?</summary><p>The engine is tested against 15 planted mistakes (26 expected issues, all caught) and against SF State's three official CS roadmaps, which all pass. Results are in the repository's EVALS.md. It can still be wrong, which is why every rule links to its source.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- final cta -->
+  <section class="cta">
+    <div class="container">
+      <h2>See your degree the way it actually works.</h2>
+      <p>Open the planner, drag a few courses around, and watch the arrows.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="app/">Open the planner →</a>
+        <a class="btn btn-secondary" href="https://github.com/Jodad08/stundent-planner/tree/claude/optimistic-babbage-loeauu">View the code</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="about">
+        <a class="logo" href="#top"><span class="logo-mark"><svg viewBox="0 0 26 26" aria-hidden="true"><path class="ln" d="M5 17 L13 8 L21 17" fill="none" stroke-width="2"/><circle class="n1" cx="5" cy="17" r="3.4"/><circle class="n2" cx="13" cy="8" r="3.4"/><circle class="n2" cx="21" cy="17" r="3.4"/></svg></span>GatorGraph</a>
+        <p>A visual, rules-checked degree planner for SF State students.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <ul><li><a href="app/">Open planner</a></li><li><a href="#product">Features</a></li><li><a href="#how">How it works</a></li><li><a href="#faq">FAQ</a></li></ul>
+      </div>
+      <div>
+        <h4>Project</h4>
+        <ul><li><a href="https://github.com/Jodad08/stundent-planner/tree/claude/optimistic-babbage-loeauu">Source code</a></li><li><a href="https://github.com/Jodad08/stundent-planner/blob/claude/optimistic-babbage-loeauu/EVALS.md">Evals</a></li><li><a href="https://github.com/Jodad08/stundent-planner/blob/claude/optimistic-babbage-loeauu/decisions.md">Design decisions</a></li></ul>
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <ul><li><a href="https://bulletin.sfsu.edu/">SF State Bulletin 2026–27</a></li><li id="src-1"><a href="https://www.csuci.edu/cicms/">¹ CSU Common Management Systems (Oracle PeopleSoft)</a></li><li><a href="https://www.ecampusnews.com/it-leadership/2012/03/23/california-state-university-standardizes-23-campuses-on-oracles-peoplesoft-applications/">¹ CSU standardizes 23 campuses on PeopleSoft</a></li></ul>
+      </div>
+    </div>
+    <div class="disclaimer">
+      <p>GatorGraph is an unofficial student project. It is not affiliated with or endorsed by San Francisco State University, the California State University, or Oracle. Oracle and PeopleSoft are trademarks of their owners.</p>
+      <p>Course data comes from the public SF State Bulletin 2026–27. Always confirm your plan with an advisor.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
