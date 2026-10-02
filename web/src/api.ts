@@ -25,6 +25,7 @@ export type EvalResults = Record<string, unknown>
 export const api = {
   health: () => call<Health>("/health"),
   program: () => call<Dag>("/programs/bs-cs"),
+  descriptions: () => call<Record<string, string>>("/descriptions"),
   policies: () => call<Policies>("/policies"),
   careers: () => call<CareerDirection[]>("/career-directions"),
   plan: (req: PlanRequest) => call<PlanResponse>("/plan", { method: "POST", body: JSON.stringify(req) }),

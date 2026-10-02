@@ -11,7 +11,7 @@ export type CourseData = {
   id: CourseId; title: string; units: number; placeholder: boolean; category: string
   hasError: boolean; critical: null | { slack: number; chain: CourseId[] }; dim: boolean; highlight: boolean
 }
-export type EdgeData = { state: "satisfied" | "violated"; kind: "prereq" | "prereqOr" | "coreq"; dim: boolean }
+export type EdgeData = { state: "satisfied" | "violated"; kind: "prereq" | "prereqOr" | "coreq"; dim: boolean; label: boolean }
 
 type Link = { from: CourseId; kind: EdgeData["kind"] }
 function links(expr: PrereqExpr, inOr = false, out: Link[] = []): Link[] {
@@ -67,14 +67,17 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
           dim: !!chain && !chain.has(id), highlight: !!chain && chain.has(id) } satisfies CourseData })
     })
   }
+  const labeled = new Set<CourseId>() // one "out of order" label per course
   for (const id of semOf.keys()) {
     const node = dag.nodes[id]
     if (!node) continue
     for (const l of links(node.prereq)) {
       if (!semOf.has(l.from)) continue
       const state = violated.has(`${l.from}>${id}`) ? "violated" : "satisfied"
+      const label = state === "violated" && !labeled.has(id)
+      if (label) labeled.add(id)
       edges.push({ id: `edge-${l.from}-${id}`, source: slug(l.from), target: slug(id), type: "prereq", zIndex: state === "violated" ? 10 : 1,
-        data: { state, kind: l.kind, dim: !!chain && !(chain.has(id) && chain.has(l.from)) } satisfies EdgeData })
+        data: { state, kind: l.kind, dim: !!chain && !(chain.has(id) && chain.has(l.from)), label } satisfies EdgeData })
     }
   }
   return { nodes, edges }

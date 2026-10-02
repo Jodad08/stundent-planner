@@ -1,8 +1,8 @@
-// Fixed column layout (plan.md §13).
-export const SEM_W = 260, SEM_GAP = 40, SEM_X0 = 40, SEM_Y = 80
-export const COURSE_X = 20, COURSE_Y0 = 60, COURSE_STEP = 76, COURSE_W = 220
+// Fixed column layout (plan.md §13), compact for the dot-graph look (D-022).
+export const SEM_W = 128, SEM_GAP = 26, SEM_X0 = 20, SEM_Y = 40
+export const COURSE_X = 14, COURSE_Y0 = 44, COURSE_STEP = 40, COURSE_W = 104
 export const semX = (index: number) => SEM_X0 + (index - 1) * (SEM_W + SEM_GAP)
-export const semHeight = (count: number) => Math.max(220, COURSE_Y0 + count * COURSE_STEP + 30)
+export const semHeight = (count: number) => Math.max(180, COURSE_Y0 + count * COURSE_STEP + 12)
 export const coursePos = (k: number) => ({ x: COURSE_X, y: COURSE_Y0 + k * COURSE_STEP })
 /** Semester index under a flow-space x, or null when outside the 8 columns. */
 export function semesterAt(x: number): number | null {

@@ -1,8 +1,8 @@
-import { useEffect, useMemo } from "react"
-import { Background, BackgroundVariant, Controls, MarkerType, MiniMap, Panel, ReactFlow, useNodesState, useReactFlow, type Node } from "@xyflow/react"
+import { useEffect, useMemo, useRef } from "react"
+import { Background, BackgroundVariant, Panel, ReactFlow, useNodesState, useReactFlow, type Node } from "@xyflow/react"
 import { evaluatePlan } from "../../../shared/engine"
 import { derive } from "../lib/derive"
-import { semesterAt, COURSE_W } from "../lib/layout"
+import { semesterAt, semHeight, semX, COURSE_W, SEM_W, SEM_X0, SEM_Y } from "../lib/layout"
 import { useActivePlan, useStore } from "../store"
 import { CourseNode } from "./CourseNode"
 import { Legend } from "./Legend"
@@ -29,13 +29,28 @@ export function Board() {
   const derived = useMemo(() => derive(plan, dag, report, selected, policies.minUnitsFullTime.value), [plan, dag, report, selected, policies])
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>(derived.nodes)
   useEffect(() => { setNodes(derived.nodes) }, [derived.nodes, setNodes])
-  const edges = useMemo(() => derived.edges.map(e => ({ ...e, markerEnd: { type: MarkerType.ArrowClosed, color: "#ef4444", width: 14, height: 14 } })), [derived.edges])
+  const edges = derived.edges
   const rf = useReactFlow()
-  useEffect(() => { const t = setTimeout(() => rf.fitView({ padding: 0.06, maxZoom: 0.95, duration: 300 }), 60); return () => clearTimeout(t) }, [plan.id, rf])
+  // fit the fixed 8-column layout to the canvas (computed, so it works before nodes are measured)
+  const wrap = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    const fit = () => {
+      const el = wrap.current
+      if (!el) return
+      const tallest = Math.max(...plan.semesters.map(s => semHeight(s.courseIds.length)))
+      const w = semX(8) + SEM_W + SEM_X0, h = SEM_Y + tallest + 40
+      const zoom = Math.min(1.2, (el.clientWidth - 40) / w, (el.clientHeight - 60) / h)
+      rf.setViewport({ x: (el.clientWidth - w * zoom) / 2, y: Math.max(16, (el.clientHeight - h * zoom) / 2 - 30), zoom }, { duration: 250 })
+    }
+    const t = setTimeout(fit, 30)
+    window.addEventListener("resize", fit)
+    return () => { clearTimeout(t); window.removeEventListener("resize", fit) }
+  }, [plan.id, rf]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <ReactFlow nodes={nodes} edges={edges} nodeTypes={nodeTypes} edgeTypes={edgeTypes} onNodesChange={onNodesChange}
-      colorMode="dark" fitView fitViewOptions={{ padding: 0.06, maxZoom: 0.95 }} minZoom={0.2} nodesConnectable={false} proOptions={{ hideAttribution: true }}
+    <div ref={wrap} className="h-full w-full">
+    <ReactFlow data-tour="board" nodes={nodes} edges={edges} nodeTypes={nodeTypes} edgeTypes={edgeTypes} onNodesChange={onNodesChange}
+      colorMode="dark" minZoom={0.2} nodesConnectable={false} proOptions={{ hideAttribution: true }}
       onNodeClick={(_e, n) => { if (n.type === "course") selectCourse(selected === (n.data as { id: string }).id ? null : (n.data as { id: string }).id) }}
       onPaneClick={() => selectCourse(null)}
       onNodeDragStop={(_e, n) => {
@@ -57,10 +72,9 @@ export function Board() {
         if (to) placeCourse(id, to)
         else setFlash(`Drop ${id} onto a semester box.`)
       }}>
-      <Background variant={BackgroundVariant.Dots} gap={22} size={1.2} color="#1e2a4a" />
-      <Controls position="bottom-right" />
-      <MiniMap position="top-right" pannable zoomable bgColor="#0b1022" nodeColor={n => (n.type === "semester" ? "#1e293b" : "#6d28d9")} maskColor="rgba(11,16,34,0.7)" />
-      <Panel position="top-left"><Legend /></Panel>
+      <Background variant={BackgroundVariant.Dots} gap={28} size={0.8} color="#18181b" />
+      <Panel position="bottom-left"><Legend /></Panel>
     </ReactFlow>
+    </div>
   )
 }

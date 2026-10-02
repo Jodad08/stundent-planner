@@ -5,7 +5,7 @@ import { useReport } from "./Board"
 function IssueItem({ i }: { i: Issue }) {
   const select = useStore(s => s.selectCourse)
   return (
-    <li className="cursor-pointer rounded border border-slate-800 bg-slate-900 p-2 hover:border-slate-600" onClick={() => i.courseIds[0] && select(i.courseIds[0])}>
+    <li className="cursor-pointer rounded border border-white/10 bg-white/[0.03] p-2 hover:border-slate-600" onClick={() => i.courseIds[0] && select(i.courseIds[0])}>
       <div><span className="mr-1 font-mono text-[10px] text-slate-500">{i.code}</span>{i.message}</div>
       {i.quote && <div className="mt-1 text-[11px] italic text-slate-400">Bulletin: "{i.quote.slice(0, 220)}"</div>}
       {i.sourceUrl && <a className="text-[11px] text-sky-300 underline" href={i.sourceUrl} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>Source</a>}
@@ -32,20 +32,20 @@ export function EvaluatePanel() {
   const H = ({ children, ai }: { children: React.ReactNode; ai?: boolean }) => <div className="mb-1 mt-4 text-xs font-semibold uppercase tracking-wide text-slate-400">{children}<Tag ai={ai} /></div>
 
   return (
-    <aside className="w-[400px] shrink-0 overflow-y-auto border-l border-slate-800 bg-slate-950 p-4 text-sm text-slate-200">
+    <aside className="w-[400px] shrink-0 overflow-y-auto border-l border-white/10 bg-black p-4 text-sm text-slate-200">
       <div className="flex items-center justify-between"><div className="text-base font-semibold">Evaluate: {plan.name}</div>
         <button className="text-slate-400 hover:text-white" onClick={() => st.setPanel("none")}>✕</button></div>
       <div className={`mt-3 rounded-md px-3 py-2 font-semibold text-white ${verdict.c}`}>{verdict.t} · {report.totalUnitsPlanned} units</div>
       {errors.length > 0 && <><H>Errors</H><ul className="space-y-1">{errors.map(i => <IssueItem key={i.id} i={i} />)}</ul></>}
       {warnings.length > 0 && <><H>Warnings</H><ul className="space-y-1">{warnings.map(i => <IssueItem key={i.id} i={i} />)}</ul></>}
       {missing.length > 0 && <><H>Missing requirements</H><ul className="space-y-1">{missing.map(r => (
-        <li key={r.groupId} className="rounded border border-slate-800 bg-slate-900 p-2"><b>{r.title}</b>: {r.unitsNeed != null ? `${r.unitsHave} of ${r.unitsNeed} units` : r.missingCourseIds.join(", ")}</li>))}</ul></>}
+        <li key={r.groupId} className="rounded border border-white/10 bg-white/[0.03] p-2"><b>{r.title}</b>: {r.unitsNeed != null ? `${r.unitsHave} of ${r.unitsNeed} units` : r.missingCourseIds.join(", ")}</li>))}</ul></>}
       {!ev && <div className="mt-4 animate-pulse text-xs text-slate-400">Waiting for the career analysis…</div>}
       {ev && <>
         <H>Career direction (scores by code)</H>
         <div className="space-y-1">{ev.directionScores.map(d => (
           <div key={d.directionId} className="flex items-center gap-2 text-xs"><span className="w-32 truncate">{d.label}</span>
-            <div className="h-2 flex-1 rounded bg-slate-800"><div className="h-2 rounded bg-sf-gold" style={{ width: `${d.score}%` }} /></div><span className="w-8 text-right">{d.score}</span></div>))}</div>
+            <div className="h-2 flex-1 rounded bg-white/10"><div className="h-2 rounded bg-sf-gold" style={{ width: `${d.score}%` }} /></div><span className="w-8 text-right">{d.score}</span></div>))}</div>
         {ev.ai ? <>
           <H ai>Explanation</H>
           <p>{ev.ai.summary}</p><p className="mt-2">{ev.ai.directionExplanation}</p>
@@ -61,7 +61,7 @@ export function EvaluatePanel() {
         </> : <div className="mt-4 text-xs text-amber-300">Gemini explanation unavailable ({ev.aiStatus}). Engine results above are complete.</div>}
       </>}
       {infos.length > 0 && <><H>Info</H><ul className="space-y-1 text-xs text-slate-400">{infos.map(i => <li key={i.id}>{i.message}</li>)}</ul></>}
-      <div className="mt-6 border-t border-slate-800 pt-3 text-xs text-slate-500">Always confirm with your SFSU advisor. This planner does not check GE areas, SF State Studies or the 30 upper-division-unit rule.</div>
+      <div className="mt-6 border-t border-white/10 pt-3 text-xs text-slate-500">Always confirm with your SFSU advisor. This planner does not check GE areas, SF State Studies or the 30 upper-division-unit rule.</div>
     </aside>
   )
 }

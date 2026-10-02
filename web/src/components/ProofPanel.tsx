@@ -17,7 +17,7 @@ export function ProofPanel() {
   useEffect(() => { api.evals().then(x => setR(x as unknown as EvalResults)).catch(e => setErr(e.message)) }, [])
   const st = useStore.getState()
   return (
-    <aside className="w-[560px] shrink-0 overflow-y-auto border-l border-slate-800 bg-slate-950 p-4 text-sm text-slate-200">
+    <aside className="w-[560px] shrink-0 overflow-y-auto border-l border-white/10 bg-black p-4 text-sm text-slate-200">
       <div className="flex items-center justify-between"><div className="text-base font-semibold">Proof: same requirements, different planners</div>
         <button className="text-slate-400 hover:text-white" onClick={() => st.setPanel("none")}>✕</button></div>
       {err && <div className="mt-3 text-amber-300">No eval results yet. Run <code>npm run evals</code>. ({err})</div>}
@@ -29,7 +29,7 @@ export function ProofPanel() {
             <table className="w-full text-xs">
               <thead className="text-slate-400"><tr><th className="text-left">Planner</th><th>Rule errors</th><th>Groups done</th><th>Semesters</th><th>Units</th><th>Goal fit</th><th>Model calls</th></tr></thead>
               <tbody>{c.rows.map(x => (
-                <tr key={x.variant} className="border-t border-slate-800 text-center">
+                <tr key={x.variant} className="border-t border-white/10 text-center">
                   <td className="py-1 text-left">{x.variant}</td>
                   <td className={x.errors ? "font-bold text-red-300" : "text-emerald-300"}>{x.errors}</td>
                   <td>{x.groupsSatisfied}/{x.groupsTotal}</td><td>{x.semesters}</td><td>{x.units}</td><td>{x.goalTrackScore}</td><td>{x.attempts ?? "–"}</td>
@@ -38,7 +38,7 @@ export function ProofPanel() {
           </div>))}
         <div className="mt-5 font-semibold">Official SFSU roadmaps, checked by the engine</div>
         <ul className="mt-1 space-y-1 text-xs">{r.roadmaps.map(m => (
-          <li key={m.title + m.units} className="rounded border border-slate-800 bg-slate-900 p-2">
+          <li key={m.title + m.units} className="rounded border border-white/10 bg-white/[0.03] p-2">
             <a className="text-sky-300 underline" href={m.url} target="_blank" rel="noreferrer">{m.title}</a> · {m.units} units · {m.errors.length ? <span className="text-red-300">{m.errors.length} rule error(s)</span> : <span className="text-emerald-300">no rule errors</span>}
             {m.errors.slice(0, 4).map((e, i) => <div key={i} className="mt-1 text-slate-400">• {e}</div>)}
           </li>))}</ul>

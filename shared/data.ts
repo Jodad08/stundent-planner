@@ -10,3 +10,7 @@ export const dag = load<Dag>("data/sfsu/dags/bs-computer-science.json")
 export const policies = load<Policies>("data/policies.json")
 export const careers = load<{ directions: CareerDirection[] }>("data/career_tags.json").directions
 export const repoRoot = root
+/** Official Bulletin descriptions for the program's courses (shown on hover, D-022). */
+export const descriptions: Record<string, string> = Object.fromEntries(
+  load<{ code: string; description: string | null }[]>("data/sfsu/courses.json")
+    .filter(c => dag.nodes[c.code] && c.description).map(c => [c.code, c.description as string]))

@@ -9,6 +9,7 @@ export type Store = {
   dag: Dag | null
   policies: Policies | null
   careers: CareerDirection[]
+  descriptions: Record<string, string>
   health: Health | null
   plans: Plan[]
   activePlanId: string | null
@@ -17,7 +18,7 @@ export type Store = {
   panel: "none" | "evaluate" | "proof" | "runs"
   modalOpen: boolean
   flash: string | null
-  setData(d: { dag: Dag; policies: Policies; careers: CareerDirection[]; health: Health }): void
+  setData(d: { dag: Dag; policies: Policies; careers: CareerDirection[]; health: Health; descriptions: Record<string, string> }): void
   placeCourse(courseId: CourseId, semesterIndex: number): void
   moveCourse(courseId: CourseId, toSemester: number): void
   unplaceCourse(courseId: CourseId): void
@@ -64,7 +65,7 @@ function edit(s: Store, fn: (p: Plan) => Plan): Partial<Store> {
 }
 
 export const useStore = create<Store>((set, get) => ({
-  dag: null, policies: null, careers: [], health: null,
+  dag: null, policies: null, careers: [], health: null, descriptions: {},
   plans: initial.plans, activePlanId: initial.activePlanId,
   selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null,
   setData: d => set({ ...d }),

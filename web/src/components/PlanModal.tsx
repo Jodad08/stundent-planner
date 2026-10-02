@@ -52,22 +52,22 @@ export function PlanModal() {
   }
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => !busy && st.setModal(false)}>
-      <div className="w-[640px] rounded-xl border border-slate-700 bg-slate-900 p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
+      <div className="w-[640px] rounded-xl border border-white/10 bg-white/[0.03] p-6 shadow-2xl" onClick={e => e.stopPropagation()}>
         <div className="mb-1 text-xl font-semibold text-white">What do you want to do in life?</div>
         <div className="mb-3 text-sm text-slate-400">Gemini proposes a plan. The rules engine checks it, sends problems back for repair (up to 2 times), and falls back to the deterministic planner if it still fails.</div>
         <textarea value={goal} onChange={e => setGoal(e.target.value)} rows={3} maxLength={500} placeholder="e.g. Machine learning engineer at a health-tech startup"
-          className="w-full rounded-md border border-slate-700 bg-slate-950 p-2 text-sm outline-none focus:border-sf-gold" />
+          className="w-full rounded-md border border-white/10 bg-black p-2 text-sm outline-none focus:border-sf-gold" />
         <div className="mt-2 flex flex-wrap gap-2">
-          {careers.map(c => <button key={c.id} onClick={() => setGoal(c.label)} className="rounded-full bg-slate-800 px-3 py-1 text-xs text-slate-200 hover:bg-sf-gold hover:text-slate-900">{c.label}</button>)}
+          {careers.map(c => <button key={c.id} onClick={() => setGoal(c.label)} className="rounded-full bg-white/10 px-3 py-1 text-xs text-slate-200 hover:bg-sf-gold hover:text-slate-900">{c.label}</button>)}
         </div>
         <div className="mt-3 flex items-center gap-4 text-sm text-slate-300">
-          <label>Units per semester <input type="number" value={units} min={1} onChange={e => setUnits(Number(e.target.value))} className="ml-1 w-14 rounded border border-slate-700 bg-slate-950 px-1" /></label>
+          <label>Units per semester <input type="number" value={units} min={1} onChange={e => setUnits(Number(e.target.value))} className="ml-1 w-14 rounded border border-white/10 bg-black px-1" /></label>
           <label className="flex items-center gap-1"><input type="checkbox" checked={keep} onChange={e => setKeep(e.target.checked)} /> Keep my current courses</label>
         </div>
         {busy && <div className="mt-4 animate-pulse text-sm text-sf-gold">Asking the model, then checking every prerequisite with the rules engine…</div>}
         {err && <div className="mt-4 rounded bg-red-900/50 p-2 text-sm text-red-200">{err}</div>}
         {result && (
-          <div className="mt-4 rounded-lg border border-slate-700 bg-slate-950 p-3 text-sm">
+          <div className="mt-4 rounded-lg border border-white/10 bg-black p-3 text-sm">
             <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">What happened (saved run {result.resp.runId.slice(-6)})</div>
             <ol className="space-y-1">
               {result.trace.map((t, i) => <li key={i} className={t.state === "fail" ? "text-red-300" : "text-emerald-300"}>{t.state === "fail" ? "✗" : "✓"} {t.label}</li>)}
@@ -78,10 +78,10 @@ export function PlanModal() {
         )}
         <div className="mt-4 flex justify-end gap-2">
           <button className="rounded-md px-3 py-1.5 text-sm text-slate-300" onClick={() => st.setModal(false)} disabled={busy}>Cancel</button>
-          <select id="det-track" className="rounded-md border border-slate-700 bg-slate-950 px-2 text-sm text-slate-300" defaultValue="ai">
+          <select id="det-track" className="rounded-md border border-white/10 bg-black px-2 text-sm text-slate-300" defaultValue="ai">
             {careers.map(c => <option key={c.id} value={c.id}>{c.label}</option>)}
           </select>
-          <button className="rounded-md border border-slate-600 px-3 py-1.5 text-sm text-slate-200 hover:bg-slate-800" disabled={busy} title="No AI: the rules engine's own planner"
+          <button className="rounded-md border border-slate-600 px-3 py-1.5 text-sm text-slate-200 hover:bg-white/10" disabled={busy} title="No AI: the rules engine's own planner"
             onClick={() => {
               const trackId = (document.getElementById("det-track") as HTMLSelectElement).value
               const p = buildFallbackPlan(dag, { trackId, unitsPerSemester: units, profile: { placement: { calculus: true } }, goalText: goal })

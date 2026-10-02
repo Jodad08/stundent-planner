@@ -258,3 +258,13 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Run: `npm run dev` → http://localhost:5173; `npm run evals`; `npm run build && npm start` → http://localhost:3000.
 - Proof: browser test (deterministic plan graduation-ready; CSC 340 drag shows bold animated edges, red dot, "1 rule error", amber 18-unit semester; Evaluate shows Bulletin quote + source link; Proof panel renders results; AI Plan modal shows the saved-run trace and labels the fallback). Evals: precision/recall 1.00, both official roadmaps 0 errors, 6/6 anti-vacuity. Production build serves board + API from one server.
 - Can still fail: Gemini 503s under event load (fallback shows instead, labeled); `.env` fallback chain must be set by the human (agent is blocked from `.env*`).
+
+## D-022: Minimal dot-graph UI and first-load tour
+- Step: 10 (demo polish)
+- Decision: Restyled the board after the human's Graphify reference screenshot: black canvas, courses as small glowing ring dots labeled with the course code only (hover shows title, credits and the official Bulletin description from `courses.json`, served at `GET /api/descriptions`), near-invisible semester columns whose label carries the load status, faint 1px prerequisite lines, teal dashed OR lines, glowing red animated line + pulsing red dot for a broken rule. Removed minimap, zoom controls and the big legend (one-line key instead). Toolbar reduced to plan tabs, status, ai plan, check, proof and a ⋯ menu (duplicate, saved runs, replay tour, reset). A spotlight tour runs on every page load (8 steps: semester, course, prerequisites, course list, rules engine, AI Plan, Check, Proof). When no plan has courses, the board opens a "Sample plan" from the deterministic planner. Viewport is computed from the fixed layout (React Flow's fitView ran before nodes were measured and cut off the right side).
+- Alternatives: adopt Graphify itself (would replace React Flow and break drag/drop, derived edges and the engine wiring late in the build).
+- Why: human request ("minimalist ... clean ... simple to use ... demo when we reload"); look only, same engine and data flow.
+- Evidence: human instruction + reference image 2026-10-02 ~14:40; browser test (tour targets all found; CSC 340 drag → glowing red edge, pulsing node, "fall y2 · 18u · heavy", "1 rule error")
+- Risk / undo: Tour shows on every reload by design; "skip" or Esc closes it. Colors no longer use SFSU purple except the wordmark gold.
+- Critic: PASS (scan) [critic: mock]
+- Status: active
