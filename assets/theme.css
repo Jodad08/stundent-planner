@@ -1,58 +1,85 @@
 /* ==========================================================================
-   GatorGraph site theme: EVERY color and font the site uses lives in this file.
+   PlanEd site theme: EVERY color and font the site uses lives in this file.
    site.css only reads these variables, so re-skinning the site means editing
-   this file and nothing else.
+   this file and nothing else. The values match the PlanEd app
+   (gatorgraph-build branch: web/src/styles.css and its Tailwind colors).
 
-   Quick re-skin:   change --brand and --accent below.
+   Quick re-skin:   change --brand, --link, --accent and --brand-deep.
+   Feature colors:  --c1 … --c6 color the icons, eyebrows and steps.
    Try a preset:    add data-theme="midnight" or data-theme="ocean" to the
                     <html> tag in index.html (presets are at the bottom).
    ========================================================================== */
 
 :root {
   /* ---- Brand: change these first -------------------------------------- */
-  --brand: #231161;            /* primary: buttons, links, highlights (SF State purple) */
-  --brand-contrast: #ffffff;   /* text and icons on top of --brand */
-  --accent: #e3b53c;           /* secondary: badges, underline marks (SF State gold) */
-  --accent-contrast: #1d1406;  /* text on top of --accent */
+  --brand: #e3b53c;            /* SF State gold: primary buttons, selected tab, "Ed" in the logo */
+  --brand-contrast: #18181b;   /* text on top of --brand */
+  --link: #8a6410;             /* dark gold for links and small text (readable on white) */
+  --brand-deep: #09090b;       /* black bands, like the app's graph and onboarding screens */
+  --on-deep: #fafafa;          /* text on top of --brand-deep */
+  --accent: #a3e635;           /* lime: the app's "ready" and send buttons */
+  --accent-contrast: #1a2e05;  /* text on top of --accent */
 
-  /* ---- Neutrals ------------------------------------------------------- */
-  --bg: #ffffff;               /* page background */
-  --surface: #f6f5f4;          /* soft panels and section bands */
-  --surface-strong: #efedea;   /* hover and pressed panels */
-  --ink: #191919;              /* headings */
-  --text: #37352f;             /* body text */
-  --muted: #6b6762;            /* captions, secondary text */
-  --line: #e7e4df;             /* borders and dividers */
+  /* ---- Feature palette (the app's card colors, darkened for text) ----- */
+  --c1: #6d4ae8;               /* lavender family: Core CS */
+  --c2: #0f766e;               /* mint/teal family: Math & Physics */
+  --c3: #b45309;               /* amber family: Electives */
+  --c4: #4d7c0f;               /* lime family: valid / ready */
+  --c5: #8a6410;               /* gold */
+  --c6: #dc2626;               /* red: breaks a rule */
 
-  /* ---- Status (matches the planner's red/amber/green) ----------------- */
-  --ok: #2b7a57;
-  --warn: #a8690f;
-  --bad: #c62f2f;
+  /* ---- Card fills (the app's soft card colors) ------------------------- */
+  --fill-core: #ddd6fe;
+  --fill-math: #99f6e4;
+  --fill-elective: #fde68a;
+
+  /* ---- Neutrals (zinc, as in the app) --------------------------------- */
+  --bg: #ffffff;
+  --surface: #f4f4f5;
+  --surface-strong: #e7e7ea;
+  --ink: #18181b;
+  --text: #3f3f46;
+  --muted: #71717a;
+  --line: #e4e4e7;
+
+  /* ---- Status ---------------------------------------------------------- */
+  --ok: #4d7c0f;
+  --warn: #b45309;
+  --bad: #dc2626;
+
+  /* ---- Window-frame dots on the screenshots --------------------------- */
+  --dot-1: #ff5f57;
+  --dot-2: #febc2e;
+  --dot-3: #28c840;
 
   /* ---- Derived: usually leave these alone ----------------------------- */
-  --brand-soft: color-mix(in srgb, var(--brand) 8%, var(--bg));
-  --brand-hover: color-mix(in srgb, var(--brand) 86%, var(--ink));
-  --accent-soft: color-mix(in srgb, var(--accent) 22%, var(--bg));
-  --ok-soft: color-mix(in srgb, var(--ok) 12%, var(--bg));
+  --brand-soft: color-mix(in srgb, var(--brand) 16%, var(--bg));
+  --brand-hover: color-mix(in srgb, var(--brand) 85%, var(--ink));
+  --accent-soft: color-mix(in srgb, var(--accent) 30%, var(--bg));
+  --accent-mark: color-mix(in srgb, var(--brand) 45%, var(--bg));
+  --ok-soft: color-mix(in srgb, var(--accent) 28%, var(--bg));
   --bad-soft: color-mix(in srgb, var(--bad) 10%, var(--bg));
+  --glow-1: color-mix(in srgb, var(--brand) 30%, transparent);
+  --glow-2: color-mix(in srgb, var(--fill-core) 70%, transparent);
+  --glow-3: color-mix(in srgb, var(--fill-math) 55%, transparent);
   --overlay: color-mix(in srgb, var(--bg) 82%, transparent);
   --shadow-sm: 0 1px 2px color-mix(in srgb, var(--ink) 8%, transparent);
-  --shadow-md: 0 4px 16px color-mix(in srgb, var(--ink) 8%, transparent);
-  --shadow-lg: 0 30px 70px -24px color-mix(in srgb, var(--ink) 30%, transparent), 0 2px 6px color-mix(in srgb, var(--ink) 6%, transparent);
+  --shadow-md: 0 6px 20px color-mix(in srgb, var(--ink) 9%, transparent);
+  --shadow-lg: 0 34px 80px -26px color-mix(in srgb, var(--ink) 35%, transparent), 0 2px 6px color-mix(in srgb, var(--ink) 7%, transparent);
 
   /* ---- Type and shape ------------------------------------------------- */
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   --radius: 12px;
   --radius-lg: 18px;
 }
 
 /* ---- Presets: set <html data-theme="..."> to use one ------------------- */
 html[data-theme="midnight"] {
-  --brand: #111111; --brand-contrast: #ffffff;
+  --brand: #18181b; --brand-contrast: #ffffff; --link: #18181b; --brand-deep: #000000; --on-deep: #ffffff;
   --accent: #e3b53c; --accent-contrast: #1d1406;
 }
 html[data-theme="ocean"] {
-  --brand: #0b5cad; --brand-contrast: #ffffff;
-  --accent: #19a7a0; --accent-contrast: #ffffff;
+  --brand: #0b63c4; --brand-contrast: #ffffff; --link: #0b63c4; --brand-deep: #082d5c; --on-deep: #ffffff;
+  --accent: #19b3a6; --accent-contrast: #022b28;
 }
