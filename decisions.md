@@ -420,3 +420,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Offline reasons are computed from the prerequisite map, not a model; the label names the provider.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-044: Gator reacts to the semester's current state
+- Step: 10 (human request)
+- Decision: The gator's tip reads the next semester as it is now: empty ("Fall 2027 is empty 👀 Start with MATH 225?" + Add it / Fill it for me), below full time ("has 3 units, below full time (12). Add CSC 220?"), partly filled ("has 12 units. Add … next?"), broken (fix with "Move it to…"), or full (Export for SFSU). It re-renders on every plan change.
+- Why: human request 2026-10-02 ~16:09.
+- Evidence: browser (empty → 3 units → 6 units messages update after each Add it)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

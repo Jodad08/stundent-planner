@@ -83,8 +83,16 @@ export function Pet() {
     msg = <>Oops, <b>{id}</b> can't go in {termName(dag, sem)} yet.</>
     if (to) action = <button onClick={() => st.moveCourse(id, to)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Move it to {termName(dag, to)}</button>
   } else if (units < target && pick) {
-    msg = <>Take <b>{pick}</b> in {termName(dag, sem)}. <span className="text-zinc-500">{dag.nodes[pick].title}</span></>
-    action = <button onClick={() => st.placeCourse(pick, sem)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Add it</button>
+    // react to what's on the board right now (D-044)
+    const count = plan.semesters[sem - 1].courseIds.filter(c => dag.nodes[c]).length
+    const lead = count === 0 ? <>{termName(dag, sem)} is empty 👀 Start with <b>{pick}</b>?</>
+      : units < policies.minUnitsFullTime.value ? <>{termName(dag, sem)} has {units} units, below full time ({policies.minUnitsFullTime.value}). Add <b>{pick}</b>?</>
+      : <>{termName(dag, sem)} has {units} units. Add <b>{pick}</b> next?</>
+    msg = <>{lead} <span className="block text-zinc-500">{dag.nodes[pick].title}</span></>
+    action = <span className="flex gap-1.5">
+      <button onClick={() => st.placeCourse(pick, sem)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Add it</button>
+      {count === 0 && <button onClick={fillNext} className="rounded-full border border-zinc-300 px-3 py-1">Fill it for me</button>}
+    </span>
   } else {
     msg = <>{termName(dag, sem)} looks good: {units} units ✅</>
     action = <button onClick={() => exportSemester(plan, dag, sem, student?.name ?? "Student")} className="rounded-full bg-lime-500 px-3 py-1 font-semibold text-zinc-900">Export for SFSU</button>
