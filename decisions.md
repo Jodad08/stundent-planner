@@ -395,3 +395,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: `shared/engine.test.ts` (CSC 340 beside CSC 220/230 → semester 4; missing CSC 220 → null); browser (button moved CSC 340 to Spring 2028, its error cleared)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-041: Cleaner main page, short friendly chat, graph shows the next N semesters
+- Step: 10 (human requests ~15:57-16:02)
+- Decision: Cards view: one slim stats line + small color key replace the Program/Colors/Plan Stats boxes; card × and expand appear on hover; errors show one short line ("Needs CSC 220, CSC 230 first") with the full engine text as a tooltip; met prerequisites are a quiet "✓ Prereqs met (n)" line. Onboarding chat and interview questions are a few words each with emoji ("Semesters done?", "Dream job? 🚀"). Graph view shows only the next N semesters after the completed ones (default 2; "Show next" slider up to the remaining semesters); arrows only between visible courses; drops map back to the real semester.
+- Why: human requests ("not too text heavy", "do not ask long questions", "students don't care about the whole degree").
+- Evidence: browser checks (2 done → graph shows Fall 2027, Spring 2028; slider 4 → through Spring 2029)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

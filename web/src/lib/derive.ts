@@ -69,7 +69,11 @@ export function termName(dag: Dag, index: number): string {
   return index % 2 === 1 ? `Fall ${start + (index - 1) / 2}` : `Spring ${start + index / 2}`
 }
 
-export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: CourseId | null, minUnits: number, dropTarget: number | null = null) {
+/** win: the semesters to draw (graph slider, D-041); columns are packed from the left. */
+export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: CourseId | null, minUnits: number, dropTarget: number | null = null,
+  win: { from: number; to: number } = { from: 1, to: 8 }) {
+  const shownSems = plan.semesters.filter(s => s.index >= win.from && s.index <= win.to)
+  const col = (index: number) => semX(index - win.from + 1)
   const nodes: Node[] = []
   const edges: Edge[] = []
   const semOf = new Map<CourseId, number>()
@@ -90,15 +94,15 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
     prereqs.set(id, from)
     from.forEach(f => deps.set(f, [...(deps.get(f) ?? []), id]))
   }
-  const cols = plan.semesters.map(s => s.courseIds.filter(c => !isPlaceholder(c)))
+  const cols = shownSems.map(s => s.courseIds.filter(c => !isPlaceholder(c)))
   const row = arrange(cols, prereqs, deps)
   let maxRow = 0
 
-  plan.semesters.forEach((s, i) => {
+  shownSems.forEach((s, i) => {
     const stat = report.semesterStats.find(x => x.index === s.index)!
     const ge = s.courseIds.filter(isPlaceholder)
     const geUnits = ge.reduce((a, c) => a + placeholderUnits(c), 0)
-    const x = semX(s.index)
+    const x = col(s.index)
     cols[i].forEach(id => {
       const r = row.get(id) ?? 0
       maxRow = Math.max(maxRow, r)
@@ -126,16 +130,17 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
   nodes.forEach(n => { if (n.type === "semester") n.style = { width: SEM_W, height } })
 
   // default arrows run semester to semester (D-036)
-  for (let i = 1; i < plan.semesters.length; i++) {
+  for (let i = win.from; i < win.to; i++) {
     edges.push({ id: `sem-edge-${i}`, source: `sem-${i}`, target: `sem-${i + 1}`, sourceHandle: "out", targetHandle: "in", type: "straight", zIndex: 0,
       style: { stroke: "#52525b", strokeWidth: 1.5 }, markerEnd: { type: MarkerType.ArrowClosed, width: 14, height: 14, color: "#52525b" } })
   }
   const labeled = new Set<CourseId>() // one "out of order" label per course
+  const inWin = (c: CourseId) => { const i = semOf.get(c); return i != null && i >= win.from && i <= win.to }
   for (const id of semOf.keys()) {
     const node = dag.nodes[id]
-    if (!node) continue
+    if (!node || !inWin(id)) continue
     for (const l of links(node.prereq)) {
-      if (!semOf.has(l.from)) continue
+      if (!semOf.has(l.from) || !inWin(l.from)) continue
       const state = violated.has(`${l.from}>${id}`) ? "violated" : "satisfied"
       const label = state === "violated" && !labeled.has(id)
       if (label) labeled.add(id)

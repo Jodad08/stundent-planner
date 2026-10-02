@@ -30,6 +30,7 @@ export type Store = {
   student: Student | null
   showAll: boolean
   view: "cards" | "graph"
+  graphCount: number
   setData(d: { dag: Dag; policies: Policies; careers: CareerDirection[]; health: Health; descriptions: Record<string, string> }): void
   placeCourse(courseId: CourseId, semesterIndex: number): void
   moveCourse(courseId: CourseId, toSemester: number): void
@@ -49,6 +50,7 @@ export type Store = {
   setStudent(s: Student | null): void
   setShowAll(v: boolean): void
   setView(v: "cards" | "graph"): void
+  setGraphCount(n: number): void
   reset(): void
 }
 
@@ -83,7 +85,7 @@ function edit(s: Store, fn: (p: Plan) => Plan): Partial<Store> {
 export const useStore = create<Store>((set, get) => ({
   dag: null, policies: null, careers: [], health: null, descriptions: {},
   plans: initial.plans, activePlanId: initial.activePlanId,
-  selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null, zoomSem: null, student: loadStudent(), showAll: false, view: "cards",
+  selectedCourseId: null, evaluation: null, panel: "none", modalOpen: false, flash: null, zoomSem: null, student: loadStudent(), showAll: false, view: "cards", graphCount: 2,
   setData: d => set({ ...d }),
   placeCourse: (courseId, semesterIndex) => set(s => {
     const active = s.plans.find(p => p.id === s.activePlanId)
@@ -118,6 +120,7 @@ export const useStore = create<Store>((set, get) => ({
   },
   setShowAll: showAll => set({ showAll }),
   setView: view => set({ view }),
+  setGraphCount: graphCount => set({ graphCount, zoomSem: null }),
   reset: () => { const p = blankPlan(); set({ plans: [p], activePlanId: p.id, evaluation: null, selectedCourseId: null }) },
 }))
 
