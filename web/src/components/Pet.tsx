@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import { leaves, nextCourses, suggestSemester, unitsOf } from "../../../shared/engine"
 import { aiName } from "./Thinking"
 import type { Dag, Plan } from "../../../shared/types"
@@ -34,6 +34,9 @@ export function Pet() {
   const student = useStore(s => s.student)
   const report = useReport()!
   const [open, setOpen] = useState(true)
+  // drag the gator anywhere (offset from the bottom-right corner); a click without moving toggles its tips
+  const [pos, setPos] = useState({ right: 16, bottom: 16 })
+  const drag = useRef<{ x: number; y: number; right: number; bottom: number; moved: boolean } | null>(null)
   const ask = useStore(s => s.petAsk)
   const [filling, setFilling] = useState<string | null>(null)
   const ai = aiName(useStore.getState().health?.aiProvider)
@@ -88,16 +91,24 @@ export function Pet() {
   }
 
   return (
-    <div className="pointer-events-none absolute bottom-4 right-4 z-30 flex items-end gap-2">
+    <div className="pointer-events-none absolute z-30 flex items-end gap-1" style={{ right: pos.right, bottom: pos.bottom }}>
       {(open || ask) && (
-        <div className="pointer-events-auto mb-6 max-w-[260px] rounded-2xl rounded-br-sm bg-white p-3 text-[13px] text-zinc-800 shadow-xl">
+        <div className="pointer-events-auto mb-10 max-w-[270px] rounded-2xl rounded-br-sm bg-white p-3 text-[13px] text-zinc-800 shadow-xl">
           <div>{msg}</div>
           {action && <div className="mt-2 text-[12px]">{action}</div>}
         </div>
       )}
-      <button onClick={() => setOpen(!open)} title={open ? "Hide tips" : "Show tips"}
-        className="pointer-events-auto flex h-14 w-14 items-center justify-center rounded-full bg-lime-300 text-3xl shadow-lg transition hover:scale-110">
-        <span className="animate-bounce [animation-duration:2.5s]">🐊</span>
+      <button title="Drag me, or click to show or hide tips"
+        onPointerDown={e => { (e.target as HTMLElement).setPointerCapture(e.pointerId); drag.current = { x: e.clientX, y: e.clientY, ...pos, moved: false } }}
+        onPointerMove={e => {
+          const d = drag.current; if (!d) return
+          const dx = e.clientX - d.x, dy = e.clientY - d.y
+          if (Math.abs(dx) + Math.abs(dy) > 4) d.moved = true
+          if (d.moved) setPos({ right: Math.max(0, d.right - dx), bottom: Math.max(0, d.bottom - dy) })
+        }}
+        onPointerUp={() => { if (drag.current && !drag.current.moved) setOpen(!open); drag.current = null }}
+        className="pointer-events-auto cursor-grab touch-none select-none text-7xl leading-none drop-shadow-xl transition-transform hover:scale-110 active:cursor-grabbing">
+        <span className="inline-block animate-bounce [animation-duration:2.5s]">🐊</span>
       </button>
     </div>
   )
