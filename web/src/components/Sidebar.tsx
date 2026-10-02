@@ -61,8 +61,10 @@ export function Sidebar() {
           </div>
         )}
         {dag.requirements.filter(r => q || groupOf(r) === tab).map(r => {
-          const list = r.courses.filter(c => dag.nodes[c] && !(r.excluded || []).includes(c) && match(c))
-          if (!list.length) return null
+          // placed courses leave the list (D-051); the group header still shows progress
+          const list = r.courses.filter(c => dag.nodes[c] && !(r.excluded || []).includes(c) && match(c) && !placed.has(c))
+          if (!list.length && r.type === "all") return (
+            <div key={r.id} className="rounded-xl bg-lime-100 px-3 py-2 text-[12px] text-lime-800">✓ {r.label.replace("Computer Science", "CS")}: all planned</div>)
           const done = r.courses.filter(c => placed.has(c))
           return (
             <div key={r.id}>

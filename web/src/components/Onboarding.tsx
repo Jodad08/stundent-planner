@@ -40,6 +40,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<{ resp: PlanResponse; trace: ReturnType<typeof traceOf>; trackId: string } | null>(null)
   const [err, setErr] = useState<string | null>(null)
+  const [ready, setReady] = useState(false)
   const end = useRef<HTMLDivElement>(null)
   useEffect(() => { api.majors().then(m => setMajors(m.length)).catch(() => setMajors(0)) }, [])
   useEffect(() => { end.current?.scrollIntoView({ behavior: "smooth" }) }, [msgs, typing, result, busy])
@@ -190,11 +191,14 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
               </div>))}
             {typing && <div className="flex"><div className="rounded-2xl rounded-bl-sm bg-white/[0.07] px-3.5 py-2 text-zinc-400"><span className="animate-pulse">● ● ●</span></div></div>}
             {(busy || result) && (
+              // short status only; the button appears once it finishes (D-050)
               <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
-                <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-violet-300">{aiName(useStore.getState().health?.aiProvider)} · Reasoning</div>
-                <Thinking pending={busy} lines={result ? [...result.trace, { label: `${result.resp.plan.source === "ai" ? "Plan accepted by the rules engine" : "Deterministic engine plan"} · ${result.resp.report.issues.filter(i => i.severity === "error").length} rule errors`, state: "done" }]
-                  : [{ label: "Reading your answers and your completed courses", state: "think" }, { label: `Loading ${Object.keys(dag.nodes).length} course prerequisites from the ${dag.program.bulletin} Bulletin`, state: "think" }]} />
-                {result && <button onClick={finish} className="mt-3 w-full rounded-full bg-sf-gold py-2 text-sm font-semibold text-black">Show me my map →</button>}
+                <div className="mb-2 font-mono text-[10px] uppercase tracking-wider text-violet-300">✦ {aiName(useStore.getState().health?.aiProvider)}</div>
+                <Thinking pending={busy} speed={650} onDone={() => setReady(true)} lines={result
+                  ? [{ label: "Evaluating…", state: "think" }, { label: "Checking prerequisites…", state: "think" }, { label: "Picking your electives…", state: "think" },
+                     { label: `Plan ready ✓${result.resp.report.issues.some(i => i.severity === "error") ? "" : " · no rule errors"}`, state: "done" }]
+                  : [{ label: "Evaluating…", state: "think" }]} />
+                {result && ready && <button onClick={finish} className="pop-in mt-3 w-full rounded-full bg-sf-gold py-2 text-sm font-semibold text-black">Show me my map →</button>}
               </div>
             )}
             {err && <div className="text-xs text-red-400">{err}</div>}

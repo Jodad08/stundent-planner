@@ -460,3 +460,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser (header shows only tabs/Cards/Graph/⋯; gator menu lists 3 actions; Evaluate opens the panel)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-050 / D-051: Short planning status in onboarding; placed courses leave the course list
+- Step: 10 (human requests ~16:20-16:23)
+- Decision: (D-050) After the questions, the planning box shows only "Evaluating… → Checking prerequisites… → Picking your electives… → Plan ready ✓" and the "Show me my map" button appears after the last line. (D-051) Courses placed in any semester are removed from the sidebar list; a fully placed required group shows "✓ <group>: all planned". Moving a placed course is done on the board. Supersedes the list-drag of placed courses in D-032.
+- Why: human requests.
+- Evidence: browser (status lines then button; graduation-ready plan → Core tab shows two "all planned" rows, no placed course listed)
+- Critic: PASS (scan) [critic: mock]
+- Status: active
