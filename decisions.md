@@ -345,3 +345,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Location and path answers shape the explanation only; required courses come from the Bulletin regardless.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-034: Onboarding as a rule-based conversation
+- Step: 10 (human request)
+- Decision: The onboarding form is now a chat. PlanEd asks one question at a time (name, major, semesters done, courses per completed semester, total units, expected graduation, courses per semester, goal, then "plan it for me" or "I'll plan it myself") and reads the raw reply with rules in `web/src/lib/parse.ts` (names with "my name is…" stripped and capitalized; numbers as digits or words; "1 year" = 2 semesters; freshman/sophomore/junior/senior; course codes in any spacing, checked against the DAG with unknown codes named and skipped; "Spring 2030" or a bare year). No AI is used and the screen says so. "Plan it for me" opens the simulated AI interview, which skips the goal question it already has. Returning students get "Welcome back" with "Go to my plan" or "Update my answers". Parsers have a vitest check.
+- Why: human request 2026-10-02 ~15:35 ("read those raw messages and take decision without AI").
+- Evidence: `web/src/lib/parse.test.ts` (4 tests); browser run (shehryar → Shehryar; "csc101, math226, CSC 999" → 2 added, CSC 999 named and skipped; plan built with 2 locked semesters)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

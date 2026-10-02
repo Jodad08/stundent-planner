@@ -18,18 +18,18 @@ const FOLLOW_UP: Record<string, { q: string; chips: string[] }> = {
  * Simulated AI interview before Auto Plan (D-033). Scripted, personalized questions with follow-ups that branch
  * on earlier answers; no model call. The answers become the goal text the planner receives.
  */
-export function Interview({ name, initialGoal, coursesPerSemester, onFinish, onCancel }: {
-  name: string; initialGoal: string; coursesPerSemester: number
+export function Interview({ name, initialGoal, knownGoal, coursesPerSemester, onFinish, onCancel }: {
+  name: string; initialGoal: string; knownGoal?: string; coursesPerSemester: number
   onFinish: (goalText: string, shortGoal: string, coursesPerSemester: number, trackId: string) => void; onCancel: () => void
 }) {
   const dag = useStore(s => s.dag)!
   const careers = useStore(s => s.careers)
   const ai = aiName(useStore.getState().health?.aiProvider)
   const [msgs, setMsgs] = useState<Msg[]>([])
-  const [i, setI] = useState(0)
+  const [i, setI] = useState(knownGoal ? 1 : 0) // goal already answered in onboarding: start at the follow-up
   const [typing, setTyping] = useState(true)
   const [draft, setDraft] = useState("")
-  const [a, setA] = useState<Answers>({ goal: "", focus: "", place: "", path: "", load: "" })
+  const [a, setA] = useState<Answers>({ goal: knownGoal ?? "", focus: "", place: "", path: "", load: "" })
   const end = useRef<HTMLDivElement>(null)
   const track = (x: Answers) => guessTrack(x.goal)
   const label = (x: Answers) => dag.tracks[track(x)].label
@@ -57,7 +57,9 @@ export function Interview({ name, initialGoal, coursesPerSemester, onFinish, onC
   useEffect(() => {
     if (i >= Qs.length) return
     setTyping(true)
-    const t = setTimeout(() => { setMsgs(m => [...m, { from: "ai", text: Qs[i].ask(a) }]); setTyping(false) }, 900)
+    const intro = knownGoal && i === 1 && msgs.length === 0
+      ? [`${name}, you said "${knownGoal}". That sounds like the ${dag.tracks[guessTrack(knownGoal)].label} side of computer science. A few quick questions to fit the plan to you.`] : []
+    const t = setTimeout(() => { setMsgs(m => [...m, ...intro.map(text => ({ from: "ai" as const, text })), { from: "ai", text: Qs[i].ask(a) }]); setTyping(false) }, 900)
     return () => clearTimeout(t)
   }, [i]) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { end.current?.scrollIntoView({ behavior: "smooth" }) }, [msgs, typing])
@@ -93,7 +95,7 @@ export function Interview({ name, initialGoal, coursesPerSemester, onFinish, onC
         <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
           <div className="flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-500/20 text-sm text-violet-300">✦</span>
-            <div><div className="text-sm font-semibold text-white">Plan advisor</div><div className="text-[10px] text-violet-300">{ai} · {Math.min(i + 1, Qs.length)} of {Qs.length}</div></div>
+            <div><div className="text-sm font-semibold text-white">Plan advisor</div><div className="text-[10px] text-violet-300">{ai} · question {Math.min(i + 1, Qs.length) - (knownGoal ? 1 : 0)} of {Qs.length - (knownGoal ? 1 : 0)}</div></div>
           </div>
           <button onClick={onCancel} className="text-zinc-500 hover:text-white">✕</button>
         </div>

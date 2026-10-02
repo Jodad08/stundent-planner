@@ -62,11 +62,13 @@ function mockPlan(req: PlanRequest, attempt: number): RawPlan {
       const role = lc(m[1].replace(/^an? /i, "")), art = /^[aeiou]|^(AI|ML)\b/i.test(role) ? "an" : "a"
       const after = /grad/i.test(m[4]) ? "grad school" : /industry/i.test(m[4]) ? "industry" : "whatever comes next"
       const focus = /not sure/i.test(m[2]) ? "still exploring within it" : `focused on ${lc(m[2])}`
-      const place = /not sure/i.test(m[3]) ? "open to working anywhere" : `working in ${m[3]}`
+      const place = /not sure/i.test(m[3]) ? "open to working anywhere" : /back home|abroad/i.test(m[3]) ? "working back home"
+        : /bay area|san francisco/i.test(m[3]) ? "working in the Bay Area" : /elsewhere in the us/i.test(m[3]) ? "working elsewhere in the US" : `working in ${m[3]}`
       return `You want to be ${art} ${role}, ${focus}, ${place}, and heading into ${after} after graduating. That lines up with the department's ${track.label} track, so its electives come first.`
     })(),
     done ? `${done} semester${done > 1 ? "s are" : " is"} already done (${taken.map(t => t.courseId).join(", ") || "GE only"}), so I'm planning from semester ${done + 1}.` : "Starting from semester 1 with calculus placement.",
-    conn.longestChain.length > 1 ? `The longest prerequisite chain is ${conn.longestChain.join(" → ")}, so ${conn.longestChain[0]} has to start early.` : "",
+    conn.longestChain.length > 1 ? `The longest prerequisite chain is ${conn.longestChain.join(" → ")}${taken.some(t => t.courseId === conn.longestChain[0])
+      ? `; you've already taken ${conn.longestChain[0]}, so the rest has to keep moving every semester.` : `, so ${conn.longestChain[0]} has to start early.`}` : "",
     `Electives (${electives.reduce((u, c) => u + dag.nodes[c].units, 0)} units): ${electives.join(", ")}.`,
     `Keeping each semester near ${units} units, under the ${policies.maxUnitsWithoutPermission.value}-unit priority-registration cap.`,
   ].filter(Boolean)
