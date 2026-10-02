@@ -63,7 +63,7 @@ Use these exact words in code, comments and UI text.
 | Term | Meaning | Code name |
 |---|---|---|
 | Course | One catalog course | `Course` |
-| Course ID | Normalized ID, no spaces, uppercase, for example `CSC413` | `courseId: string` |
+| Course ID | Bulletin format with a space, for example `CSC 413` (D-008) | `courseId: string` |
 | Credits | Unit value of a course. Shown as "credits" in UI. Field name in data is `units`. | `units` |
 | Program | A major with requirement groups | `Program` |
 | Requirement group | A block of a program such as "Lower Division Core" | `RequirementGroup` |
@@ -129,7 +129,12 @@ gatorgraph/
   README.md
   THIRD_PARTY.md
   .env.example
-  package.json              workspace root
+  package.json              single root package (D-006)
+  vite.config.ts            Vite root = web/ (D-014)
+  prompt.md, decisions.md, harness.py, .harness/, VISION.md, EVALS.md, DEMO.md, ai-hackathon-builder-skill.md
+  runs/                     saved run records (prompt.md B.5 step 6)
+  evals/                    eval runner + results
+  scraper/                  existing Bulletin scraper (data/sfsu/ is its output, D-009)
   data/
     sources.md
     raw/
@@ -209,7 +214,7 @@ export type Course = {
   oneLiner: string
   oneLinerSource: "official" | "generated" | "manual"
   description: string
-  prereqs: CourseId[][]      // AND of OR groups. outer = AND, inner = OR
+  prereqs: CourseId[][]      // SUPERSEDED by D-007: engine uses `prereq: PrereqExpr` (DAG grammar, shared/types.ts)
   prereqNotes: string        // prose the engine cannot check, may be ""
   coreqs: CourseId[]
   tags: string[]
@@ -577,5 +582,7 @@ Each item must be resolved from an official source and then moved to the data fi
 ## 16. Change log
 
 Add one line per contract change. Newest first.
+
+- 2026-10-02: D-006..D-014. TS engine ported from web/planner.js; prereqs use the DAG grammar; IDs keep the space; data stays in data/sfsu/ (+ generated policies.json, career_tags.json); local-only hosting; root vite.config.ts.
 
 - 2026-10-02: Initial version. Backend locked to Node + Express + TypeScript so the engine exists once in `shared/`.

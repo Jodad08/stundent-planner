@@ -12,3 +12,13 @@ Student Center.pdf
 
 # Critic harness: keep critiques (evidence), ignore the change-tracking baseline
 .harness/state.json
+
+# Local prep notes (not shared)
+CLAUDE.local.md
+KICKOFF.md
+node_modules/
+dist/
+.env*
+!.env.example
+.firebase/
+.DS_Store

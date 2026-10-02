@@ -1275,6 +1275,13 @@
    "title": null,
    "in_catalog": false,
    "note": "alternative path; counts if already completed (e.g. transfer credit)"
+  },
+  "CSC 308": {
+   "code": "CSC 308",
+   "title": null,
+   "in_catalog": false,
+   "recommended_only": true,
+   "note": "former course number of CSC 411 (courses.json CSC 411 former_codes); appears only in a 'recommended' list, never as a prerequisite"
   }
  },
  "tracks": {
@@ -1330,10 +1337,11 @@
  "university": {
   "min_units": 120,
   "min_gpa": 2.0,
-  "max_units_per_term": 19,
+  "priority_registration_max_units_per_term": 19,
   "typical_units_per_term": 15,
-  "upper_division_units": 60,
-  "senior_units": 90,
+  "upper_division_standing_units": 60,
+  "senior_standing_units": 90,
+  "min_upper_division_units_for_degree": 30,
   "gwar_course": "CSC 300GW"
  }
 }

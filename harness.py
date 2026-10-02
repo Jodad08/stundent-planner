@@ -77,6 +77,8 @@ ALLOWED_TOP_LEVEL = {
     "VISION.md", "EVALS.md", "DEMO.md", "runs", "evals",
     "Degree planner.pdf", "Student Center.pdf",
     ".git", "node_modules", ".claude", ".vscode",
+    # D-014: build config at the root; gitignored local prep notes
+    "vite.config.ts", "CLAUDE.local.md", "KICKOFF.md",
 }
 
 

@@ -1,0 +1,64 @@
+{
+  "source": "data/sfsu/dags/bs-computer-science.json#tracks",
+  "directions": [
+    {
+      "id": "systems",
+      "label": "Systems & Security",
+      "signalTags": [],
+      "signalCourseIds": [
+        "CSC 645",
+        "CSC 652",
+        "CSC 653",
+        "CSC 651",
+        "CSC 615",
+        "CSC 656",
+        "CSC 641"
+      ],
+      "description": "Electives grouped under the 'Systems & Security' track in the CS prerequisite DAG."
+    },
+    {
+      "id": "web",
+      "label": "Web & Mobile",
+      "signalTags": [],
+      "signalCourseIds": [
+        "CSC 667",
+        "CSC 675",
+        "CSC 642",
+        "CSC 680",
+        "CSC 668",
+        "CSC 631"
+      ],
+      "description": "Electives grouped under the 'Web & Mobile' track in the CS prerequisite DAG."
+    },
+    {
+      "id": "ai",
+      "label": "AI & Data",
+      "signalTags": [],
+      "signalCourseIds": [
+        "CSC 665",
+        "CSC 671",
+        "CSC 620",
+        "CSC 603",
+        "CSC 659",
+        "CSC 675",
+        "MATH 448"
+      ],
+      "description": "Electives grouped under the 'AI & Data' track in the CS prerequisite DAG."
+    },
+    {
+      "id": "theory",
+      "label": "Theory & Graphics",
+      "signalTags": [],
+      "signalCourseIds": [
+        "CSC 520",
+        "CSC 600",
+        "CSC 630",
+        "CSC 647",
+        "CSC 621",
+        "MATH 425",
+        "MATH 400"
+      ],
+      "description": "Electives grouped under the 'Theory & Graphics' track in the CS prerequisite DAG."
+    }
+  ]
+}

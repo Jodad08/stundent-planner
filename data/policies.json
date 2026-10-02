@@ -1,0 +1,26 @@
+{
+  "minUnitsFullTime": {
+    "value": 12,
+    "label": "Full time (financial aid)",
+    "ruleId": "fa_enrollment_status",
+    "quote": "Enrollment requirement: full time = 12 units; three-quarter time = 9-11 units; half-time = 6-8 units.",
+    "sourceUrl": "https://bulletin.sfsu.edu/fees-financial-aid/student-financial-aid/",
+    "verified": true
+  },
+  "heavyLoadUnits": {
+    "value": 15,
+    "label": "Top of the normal load",
+    "ruleId": "normal_load",
+    "quote": "During spring and fall, the normal academic load for undergraduates is 12 to 15 units per semester and 8 units in the summer. For graduates, the normal load during spring and fall is from 9 to 12 units per semester and 7 units during the summer.",
+    "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+    "verified": true
+  },
+  "maxUnitsWithoutPermission": {
+    "value": 19,
+    "label": "Priority-registration maximum",
+    "ruleId": "ug_max_units_priority_registration",
+    "quote": "During priority registration, students may register for a maximum of 19 units of enrolled, including 8 units of wait-listed courses.",
+    "sourceUrl": "https://bulletin.sfsu.edu/policies-procedures/",
+    "verified": true
+  }
+}

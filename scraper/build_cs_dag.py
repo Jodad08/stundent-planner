@@ -180,6 +180,15 @@ def main():
                 external[u] = {"code": u, "title": cat["title"] if cat else None,
                                "in_catalog": bool(cat),
                                "note": "alternative path; counts if already completed (e.g. transfer credit)"}
+    # recommended-only codes not in the catalog: resolve through current courses' former_codes (D-012)
+    former = {fc: c["code"] for c in courses.values() for fc in (c.get("former_codes") or [])}
+    for n in nodes.values():
+        for u in n["recommended"]:
+            if u not in nodes and u not in courses and u not in external:
+                external[u] = {"code": u, "title": None, "in_catalog": False, "recommended_only": True,
+                               "note": (f"former course number of {former[u]} (courses.json {former[u]} former_codes); "
+                                        "appears only in a 'recommended' list, never as a prerequisite")
+                                       if u in former else "UNKNOWN: recommended-only code not found in the 2026-27 catalog"}
     # requirements, straight from programs.json
     reqs = []
     for b in program["requirements"]:
@@ -241,8 +250,14 @@ def main():
         "external": external,
         "tracks": TRACKS,
         "term_offerings": {},
-        "university": {"min_units": 120, "min_gpa": 2.0, "max_units_per_term": 19, "typical_units_per_term": 15,
-                       "upper_division_units": 60, "senior_units": 90, "gwar_course": "CSC 300GW"},
+        # D-012: field names say what the numbers are; each cites its academic_rules.json id
+        "university": {"min_units": 120, "min_gpa": 2.0,
+                       "priority_registration_max_units_per_term": 19,  # ug_max_units_priority_registration (not an absolute max)
+                       "typical_units_per_term": 15,                     # ug_average_load
+                       "upper_division_standing_units": 60,              # class_levels: junior = 60+ earned units
+                       "senior_standing_units": 90,                      # class_levels: senior = 90+ earned units
+                       "min_upper_division_units_for_degree": 30,        # ug_upper_division_units
+                       "gwar_course": "CSC 300GW"},
     }
     out_dir = os.path.join(DATA, "dags")
     os.makedirs(out_dir, exist_ok=True)
