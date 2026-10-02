@@ -6,7 +6,7 @@ export function Legend() {
   return (
     <div className="pointer-events-auto flex flex-wrap items-center gap-4 font-mono text-[10px] text-zinc-500">
       {dot(COLOR.core, "Core")}{dot(COLOR.math, "Math/Physics")}{dot(COLOR.elective, "Elective")}{dot(COLOR.ge, "GE")}
-      <span className="flex items-center gap-1.5"><span className="h-px w-5 bg-white/60" />Prerequisite (hover a course)</span>
+      <span className="flex items-center gap-1.5"><span className="h-px w-5 bg-white/60" />Prerequisite (click a course)</span>
       <span className="flex items-center gap-1.5"><span className="h-px w-5 border-t border-dashed border-teal-300" />One of (or)</span>
       <span className="flex items-center gap-1.5"><span className="h-0.5 w-5 bg-red-500 shadow-[0_0_6px_#ff3b3b]" />Broken rule</span>
     </div>

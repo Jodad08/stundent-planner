@@ -361,3 +361,12 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: `shared/engine.test.ts` "uniqueCourses keeps only the earliest copy"; browser check (CSC 101 in Fall 2026 and twice in Fall 2028 → only Fall 2026 after reload)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-036: Graph: semester capsules, semester-to-semester arrows, click (not hover) for course arrows
+- Step: 10 (human request)
+- Decision: Hovering no longer changes the graph (the re-derive on every hover caused the flicker); hover only opens the course's info card. Each semester is a rounded capsule around its courses; default arrows run semester to semester. Clicking a course shows only its direct links (what it needs, what it unlocks) with arrowheads and fades the rest; clicking empty space clears. Broken-rule arrows always show. Removed the unused `chainOf`.
+- Supersedes: hover behavior in D-029.
+- Why: human request 2026-10-02 ~15:45.
+- Evidence: browser check (click CSC 340 → arrows from CSC 220, CSC 230 and to CSC 510 and an upper-division course; others dimmed)
+- Critic: PASS (scan) [critic: mock]
+- Status: active
