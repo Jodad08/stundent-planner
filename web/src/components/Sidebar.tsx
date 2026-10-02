@@ -10,6 +10,9 @@ export function Sidebar() {
   const student = useStore(s => s.student)
   const showAll = useStore(s => s.showAll)
   const [q, setQ] = useState("")
+  // one group at a time so the list stays short (D-045); search looks across all groups
+  const [tab, setTab] = useState<"core" | "math" | "electives" | "ge">("core")
+  const groupOf = (r: { id: string; type: string }) => r.type === "choose_units" ? "electives" : r.id.startsWith("math") ? "math" : "core"
   const placed = useMemo(() => {
     const m = new Map<string, number>()
     plan.semesters.forEach(s => s.courseIds.forEach(c => m.set(c, s.index)))
@@ -46,7 +49,18 @@ export function Sidebar() {
         {student && !showAll && <div className="mt-1 text-[10px] text-zinc-500">For {dag.tracks[student.trackId]?.label}</div>}
       </div>
       <div className="flex-1 space-y-4 overflow-y-auto px-3 pb-4">
-        {dag.requirements.map(r => {
+        {!q && (
+          <div className="sticky top-0 z-10 -mx-3 mb-1 grid grid-cols-4 gap-1 bg-[#f4f4f5] px-3 pb-2 pt-1">
+            {([["core", "Core"], ["math", "Math"], ["electives", "Electives"], ["ge", "GE"]] as const).map(([k, l]) => {
+              const reqs = dag.requirements.filter(r => groupOf(r) === k)
+              const all = reqs.flatMap(r => r.type === "all" ? r.courses : [])
+              const badge = k === "ge" ? `${geUnits}u` : k === "electives" ? `${reqs.flatMap(r => r.courses).filter(c => placed.has(c)).reduce((a, c) => a + (dag.nodes[c]?.units ?? 0), 0)}u` : `${all.filter(c => placed.has(c)).length}/${all.length}`
+              return <button key={k} onClick={() => setTab(k)} className={`rounded-lg px-1 py-1.5 text-center text-[11px] leading-tight ${tab === k ? "bg-zinc-800 text-white" : "bg-white text-zinc-600 hover:bg-zinc-200"}`}>
+                <div className="font-semibold">{l}</div><div className="text-[10px] opacity-70">{badge}</div></button>
+            })}
+          </div>
+        )}
+        {dag.requirements.filter(r => q || groupOf(r) === tab).map(r => {
           const list = r.courses.filter(c => dag.nodes[c] && !(r.excluded || []).includes(c) && match(c))
           if (!list.length) return null
           const done = r.courses.filter(c => placed.has(c))
@@ -85,13 +99,13 @@ export function Sidebar() {
             </div>
           )
         })}
-        <div>
+        {(tab === "ge" && !q) && <div>
           <div className="mb-1.5 flex justify-between text-[11px] font-semibold uppercase tracking-wide text-zinc-500"><span>GE and free electives</span><span>{geUnits} cr</span></div>
           <div draggable onDragStart={drag(nextGe)} className="flex cursor-grab items-center justify-between rounded-xl border-2 border-dashed border-zinc-300 bg-white/60 px-2.5 py-2 text-xs text-zinc-600">
             GE or free elective · 3 cr
             <button title="Add 3 GE units to the next open semester" onClick={() => add(nextGe)} className="text-xl leading-none text-zinc-400 hover:text-zinc-900">+</button>
           </div>
-        </div>
+        </div>}
       </div>
     </aside>
   )

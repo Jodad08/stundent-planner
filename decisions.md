@@ -428,3 +428,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser (empty → 3 units → 6 units messages update after each Add it)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-045: Course list split into Core / Math / Electives / GE tabs
+- Step: 10 (human request)
+- Decision: The sidebar shows one group at a time behind four tabs with progress badges (Core = core + advanced CS "done/total", Math = math & physics, Electives = units placed, GE = units). Search ignores the tabs and looks across every group.
+- Why: human request 2026-10-02 ~16:10 (long list was confusing).
+- Evidence: browser (Core tab 2/12 lists core and advanced CS only)
+- Critic: PASS (scan) [critic: mock]
+- Status: active
