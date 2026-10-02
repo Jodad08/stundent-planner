@@ -67,7 +67,7 @@ export function evaluate(expr: PrereqExpr, ctx: Ctx): boolean {
   return false
 }
 
-/** Readable prerequisite text: "CSC 340 and (CSC 230 or CSC 231)". */
+/** Readable prerequisite text: "CSC 220 and (CSC 210 or CSC 215)". */
 export function describe(expr: PrereqExpr, top = true): string {
   if (!expr) return "none"
   if (typeof expr === "string") return expr

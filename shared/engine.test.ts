@@ -93,7 +93,7 @@ describe("evaluatePlan", () => {
     expect(codes(p, "REQ_GROUP_INCOMPLETE").length).toBeGreaterThan(0)
   })
   it("unknown and duplicate IDs are errors", () => {
-    const p = clone(valid); p.semesters[0].courseIds.push("CSC 999"); p.semesters[1].courseIds.push(p.semesters[0].courseIds[0])
+    const p = clone(valid); p.semesters[0].courseIds.push("FAKE-101"); p.semesters[1].courseIds.push(p.semesters[0].courseIds[0])
     expect(codes(p, "UNKNOWN_COURSE")).toHaveLength(1)
     expect(codes(p, "DUPLICATE_COURSE")).toHaveLength(1)
   })
