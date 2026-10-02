@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { leaves, nextCourses, suggestSemester, unitsOf } from "../../../shared/engine"
 import { aiName } from "./Thinking"
 import type { Dag, Plan } from "../../../shared/types"
@@ -48,9 +48,14 @@ export function Pet() {
   }
   const sem = nextSemester(plan)
   const st = useStore.getState()
-  const target = (student?.coursesPerSemester ?? 5) * 3
+  // required credits for the next semester: the student's own load, never below full time (policies) (D-048)
+  const target = Math.max(policies.minUnitsFullTime.value, (student?.coursesPerSemester ?? 5) * 3)
   const units = plan.semesters[sem - 1].courseIds.reduce((a, c) => a + unitsOf(dag, c), 0)
   const broken = report.issues.find(i => i.severity === "error" && i.courseIds[0] && plan.semesters[sem - 1].courseIds.includes(i.courseIds[0]))
+  // moods: hop when a course is added, shake on a rule break, wiggle when the semester is done (D-047)
+  const [mood, setMood] = useState<"idle" | "hop" | "shake" | "happy">("idle")
+  const [thinking, setThinking] = useState(false)
+  const prev = useRef({ units: -1, broken: false })
   const pick = useMemo(() => nextCourses(plan, dag, sem, student?.trackId)[0], [plan, dag, sem, student])
 
   /** Fill the next semester one course at a time so the student watches it happen (D-043). */
@@ -60,14 +65,30 @@ export function Pet() {
     for (let k = 0; k < 8; k++) {
       const cur = useStore.getState().plans.find(p => p.id === plan.id)!
       const have = cur.semesters[sem - 1].courseIds.reduce((a, c) => a + unitsOf(dag, c), 0)
+      if (have >= target) break
       const next = nextCourses(cur, dag, sem, student?.trackId).find(c => have + dag.nodes[c].units <= target)
-      if (!next) break
+      if (!next) { // no major course fits: top up with GE units
+        let n = 1; while (cur.semesters.some(x => x.courseIds.includes(`GE-3u-${n}`))) n++
+        setFilling("Adding a GE course to reach full time"); st.placeCourse(`GE-3u-${n}`, sem)
+        await new Promise(r => setTimeout(r, 900)); continue
+      }
       setFilling(why(next))
       st.placeCourse(next, sem)
       await new Promise(r => setTimeout(r, 1100))
     }
     setFilling(null)
   }
+
+  const isBroken = !!broken
+  useEffect(() => {
+    const p = prev.current
+    if (p.units >= 0) {
+      const next = isBroken && !p.broken ? "shake" : units >= target && p.units < target ? "happy" : units > p.units ? "hop" : null
+      if (next) { setMood(next); setTimeout(() => setMood("idle"), 900) }
+      setThinking(true); setTimeout(() => setThinking(false), 500) // a short "…" before the new tip
+    }
+    prev.current = { units, broken: isBroken }
+  }, [units, isBroken, target])
 
   let msg: React.ReactNode, action: React.ReactNode = null
   if (ask) {
@@ -82,19 +103,27 @@ export function Pet() {
     const id = broken.courseIds[0], to = suggestSemester(plan, dag, policies, id)
     msg = <>Oops, <b>{id}</b> can't go in {termName(dag, sem)} yet.</>
     if (to) action = <button onClick={() => st.moveCourse(id, to)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Move it to {termName(dag, to)}</button>
-  } else if (units < target && pick) {
-    // react to what's on the board right now (D-044)
+  } else if (units < target) {
+    // keep nudging until the required credits are reached
+    const left = target - units
     const count = plan.semesters[sem - 1].courseIds.filter(c => dag.nodes[c]).length
-    const lead = count === 0 ? <>{termName(dag, sem)} is empty 👀 Start with <b>{pick}</b>?</>
-      : units < policies.minUnitsFullTime.value ? <>{termName(dag, sem)} has {units} units, below full time ({policies.minUnitsFullTime.value}). Add <b>{pick}</b>?</>
-      : <>{termName(dag, sem)} has {units} units. Add <b>{pick}</b> next?</>
-    msg = <>{lead} <span className="block text-zinc-500">{dag.nodes[pick].title}</span></>
-    action = <span className="flex gap-1.5">
-      <button onClick={() => st.placeCourse(pick, sem)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Add it</button>
-      {count === 0 && <button onClick={fillNext} className="rounded-full border border-zinc-300 px-3 py-1">Fill it for me</button>}
-    </span>
+    const meter = <div className="mb-1.5 flex items-center gap-2 text-[11px] text-zinc-500">
+      <div className="h-1.5 flex-1 rounded bg-zinc-200"><div className="h-1.5 rounded bg-red-400" style={{ width: `${Math.min(100, (units / target) * 100)}%` }} /></div>
+      {units}/{target} units</div>
+    const ge = () => { let n = 1; while (plan.semesters.some(x => x.courseIds.includes(`GE-3u-${n}`))) n++; st.placeCourse(`GE-3u-${n}`, sem) }
+    if (pick) {
+      msg = <>{meter}{count === 0 ? <>{termName(dag, sem)} is empty 👀 Start with <b>{pick}</b>!</> : <>Add more! <b>{left} units</b> to go. Try <b>{pick}</b>.</>}
+        <span className="block text-zinc-500">{dag.nodes[pick].title}</span></>
+      action = <span className="flex gap-1.5">
+        <button onClick={() => st.placeCourse(pick, sem)} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Add it</button>
+        <button onClick={fillNext} className="rounded-full border border-zinc-300 px-3 py-1">Fill it for me</button>
+      </span>
+    } else {
+      msg = <>{meter}Add more! <b>{left} units</b> to go. No major course fits yet, so add a GE course.</>
+      action = <button onClick={ge} className="rounded-full bg-zinc-900 px-3 py-1 text-white">Add a GE course</button>
+    }
   } else {
-    msg = <>{termName(dag, sem)} looks good: {units} units ✅</>
+    msg = <>{termName(dag, sem)} is done: {units} units ✅ Ready to send!</>
     action = <button onClick={() => exportSemester(plan, dag, sem, student?.name ?? "Student")} className="rounded-full bg-lime-500 px-3 py-1 font-semibold text-zinc-900">Export for SFSU</button>
   }
 
@@ -102,8 +131,10 @@ export function Pet() {
     <div className="pointer-events-none absolute z-30 flex items-end gap-1" style={{ right: pos.right, bottom: pos.bottom }}>
       {(open || ask) && (
         <div className="pointer-events-auto mb-10 max-w-[270px] rounded-2xl rounded-br-sm bg-white p-3 text-[13px] text-zinc-800 shadow-xl">
-          <div>{msg}</div>
-          {action && <div className="mt-2 text-[12px]">{action}</div>}
+          {thinking ? <div className="animate-pulse text-zinc-400">● ● ●</div> : <>
+            <div>{msg}</div>
+            {action && <div className="mt-2 text-[12px]">{action}</div>}
+          </>}
         </div>
       )}
       <button title="Drag me, or click to show or hide tips"
@@ -116,7 +147,7 @@ export function Pet() {
         }}
         onPointerUp={() => { if (drag.current && !drag.current.moved) setOpen(!open); drag.current = null }}
         className="pointer-events-auto cursor-grab touch-none select-none text-7xl leading-none drop-shadow-xl transition-transform hover:scale-110 active:cursor-grabbing">
-        <span className="inline-block animate-bounce [animation-duration:2.5s]">🐊</span>
+        <span key={mood} className={`inline-block gator-${mood}`}>🐊</span>
       </button>
     </div>
   )

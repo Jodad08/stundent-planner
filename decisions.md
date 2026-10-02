@@ -444,3 +444,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser (next semester 6 units → red box, footer "add 6+ for full time"; empty Spring 2028 neutral)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-047 / D-048: A livelier gator that nags until the credits are met; Whole degree tab
+- Step: 10 (human requests ~16:14-16:18)
+- Decision: (D-047) Gator moods: idle breathing/sway, hop when a course is added, head-shake on a new rule break, wiggle when the semester is complete; a "● ● ●" pause before each new tip. (D-048) The next semester's required credits = max(full-time minimum from policies, the student's courses × 3). Until reached, the gator shows a meter ("3/15 units") and "Add more! N units to go", suggesting a course (Add it / Fill it for me) or a GE course when no major course fits; "Fill it for me" tops up with GE. Only then "done ✅ Ready to send". The year selector gains "Whole degree" (all 8 semesters, horizontal scroll).
+- Why: human requests.
+- Evidence: browser (idle → hop on add; 0/15 → 3/15 "12 units to go"; Fill it for me → 15 units, wiggle, export prompt; Whole degree shows Fall 2026 … Spring 2030)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

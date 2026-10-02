@@ -24,3 +24,12 @@ body { background: #e7e7ea; color: #27272a; font-family: var(--font-sans); }
 ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-thumb { background: #ffffff1a; border-radius: 3px; }
 @keyframes pop { from { opacity: 0; transform: translateY(-10px) scale(.96); } to { opacity: 1; transform: none; } }
 .pop-in { animation: pop .35s ease-out; }
+/* gator moods (D-047) */
+@keyframes breathe { 0%,100% { transform: scale(1) rotate(-2deg); } 50% { transform: scale(1.045) rotate(2deg); } }
+@keyframes hop { 0% { transform: translateY(0); } 30% { transform: translateY(-22px) rotate(-8deg); } 55% { transform: translateY(0) scale(1.08,.92); } 75% { transform: translateY(-6px); } 100% { transform: none; } }
+@keyframes shake { 0%,100% { transform: rotate(0); } 20% { transform: rotate(-14deg); } 40% { transform: rotate(12deg); } 60% { transform: rotate(-9deg); } 80% { transform: rotate(6deg); } }
+@keyframes wiggle { 0%,100% { transform: rotate(0) scale(1); } 25% { transform: rotate(10deg) scale(1.1); } 50% { transform: rotate(-10deg) scale(1.1); } 75% { transform: rotate(6deg); } }
+.gator-idle { animation: breathe 3.2s ease-in-out infinite; transform-origin: 50% 90%; }
+.gator-hop { animation: hop .7s ease-out; transform-origin: 50% 90%; }
+.gator-shake { animation: shake .6s ease-in-out; transform-origin: 50% 90%; }
+.gator-happy { animation: wiggle .9s ease-in-out; transform-origin: 50% 90%; }
