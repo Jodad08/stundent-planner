@@ -27,10 +27,11 @@ export function Board() {
   const { selectCourse, placeCourse, moveCourse, setFlash } = useStore.getState()
   const report = useReport()!
   const [dropTarget, setDropTarget] = useState<number | null>(null)
+  const [hovered, setHovered] = useState<string | null>(null)
   const zoomSem = useStore(s => s.zoomSem)
   const flash = useStore(s => s.flash)
   useEffect(() => { if (!flash) return; const t = setTimeout(() => useStore.getState().setFlash(null), 7000); return () => clearTimeout(t) }, [flash])
-  const derived = useMemo(() => derive(plan, dag, report, selected, policies.minUnitsFullTime.value, dropTarget), [plan, dag, report, selected, policies, dropTarget])
+  const derived = useMemo(() => derive(plan, dag, report, selected, policies.minUnitsFullTime.value, dropTarget, hovered), [plan, dag, report, selected, policies, dropTarget, hovered])
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>(derived.nodes)
   useEffect(() => { setNodes(derived.nodes) }, [derived.nodes, setNodes])
   const edges = derived.edges
@@ -58,8 +59,10 @@ export function Board() {
     const el = wrap.current
     if (!el) return
     const w = semX(8) + SEM_W + SEM_X0, h = heightRef.current + 20
-    const zoom = Math.min(1.25, (el.clientWidth - 40) / w, (el.clientHeight - 70) / h)
-    flyTo({ x: (el.clientWidth - w * zoom) / 2, y: Math.max(16, (el.clientHeight - h * zoom) / 2 - 20), zoom }, duration)
+    // readable floor: if the whole degree doesn't fit at that zoom, start at Fall 2026 and pan for the rest
+    const zoom = Math.max(0.9, Math.min(1.25, (el.clientWidth - 40) / w, (el.clientHeight - 70) / h))
+    const x = w * zoom <= el.clientWidth ? (el.clientWidth - w * zoom) / 2 : 16
+    flyTo({ x, y: Math.max(16, (el.clientHeight - h * zoom) / 2 - 20), zoom }, duration)
   }, [flyTo])
   useEffect(() => {
     if (zoomSem == null) { const t = setTimeout(() => fitAll(), 30); return () => clearTimeout(t) }
@@ -84,6 +87,8 @@ export function Board() {
       colorMode="dark" minZoom={0.2} maxZoom={2.5} panOnDrag zoomOnScroll zoomOnPinch nodesConnectable={false} proOptions={{ hideAttribution: true }}
       onNodeClick={(_e, n) => { if (n.type === "course") selectCourse(selected === (n.data as { id: string }).id ? null : (n.data as { id: string }).id) }}
       onPaneClick={() => selectCourse(null)}
+      onNodeMouseEnter={(_e, n) => { if (n.type === "course" && !(n.data as { placeholder?: boolean }).placeholder) setHovered((n.data as { id: string }).id) }}
+      onNodeMouseLeave={() => setHovered(null)}
       onNodeDrag={(_e, n) => { if (n.type === "course") setDropTarget(semesterAt(n.position.x + COURSE_W / 2)) }}
       onNodeDragStop={(_e, n) => {
         setDropTarget(null)

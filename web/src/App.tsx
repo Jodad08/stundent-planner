@@ -21,6 +21,7 @@ export function App() {
   const modal = useStore(s => s.modalOpen)
   const [err, setErr] = useState<string | null>(null)
   const hasStudent = useStore(s => !!s.student)
+  const [onboard, setOnboard] = useState(true) // questions on every load; prefilled for returning students (D-032)
   const [tour, setTour] = useState(true) // shown on every load after onboarding (D-022, D-024)
   useEffect(() => {
     Promise.all([api.program(), api.policies(), api.careers(), api.health(), api.descriptions()])
@@ -50,8 +51,9 @@ export function App() {
         </div>
       </div>
       {modal && <PlanModal />}
-      {!hasStudent && <Onboarding onDone={() => setTour(true)} />}
-      {hasStudent && tour && <Tour onDone={() => setTour(false)} />}
+      {(onboard || !hasStudent) && <Onboarding onDone={() => { setOnboard(false); setTour(true) }}
+        onSkip={hasStudent ? () => { setOnboard(false); setTour(false) } : undefined} />}
+      {hasStudent && !onboard && tour && <Tour onDone={() => setTour(false)} />}
     </ReactFlowProvider>
   )
 }

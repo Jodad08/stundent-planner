@@ -3,7 +3,7 @@ import { useEffect, useLayoutEffect, useState } from "react"
 /** First-load walkthrough (D-022): spotlight one part of the UI at a time. */
 const STEPS: { target: string; title: string; body: string }[] = [
   { target: "[data-tour=semester], .react-flow__node-semester", title: "This is a semester", body: "Your degree is 8 columns, Fall 2026 to Spring 2030. The credits bar at the bottom turns amber or red when a semester breaks SFSU's load rules." },
-  { target: "[data-tour=card], .react-flow__node-course", title: "This is a course", body: "Green = all good, red = it breaks a rule, amber = a warning. Its prerequisites turn green once they are planned earlier. Drag it to another semester." },
+  { target: "[data-tour=card], .react-flow__node-course", title: "This is a course", body: "Color shows the type: violet core CS, teal math/physics, amber elective. A red outline means it breaks a rule. Its prerequisites turn green once they are planned earlier. Drag it to another semester." },
   { target: "[data-tour=view]", title: "Cards or graph", body: "Switch to the graph to see every prerequisite as a line, the whole chain at once. Drag a course before its prerequisite and it turns red in both views." },
   { target: "[data-tour=courses]", title: "This is your course list", body: "Every B.S. Computer Science requirement from the 2026-27 Bulletin. Drag a course onto the canvas: the semester under it lights up." },
   { target: "[data-tour=status]", title: "The rules engine", body: "Every move is checked against the Bulletin rules: prerequisites, corequisites, standing and unit loads. No AI decides this." },

@@ -328,3 +328,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Risk / undo: Career titles are generic suggestions, not SFSU data; labeled as such.
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-029 to D-032: Graph hover arrows, type colors, elective slots, onboarding on every load
+- Step: 10 (human requests, 15:25-15:32)
+- Decision: (D-029) Graph columns are wider (gap 112 px, readable zoom floor 0.9 with panning); prerequisite lines are hidden unless the course is hovered (its prerequisites and the courses it unlocks, with arrowheads; the rest dims), the course is part of a clicked chain, or the line breaks a rule (always visible). (D-030) Cards are colored by course type (violet core CS, teal math/physics, amber elective, grey taken); engine status is a red/amber outline with a "Breaks a rule"/"Warning" banner; a Colors key sits in the top bar. (D-031) "Elective slot · choose later" placeholders (`EL-3u-n`): count 3 credits, never satisfy the elective requirement; dropping a specific elective onto a slot fills it. (D-032) The onboarding questions show on every load, prefilled from saved answers, with "Skip to my plan"; "I'll plan it myself" keeps a returning student's plan and only rewrites completed semesters. Course list rows are draggable even when placed (moves them), and hover shows the full name and credits.
+- Why: human requests.
+- Evidence: browser checks (CSC 220 hover shows CSC 215 → CSC 220 → CSC 413; slot filled by CSC 645; list drag moved CSC 340 Spring 2028 → Fall 2029)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

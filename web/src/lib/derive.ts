@@ -1,5 +1,5 @@
 // plan + engine report -> React Flow nodes and edges. Never stored; recomputed on every change.
-import type { Edge, Node } from "@xyflow/react"
+import { MarkerType, type Edge, type Node } from "@xyflow/react"
 import { criticalCourses, isPlaceholder, placeholderUnits } from "../../../shared/engine"
 import type { CourseId, Dag, EngineReport, Plan, PrereqExpr } from "../../../shared/types"
 import { semX, COURSE_STEP, COURSE_X, COURSE_Y0, SEM_W, SEM_Y } from "./layout"
@@ -78,7 +78,7 @@ export function termName(dag: Dag, index: number): string {
   return index % 2 === 1 ? `Fall ${start + (index - 1) / 2}` : `Spring ${start + index / 2}`
 }
 
-export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: CourseId | null, minUnits: number, dropTarget: number | null = null) {
+export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: CourseId | null, minUnits: number, dropTarget: number | null = null, hovered: CourseId | null = null) {
   const nodes: Node[] = []
   const edges: Edge[] = []
   const semOf = new Map<CourseId, number>()
@@ -88,6 +88,10 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
     .flatMap(i => i.courseIds.slice(1).map(p => `${p}>${i.courseIds[0]}`)))
   const crit = criticalCourses(plan, dag)
   const chain = selected ? chainOf(dag, selected) : null
+  // hover: the course, its planned prerequisites and the courses it unlocks (D-029)
+  const near = hovered && !selected ? new Set<CourseId>([hovered,
+    ...links(dag.nodes[hovered]?.prereq ?? null).map(l => l.from),
+    ...[...semOf.keys()].filter(id => links(dag.nodes[id]?.prereq ?? null).some(l => l.from === hovered))]) : null
 
   // graph for layout: planned prerequisite links only
   const prereqs = new Map<CourseId, CourseId[]>(), deps = new Map<CourseId, CourseId[]>()
@@ -112,7 +116,7 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
       nodes.push({ id: slug(id), type: "course", position: { x: x + COURSE_X, y: COURSE_Y0 + r * COURSE_STEP }, zIndex: 2,
         data: { id, title: dag.nodes[id]?.title ?? "Unknown course", units: dag.nodes[id]?.units ?? 0, placeholder: false, category: category(dag, id),
           hasError: errored.has(id), critical: c && c.slack <= 0 ? c : null,
-          dim: !!chain && !chain.has(id), highlight: !!chain && chain.has(id) } satisfies CourseData })
+          dim: chain ? !chain.has(id) : near ? !near.has(id) : false, highlight: chain ? chain.has(id) : near ? near.has(id) : false } satisfies CourseData })
     })
     if (ge.length) {
       // one quiet "ge" dot per semester, under that semester's courses
@@ -140,8 +144,11 @@ export function derive(plan: Plan, dag: Dag, report: EngineReport, selected: Cou
       const state = violated.has(`${l.from}>${id}`) ? "violated" : "satisfied"
       const label = state === "violated" && !labeled.has(id)
       if (label) labeled.add(id)
+      // lines are hidden unless broken, hovered, or part of a clicked chain (D-029)
+      const shown = state === "violated" || (!!hovered && (hovered === id || hovered === l.from)) || (!!chain && chain.has(id) && chain.has(l.from))
       edges.push({ id: `edge-${l.from}-${id}`, source: slug(l.from), target: slug(id), type: "prereq", zIndex: state === "violated" ? 10 : 1,
-        data: { state, kind: l.kind, dim: !!chain && !(chain.has(id) && chain.has(l.from)), label } satisfies EdgeData })
+        hidden: !shown, markerEnd: { type: MarkerType.ArrowClosed, width: 16, height: 16, color: state === "violated" ? "#ff3b3b" : l.kind === "coreq" ? "#2dd4bf" : "#e4e4e7" },
+        data: { state, kind: l.kind, dim: false, label } satisfies EdgeData })
     }
   }
   return { nodes, edges, height: SEM_Y + height }

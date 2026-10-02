@@ -1,6 +1,6 @@
 // Free-flow layout (D-023): semesters are invisible columns; course y comes from a crossing-reduction pass in derive.ts.
-export const SEM_W = 128, SEM_GAP = 46, SEM_X0 = 20, SEM_Y = 20
-export const COURSE_X = 10, COURSE_Y0 = 64, COURSE_STEP = 46, COURSE_W = 104
+export const SEM_W = 128, SEM_GAP = 112, SEM_X0 = 20, SEM_Y = 20
+export const COURSE_X = 10, COURSE_Y0 = 64, COURSE_STEP = 50, COURSE_W = 104
 export const semX = (index: number) => SEM_X0 + (index - 1) * (SEM_W + SEM_GAP)
 /** Semester index under a flow-space x, or null when outside the 8 columns. */
 export function semesterAt(x: number): number | null {

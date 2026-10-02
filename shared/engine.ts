@@ -331,7 +331,10 @@ export const SEMESTER_COUNT = 8
 
 /** GE / free-elective placeholder cards encode their units in the ID: "GE-3u-1" (D-016). */
 export function placeholderId(units: number, n: number): CourseId { return `GE-${units}u-${n}` }
-export function isPlaceholder(id: CourseId): boolean { return /^GE-\d+u-\d+$/.test(id) }
+export function isPlaceholder(id: CourseId): boolean { return /^(GE|EL)-\d+u-\d+$/.test(id) }
+/** "Elective, choose later" slot (D-031): counts its units, never satisfies the elective requirement. */
+export function electiveSlotId(n: number): CourseId { return `EL-3u-${n}` }
+export function isElectiveSlot(id: CourseId): boolean { return id.startsWith("EL-") }
 export function placeholderUnits(id: CourseId): number { return Number(id.split("-")[1].slice(0, -1)) }
 
 export function unitsOf(dag: Dag, id: CourseId): number {

@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react"
-import { isPlaceholder, placeholderId, unitsOf } from "../../../shared/engine"
+import { electiveSlotId, isPlaceholder, placeholderId, unitsOf } from "../../../shared/engine"
 import { useActivePlan, useStore } from "../store"
 import { termName } from "../lib/derive"
 
@@ -15,9 +15,10 @@ export function Sidebar() {
     plan.semesters.forEach(s => s.courseIds.forEach(c => m.set(c, s.index)))
     return m
   }, [plan])
+  const nextSlot = useMemo(() => { let n = 1; while (placed.has(electiveSlotId(n))) n++; return electiveSlotId(n) }, [placed])
   const nextGe = useMemo(() => { let n = 1; while (placed.has(placeholderId(3, n))) n++; return placeholderId(3, n) }, [placed])
   const drag = (id: string) => (e: React.DragEvent) => { e.dataTransfer.setData("application/gatorgraph", id); e.dataTransfer.effectAllowed = "move" }
-  const geUnits = [...placed.keys()].filter(isPlaceholder).reduce((s, id) => s + unitsOf(dag, id), 0)
+  const geUnits = [...placed.keys()].filter(c => isPlaceholder(c) && c.startsWith("GE-")).reduce((s, id) => s + unitsOf(dag, id), 0)
   const rec = student && !showAll ? new Set(dag.tracks[student.trackId]?.courses ?? []) : null
   const match = (id: string) => (!q || (id + " " + dag.nodes[id].title).toLowerCase().includes(q.toLowerCase()))
     && (!rec || dag.requirements.some(r => r.type === "all" && r.courses.includes(id)) || rec.has(id))
@@ -56,6 +57,13 @@ export function Sidebar() {
                 <span>{r.type === "all" ? `${done.length}/${r.courses.length}` : `${done.reduce((s, c) => s + dag.nodes[c].units, 0)}/${r.min_units} cr`}</span>
               </div>
               <div className="space-y-1.5">
+                {r.type === "choose_units" && (
+                  <div draggable onDragStart={drag(nextSlot)} title="Reserve 3 credits for an elective you'll pick later"
+                    className="flex cursor-grab items-center justify-between rounded-xl border-2 border-dashed border-amber-400 bg-amber-50 px-2.5 py-2 text-xs text-amber-900">
+                    Elective slot · choose later
+                    <button title="Add an elective slot to the next open semester" onClick={() => add(nextSlot)} className="text-xl leading-none text-amber-500 hover:text-amber-900">+</button>
+                  </div>
+                )}
                 {list.map(c => {
                   const sem = placed.get(c)
                   return (

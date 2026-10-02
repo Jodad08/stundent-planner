@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
-import { isPlaceholder, placeholderUnits } from "../../../shared/engine"
+import { isElectiveSlot, isPlaceholder, placeholderUnits } from "../../../shared/engine"
 import type { CourseId, Dag, PrereqExpr } from "../../../shared/types"
-import { termName } from "../lib/derive"
+import { category, termName } from "../lib/derive"
 import { useActivePlan, useStore } from "../store"
 import { useReport } from "./Board"
 
@@ -50,6 +50,14 @@ export function Columns() {
           <div className="font-semibold">Program</div>
           <div className="mt-0.5 rounded bg-white/15 px-2 py-0.5">{dag.program.name.replace("Bachelor of Science in ", "")} (B.S.)</div>
         </div>
+        <div className="rounded-lg bg-white/80 px-3 py-1.5 text-[11px] text-zinc-700 shadow">
+          <div className="font-semibold text-zinc-900">Colors</div>
+          <div className="mt-0.5 flex flex-wrap items-center gap-1">
+            {(["core", "math", "elective"] as const).map(k => <span key={k} className={`rounded px-2 py-0.5 ${TYPE[k].bg}`}>{TYPE[k].label}</span>)}
+            <span className="rounded bg-zinc-300 px-2 py-0.5">Taken</span>
+            <span className="rounded px-2 py-0.5 ring-2 ring-inset ring-red-500">Breaks a rule</span>
+          </div>
+        </div>
         <div className="rounded-lg bg-zinc-600/90 px-3 py-1.5 text-[11px] text-white shadow">
           <div className="font-semibold">Plan Stats</div>
           <div className="mt-0.5 flex flex-wrap gap-1">
@@ -63,7 +71,8 @@ export function Columns() {
         {plan.semesters.map(s => {
           const stat = report.semesterStats.find(x => x.index === s.index)!
           const isDone = s.index <= done
-          const ge = s.courseIds.filter(isPlaceholder)
+          const ge = s.courseIds.filter(c => isPlaceholder(c) && !isElectiveSlot(c))
+          const slots = s.courseIds.filter(isElectiveSlot)
           const footer = stat.status === "over" || stat.status === "under" ? "bg-red-200 text-red-800" : stat.status === "heavy" ? "bg-amber-200 text-amber-900" : "bg-zinc-300/70 text-zinc-700"
           return (
             <div key={s.index} data-tour={s.index === 1 ? "semester" : undefined}
@@ -78,6 +87,23 @@ export function Columns() {
                 {s.courseIds.filter(c => !isPlaceholder(c)).map((id, k) => (
                   <Card key={id} first={s.index === (plan.semesters.find(x => x.courseIds.some(c => !isPlaceholder(c)))?.index) && k === 0} dag={dag} id={id} sem={s.index} semOf={semOf} status={status.get(id)} issue={names(issueFor(id)?.message)} done={isDone}
                     onRemove={() => st.unplaceCourse(id)} />
+                ))}
+                {slots.map(slot => (
+                  // drop a specific elective here to fill the slot
+                  <div key={slot} draggable onDragStart={e => { e.dataTransfer.setData("application/gatorgraph", slot) }}
+                    onDragOver={e => { e.preventDefault(); e.stopPropagation() }}
+                    onDrop={e => {
+                      e.preventDefault(); e.stopPropagation(); setOver(null)
+                      const id = e.dataTransfer.getData("application/gatorgraph")
+                      if (!id || isPlaceholder(id)) return
+                      st.unplaceCourse(slot)
+                      if (semOf.has(id)) st.moveCourse(id, s.index); else st.placeCourse(id, s.index)
+                    }}
+                    className="rounded-xl border-2 border-dashed border-amber-500/70 bg-amber-100/70 px-3 py-2.5 text-amber-900">
+                    <div className="flex items-center justify-between text-[11px]"><span>Elective · choose later</span>
+                      <span className="flex items-center gap-2"><b>3 cr</b><button title="Remove slot" className="hover:text-red-600" onClick={() => st.unplaceCourse(slot)}>×</button></span></div>
+                    <div className="mt-0.5 text-[10px] text-amber-800/80">Drag an elective from the list onto this slot</div>
+                  </div>
                 ))}
                 {ge.length > 0 && (
                   <div className="flex items-center justify-between rounded-xl border-2 border-dashed border-zinc-400/70 px-3 py-2 text-xs text-zinc-600">
@@ -104,10 +130,14 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { f
   const n = dag.nodes[id]
   const [open, setOpen] = useState(false)
   const desc = useStore(s => s.descriptions[id])
-  const tone = status === "error" ? "bg-[#e9775c]" : status === "warning" ? "bg-[#f2c14e]" : done ? "bg-zinc-400" : "bg-[#b5d94c]"
+  // color = course type; outline = engine status (D-030)
+  const cat = category(dag, id)
+  const tone = done ? "bg-zinc-300" : TYPE[cat]?.bg ?? TYPE.other.bg
+  const ring = status === "error" ? "ring-[3px] ring-red-500" : status === "warning" ? "ring-[3px] ring-amber-500" : ""
   return (
     <div data-tour={first ? "card" : undefined} draggable onDragStart={e => { e.dataTransfer.setData("application/gatorgraph", id); e.dataTransfer.effectAllowed = "move" }}
-      className={`cursor-grab rounded-xl ${tone} p-2 shadow-sm`}>
+      className={`cursor-grab rounded-xl ${tone} ${ring} p-2 shadow-sm`}>
+      {status && <div className={`-mx-2 -mt-2 mb-1.5 rounded-t-xl px-3 py-0.5 text-[10px] font-semibold text-white ${status === "error" ? "bg-red-500" : "bg-amber-500"}`}>{status === "error" ? "Breaks a rule" : "Warning"}</div>}
       <div className="flex items-start justify-between px-1">
         <div className="min-w-0">
           <div className="truncate text-[11px] text-zinc-900/80" title={n?.title}>{n?.title ?? "Unknown course"}</div>
@@ -133,6 +163,14 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first }: { f
       </>}
     </div>
   )
+}
+
+/** Card colors by course type (D-030), matching the graph's dot colors. */
+export const TYPE: Record<string, { bg: string; label: string }> = {
+  core: { bg: "bg-violet-200", label: "Core CS" },
+  math: { bg: "bg-teal-200", label: "Math / Physics" },
+  elective: { bg: "bg-amber-200", label: "Elective" },
+  other: { bg: "bg-zinc-200", label: "Other" },
 }
 
 /** Prerequisite expression as chips; a chip is green when it is satisfied where the course sits. */

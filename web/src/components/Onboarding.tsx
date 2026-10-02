@@ -14,20 +14,24 @@ import { category } from "../lib/derive"
  * First-visit questions (D-024): who you are, where you are in the degree, which courses you already took
  * (semester by semester), and your goal. Then the AI + rules engine plan the rest, or the student plans manually.
  */
-export function Onboarding({ onDone }: { onDone: () => void }) {
+export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: () => void }) {
   const dag = useStore(s => s.dag)!
   const careers = useStore(s => s.careers)
   const policies = useStore(s => s.policies)!
   const [step, setStep] = useState(0) // 0 about, 1 progress, 2..2+N-1 courses per done semester, then goal, then build
-  const [name, setName] = useState("")
-  const [unitsDone, setUnitsDone] = useState(0)
-  const [coursesPerSemester, setCps] = useState(5)
-  const [doneSems, setDoneSems] = useState(0)
-  const [gradIndex, setGradIndex] = useState(8)
-  const [taken, setTaken] = useState<CourseId[][]>(Array.from({ length: 7 }, () => []))
+  // prefilled from the saved answers and the current plan, so a returning student just clicks through (D-032)
+  const saved = useStore.getState().student
+  const savedPlan = useStore.getState().plans.find(p => p.id === useStore.getState().activePlanId)
+  const [name, setName] = useState(saved?.name ?? "")
+  const [unitsDone, setUnitsDone] = useState(saved?.unitsDone ?? 0)
+  const [coursesPerSemester, setCps] = useState(saved?.coursesPerSemester ?? 5)
+  const [doneSems, setDoneSems] = useState(saved?.completedSemesters ?? 0)
+  const [gradIndex, setGradIndex] = useState(() => Math.max(1, Array.from({ length: 8 }, (_, i) => i + 1).find(i => termName(dag, i) === saved?.gradTerm) ?? 8))
+  const [taken, setTaken] = useState<CourseId[][]>(() => Array.from({ length: 7 }, (_, i) =>
+    i < (saved?.completedSemesters ?? 0) ? (savedPlan?.semesters[i]?.courseIds ?? []).filter(c => dag.nodes[c]) : []))
   const [draft, setDraft] = useState("")
   const [warn, setWarn] = useState<string | null>(null)
-  const [goal, setGoal] = useState("")
+  const [goal, setGoal] = useState(saved?.goal ?? "")
   const [busy, setBusy] = useState(false)
   const [result, setResult] = useState<{ resp: PlanResponse; trace: ReturnType<typeof traceOf> } | null>(null)
   const [err, setErr] = useState<string | null>(null)
@@ -69,8 +73,10 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
   }
   /** Manual path: completed semesters filled in, the rest left for the student to drag in. */
   function finishManual() {
-    const semesters = emptySemesters()
-    taken.slice(0, doneSems).forEach((l, i) => { semesters[i].courseIds.push(...l) })
+    // returning student: keep the plan they already built; only the completed semesters are rewritten
+    const takenIds = new Set(taken.slice(0, doneSems).flat())
+    const semesters = savedPlan && saved ? savedPlan.semesters.map(x => ({ ...x, courseIds: x.courseIds.filter(c => !takenIds.has(c)) })) : emptySemesters()
+    taken.slice(0, doneSems).forEach((l, i) => { semesters[i].courseIds = [...semesters[i].courseIds.filter(c => !dag.nodes[c]), ...l] })
     const student: Student = { name: name.trim() || "Student", major: "bs-cs", unitsDone, gradTerm: termName(dag, gradIndex),
       coursesPerSemester, completedSemesters: doneSems, goal, trackId }
     useStore.getState().setStudent(student)
@@ -100,12 +106,15 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
       <div className="relative w-[520px]">
         <div className="mb-6 flex items-center justify-between font-mono text-xs">
           <span className="text-sm text-white">Plan<span className="text-sf-gold">Ed</span></span>
-          <span className="text-zinc-600">{Math.min(step + 1, total)} / {total}</span>
+          <span className="flex items-center gap-4">
+            {onSkip && <button onClick={onSkip} className="text-zinc-400 underline-offset-2 hover:text-white hover:underline">Skip to my plan →</button>}
+            <span className="text-zinc-600">{Math.min(step + 1, total)} / {total}</span>
+          </span>
         </div>
         <div className="mb-6 h-px w-full bg-white/10"><div className="h-px bg-teal-300 transition-all duration-500" style={{ width: `${(Math.min(step + 1, total) / total) * 100}%` }} /></div>
 
         {step === 0 && <>
-          <h1 className="text-2xl font-semibold text-white">Let's map your degree.</h1>
+          <h1 className="text-2xl font-semibold text-white">{saved ? `Welcome back, ${saved.name}.` : "Let's map your degree."}</h1>
           <p className="mt-1 text-sm text-zinc-500">A few questions, then lay out every semester: automatically, or by hand.</p>
           <label className={label}>Your name</label>
           <input autoFocus className={input} value={name} onChange={e => setName(e.target.value)} placeholder="First name" onKeyDown={e => { if (e.key === "Enter" && name.trim()) setStep(1) }} />
@@ -115,7 +124,7 @@ export function Onboarding({ onDone }: { onDone: () => void }) {
             {majors.map(m => <option key={m.id} value={m.id} disabled={!m.mapped} className="bg-black">
               {m.name}{m.mapped ? "" : " (coming soon)"}</option>)}
           </select>
-          <p className="mt-1 font-mono text-[10px] text-zinc-600">{majors.length} SFSU bachelor's programs from the 2026-27 Bulletin . Computer Science is mapped and verified first.</p>
+          <p className="mt-1 font-mono text-[10px] text-zinc-600">{majors.length} SFSU bachelor's programs from the 2026-27 Bulletin. Computer Science is mapped and verified first.</p>
           <div className="mt-6 flex justify-end">{next(!!name.trim())}</div>
         </>}
 
