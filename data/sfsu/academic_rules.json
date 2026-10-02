@@ -1,0 +1,1228 @@
+{
+ "bulletin": "San Francisco State University Bulletin 2026-2027",
+ "note": "Curated digest. Every rule includes a verbatim quote from the linked bulletin page. Full policy text lives in policies.json.",
+ "rules": [
+  {
+   "id": "ug_units_to_graduate",
+   "category": "graduation_units",
+   "applies_to": "undergraduate",
+   "rule": "A bachelor's degree (B.A. or B.S.) requires a minimum of 120 semester units.",
+   "values": {
+    "min_units": 120
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Units to Graduate",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "An undergraduate student who has completed all of the requirements for graduation and has a total of 120 semester units is eligible to graduate with a baccalaureate degree."
+  },
+  {
+   "id": "ug_residence_units",
+   "category": "graduation_units",
+   "applies_to": "undergraduate",
+   "rule": "At least 30 units must be earned in residence at SF State, including 24 upper-division units and 12 units in the major.",
+   "values": {
+    "min_residence_units": 30,
+    "min_upper_division_in_residence": 24,
+    "min_major_units_in_residence": 12
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Unit Requirements",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "Residence Requirement: 30 units minimum at SF State, including 24 units upper-division, and 12 units in the major (lower- or upper-division)."
+  },
+  {
+   "id": "ug_residence_ud_ge",
+   "category": "graduation_units",
+   "applies_to": "undergraduate",
+   "rule": "Nine of the 30 residence units must be earned in upper-division General Education.",
+   "values": {
+    "min_ud_ge_units_in_residence": 9
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Residence Units Requirement",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Nine of these residence units must be earned in the Upper Division portion of the General Education program."
+  },
+  {
+   "id": "ug_upper_division_units",
+   "category": "graduation_units",
+   "applies_to": "undergraduate",
+   "rule": "At least 30 upper-division units (courses numbered 300-699) are required for the bachelor's degree.",
+   "values": {
+    "min_upper_division_units": 30
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Upper-Division Units Requirement",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "For the award of the baccalaureate degree, all students are required to complete a minimum of 30 upper-division units (courses numbered 300-699 at SF State)."
+  },
+  {
+   "id": "ug_max_community_college_units",
+   "category": "transfer_credit",
+   "applies_to": "undergraduate",
+   "rule": "At most 70 semester units of community college work count toward the degree.",
+   "values": {
+    "max_units": 70
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Credit for Community College Work",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "The University accepts a maximum of 70 semester units for work completed at a community college."
+  },
+  {
+   "id": "ug_max_extension_units",
+   "category": "transfer_credit",
+   "applies_to": "undergraduate",
+   "rule": "At most 24 semester units of extension and correspondence credit count toward the degree.",
+   "values": {
+    "max_units": 24
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Credit for Extension and Correspondence Work",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "The University accepts a maximum of 24 semester units of extension credit and correspondence courses towards award of a baccalaureate degree."
+  },
+  {
+   "id": "ug_max_exam_units",
+   "category": "transfer_credit",
+   "applies_to": "undergraduate",
+   "rule": "At most 30 units by examination or evaluation count toward the degree.",
+   "values": {
+    "max_units": 30
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Unit Requirements > Maximum Unit Restrictions",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "Maximum Units by Examination or Evaluation: 30 units."
+  },
+  {
+   "id": "ug_max_cr_units",
+   "category": "grading",
+   "applies_to": "undergraduate",
+   "rule": "No more than 24 SF State units applied to the bachelor's degree may be graded CR (Credit). Major courses offered only as CR/NC don't count toward the 24.",
+   "values": {
+    "max_cr_units": 24
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Unit Requirements > Maximum Unit Restrictions",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "No more than 24 units earned at SF State and applied toward the undergraduate degree may be taken for a grade of CR. Major courses only offered as CR/NC are not included in the 24 unit maximum."
+  },
+  {
+   "id": "ug_max_685_units",
+   "category": "graduation_units",
+   "applies_to": "undergraduate",
+   "rule": "At most 4 units of courses numbered 685 titled 'Projects in Teaching...' apply to the bachelor's degree.",
+   "values": {
+    "max_units": 4
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Unit Requirements > Maximum Unit Restrictions",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "Maximum Units for Courses Numbered \"685\" and Titled \"Projects in Teaching . . .\" That may be Applied to the Baccalaureate Degree: 4 units."
+  },
+  {
+   "id": "ug_min_gpa_graduation",
+   "category": "gpa",
+   "applies_to": "undergraduate",
+   "rule": "Graduation requires a 2.0 GPA or better in combined cumulative, SF State, and major coursework.",
+   "values": {
+    "min_gpa": 2.0
+   },
+   "source_page": "Academic Standards",
+   "source_section": "Undergraduate Students > Minimum Grade-Point Average",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/academic-standards/",
+   "quote": "To be eligible for graduation, students must achieve a combined cumulative, SF State, and major GPA of 2.0 or better."
+  },
+  {
+   "id": "ug_ge_units",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "General Education requires at least 43 units.",
+   "values": {
+    "min_units": 43
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Graduation Requirement in Writing Proficiency > General Education Requirements – 43 units minimum",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "General Education Requirements – 43 units minimum"
+  },
+  {
+   "id": "ug_ge_upper_division",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "Upper-division GE requires at least 9 units: one 3-unit course each in 2UD or 5UD (science/quantitative reasoning), 3UD (arts/humanities), and 4UD (social/behavioral sciences).",
+   "values": {
+    "min_units": 9,
+    "areas": [
+     "2UD or 5UD",
+     "3UD",
+     "4UD"
+    ]
+   },
+   "source_page": "Upper-Division General Education",
+   "source_section": "Upper-Division General Education — 9 Units Minimum > General Requirements",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/general-education/upper-division/",
+   "quote": "Upper-Division General Education — 9 Units Minimum"
+  },
+  {
+   "id": "ug_ge_ud_prereqs",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "Upper-division GE courses require 1A, 1B, 1C and Area 2 first; they're recommended after 60 units.",
+   "values": {
+    "prerequisite_areas": [
+     "1A",
+     "1B",
+     "1C",
+     "2"
+    ],
+    "recommended_after_units": 60
+   },
+   "source_page": "Upper-Division General Education",
+   "source_section": "Upper-Division General Education — 9 Units Minimum > General Requirements",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/general-education/upper-division/",
+   "quote": "Minimally, all of these courses have a prerequisite of English Composition (1A), Critical Thinking (1B), Oral Communication (1C), and Mathematical Concepts and Quantitative Reasoning (2)."
+  },
+  {
+   "id": "ug_ge_area1",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "GE Area 1 (English Communication): at least 9 units, 3 each in 1A English Composition, 1B Critical Thinking, 1C Oral Communication.",
+   "values": {
+    "area": "1",
+    "min_units": 9
+   },
+   "source_page": "Lower-Division General Education",
+   "source_section": "Area 1: English Communication — 9 units",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/general-education/lower-division/",
+   "quote": "Students must complete a minimum of nine units in Area 1, including a minimum of three units in each of the following three areas: English Composition, Critical Thinking, and Oral Communication."
+  },
+  {
+   "id": "ug_ge_area3",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "GE Area 3 (Arts and Humanities): at least 6 units, 3 in Arts (3A) and 3 in Humanities (3B).",
+   "values": {
+    "area": "3",
+    "min_units": 6
+   },
+   "source_page": "Lower-Division General Education",
+   "source_section": "Area 3: Arts and Humanities — 6 units",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/general-education/lower-division/",
+   "quote": "Students must complete a minimum of 6 units in Area 3 including three units in Arts (3a) and three units in Humanities (3B)."
+  },
+  {
+   "id": "ug_ge_area5",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "GE Area 5 (Physical and Biological Sciences): at least 7 units, including 3 in physical science and 3 in biological science (plus a 1-unit lab, 5C).",
+   "values": {
+    "area": "5",
+    "min_units": 7
+   },
+   "source_page": "Lower-Division General Education",
+   "source_section": "Area 5: Physical and Biological Sciences — 7 units",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/general-education/lower-division/",
+   "quote": "All students must complete a minimum of 7 units in Area 5, including a minimum of three units in each of the following two areas: Physical Science and Biological Science."
+  },
+  {
+   "id": "ug_ge_table",
+   "category": "general_education",
+   "applies_to": "undergraduate",
+   "rule": "GE requirement table: 1A 3, 1B 3, 1C 3, 2 3, 3A 3, 3B 3, 4 6, 5A 3, 5B 3, 5C 1, 6 (Ethnic Studies, LD or UD) 3, 2UD/5UD 3, 3UD 3, 4UD 3. Area 4 also covers U.S. History (USH).",
+   "values": {
+    "areas": {
+     "1A": 3,
+     "1B": 3,
+     "1C": 3,
+     "2": 3,
+     "3A": 3,
+     "3B": 3,
+     "4": 6,
+     "5A": 3,
+     "5B": 3,
+     "5C": 1,
+     "6": 3,
+     "2UD_or_5UD": 3,
+     "3UD": 3,
+     "4UD": 3
+    }
+   },
+   "source_page": "Undergraduate Education",
+   "source_section": "Introduction to General Education > General Education Requirements for all Baccalaureate Degrees",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/",
+   "quote": "*Students will fulfill USH through their Area 4 courses"
+  },
+  {
+   "id": "ug_gwar",
+   "category": "writing",
+   "applies_to": "undergraduate",
+   "rule": "Every bachelor's program requires a Graduation Writing Assessment Requirement (GWAR) course, marked 'GW' after the number, passed with C- or better.",
+   "values": {
+    "min_grade": "C-",
+    "course_suffix": "GW"
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Graduation Requirement in Writing Proficiency",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "These courses are identified with a GW after the course number and must be completed with a grade of C- or better to meet the requirement."
+  },
+  {
+   "id": "ug_sf_state_studies",
+   "category": "sf_state_studies",
+   "applies_to": "undergraduate",
+   "rule": "Undergraduates must take courses covering all four SF State Studies areas: AERM, ESCA, GP and SJ. Courses may come from GE, major, minor or electives. Students with a verified AA-T/AS-T in a similar major are exempt.",
+   "values": {
+    "areas": [
+     "AERM",
+     "ESCA",
+     "GP",
+     "SJ"
+    ]
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Graduation Requirement in Writing Proficiency > SF State Studies Requirements",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "Undergraduate students must complete courses that cover the four areas of SF State Studies: American Ethnic and Racial Minorities (AERM), Environmental Sustainability and Climate Action (ESCA), Global Perspectives (GP), and Social Justice (SJ)."
+  },
+  {
+   "id": "ug_american_institutions",
+   "category": "american_institutions",
+   "applies_to": "undergraduate",
+   "rule": "American Institutions has two parts: U.S. History (USH) and U.S. and California Government (USG/CSLG).",
+   "values": {
+    "components": [
+     "U.S. History",
+     "U.S. and California Government"
+    ]
+   },
+   "source_page": "Degree Requirements",
+   "source_section": "Graduation Requirement in Writing Proficiency > American Institutions Requirement",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/degree-requirements/",
+   "quote": "The American Institutions requirement consists of two categories:"
+  },
+  {
+   "id": "ug_complementary_studies",
+   "category": "major",
+   "applies_to": "undergraduate",
+   "rule": "B.A. students may need at least 12 units of Complementary Studies outside the major's primary prefix.",
+   "values": {
+    "min_units": 12
+   },
+   "source_page": "Complementary Studies",
+   "source_section": "Complementary Studies: Bachelor of Arts Degrees (12 units)",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/complementary-studies/",
+   "quote": "Bachelor of Arts students may be required to complete at least 12 units of Complementary Studies outside of the primary prefix for the major."
+  },
+  {
+   "id": "ug_declare_major",
+   "category": "major",
+   "applies_to": "undergraduate",
+   "rule": "Students who enter as freshmen must declare a major by the time they complete 70 units.",
+   "values": {
+    "declare_by_units": 70
+   },
+   "source_page": "Major",
+   "source_section": "",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/majors/",
+   "quote": "Students who enter SF State as freshmen must declare a major by the time they complete 70 units."
+  },
+  {
+   "id": "ug_major_gpa",
+   "category": "major",
+   "applies_to": "undergraduate",
+   "rule": "The major requires a minimum 2.0 GPA; some majors set higher grade minimums.",
+   "values": {
+    "min_gpa": 2.0
+   },
+   "source_page": "Major",
+   "source_section": "",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/majors/",
+   "quote": "Students must have a minimum 2.0 grade point average (GPA) in their major."
+  },
+  {
+   "id": "ug_major_ge_double_count",
+   "category": "major",
+   "applies_to": "undergraduate",
+   "rule": "Any number of GE courses may also count toward the major, but their units count once toward the 120.",
+   "values": {},
+   "source_page": "Major",
+   "source_section": "",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/majors/",
+   "quote": "If applicable, an unlimited number of courses used to meet General Education requirements may be used to fulfill major requirements."
+  },
+  {
+   "id": "ug_change_major_catalog",
+   "category": "major",
+   "applies_to": "undergraduate",
+   "rule": "When you declare or change a major after admission, you follow the major requirements in effect at the time of the declaration/change.",
+   "values": {},
+   "source_page": "Major",
+   "source_section": "",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/majors/",
+   "quote": "Students who change their major after being admitted or who declare a major after being admitted with an undeclared major must fulfill the major requirements in effect at the time they declare or change their major."
+  },
+  {
+   "id": "ug_minor_min_units",
+   "category": "minor",
+   "applies_to": "undergraduate",
+   "rule": "A minor requires at least 12 units; at least half must be taken at SF State and at least 6 units must be upper-division; 2.0 GPA in the minor; no major and minor in the same discipline.",
+   "values": {
+    "min_units": 12,
+    "min_upper_division_units": 6,
+    "min_fraction_in_residence": 0.5,
+    "min_gpa": 2.0
+   },
+   "source_page": "Minor",
+   "source_section": "",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/minors/",
+   "quote": "A minor must include a minimum of 12 units."
+  },
+  {
+   "id": "ug_minor_residence",
+   "category": "minor",
+   "applies_to": "undergraduate",
+   "rule": "At least half the minor's units must be taken at SF State and at least 6 must be upper-division.",
+   "values": {
+    "min_upper_division_units": 6
+   },
+   "source_page": "Minor",
+   "source_section": "",
+   "source_url": "https://bulletin.sfsu.edu/undergraduate-education/minors/",
+   "quote": "At least half of the units making up the minor must be taken at SF State, and at least 6 units must be upper-division."
+  },
+  {
+   "id": "ug_time_limit",
+   "category": "graduation_units",
+   "applies_to": "undergraduate",
+   "rule": "No general time limit for undergraduate units, but departments may require retaking major/minor/certificate courses taken more than 7 years before graduation.",
+   "values": {
+    "years": 7
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Time Limit to Complete Requirements for Undergraduate Degree",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "However, if any course required for the major, minor, or certificate was taken more than seven years prior to graduation, then departments and programs may require students to retake that course or demonstrate currency in that subject."
+  },
+  {
+   "id": "class_levels",
+   "category": "class_level",
+   "applies_to": "undergraduate",
+   "rule": "Class level by earned units: Freshman 0-29, Sophomore 30-59, Junior 60-89, Senior 90+.",
+   "values": {
+    "freshman": [
+     0,
+     29
+    ],
+    "sophomore": [
+     30,
+     59
+    ],
+    "junior": [
+     60,
+     89
+    ],
+    "senior": [
+     90,
+     null
+    ]
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Class Level of Students",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "The class level of students is determined according to units completed (earned units) as follows:"
+  },
+  {
+   "id": "ug_average_load",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "15 units is an average full-time undergraduate semester load.",
+   "values": {
+    "average_units": 15
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "15 units are considered an average semester course load for full-time undergraduate students."
+  },
+  {
+   "id": "normal_load",
+   "category": "unit_load",
+   "applies_to": "all",
+   "rule": "Normal load: undergraduates 12-15 units per fall/spring semester (8 in summer); graduates 9-12 (7 in summer). Expect two hours of preparation for every hour of class.",
+   "values": {
+    "undergraduate": {
+     "fall_spring": [
+      12,
+      15
+     ],
+     "summer": 8
+    },
+    "graduate": {
+     "fall_spring": [
+      9,
+      12
+     ],
+     "summer": 7
+    }
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Academic Load",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "During spring and fall, the normal academic load for undergraduates is 12 to 15 units per semester and 8 units in the summer. For graduates, the normal load during spring and fall is from 9 to 12 units per semester and 7 units during the summer."
+  },
+  {
+   "id": "ug_max_units_priority_registration",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "During priority registration undergraduates can register for at most 19 units, including up to 8 wait-listed units.",
+   "values": {
+    "max_units": 19,
+    "max_waitlisted_units": 8
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "During priority registration, students may register for a maximum of 19 units of enrolled, including 8 units of wait-listed courses."
+  },
+  {
+   "id": "grad_max_units_registration",
+   "category": "unit_load",
+   "applies_to": "graduate",
+   "rule": "Graduate students can register for at most 16 units, including up to 9 wait-listed units.",
+   "values": {
+    "max_units": 16,
+    "max_waitlisted_units": 9
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Graduate students may register for a maximum of 16 units of enrolled, including 9 units of wait-listed courses."
+  },
+  {
+   "id": "ug_max_units_academic_notice",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "Undergraduates on academic notice may enroll in at most 13 units (starting with their second semester on notice).",
+   "values": {
+    "max_units": 13
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Undergraduate students on academic notice may enroll in a maximum of 13 units (this does not go into effect until a student’s second semester on academic notice)."
+  },
+  {
+   "id": "ug_max_units_summer",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "Summer maximums (undergraduate): 7 units in a 5-week session, 9 in an 8-week, 12 in a 10-week, 14 across all summer sessions combined (including 8 wait-listed).",
+   "values": {
+    "five_week": 7,
+    "eight_week": 9,
+    "ten_week": 12,
+    "summer_total": 14
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "During the summer semester, undergraduate students may enroll in a maximum of 7 units in a five-week summer session, 9 units in an eight-week session, 12 units in a ten-week summer session, and a maximum of 14 units in any combination of summer semester sessions, including 8 units of wait-listed courses."
+  },
+  {
+   "id": "ug_exceed_max_units",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "To exceed the maximum, undergraduates need a cumulative SF State GPA of 3.0+ and an approved Exceed Maximum Units Petition (major advisor, department chair, college dean).",
+   "values": {
+    "min_gpa": 3.0,
+    "form": "Exceed Maximum Units Petition"
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Undergraduate students who want to enroll in more than the maximum units listed above must have a cumulative SF State grade point average of 3.0 or better and secure approval via the Exceed Maximum Units Petition."
+  },
+  {
+   "id": "ug_25_units",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "Enrolling in 25 or more units in one semester requires approval from the advisor, college dean, and Dean of Undergraduate Education and Academic Planning.",
+   "values": {
+    "threshold_units": 25
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Unit Requirements > Maximum Units in One Semester",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Students who wish to enroll in 25 or more units in one semester must receive the approval of their advisor, their college dean, and the Dean of Undergraduate Education and Academic Planning using the Exceed Maximum Units Petition."
+  },
+  {
+   "id": "intl_min_units",
+   "category": "unit_load",
+   "applies_to": "all",
+   "rule": "International (F-1) students must carry at least 12 units (undergraduate) or 8 units (graduate) each fall and spring.",
+   "values": {
+    "undergraduate_min": 12,
+    "graduate_min": 8
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Academic Load",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "For international students in F1 visa status, immigration regulations require a minimum academic load of 12 units for undergraduates and 8 units for graduates for spring and fall semesters."
+  },
+  {
+   "id": "fa_enrollment_status",
+   "category": "unit_load",
+   "applies_to": "undergraduate",
+   "rule": "Financial-aid enrollment status: full-time = 12 units, three-quarter time = 9-11, half-time = 6-8.",
+   "values": {
+    "full_time": 12,
+    "three_quarter": [
+     9,
+     11
+    ],
+    "half_time": [
+     6,
+     8
+    ]
+   },
+   "source_page": "Student Financial Aid",
+   "source_section": "Program Highlights",
+   "source_url": "https://bulletin.sfsu.edu/fees-financial-aid/student-financial-aid/",
+   "quote": "Enrollment requirement: full time = 12 units; three-quarter time = 9-11 units; half-time = 6-8 units."
+  },
+  {
+   "id": "grad_full_time",
+   "category": "unit_load",
+   "applies_to": "graduate",
+   "rule": "Graduate full-time in fall/spring: 6.1+ units for fee purposes, 8+ for financial aid and international students; typical load 9-12.",
+   "values": {
+    "fees": 6.1,
+    "financial_aid": 8,
+    "international": 8,
+    "typical": [
+     9,
+     12
+    ]
+   },
+   "source_page": "Graduate Student Registration",
+   "source_section": "Full-Time Unit Load for Graduate Students > Fall and Spring Semesters",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/registration/",
+   "quote": "For those receiving financial aid, 8 units and above"
+  },
+  {
+   "id": "grad_max_units",
+   "category": "unit_load",
+   "applies_to": "graduate",
+   "rule": "Graduate maximum with advisor permission is 16 units; more than 16 needs GPA 3.25+ and a petition; post-baccalaureate students normally can't exceed 18 units.",
+   "values": {
+    "max_units": 16,
+    "petition_min_gpa": 3.25,
+    "absolute_max": 18
+   },
+   "source_page": "Graduate Student Registration",
+   "source_section": "Full-Time Unit Load for Graduate Students > Fall and Spring Semesters",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/registration/",
+   "quote": "The maximum unit load with the permission of the designated faculty advisor is 16 units."
+  },
+  {
+   "id": "grad_max_units_summer",
+   "category": "unit_load",
+   "applies_to": "graduate",
+   "rule": "Graduate summer maximums: 6 units in a 5-week session, 9 in an 8- or 10-week session, 11 across all summer sessions.",
+   "values": {
+    "five_week": 6,
+    "eight_or_ten_week": 9,
+    "summer_total": 11
+   },
+   "source_page": "Graduate Student Registration",
+   "source_section": "Full-Time Unit Load for Graduate Students > Summer Semester",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/registration/",
+   "quote": "Graduate students may enroll in a maximum of 6 units in a five-week summer session, 9 units in the eight or ten-week summer session, and 11 units in any combination of summer sessions (R1, R2, R3, and R4)."
+  },
+  {
+   "id": "va_full_time",
+   "category": "unit_load",
+   "applies_to": "all",
+   "rule": "For VA benefits, undergraduates must complete 12+ units and graduates 8+ upper-division/graduate units (9+ if any lower-division) per term for maximum benefits.",
+   "values": {
+    "undergraduate": 12,
+    "graduate": 8
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Enrollment Verification > Winter Semester – Veterans Academic Load > Veterans and Dependents of Veterans",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "undergraduates must register for and complete 12 or more semester units of credit to receive maximum benefits."
+  },
+  {
+   "id": "add_deadline",
+   "category": "registration",
+   "applies_to": "all",
+   "rule": "Courses can be added with an instructor-issued permission number during the first three weeks of the semester.",
+   "values": {
+    "weeks": 3
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Registration for Classes > Adding Courses after Instruction Begins",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "they may add courses via the SF State Gateway at gateway.sfsu.edu with instructor assigned permission numbers during the first three weeks of the semester."
+  },
+  {
+   "id": "drop_first_three_weeks",
+   "category": "registration",
+   "applies_to": "all",
+   "rule": "During the first three weeks, courses can be dropped without restriction or penalty; drops don't appear on the transcript or count toward the withdrawal limit.",
+   "values": {
+    "weeks": 3
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Registration for Classes > Dropping Courses after Instruction Begins",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "During the first three weeks of instruction, students are permitted to drop classes without restriction or academic penalty."
+  },
+  {
+   "id": "withdraw_weeks_4_12",
+   "category": "withdrawal",
+   "applies_to": "all",
+   "rule": "Weeks 4-12: withdrawal requires serious and compelling reasons plus instructor and department chair approval; results in a W (not in GPA).",
+   "values": {
+    "weeks": [
+     4,
+     12
+    ],
+    "grade": "W"
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Withdrawing from a Course or Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "students may request to withdraw from courses for serious and compelling reasons, as specified by the student."
+  },
+  {
+   "id": "withdraw_week_13_on",
+   "category": "withdrawal",
+   "applies_to": "all",
+   "rule": "Week 13 to end of instruction: withdrawal only for circumstances clearly beyond the student's control (e.g., accident, serious illness), with documentation and instructor, chair and dean approval.",
+   "values": {
+    "from_week": 13
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Withdrawing from a Course or Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "where the cause of withdrawal is due to circumstances clearly beyond the student's control and the assignment of an Incomplete is not practicable."
+  },
+  {
+   "id": "ug_withdraw_limit",
+   "category": "withdrawal",
+   "applies_to": "undergraduate",
+   "rule": "Undergraduates may withdraw from at most 18 units over their entire SF State career.",
+   "values": {
+    "max_units": 18
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Withdrawing from a Course or Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Undergraduates may withdraw from a maximum of 18 units throughout their entire SF State undergraduate career (see Grading Policy)."
+  },
+  {
+   "id": "withdraw_deadline",
+   "category": "withdrawal",
+   "applies_to": "all",
+   "rule": "All withdrawal requests must be submitted by the last day of instruction.",
+   "values": {},
+   "source_page": "Policies and Procedures",
+   "source_section": "Withdrawing from a Course or Courses > Appeals for Requests to Withdraw > Appeal of the Deadline to Submit a Request for Withdrawal (formerly known as retroactive withdrawal)",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Academic Policy requires that all requests to withdraw from a course must be submitted no later than the last day of instruction of that term."
+  },
+  {
+   "id": "readmission_three_semesters",
+   "category": "registration",
+   "applies_to": "all",
+   "rule": "Students who don't enroll for three consecutive semesters (excluding summer) must apply for readmission.",
+   "values": {
+    "semesters": 3
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Withdrawal Policy > Cancellation of Registration and Withdrawals",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Students who do not enroll for three consecutive semesters (excluding summer) must apply for readmission to the University."
+  },
+  {
+   "id": "audit",
+   "category": "registration",
+   "applies_to": "all",
+   "rule": "Auditors pay the same fees; switching audit to credit must happen by the add deadline; credit to audit isn't allowed after week 2.",
+   "values": {},
+   "source_page": "Policies and Procedures",
+   "source_section": "Auditing Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "A student who is enrolled for credit may not change to audit after the second week of instruction."
+  },
+  {
+   "id": "leave_of_absence",
+   "category": "registration",
+   "applies_to": "all",
+   "rule": "Continuing students can be absent up to two consecutive fall/spring semesters without losing eligibility; a Planned Educational Leave is needed for 3+ consecutive semesters.",
+   "values": {
+    "max_semesters_without_leave": 2
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Planned Educational Leave of Absence",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Continuing students can be absent up to two consecutive fall or spring semesters during a specific academic year and maintain their eligibility."
+  },
+  {
+   "id": "grade_points",
+   "category": "grading",
+   "applies_to": "all",
+   "rule": "Grade points per unit: A 4.0, A- 3.7, B+ 3.3, B 3.0, B- 2.7, C+ 2.3, C 2.0, C- 1.7, D+ 1.3, D 1.0, D- 0.7, F 0, IC 0, WU 0. W, I, AU, RP, RD, CR, NC carry no grade points. There is no A+.",
+   "values": {
+    "A": 4.0,
+    "A-": 3.7,
+    "B+": 3.3,
+    "B": 3.0,
+    "B-": 2.7,
+    "C+": 2.3,
+    "C": 2.0,
+    "C-": 1.7,
+    "D+": 1.3,
+    "D": 1.0,
+    "D-": 0.7,
+    "F": 0.0,
+    "IC": 0.0,
+    "WU": 0.0
+   },
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > VI. Grade Points",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "No other grading symbol, including W, I, AU, RP, RD, CR, and NC, carries grade point credit."
+  },
+  {
+   "id": "gpa_formula",
+   "category": "grading",
+   "applies_to": "all",
+   "rule": "GPA = total grade points / total units attempted in A-F graded courses (adjusted by the course repeat policy).",
+   "values": {},
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > V. Grade Point Average",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "Grade point averages are determined by dividing the total number of grade points earned by the total number of units attempted in courses in which A–F grades are assigned."
+  },
+  {
+   "id": "cr_definition",
+   "category": "grading",
+   "applies_to": "all",
+   "rule": "CR means A through C- work in an undergraduate course, or A through B- in a graduate course.",
+   "values": {
+    "undergraduate_equivalent": "A to C-",
+    "graduate_equivalent": "A to B-"
+   },
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > II. Grading Symbol Definitions",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "Performance of the student in an undergraduate-level course has been equivalent to grades A through C-; performance of the student in a graduate level course has been equivalent to grades A through B-."
+  },
+  {
+   "id": "grading_option_deadline",
+   "category": "grading",
+   "applies_to": "all",
+   "rule": "The deadline to change grading option (e.g., to CR/NC) is one week before the last day of instruction.",
+   "values": {},
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > III. Grading Systems",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "Students must elect to change their grading option by the Grading Option deadline each semester, which is one week before the last day of instruction."
+  },
+  {
+   "id": "grad_cr_limit",
+   "category": "grading",
+   "applies_to": "graduate",
+   "rule": "For a master's degree, at most 30% of Advancement to Candidacy units may be CR.",
+   "values": {
+    "max_fraction": 0.3
+   },
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > III. Grading Systems",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "For students working toward a master's degree, no more than 30% of the units used on the Advancement to Candidacy, including transfer work, may be taken for CR grades."
+  },
+  {
+   "id": "incomplete",
+   "category": "grading",
+   "applies_to": "all",
+   "rule": "An Incomplete (I) requires passing work and normally 75%+ of coursework done. It must be made up within one calendar year, or it becomes IC, which counts as F.",
+   "values": {
+    "deadline": "1 calendar year",
+    "min_completed": 0.75
+   },
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > IV. Additional guidance and details on the use of specialized grading symbols: I, RP, WU, and WM > A. Use of Incomplete Authorized (I) Grade",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "An incomplete must normally be made up within one calendar year immediately following the end of the term during which it was assigned"
+  },
+  {
+   "id": "wu_grade",
+   "category": "grading",
+   "applies_to": "all",
+   "rule": "WU (unauthorized withdrawal) counts as a failing grade in the GPA.",
+   "values": {},
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grading Information > IV. Additional guidance and details on the use of specialized grading symbols: I, RP, WU, and WM > C. Use of Withdrawal Unauthorized (WU) Grade",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "The WU symbol shall be identified as a failing grade in the transcript legend, and shall be counted as units attempted but not passed in computing the grade point average."
+  },
+  {
+   "id": "ug_repeat_rules",
+   "category": "repeat",
+   "applies_to": "undergraduate",
+   "rule": "Undergraduates can't repeat a course passed with C or better (or CR) unless it's repeatable for credit. A course with a grade below C (including W, WU, etc.) may be repeated only once more.",
+   "values": {
+    "repeat_if_below": "C",
+    "max_additional_attempts": 1
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Repeating Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "An undergraduate student who has received a grade in a course that is lower than C, including AU, IC, RD, RP, W, and WU, may repeat that course only once more."
+  },
+  {
+   "id": "ug_grade_forgiveness",
+   "category": "repeat",
+   "applies_to": "undergraduate",
+   "rule": "Up to 16 units of SF State coursework can be repeated for grade forgiveness (the lower grade is excluded from the GPA). It doesn't apply to academic dishonesty.",
+   "values": {
+    "max_units": 16
+   },
+   "source_page": "Grading Information and Systems",
+   "source_section": "Grade Forgiveness Policy > Summary of the Grade Forgiveness Policy",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/grading/",
+   "quote": "Undergraduate students may repeat a maximum of 16 units of coursework taken at San Francisco State University for the purpose of excluding the original grade from grade point determination."
+  },
+  {
+   "id": "ug_repeat_cap",
+   "category": "repeat",
+   "applies_to": "undergraduate",
+   "rule": "After repeating 28 units of SF State coursework, undergraduates can't repeat more courses (except those repeatable for credit).",
+   "values": {
+    "max_units": 28
+   },
+   "source_page": "Policies and Procedures",
+   "source_section": "Repeating Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "An undergraduate student cannot repeat any courses once they have repeated 28 units of SF State units unless the course is described in the Bulletin as repeatable for credit."
+  },
+  {
+   "id": "repeat_default",
+   "category": "repeat",
+   "applies_to": "all",
+   "rule": "Courses can't be repeated for additional credit unless the course description says so.",
+   "values": {},
+   "source_page": "Policies and Procedures",
+   "source_section": "Repeating Courses",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/",
+   "quote": "Unless otherwise stated in the course descriptions in the current SF State Bulletin, courses may not be repeated for additional units of credit."
+  },
+  {
+   "id": "grad_repeat",
+   "category": "repeat",
+   "applies_to": "graduate",
+   "rule": "Graduate students can repeat a course graded below B- (or IC, W, WU) once, if the program permits. Both grades stay on the transcript and are averaged.",
+   "values": {
+    "repeat_if_below": "B-",
+    "max_additional_attempts": 1
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "Academic Standards > Repeat of Courses as a Graduate Student",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "A graduate student who has received a grade of B– or better, or a grade of CR, may not repeat a course unless the course is described in the current SF State Bulletin as repeatable for credit."
+  },
+  {
+   "id": "ug_good_standing",
+   "category": "academic_standing",
+   "applies_to": "undergraduate",
+   "rule": "Good academic standing means a 2.0 GPA or better.",
+   "values": {
+    "min_gpa": 2.0
+   },
+   "source_page": "Academic Standards",
+   "source_section": "Undergraduate Students > Good Standing",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/academic-standards/",
+   "quote": "Undergraduate students with a 2.0-grade point average (GPA) or better are said to be in good academic standing."
+  },
+  {
+   "id": "ug_academic_notice",
+   "category": "academic_standing",
+   "applies_to": "undergraduate",
+   "rule": "An SF State or combined cumulative GPA below 2.0 puts an undergraduate on academic notice; a second semester below 2.0 makes them subject to disqualification (mandatory advising, registration hold).",
+   "values": {
+    "threshold_gpa": 2.0
+   },
+   "source_page": "Academic Standards",
+   "source_section": "Undergraduate Students > Academic Notice",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/academic-standards/",
+   "quote": "Undergraduate students with an SF State and/or combined cumulative GPA of less than 2.0 are not in good academic standing and will be placed on academic notice (Academic Senate Policy S23-275)."
+  },
+  {
+   "id": "ug_disqualification",
+   "category": "academic_standing",
+   "applies_to": "undergraduate",
+   "rule": "Disqualification happens if term GPA < 2.0 and cumulative GPA is below: 1.50 (freshman <30 units), 1.70 (sophomore 30-59), 1.85 (junior 60-89), 1.95 (senior 90+).",
+   "values": {
+    "freshman": 1.5,
+    "sophomore": 1.7,
+    "junior": 1.85,
+    "senior": 1.95
+   },
+   "source_page": "Academic Standards",
+   "source_section": "Undergraduate Students > Subject to Disqualification and Academic Disqualification",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/academic-standards/",
+   "quote": "As a senior (90 or more units completed), their SF State or combined cumulative GPA is below 1.95."
+  },
+  {
+   "id": "ug_readmission_after_dq",
+   "category": "academic_standing",
+   "applies_to": "undergraduate",
+   "rule": "Disqualified students must raise SF State and combined GPAs to 2.0 to be reinstated (SF State GPA via Open University).",
+   "values": {
+    "min_gpa": 2.0
+   },
+   "source_page": "Academic Standards",
+   "source_section": "Undergraduate Students > Readmission of Disqualified Students",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/academic-standards/",
+   "quote": "Students who have been academically disqualified from SF State must raise their SF State and combined cumulative GPAs to a 2.0 or better to be reinstated or readmitted to SF State."
+  },
+  {
+   "id": "deans_list",
+   "category": "honors",
+   "applies_to": "undergraduate",
+   "rule": "Dean's List: 12+ A-F graded units completed in the semester with a semester GPA of 3.25 or better.",
+   "values": {
+    "min_units": 12,
+    "min_semester_gpa": 3.25
+   },
+   "source_page": "Scholastic Distinction",
+   "source_section": "Semester Dean’s List",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/scholastic-distinction/",
+   "quote": "The student attained a GPA of 3.25 or better for the semester."
+  },
+  {
+   "id": "latin_honors",
+   "category": "honors",
+   "applies_to": "undergraduate",
+   "rule": "Graduation honors by cumulative GPA: cum laude 3.50-3.69, magna cum laude 3.70-3.84, summa cum laude 3.85+. GPA is not rounded.",
+   "values": {
+    "cum_laude": [
+     3.5,
+     3.69
+    ],
+    "magna_cum_laude": [
+     3.7,
+     3.84
+    ],
+    "summa_cum_laude": [
+     3.85,
+     4.0
+    ]
+   },
+   "source_page": "Scholastic Distinction",
+   "source_section": "Graduation with Honors",
+   "source_url": "https://bulletin.sfsu.edu/policies-procedures/scholastic-distinction/",
+   "quote": "A student whose GPA is 3.85 or greater shall graduate summa cum laude."
+  },
+  {
+   "id": "grad_min_units",
+   "category": "graduation_units",
+   "applies_to": "graduate",
+   "rule": "Minimum units: master's (M.A., M.S., M.P.H., M.M.) 30; M.F.A. 60; doctorates (Ed.D., D.P.T.) 60.",
+   "values": {
+    "masters": 30,
+    "mfa": 60,
+    "doctoral": 60
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "Graduate Program Requirements > Graduate Program Unit Requirements",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "Master’s degrees (M.A., M.S., M.P.H., M.M.): 30 units"
+  },
+  {
+   "id": "grad_gpa",
+   "category": "gpa",
+   "applies_to": "graduate",
+   "rule": "Graduate students need a 3.0 GPA in all post-baccalaureate SF State work and on the ATC; non-supervisory ATC courses need B- or better.",
+   "values": {
+    "min_gpa": 3.0,
+    "min_atc_course_grade": "B-"
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "The Advancement to Candidacy (ATC) > Advancement to Candidacy (ATC) Requirements",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "All non-supervisory courses listed on the ATC must have a grade of B- or higher."
+  },
+  {
+   "id": "grad_standing",
+   "category": "academic_standing",
+   "applies_to": "graduate",
+   "rule": "Graduate students go on academic notice/probation if overall, SF State or semester GPA falls below 3.0.",
+   "values": {
+    "threshold_gpa": 3.0
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "Graduate Student Academic Standing > Academic Notice/Probation",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "Students will be placed on academic notice/probation if the overall, SF State, or semester GPA falls below 3.0 (B)."
+  },
+  {
+   "id": "grad_seven_year_limit",
+   "category": "time_limit",
+   "applies_to": "graduate",
+   "rule": "Master's and doctoral degrees must be completed within seven years; one extension of up to one year may be requested.",
+   "values": {
+    "years": 7,
+    "max_extension_years": 1
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "The Advancement to Candidacy (ATC) > Progress Toward Degree",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "Title 5 of the California Code of Regulations requires that a master’s or doctoral degree shall be completed in no more than seven years."
+  },
+  {
+   "id": "grad_progress",
+   "category": "time_limit",
+   "applies_to": "graduate",
+   "rule": "Graduate students must complete at least 6 units each year (excluding summer).",
+   "values": {
+    "min_units_per_year": 6
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "The Advancement to Candidacy (ATC) > Progress Toward Degree",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "Graduate students must make continuous satisfactory progress toward their degree by completing a minimum of 6 units each year, not including the summer session."
+  },
+  {
+   "id": "grad_residence",
+   "category": "graduation_units",
+   "applies_to": "graduate",
+   "rule": "At least 21 of 30 master's units must be taken in residence (proportionally more for larger programs).",
+   "values": {
+    "min_residence_units": 21,
+    "of_units": 30
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "The Advancement to Candidacy (ATC) > Advancement to Candidacy (ATC) Requirements",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "At least 21 of 30 units must be taken in residence on this campus or proportionally more for programs that exceed 30 units."
+  },
+  {
+   "id": "grad_transfer_units",
+   "category": "transfer_credit",
+   "applies_to": "graduate",
+   "rule": "At most 9 semester units of transfer/CPaGE coursework may apply to a 30-unit graduate program (more for 45+ unit programs).",
+   "values": {
+    "max_units": 9
+   },
+   "source_page": "Graduate Application and Admissions Procedures",
+   "source_section": "Transfer Credit from Other Institutions",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/admissions/",
+   "quote": "a maximum of 9 semester units, including any combination of transfer units or coursework through the College of Professional & Global Education, may be used to meet the requirements of a 30 unit program"
+  },
+  {
+   "id": "grad_open_university",
+   "category": "transfer_credit",
+   "applies_to": "graduate",
+   "rule": "At most 6 Open University units may apply to a 30-unit master's (no more than 12 for larger degrees).",
+   "values": {
+    "max_units": 6
+   },
+   "source_page": "Graduate Student Registration",
+   "source_section": "College of Professional & Global Education > Open University",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/registration/",
+   "quote": "Students may apply no more than 6 units taken through Open University enrollment toward a 30 unit master’s degree"
+  },
+  {
+   "id": "ug_grad_courses_as_undergrad",
+   "category": "transfer_credit",
+   "applies_to": "graduate",
+   "rule": "Up to 9 upper-division or 12 graduate units (max 12 total) taken as an undergraduate can count toward a graduate program if not used for the bachelor's degree.",
+   "values": {
+    "max_upper_division": 9,
+    "max_graduate": 12,
+    "max_total": 12
+   },
+   "source_page": "Graduate Application and Admissions Procedures",
+   "source_section": "Credits Taken Prior to Admission to a Graduate Program at San Francisco State",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/admissions/",
+   "quote": "Up to 9 units of upper-division or up to 12 units of graduate work (not to exceed a total of 12 units) completed as an undergraduate may be counted toward a graduate program ONLY if the work was taken before the bachelor’s degree was earned and not counted toward the undergraduate degree."
+  },
+  {
+   "id": "scholars_units",
+   "category": "graduation_units",
+   "applies_to": "graduate",
+   "rule": "SF State Scholars (combined bachelor's + master's) requires at least 150 units total (120 + 30).",
+   "values": {
+    "min_units": 150
+   },
+   "source_page": "Graduate Academic Policies and Procedures",
+   "source_section": "Graduate Program Requirements > Master’s Degree Requirements > San Francisco State Scholars Programs (FastTrack) > Award of San Francisco State Scholars Bachelor’s and Master’s Degrees:",
+   "source_url": "https://bulletin.sfsu.edu/graduate-education/academic-policies-procedures/",
+   "quote": "The minimum unit requirement to obtain both undergraduate and graduate degrees is 150 units (120 units and 30 units, respectively)."
+  },
+  {
+   "id": "course_numbering",
+   "category": "course_numbering",
+   "applies_to": "all",
+   "rule": "Course numbers: 0-99 remedial/non-credit (don't count toward graduation), 100-299 lower-division, 300-699 upper-division, 700-899 graduate, 900-999 doctoral, 9000-9999 professional CEU.",
+   "values": {
+    "remedial": [
+     0,
+     99
+    ],
+    "lower_division": [
+     100,
+     299
+    ],
+    "upper_division": [
+     300,
+     699
+    ],
+    "graduate": [
+     700,
+     899
+    ],
+    "doctoral": [
+     900,
+     999
+    ],
+    "ceu": [
+     9000,
+     9999
+    ]
+   },
+   "source_page": "Course Descriptions, Symbols, and Terms",
+   "source_section": "Course Descriptions, Symbols, and Terms > Course Numbering System",
+   "source_url": "https://bulletin.sfsu.edu/courses/courses-terms/",
+   "quote": "The following course numbering system is used at this University:"
+  },
+  {
+   "id": "prereq_asterisk",
+   "category": "course_numbering",
+   "applies_to": "all",
+   "rule": "An asterisk (*) after a prerequisite means it is enforced at registration; others may be enforced by the instructor through add/drop.",
+   "values": {},
+   "source_page": "Course Descriptions, Symbols, and Terms",
+   "source_section": "Course Descriptions, Symbols, and Terms > Explanation of Course Notations",
+   "source_url": "https://bulletin.sfsu.edu/courses/courses-terms/",
+   "quote": "An \"*\" denotes that a course prerequisite is enforced at the time of registration."
+  },
+  {
+   "id": "cross_listed",
+   "category": "course_numbering",
+   "applies_to": "all",
+   "rule": "A cross-listed course can't be taken for credit a second time under another prefix.",
+   "values": {},
+   "source_page": "Course Descriptions, Symbols, and Terms",
+   "source_section": "Course Descriptions, Symbols, and Terms > Course Descriptions",
+   "source_url": "https://bulletin.sfsu.edu/courses/courses-terms/",
+   "quote": "Students may not earn credit in a cross-listed course a second time under an alternate prefix."
+  }
+ ]
+}

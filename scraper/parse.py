@@ -1,0 +1,1074 @@
+"""Parse the cached bulletin.sfsu.edu pages into structured JSON.
+
+Usage: python3 scraper/parse.py <cache_dir> <out_dir>
+"""
+import collections
+import copy
+import gzip
+import json
+import os
+import re
+import sys
+
+from bs4 import BeautifulSoup, NavigableString, Tag
+
+BASE = "https://bulletin.sfsu.edu"
+CACHE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), ".cache")
+OUT = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(__file__), "..", "data", "sfsu")
+
+
+# --------------------------------------------------------------------------- helpers
+
+def clean(s):
+    if s is None:
+        return ""
+    s = s.replace("\xa0", " ").replace("​", "").replace("‑", "-")
+    s = re.sub(r"[ \t\r\f\v]+", " ", s)
+    s = re.sub(r" *\n *", "\n", s)
+    return s.strip()
+
+
+def one_line(s):
+    return re.sub(r"\s+", " ", clean(s)).strip()
+
+
+def url_of(path):
+    path = path.strip("/")
+    return f"{BASE}/{path}/" if path and not path.endswith(".html") else f"{BASE}/{path}"
+
+
+def path_of(url):
+    return url.replace(BASE, "").strip("/")
+
+
+def load(path):
+    p = os.path.join(CACHE, path.strip("/") or "index", "page.html.gz")
+    with gzip.open(p) as f:
+        return BeautifulSoup(f.read().decode("utf-8", "replace"), "lxml")
+
+
+def all_paths():
+    with open(os.path.join(CACHE, "urls.txt")) as f:
+        return [path_of(u.strip()) for u in f if u.strip()]
+
+
+def page_title(soup):
+    h = soup.select_one("h1.page-title")
+    return one_line(h.get_text(" ")) if h else ""
+
+
+def breadcrumb(soup):
+    bc = soup.select_one("#breadcrumb")
+    if not bc:
+        return []
+    return [one_line(x.get_text(" ")) for x in bc.select("li, a, span") if x.name in ("li",)] or \
+        [one_line(t) for t in bc.get_text("|").split("|") if one_line(t)]
+
+
+def number(s):
+    s = one_line(s)
+    if not s:
+        return None
+    try:
+        f = float(s)
+        return int(f) if f.is_integer() else f
+    except ValueError:
+        return None
+
+
+def parse_units(s):
+    """'3' -> (3,3); '1-3' -> (1,3); '3-4' -> (3,4)."""
+    s = one_line(s).replace("–", "-").replace("—", "-")
+    m = re.match(r"^(\d+(?:\.\d+)?)\s*(?:-|to)\s*(\d+(?:\.\d+)?)$", s)
+    if m:
+        return number(m.group(1)), number(m.group(2))
+    m = re.match(r"^(\d+(?:\.\d+)?)$", s)
+    if m:
+        n = number(m.group(1))
+        return n, n
+    return None, None
+
+
+# --------------------------------------------------------------------------- subjects / course codes
+
+def load_subjects():
+    soup = load("courses")
+    subjects = []
+    for a in soup.select("#atozindex li a"):
+        href = a.get("href", "")
+        name = one_line(a.get_text(" "))
+        m = re.match(r"^(.*)\(([^()]+)\)$", name)
+        if not m or href.strip("/") == "courses/all":
+            continue
+        subjects.append({"subject_code": m.group(2).strip(), "subject_name": m.group(1).strip(),
+                         "url": BASE + href})
+    return subjects
+
+
+SUBJECTS = None
+CODE_RE = None
+
+
+def init_code_regex(subjects):
+    global CODE_RE
+    codes = sorted({s["subject_code"] for s in subjects}, key=len, reverse=True)
+    alt = "|".join(re.escape(c).replace(r"\ ", r"[ \xa0]") for c in codes)
+    CODE_RE = re.compile(r"(?<![A-Za-z])(" + alt + r")[ \xa0](\d{2,4}[A-Z]{0,4})(?![A-Za-z0-9])")
+
+
+def norm_code(s):
+    s = one_line(s)
+    m = CODE_RE.search(s) if CODE_RE else None
+    if m:
+        return f"{m.group(1).replace(chr(160), ' ')} {m.group(2)}"
+    return s
+
+
+def codes_in(node_or_text):
+    """Course codes referenced in an element (link titles) or a text string, in order, deduped."""
+    found = []
+    if isinstance(node_or_text, Tag):
+        for a in node_or_text.select("a.code, a.bubblelink"):
+            c = norm_code(a.get("title") or a.get_text(" "))
+            if c:
+                found.append(c)
+        text = node_or_text.get_text(" ")
+    else:
+        text = node_or_text or ""
+    for m in CODE_RE.finditer(text.replace("\xa0", " ")):
+        found.append(f"{m.group(1)} {m.group(2)}")
+    seen, out = set(), []
+    for c in found:
+        if c not in seen:
+            seen.add(c)
+            out.append(c)
+    return out
+
+
+# --------------------------------------------------------------------------- HTML -> markdown
+
+def inline(node):
+    if isinstance(node, NavigableString):
+        if node.__class__.__name__ in ("Comment", "Doctype"):
+            return ""
+        return str(node)
+    if not isinstance(node, Tag):
+        return ""
+    if node.name in ("script", "style", "noscript"):
+        return ""
+    if node.name == "br":
+        return "\n"
+    if node.name == "sup":
+        t = one_line(node.get_text(" "))
+        return f"[{t}]" if t else ""
+    inner = "".join(inline(c) for c in node.children)
+    if node.name in ("strong", "b") and one_line(inner):
+        pre = " " if inner[:1].isspace() else ""
+        post = " " if inner[-1:].isspace() else ""
+        return f"{pre}**{one_line(inner)}**{post}"
+    return inner
+
+
+def table_md(table):
+    cls = table.get("class") or []
+    if "sc_courselist" in cls:
+        lines = []
+        for row in parse_courselist_rows(table):
+            if row["type"] == "course":
+                prefix = "or " if row.get("or") else ""
+                u = f" | {row['units']}" if row.get("units") else ""
+                lines.append(f"- {prefix}{' & '.join(row['codes'])} | {row['title']}{u}")
+            elif row["type"] == "total":
+                lines.append(f"- **{row['text']}: {row['units']}**")
+            else:
+                u = f" | {row['units']}" if row.get("units") else ""
+                mark = "**" if row["type"] == "header" else ""
+                lines.append(f"- {mark}{row['text']}{mark}{u}")
+        return "\n".join(lines)
+    if "sc_plangrid" in cls:
+        g = parse_plangrid(table)
+        return plangrid_md(g)
+    rows = []
+    for tr in table.find_all("tr"):
+        cells = [one_line(inline(td)) for td in tr.find_all(["td", "th"])]
+        if any(cells):
+            rows.append(cells)
+    if not rows:
+        return ""
+    width = max(len(r) for r in rows)
+    rows = [r + [""] * (width - len(r)) for r in rows]
+    out = ["| " + " | ".join(rows[0]) + " |", "|" + "---|" * width]
+    out += ["| " + " | ".join(r) + " |" for r in rows[1:]]
+    return "\n".join(out)
+
+
+def to_md(node, depth=0):
+    """Block-level markdown rendering of an element's children."""
+    out = []
+    buf = []
+
+    def flush():
+        t = clean("".join(buf))
+        if t:
+            out.append(t)
+        buf.clear()
+
+    for c in node.children:
+        if isinstance(c, NavigableString):
+            if c.__class__.__name__ in ("Comment", "Doctype"):
+                continue
+            buf.append(str(c))
+            continue
+        if not isinstance(c, Tag):
+            continue
+        name = c.name
+        cls = c.get("class") or []
+        if name in ("script", "style", "noscript") or "hidden" in cls and name != "table":
+            continue
+        if name in ("h1", "h2", "h3", "h4", "h5", "h6"):
+            flush()
+            t = one_line(inline(c).replace("**", ""))
+            if t:
+                out.append("#" * int(name[1]) + " " + t)
+        elif name == "p":
+            flush()
+            t = clean(inline(c))
+            if t:
+                out.append(t)
+        elif name in ("ul", "ol"):
+            flush()
+            items = []
+            for i, li in enumerate(c.find_all("li", recursive=False), 1):
+                nested = [x for x in li.find_all(["ul", "ol"], recursive=False)]
+                for x in nested:
+                    x.extract()
+                bullet = f"{i}." if name == "ol" else "-"
+                items.append("  " * depth + f"{bullet} {one_line(inline(li))}")
+                for x in nested:
+                    items.append(to_md_list(x, depth + 1))
+            if items:
+                out.append("\n".join(items))
+        elif name == "table":
+            flush()
+            t = table_md(c)
+            if t:
+                out.append(t)
+        elif name == "dl":
+            flush()
+            items = []
+            for dt in c.find_all("dt"):
+                dd = dt.find_next_sibling("dd")
+                items.append(f"[{one_line(dt.get_text(' '))}] {one_line(inline(dd)) if dd else ''}")
+            if items:
+                out.append("Footnotes:\n" + "\n".join(items))
+        elif name in ("div", "section", "article", "blockquote", "center", "span") and c.find(
+                ["p", "h2", "h3", "h4", "ul", "ol", "table", "div", "dl"]):
+            flush()
+            t = to_md(c, depth)
+            if t:
+                out.append(t)
+        elif name == "a" and c.get("name") and not one_line(c.get_text()):
+            continue
+        else:
+            buf.append(inline(c))
+    flush()
+    return "\n\n".join(x for x in out if x.strip())
+
+
+def to_md_list(lst, depth):
+    items = []
+    for i, li in enumerate(lst.find_all("li", recursive=False), 1):
+        bullet = f"{i}." if lst.name == "ol" else "-"
+        items.append("  " * depth + f"{bullet} {one_line(inline(li))}")
+    return "\n".join(items)
+
+
+def sections_from_md(md, base_path=None):
+    """Split markdown into heading-delimited sections, keeping a heading path."""
+    base_path = base_path or []
+    sections = []
+    stack = []  # (level, title)
+    cur = {"heading_path": list(base_path), "text": []}
+    for block in md.split("\n\n"):
+        m = re.match(r"^(#{1,6}) (.+)$", block)
+        if m and "\n" not in block:
+            if any(x.strip() for x in cur["text"]):
+                sections.append(cur)
+            lvl = len(m.group(1))
+            stack = [s for s in stack if s[0] < lvl] + [(lvl, m.group(2))]
+            cur = {"heading_path": list(base_path) + [s[1] for s in stack], "text": []}
+        else:
+            cur["text"].append(block)
+    if any(x.strip() for x in cur["text"]):
+        sections.append(cur)
+    return [{"heading_path": s["heading_path"], "text": "\n\n".join(s["text"]).strip()} for s in sections]
+
+
+# --------------------------------------------------------------------------- tabs
+
+def tabs_of(soup):
+    """Return list of (tab_id, label, container) in display order."""
+    labels = {}
+    for li in soup.select("#tabs li[id$=texttab], li[id$=texttab]"):
+        labels[li["id"][:-3]] = one_line(li.get_text(" "))
+    tabs = []
+    for div in soup.select("div[id$=textcontainer]"):
+        tid = div["id"][: -len("container")]
+        label = labels.get(tid, "Overview" if tid == "text" else tid.replace("text", "").title())
+        tabs.append((tid, label, div))
+    if not tabs:
+        main = soup.select_one("#content, main, #col-content")
+        if main:
+            tabs.append(("text", "Overview", main))
+    return tabs
+
+
+def page_doc(soup, path):
+    tabs = []
+    for tid, label, div in tabs_of(soup):
+        md = to_md(div)
+        tabs.append({"tab": label, "markdown": md, "sections": sections_from_md(md)})
+    return tabs
+
+
+# --------------------------------------------------------------------------- course lists (requirements)
+
+def parse_courselist_rows(table):
+    rows = []
+    for tr in table.find_all("tr"):
+        cls = tr.get("class") or []
+        if "hidden" in cls or tr.find("th"):
+            continue
+        tds = tr.find_all("td")
+        if not tds:
+            continue
+        hours = tr.select_one("td.hourscol")
+        units = one_line(hours.get_text(" ")) if hours else ""
+        codecol = tr.select_one("td.codecol")
+        comment = tr.select_one("span.courselistcomment")
+        links = codecol.select("a.code, a.bubblelink") if codecol else []
+        if "listsum" in cls or (not links and one_line(tr.get_text(" ")).lower().startswith("total")):
+            rows.append({"type": "total", "text": one_line(tds[0].get_text(" ") if len(tds) < 2 else
+                                                            " ".join(td.get_text(" ") for td in tds[:-1])),
+                         "units": units})
+            continue
+        if links:
+            codes = []
+            for a in links:
+                c = norm_code(a.get("title") or a.get_text(" "))
+                if c not in codes:
+                    codes.append(c)
+            title_td = tds[1] if len(tds) > 1 else None
+            title = one_line(inline(title_td)) if title_td else ""
+            code_text = one_line(codecol.get_text(" "))
+            row = {"type": "course", "codes": codes, "title": title, "units": units}
+            if "orclass" in cls or code_text.lower().startswith("or "):
+                row["or"] = True
+            rows.append(row)
+        elif comment or one_line(tr.get_text(" ")):
+            text = one_line(inline(tds[0] if len(tds) == 1 or not hours else
+                                   [td for td in tds if td is not hours][0]))
+            if not text:
+                text = one_line(tr.get_text(" "))
+            is_header = "areaheader" in cls or (comment and "areaheader" in (comment.get("class") or []))
+            rows.append({"type": "header" if is_header else "comment", "text": text, "units": units})
+    return rows
+
+
+def structure_courselist(rows):
+    """Group raw rows into requirement items: single courses, OR-alternatives, choose-from lists."""
+    items = []
+    group = None
+    for r in rows:
+        if r["type"] == "course":
+            entry = {"code": " & ".join(r["codes"]), "codes": r["codes"], "title": r["title"]}
+            if r.get("units"):
+                entry["units"] = r["units"]
+            target = group["courses"] if group is not None else items
+            if r.get("or") and target:
+                prev = target[-1]
+                if prev.get("type") == "one_of":
+                    prev["options"].append(entry)
+                else:
+                    first = {k: v for k, v in prev.items() if k != "type"}
+                    target[-1] = {"type": "one_of", "options": [first, entry], "units": prev.get("units", "")}
+            else:
+                target.append(dict(entry, type="course"))
+        elif r["type"] in ("comment", "header"):
+            text = r["text"]
+            low = text.lower()
+            is_choice = bool(re.match(r"^(select|choose|complete|take|pick)\b", low)) or \
+                re.search(r"\b(of the following|from the following|from:|from the list)\b", low) is not None
+            if is_choice:
+                group = {"type": "choose", "instruction": text, "units": r.get("units", ""), "courses": []}
+                items.append(group)
+            else:
+                group = None if r["type"] == "header" else group
+                items.append({"type": "header" if r["type"] == "header" else "note", "text": text,
+                              **({"units": r["units"]} if r.get("units") else {})})
+        elif r["type"] == "total":
+            group = None
+            items.append({"type": "total", "text": r["text"], "units": r["units"]})
+    return items
+
+
+UNITS_IN_HEADING = re.compile(r"\(?\b(\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?)\s+(?:semester\s+)?units?\b\)?", re.I)
+
+
+def requirement_blocks(container):
+    """Walk a requirements tab in document order and attach course lists to their headings/notes."""
+    blocks = []
+    heading_path = []
+    pending_notes = []
+    for el in container.descendants:
+        if not isinstance(el, Tag):
+            continue
+        if el.find_parent("table"):
+            continue
+        if el.name in ("h2", "h3", "h4", "h5"):
+            lvl = int(el.name[1])
+            heading_path = [h for h in heading_path if h[0] < lvl] + [(lvl, one_line(inline(el).replace("**", "")))]
+            pending_notes = []
+        elif (el.name == "p" and not el.find_parent("li")) or (el.name == "li" and not el.find_parent("li")):
+            t = one_line(inline(el))
+            if t:
+                pending_notes.append(t)
+        elif el.name == "table" and "sc_courselist" in (el.get("class") or []):
+            rows = parse_courselist_rows(el)
+            heading = heading_path[-1][1] if heading_path else ""
+            m = UNITS_IN_HEADING.search(heading)
+            blocks.append({
+                "heading_path": [h[1] for h in heading_path],
+                "units": m.group(1).replace(" ", "") if m else None,
+                "notes": pending_notes,
+                "items": structure_courselist(rows),
+                "courses": sorted({c for r in rows if r["type"] == "course" for c in r["codes"]}),
+            })
+            pending_notes = []
+    return blocks
+
+
+# --------------------------------------------------------------------------- roadmaps (plan grids)
+
+def parse_plangrid(table):
+    terms = []
+    year = None
+    cur = None
+    total = None
+    for tr in table.find_all("tr"):
+        cls = tr.get("class") or []
+        if "plangridyear" in cls:
+            year = one_line(tr.get_text(" "))
+            continue
+        if "plangridterm" in cls:
+            th = tr.find("th")
+            cur = {"year": year, "term": one_line(th.get_text(" ")) if th else "", "items": [], "units": None}
+            terms.append(cur)
+            continue
+        hours = tr.select_one("td.hourscol")
+        units = one_line(hours.get_text(" ")) if hours else ""
+        if "plangridsum" in cls:
+            if cur is not None:
+                cur["units"] = units
+            continue
+        if "plangridtotal" in cls:
+            total = units
+            continue
+        tds = tr.find_all("td")
+        if not tds:
+            continue
+        if cur is None:
+            cur = {"year": year, "term": "", "items": [], "units": None}
+            terms.append(cur)
+        codecol = tr.select_one("td.codecol")
+        titlecol = tr.select_one("td.titlecol")
+        links = codecol.select("a.code, a.bubblelink") if codecol else []
+        if links and titlecol is not None:
+            codes = [norm_code(a.get("title") or a.get_text(" ")) for a in links]
+            tcopy = copy.copy(titlecol)
+            comments = [one_line(s.get_text(" ")) for s in tcopy.select("span.comment")]
+            notes = [one_line(s.get_text(" ")) for s in tcopy.find_all("sup")]
+            for s in tcopy.find_all("sup"):
+                s.decompose()
+            title = one_line(tcopy.get_text(" "))
+            for cm in comments:
+                title = title.replace(f"({cm})", "").strip()
+            code_text = one_line(codecol.get_text(" "))
+            item = {"codes": codes, "title": re.sub(r"\s+", " ", title).strip(),
+                    "satisfies": comments[0] if comments else None, "units": units}
+            if code_text.lower().startswith("or "):
+                item["or"] = True
+            if notes:
+                item["footnotes"] = notes
+        else:
+            cell = codecol or tds[0]
+            c2 = copy.copy(cell)
+            notes = [one_line(s.get_text(" ")) for s in c2.find_all("sup")]
+            for s in c2.find_all("sup"):
+                s.decompose()
+            item = {"codes": [], "title": one_line(c2.get_text(" ")), "satisfies": None, "units": units}
+            if notes:
+                item["footnotes"] = notes
+        cur["items"].append(item)
+    return {"terms": terms, "total_units": total}
+
+
+def plangrid_md(g):
+    out = []
+    last_year = None
+    for t in g["terms"]:
+        if t.get("year") and t["year"] != last_year:
+            out.append(f"**{t['year']}**")
+            last_year = t["year"]
+        out.append(f"*{t['term']}* ({t['units']} units)" if t.get("units") else f"*{t['term']}*")
+        for it in t["items"]:
+            code = (" & ".join(it["codes"]) + " ") if it["codes"] else ""
+            sat = f" [satisfies: {it['satisfies']}]" if it.get("satisfies") else ""
+            fn = f" (footnotes {', '.join(it['footnotes'])})" if it.get("footnotes") else ""
+            pre = "or " if it.get("or") else ""
+            out.append(f"- {pre}{code}{it['title']}{sat} — {it['units']} units{fn}")
+    if g.get("total_units"):
+        out.append(f"**Total units: {g['total_units']}**")
+    return "\n".join(out)
+
+
+def footnotes_of(container):
+    notes = {}
+    for dl in container.select("dl.sc_footnotes"):
+        for dt in dl.find_all("dt"):
+            dd = dt.find_next_sibling("dd")
+            notes[one_line(dt.get_text(" "))] = one_line(inline(dd)) if dd else ""
+    return notes
+
+
+# --------------------------------------------------------------------------- courses
+
+TITLE_RE = re.compile(r"^(?P<code>.+?)\s{2,}(?P<title>.+?)\s*\((?P<ulabel>Units?):\s*(?P<units>[^)]*)\)\s*$")
+GRADING_RE = re.compile(r"\((?P<g>[^()]*(?:letter grade|CR/NC|credit/no credit|grade only|ABC/NC)[^()]*)\)", re.I)
+
+
+def level_of(num):
+    m = re.match(r"(\d+)", num)
+    if not m:
+        return None
+    n = int(m.group(1))
+    if n < 100:
+        return "remedial/non-credit"
+    if n < 300:
+        return "lower-division"
+    if n < 700:
+        return "upper-division"
+    if n < 900:
+        return "graduate"
+    if n < 1000:
+        return "doctoral"
+    return "professional (CEU)"
+
+
+def parse_courseblock(block, source_url):
+    b = copy.copy(block)
+    title_el = b.select_one(".courseblocktitle")
+    raw_title = one_line(title_el.get_text(" ")) if title_el else ""
+    raw_title_spaced = clean(title_el.get_text()) if title_el else ""
+    m = TITLE_RE.match(raw_title_spaced.replace("\n", " ")) or TITLE_RE.match(raw_title)
+    if not m:
+        m2 = re.match(r"^(?P<code>\S+(?: \S+)?\s\d+\S*)\s+(?P<title>.+?)\s*\((?P<ulabel>Units?):\s*(?P<units>[^)]*)\)\s*$",
+                      raw_title)
+        m = m2
+    code = norm_code(m.group("code")) if m else norm_code(raw_title)
+    title = one_line(m.group("title")) if m else raw_title
+    units_raw = one_line(m.group("units")) if m else None
+    umin, umax = parse_units(units_raw or "")
+    if title_el:
+        title_el.decompose()
+
+    prereqs, attributes, topics, other_extras = [], [], [], []
+    prereq_codes, enforced = [], []
+    for ex in b.select("p.courseblockextra"):
+        label_el = ex.find("strong")
+        label = one_line(label_el.get_text(" ")).rstrip(":") if label_el else ""
+        nxt = ex.find_next_sibling()
+        lst = None
+        if nxt is not None and nxt.name in ("ul", "ol"):
+            lst = nxt
+        inner_list = ex.find(["ul", "ol"])
+        if label.lower().startswith("course attribute"):
+            src = inner_list or lst
+            if src is not None:
+                attributes += [one_line(li.get_text(" ")) for li in src.find_all("li")]
+                src.decompose()
+        elif label.lower().startswith("topics"):
+            src = inner_list or lst
+            if src is not None:
+                topics += [one_line(li.get_text(" ")) for li in src.find_all("li")]
+                src.decompose()
+        else:
+            # prerequisite text may hold several "Prerequisite for X:" segments separated by <br>
+            parts = [one_line(p) for p in re.split(r"\n", clean(inline(ex))) if one_line(p)]
+            for part in parts:
+                pm = re.match(r"^(Prerequisites?|Corequisites?|Pre-?\s?requisites?)(?:\s+for\s+(?P<for>[^:]+?))?\s*:\s*(?P<text>.*)$",
+                              part, re.I)
+                if pm:
+                    kind = "corequisite" if pm.group(1).lower().startswith("co") else "prerequisite"
+                    seg_text = pm.group("text").strip()
+                    prereqs.append({"kind": kind, "applies_to": norm_code(pm.group("for")) if pm.group("for") else None,
+                                    "text": seg_text,
+                                    "courses": codes_in(seg_text),
+                                    "enforced_at_registration": [
+                                        f"{x.group(1)} {x.group(2)}" for x in CODE_RE.finditer(seg_text)
+                                        if seg_text[x.end():x.end() + 1] == "*"]})
+                else:
+                    other_extras.append(part)
+        ex.decompose()
+
+    desc = re.sub(r"\s+", " ", clean(inline(b))).strip()
+    # derived facts from the description text
+    grading = None
+    gm = list(GRADING_RE.finditer(desc))
+    if gm:
+        grading = gm[-1].group("g").strip()
+    paired = []
+    for pm in re.finditer(r"\(([^()]*?) is a paired course offering[^()]*\)", desc):
+        paired += [c for c in codes_in(pm.group(1)) if c != code]
+    cross = []
+    for cm in re.finditer(r"(?:offered as|also offered as|cross-listed (?:as|with))\s+([^.;)]*)", desc, re.I):
+        cross += [c for c in codes_in(cm.group(1)) if c != code]
+    rep = re.search(r"(May be repeated[^.()]*\.?)", desc)
+    ge_note = re.search(r"\(Note:([^()]*(?:\([^()]*\)[^()]*)*)\)", desc)
+    subject, _, num = code.rpartition(" ")
+    own = set([code] + paired)
+    mine = [p for p in prereqs if p["applies_to"] in (None, code)] or prereqs
+    for p in mine:
+        prereq_codes += p["courses"]
+        enforced += p["enforced_at_registration"]
+    return {
+        "code": code,
+        "subject": subject,
+        "number": num,
+        "title": title,
+        "units": units_raw,
+        "units_min": umin,
+        "units_max": umax,
+        "level": level_of(num),
+        "description": desc,
+        "prerequisites": prereqs,
+        "prerequisite_text": " | ".join(p["text"] for p in mine) or None,
+        "prerequisite_courses": [c for c in dict.fromkeys(prereq_codes) if c not in own],
+        "prerequisites_enforced_at_registration": [c for c in dict.fromkeys(enforced) if c not in own],
+        "restricted_to": [p["text"] for p in mine if re.search(r"\brestricted to\b", p["text"], re.I)],
+        "attributes": attributes,
+        "ge_areas": [a for a in attributes if re.match(r"^(?:[1-7][A-C]?|[1-7]UD|[A-F][1-5]?|UD-[A-D]|GE-[A-F]):", a)],
+        "sf_state_studies": [a for a in attributes if re.search(
+            r"Ethnic & Racial|Racial Minorit|AERM|Global Perspectives|Env\. Sustain|Environmental Sustain|Social Justice",
+            a, re.I)],
+        "american_institutions": [a for a in attributes if re.search(r"U\.S\. History|U\.S\. Govt|Calif State|"
+                                                                     r"State & Local", a)],
+        "satisfies_gwar": any(re.search(r"Graduation Writing", a) for a in attributes) or bool(
+            re.search(r"\dGW$", num)),
+        "topics": topics,
+        "grading": grading,
+        "repeatable": rep.group(1).strip() if rep else None,
+        "paired_with": list(dict.fromkeys(paired)),
+        "cross_listed_with": list(dict.fromkeys(cross)),
+        "extra_fee": bool(re.search(r"extra fee required", desc, re.I)),
+        "notes": ([ge_note.group(1).strip()] if ge_note else []) + other_extras,
+        "source_url": source_url,
+    }
+
+
+# --------------------------------------------------------------------------- program classification
+
+PROGRAM_TITLE_RE = re.compile(
+    r"^(Bachelor|Minor|Master|Certificate|Graduate Certificate|Undergraduate Certificate|Graduate Business Certificate|"
+    r"Doctor|Doctorate|Specialist|Advanced Certificate|Credential|Joint)\b|Credential|Certificate|Pathway Program|"
+    r"Special Major|Minor\b|Interdisciplinary Studies",
+    re.I)
+
+
+def degree_info(title, index_labels):
+    t = title
+    info = {"degree": None, "award_type": None, "level": None, "concentration": None, "field": None}
+    m = re.search(r"Concentration in (.+?)(?:\s+–|\s+-\s|$)", t)
+    if m:
+        info["concentration"] = m.group(1).strip()
+    m = re.search(r"Emphasis in (.+?)(?:\s+–|$)", t)
+    if m:
+        info["emphasis"] = m.group(1).strip()
+    rules = [
+        (r"^Bachelor of Arts", "B.A.", "bachelor", "undergraduate"),
+        (r"^Bachelor of Science in Nursing", "B.S.N.", "bachelor", "undergraduate"),
+        (r"^Bachelor of Science", "B.S.", "bachelor", "undergraduate"),
+        (r"^Bachelor of Fine Arts", "B.F.A.", "bachelor", "undergraduate"),
+        (r"^Bachelor of Music", "B.Mus.", "bachelor", "undergraduate"),
+        (r"^Bachelor of Vocational Education", "B.V.E.", "bachelor", "undergraduate"),
+        (r"^Bachelor", "Bachelor's", "bachelor", "undergraduate"),
+        (r"^Minor", "Minor", "minor", "undergraduate"),
+        (r"^Master of Arts", "M.A.", "master", "graduate"),
+        (r"^Master of Science in Nursing", "M.S.N.", "master", "graduate"),
+        (r"^Master of Science", "M.S.", "master", "graduate"),
+        (r"^Master of Fine Arts", "M.F.A.", "master", "graduate"),
+        (r"^Master of Business Administration", "M.B.A.", "master", "graduate"),
+        (r"^Master of Public Administration", "M.P.A.", "master", "graduate"),
+        (r"^Master of Public Health", "M.P.H.", "master", "graduate"),
+        (r"^Master of Social Work", "M.S.W.", "master", "graduate"),
+        (r"^Master of Music", "M.M.", "master", "graduate"),
+        (r"^Master", "Master's", "master", "graduate"),
+        (r"^Doctor of Education", "Ed.D.", "doctorate", "graduate"),
+        (r"^Doctor of Physical Therapy", "D.P.T.", "doctorate", "graduate"),
+        (r"^Doctor of Philosophy", "Ph.D.", "doctorate", "graduate"),
+        (r"^Doctor", "Doctorate", "doctorate", "graduate"),
+        (r"^(Graduate Certificate|Graduate Business Certificate|Advanced Certificate)", "Graduate Certificate",
+         "certificate", "graduate"),
+        (r"^Undergraduate Certificate", "Undergraduate Certificate", "certificate", "undergraduate"),
+        (r"Credential", "Credential", "credential", "post-baccalaureate"),
+        (r"Certificate", "Certificate", "certificate", None),
+        (r"Pathway Program", "Pathway Program", "pathway", None),
+        (r"Special Major", "Special Major", "special-major", "undergraduate"),
+    ]
+    for rx, deg, award, lvl in rules:
+        if re.search(rx, t, re.I):
+            info["degree"], info["award_type"], info["level"] = deg, award, lvl
+            break
+    if info["award_type"] == "certificate" and info["level"] is None:
+        labs = " ".join(index_labels).lower()
+        if "graduate certificate" in labs:
+            info["level"] = "graduate"
+        elif "undergraduate certificate" in labs or "certificate" in labs:
+            info["level"] = "undergraduate" if "graduate" not in labs else "graduate"
+    base = re.split(r":\s*Concentration|,\s*Concentration|\s+–\s|\s+-\s|:\s*Emphasis", t)[0]
+    m = re.match(r"^(?:Bachelor|Master|Doctor) of [A-Za-z ]+? in (.+)$", base) or \
+        re.match(r"^(?:Minor|(?:Graduate |Undergraduate |Graduate Business |Advanced )?Certificate) in (.+)$", base) or \
+        re.match(r"^(?:Master|Doctor) of (.+)$", base)
+    if m:
+        info["field"] = m.group(1).strip()
+    return info
+
+
+def program_index():
+    """Parse /programs/ A–Z: name -> list of (label, url, status)."""
+    soup = load("programs")
+    entries = []
+    by_url = collections.defaultdict(list)
+    for p in soup.select("#textcontainer p"):
+        txt = one_line(p.get_text(" "))
+        if ":" not in txt or not p.find("a"):
+            continue
+        name = txt.split(":", 1)[0].strip()
+        offerings = []
+        for a in p.find_all("a"):
+            href = a.get("href", "")
+            if not href or href.startswith("#"):
+                continue
+            label = one_line(a.get_text(" "))
+            tail = ""
+            sib = a.next_sibling
+            # status text such as " - Temporarily Suspended" follows the link (outside <u>)
+            node = a
+            while node is not None and node.parent is not None and node.parent.name in ("u",):
+                node = node.parent
+            sib = node.next_sibling
+            if isinstance(sib, NavigableString):
+                tail = one_line(str(sib)).lstrip("-– ").split(",")[0].strip()
+            full = BASE + href if href.startswith("/") else href
+            status = "Temporarily Suspended" if "suspend" in tail.lower() else \
+                "Discontinued" if "discontinu" in tail.lower() else "Active"
+            o = {"label": label, "url": full.split("#")[0], "status": status}
+            if "#" in full:
+                o["anchor"] = full.split("#")[1]
+            offerings.append(o)
+            by_url[o["url"]].append({"name": name, **o})
+        entries.append({"name": name, "offerings": offerings})
+    return entries, by_url
+
+
+# --------------------------------------------------------------------------- main build
+
+def text_of_tab(tabs, *names):
+    for t in tabs:
+        if t["tab"].lower() in names:
+            return t
+    return None
+
+
+def main():
+    global SUBJECTS
+    os.makedirs(OUT, exist_ok=True)
+    SUBJECTS = load_subjects()
+    init_code_regex(SUBJECTS)
+    paths = all_paths()
+
+    # ---------------- courses
+    courses = {}
+    course_sources = collections.defaultdict(list)
+    subj_counts = collections.Counter()
+    for s in SUBJECTS:
+        p = path_of(s["url"])
+        soup = load(p)
+        blocks = soup.select("div.courseblock")
+        for blk in blocks:
+            c = parse_courseblock(blk, s["url"])
+            c["subject_name"] = s["subject_name"]
+            if c["code"] in courses:
+                course_sources[c["code"]].append(s["url"])
+                continue
+            courses[c["code"]] = c
+            subj_counts[s["subject_code"]] += 1
+    # cross-check against /courses/all/
+    all_soup = load("courses/all")
+    all_codes = []
+    for blk in all_soup.select("div.courseblock"):
+        c = parse_courseblock(blk, BASE + "/courses/all/")
+        all_codes.append(c["code"])
+        if c["code"] not in courses:
+            c["subject_name"] = next((s["subject_name"] for s in SUBJECTS if s["subject_code"] == c["subject"]), None)
+            courses[c["code"]] = c
+            subj_counts[c["subject"]] += 1
+    # reverse prerequisite map
+    required_by = collections.defaultdict(set)
+    for c in courses.values():
+        for p in c["prerequisite_courses"]:
+            required_by[p].add(c["code"])
+    for code, c in courses.items():
+        c["is_prerequisite_for"] = sorted(required_by.get(code, []))
+
+    # ---------------- programs / roadmaps / departments
+    prog_entries, prog_by_url = program_index()
+    programs, roadmaps, departments, colleges = [], [], [], []
+    program_courses = collections.defaultdict(set)
+    college_names = {}
+    for p in paths:
+        if not p.startswith("colleges"):
+            continue
+        segs = p.split("/")[1:]
+        soup = load(p)
+        title = page_title(soup)
+        url = url_of(p)
+        tabs = page_doc(soup, p)
+        tab_labels = [t["tab"] for t in tabs]
+        has_grid = soup.select_one("table.sc_plangrid") is not None
+        if len(segs) == 0:
+            continue
+        college_slug = segs[0]
+        if len(segs) == 1:
+            college_names[college_slug] = title
+            colleges.append({"id": college_slug, "name": title, "url": url, "tabs": tabs})
+            continue
+        is_roadmap = (has_grid and not any(re.search(r"requirement", l, re.I) for l in tab_labels)) or \
+            re.search(r"roadmap", title, re.I) or re.search(r"roadmap", segs[-1])
+        dept_tabs = {"faculty", "undergraduate", "graduate", "courses", "programs", "credentials", "people"}
+        is_dept = not is_roadmap and (bool(dept_tabs & {l.lower() for l in tab_labels}) or
+                                      (not PROGRAM_TITLE_RE.search(title) and
+                                       soup.select_one("table.sc_courselist") is None))
+        if is_roadmap:
+            grids = []
+            for tbl in soup.select("table.sc_plangrid"):
+                grids.append(parse_plangrid(tbl))
+            intro = soup.select_one("p.introtext")
+            main = soup.select_one("#textcontainer") or soup
+            notes = [one_line(inline(x)) for x in main.find_all("p") if "introtext" not in (x.get("class") or [])
+                     and not x.find_parent("table") and one_line(x.get_text())]
+            parent = "/".join(p.split("/")[:-1])
+            kind = "transfer (ADT)" if re.search(r"adt|transfer", segs[-1] + title, re.I) else \
+                "SF State Scholars (BA/BS+MA/MS)" if re.search(r"scholars", segs[-1] + title, re.I) else \
+                "first-time student (4-year)"
+            rm = {
+                "id": p.replace("colleges/", ""),
+                "title": title,
+                "url": url,
+                "program_url": url_of(parent) if len(segs) >= 3 else None,
+                "roadmap_type": kind,
+                "intro": clean(inline(intro)) if intro else None,
+                "notes": notes,
+                "plans": grids,
+                "footnotes": footnotes_of(main),
+                "markdown": "\n\n".join(t["markdown"] for t in tabs),
+                "courses": sorted({c for g in grids for t in g["terms"] for it in t["items"] for c in it["codes"]}),
+            }
+            roadmaps.append(rm)
+            continue
+        if is_dept:
+            courses_tab = None
+            for tid, label, div in tabs_of(soup):
+                if label.lower() == "courses":
+                    courses_tab = div
+            dept_courses = []
+            if courses_tab is not None:
+                dept_courses = [parse_courseblock(b, url)["code"] for b in courses_tab.select("div.courseblock")]
+            departments.append({
+                "id": p.replace("colleges/", ""),
+                "name": title,
+                "college": college_slug,
+                "url": url,
+                "tabs": [t for t in tabs if t["tab"].lower() != "courses"],
+                "course_codes": dept_courses,
+                "subjects": sorted({c.rsplit(" ", 1)[0] for c in dept_courses}),
+            })
+            continue
+        # program
+        labels = [o["label"] for o in prog_by_url.get(url, [])]
+        statuses = sorted({o["status"] for o in prog_by_url.get(url, [])})
+        info = degree_info(title, labels)
+        req_blocks = []
+        embedded_grids = []
+        total_units = None
+        req_tab_names = []
+        for tid, label, div in tabs_of(soup):
+            if div.select_one("table.sc_courselist") is not None:
+                req_tab_names.append(label)
+                req_blocks += [dict(b, tab=label) for b in requirement_blocks(div)]
+                if total_units is None:
+                    h2 = div.find("h2")
+                    if h2:
+                        m = UNITS_IN_HEADING.search(one_line(h2.get_text(" ")))
+                        if m:
+                            total_units = m.group(1).replace(" ", "")
+            for tbl in div.select("table.sc_plangrid"):
+                embedded_grids.append(dict(parse_plangrid(tbl), tab=label))
+        all_req_courses = sorted({c for b in req_blocks for c in b["courses"]})
+        if total_units is None:
+            for t in tabs:
+                m = re.search(r"^#{2,3} [^\n]*?(?:—|–|-|\()\s*(\d+(?:\s*[-–]\s*\d+)?)\s+units\b", t["markdown"], re.M)
+                if m:
+                    total_units = m.group(1).replace(" ", "")
+                    break
+        if info["award_type"] is None and labels:
+            lab = labels[0].lower()
+            for key, award, lvl in (("minor", "minor", "undergraduate"), ("master", "master", "graduate"),
+                                    ("bachelor", "bachelor", "undergraduate"),
+                                    ("graduate certificate", "certificate", "graduate"),
+                                    ("certificate", "certificate", "undergraduate"),
+                                    ("credential", "credential", "post-baccalaureate")):
+                if key in lab:
+                    info.update(award_type=award, level=lvl, degree=labels[0])
+                    break
+        page_text = " ".join(t["markdown"] for t in tabs)
+        if re.search(r"program is (?:currently )?suspended|Temporarily Suspended", page_text, re.I) or \
+                any("suspend" in s.lower() for s in statuses):
+            status = "Suspended"
+        elif any("discontinu" in s.lower() for s in statuses):
+            status = "Discontinued"
+        else:
+            status = "Active"
+        req_md = "\n\n".join(t["markdown"] for t in tabs if t["tab"] in req_tab_names or
+                               re.search(r"requirement", t["tab"], re.I))
+        if not req_md:
+            req_md = "\n\n".join(t["markdown"] for t in tabs if t["tab"].lower() == "overview")
+        parent_dept = None
+        if len(segs) >= 3:
+            parent_dept = "/".join(segs[:-1])
+        overview = text_of_tab(tabs, "overview")
+        program = {
+            "id": p.replace("colleges/", ""),
+            "name": title,
+            "url": url,
+            "college": college_slug,
+            "department": parent_dept,
+            **info,
+            "program_index_labels": labels,
+            "status": status,
+            "total_units": total_units,
+            "requirements_text": req_md,
+            "requirement_tabs": req_tab_names,
+            "requirements": req_blocks,
+            "required_or_listed_courses": all_req_courses,
+            "embedded_roadmaps": embedded_grids,
+            "roadmap_urls": [],
+            "tabs": tabs,
+        }
+        programs.append(program)
+        for c in all_req_courses:
+            program_courses[c].add(program["id"])
+
+    # link roadmaps to programs
+    by_url = {pr["url"]: pr for pr in programs}
+    for rm in roadmaps:
+        pr = by_url.get(rm["program_url"])
+        if pr:
+            pr["roadmap_urls"].append(rm["url"])
+            rm["program_id"] = pr["id"]
+            rm["program_name"] = pr["name"]
+        else:
+            rm["program_id"] = None
+            rm["program_name"] = None
+    for dept in departments:
+        dept["programs"] = [pr["id"] for pr in programs if pr["department"] == dept["id"]]
+    for col in colleges:
+        col["departments"] = [d["id"] for d in departments if d["college"] == col["id"]]
+        col["programs"] = [pr["id"] for pr in programs if pr["college"] == col["id"]]
+    for pr in programs:
+        pr["college_name"] = college_names.get(pr["college"])
+    for d in departments:
+        d["college_name"] = college_names.get(d["college"])
+    for code, c in courses.items():
+        c["used_in_programs"] = sorted(program_courses.get(code, []))
+
+    # ---------------- policies & general academic info (everything that isn't colleges/ or courses/<subj>)
+    policy_pages = []
+    for p in paths:
+        if p.startswith("colleges") or (p.startswith("courses") and p not in ("courses/courses-terms",)):
+            continue
+        if p in ("programs",) or p.endswith("-header"):
+            continue
+        soup = load(p)
+        top = p.split("/")[0] if p else "home"
+        course_lists = []
+        for tid, label, div in tabs_of(soup):
+            course_lists += [dict(b, tab=label) for b in requirement_blocks(div)]
+        page = {
+            "id": p or "home",
+            "title": page_title(soup) or p,
+            "category": top,
+            "url": url_of(p) if p else BASE + "/",
+            "tabs": page_doc(soup, p),
+        }
+        if course_lists:
+            page["course_lists"] = course_lists
+        policy_pages.append(page)
+
+    # ---------------- course index
+    course_index = []
+    for s in SUBJECTS:
+        codes = sorted([c for c in courses.values() if c["subject"] == s["subject_code"]],
+                       key=lambda c: (re.sub(r"\D", "", c["number"]).zfill(4), c["number"]))
+        course_index.append({
+            **s,
+            "course_count": len(codes),
+            "courses": [{"code": c["code"], "title": c["title"], "units": c["units"], "level": c["level"]}
+                        for c in codes],
+        })
+
+    def dump(name, obj):
+        with open(os.path.join(OUT, name), "w") as f:
+            json.dump(obj, f, ensure_ascii=False, indent=1)
+
+    course_list = sorted(courses.values(), key=lambda c: (c["subject"], re.sub(r"\D", "", c["number"]).zfill(4),
+                                                         c["number"]))
+    dump("courses.json", course_list)
+    dump("course_index.json", course_index)
+    dump("programs.json", programs)
+    dump("program_index.json", prog_entries)
+    dump("roadmaps.json", roadmaps)
+    dump("departments.json", departments)
+    dump("colleges.json", colleges)
+    dump("policies.json", policy_pages)
+
+    stats = {
+        "subjects": len(SUBJECTS),
+        "courses": len(courses),
+        "courses_all_page_blocks": len(all_codes),
+        "courses_all_page_unique": len(set(all_codes)),
+        "courses_missing_from_all_page": sorted(set(courses) - set(all_codes)),
+        "programs": len(programs),
+        "programs_by_award_type": collections.Counter(pr["award_type"] for pr in programs),
+        "roadmaps": len(roadmaps),
+        "roadmaps_unlinked": [r["url"] for r in roadmaps if not r["program_id"]],
+        "departments": len(departments),
+        "colleges": len(colleges),
+        "policy_pages": len(policy_pages),
+        "duplicate_course_blocks": {k: v for k, v in course_sources.items()},
+    }
+    print(json.dumps(stats, indent=1, default=str)[:6000])
+
+
+if __name__ == "__main__":
+    main()

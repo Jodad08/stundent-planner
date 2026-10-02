@@ -1,0 +1,4105 @@
+[
+ {
+  "name": "Accounting",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/accounting/minor-accounting/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/accounting/certificate-accounting/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Accounting and Analytics",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/accounting/ms-acct-and-analytics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Africa and Globalization",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-african-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Africana Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/africana-studies/ba-africana-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/africana-studies/minor-program-africana-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Aging in Society",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-administration/mpa-aging-in-society/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "American Indian Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/american-indian-studies/ba-american-indian-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/american-indian-studies/minor-american-indian-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "American Sign Language, Deaf Studies and",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/minor-deaf-studies-asl/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "American Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ba-american-studies/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/minor-american-studies/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Animation",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/cinema/minor-animation/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Anthropology",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/anthropology/ba-anthropology/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/anthropology/minor-anthropology/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/anthropology/ma-anthropology/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Apparel Design & Merchandising, Design",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/bs-apparel-design-merchandising-design/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Apparel Design and Merchandising, Merchandising",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/bs-apparel-design-merchandising-merchandising/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Applied Mathematics",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-applied-mathematics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Arab & Muslim Ethnicities & Diasporas Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/minor-arab-muslim-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Art",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/",
+    "status": "Active",
+    "anchor": "undergraduatetext"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/minor-art/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/mfa-art/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Art, Art History & Studio Art",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/ba-art-concentration-art-history-studio-art/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Art History",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/ba-art-concentration-art-history/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/minor-art-history/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Art, Studio Art",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/ba-studio-art/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/minor-art/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Artificial Intelligence (AI) for Business Applications",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/minor-artificial-intelligence-business-applications/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Artificial Intelligence (AI) for Business Technologies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/certificate-ai-business-tech/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Asian American Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/asian-american-studies/ba-asian-american-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/asian-american-studies/minor-asian-american-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/asian-american-studies/ma-asian-american-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Astronomy",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/ba-physics-concentration-astronomy/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/minor-astronomy/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Astronomy & Astrophysics",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/ms-astronomy-astrophysics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Astrophysics",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-astrophysics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Athletic Coaching",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/minor-certificate-athletic-coaching/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Augmentative & Alternative Communication",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/education/speech-language-hearing-sciences/certificate-augmentative-alternative-communication/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Autism Studies",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/certificate-autism-spectrum/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Bilingual Spanish Journalism",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/ba-bilingual-spanish-journalism/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/mn-bilingual-spanish-journalism/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biochemistry",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-biochemistry/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/ms-chemistry-concentration-biochemistry/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Cell & Molecular",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-cell-molecular-biology/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biology-concentration-cell-molecular-biology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Ecology, Evolution, and Conservation Biology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-ecology-evolution-conservation-biology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, General",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ba-general-biology/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/minor-general-biology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Integrative Biology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biology-concentration-eecb/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Marine Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-marine-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Microbiology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-microbiology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Physiology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-physiology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biology, Physiology & Behavioral Biology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biology-concentration-physiology-behavioral-biology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Biomedical Science, Biotechnology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biomedical-science-concentration-biotechnology/",
+    "status": "Active",
+    "anchor": "degreerequirementstext"
+   }
+  ]
+ },
+ {
+  "name": "Biomedical Science, Stem Cell Science",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biomedical-science-concentration-stem-cell-science/",
+    "status": "Active",
+    "anchor": "degreerequirementstext"
+   }
+  ]
+ },
+ {
+  "name": "Biotechnology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biomedical-science-concentration-biotechnology/",
+    "status": "Active",
+    "anchor": "degreerequirementstext"
+   }
+  ]
+ },
+ {
+  "name": "Biotechnology - Data Science and Machine Learning for",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/ct-data-science-machine-learning-for-biotechnology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Broadcast & Electronic Communication Arts",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/broadcast-electronic-communication-arts/ba-broadcast-electronic-communication-arts/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/broadcast-electronic-communication-arts/ma-broadcast-electronic-communication-arts/",
+    "status": "Active"
+   },
+   {
+    "label": "Master of Fine Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/broadcast-electronic-communication-arts/ma-fine-arts-broadcast-electronic-communication-arts/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/broadcast-electronic-communication-arts/minor-media-literacy/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/business-administration/minor-business-administration/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/business-graduate-programs/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, Accounting",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/accounting/bs-business-administration-concentration-accounting/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, Decision Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/decision-sciences/bs-business-administration-concentration-decision-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, Finance",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/bs-business-administration-concentration-finance/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/graduate-certificate-finance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, General Business",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/business-administration/bs-business-administration-concentration-general-business/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, Information Systems",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/bs-business-administration-concentration-information-systems/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, International Business",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/international-business/bs-business-administration-concentration-international-business/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, Management",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/management/bs-business-administration-concentration-management/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Administration, Marketing",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/marketing/bs-business-administration-concentration-marketing/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Analytics",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/decision-sciences/bs-business-administration-concentration-business-analytics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/ms-business-analytics/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/decision-sciences/minor-business-analytics/",
+    "status": "Active"
+   },
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/business-analytics-certificate/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Ethics & Compliance",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/management/certificate-business-ethics-compliance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Business Principles",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/business-graduate-programs/certificate-bridge-to-mba/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "California Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/liberal-studies/minor-california-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Care and Education, Early Childhood Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-care-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cell & Molecular Biology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-cell-molecular-biology/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biology-concentration-cell-molecular-biology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Chemistry",
+  "offerings": [
+   {
+    "label": "Bachelor of Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/ba-chemistry/",
+    "status": "Active"
+   },
+   {
+    "label": "Bachelor of Science",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/bs-chemistry/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/minor-program-chemistry/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/chemistry-biochemistry/ms-chemistry/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Child & Adolescent Development, Community, Health, and Social Services",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-child-adolescent-development-concentration-community-health-social-services/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Child & Adolescent Development, Elementary Education Teaching Pre-Credential",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-child-adolescent-development-concentration-eed-precredential/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Chinese",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ma-chinese/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Chinese Integrated Teacher Education Program",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-itep/",
+    "status": "Active",
+    "anchor": "text"
+   }
+  ]
+ },
+ {
+  "name": "Chinese Language",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-language/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/minor-chinese-language/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Chinese Literature & Linguistics",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-chinese-literature-linguistics/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/minor-chinese-literature-linguistics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cinema",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/cinema/ba-cinema/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/cinema/minor-cinema/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/cinema/mfa-cinema/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cinema and Media Studies",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/cinema/ma-cinema-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Civil Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-civil-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor ,",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-civil-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/ms-civil-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Classics",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/ba-classics/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/minor-classics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/ma-classics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Climate Change Causes, Impacts, and Solutions",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ct-climate-change/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Clinical Laboratory Science",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/physical-therapy-clinical-laboratory-science/graduate-certificate-clinical-laboratory-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Clinical Mental Health Counseling",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Clinical Psychology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ms-psychology-concentration-clinical-psychology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Comic Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/liberal-studies/minor-comic-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Communication Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/communication-studies/ba-communication-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/communication-studies/minor-communication-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/communication-studies/ma-communication-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Comparative & World Literature",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ba-comparative-literature/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/minor-comparative-literature/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ma-comparative-literature/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Composition",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-concentration-composition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Composition, Teaching of",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-teaching-of-composition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Computational Linguistics",
+  "offerings": [
+   {
+    "label": "Undergraduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificiate-in-computational-linguistics/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/graduate-certificate-computational-linguistics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Computer Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-computer-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Computer Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/bs-computer-science/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/minor-computer-science/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/ms-computer-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Computing Applications",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/minor-computing-applications/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Conflict Transformation",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/conflict-resolution/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cooperative Education",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/cooperative-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Counseling",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/minor-in-counseling/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-counseling/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Creative Nonfiction Comics Making",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/liberal-studies/certificate-nonfiction-comics-making/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Creative Writing",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/creative-writing/ba-creative-writing/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/creative-writing/minor-creative-writing/",
+    "status": "Active"
+   },
+   {
+    "label": "Master of Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/creative-writing/ma-creative-writing/",
+    "status": "Active"
+   },
+   {
+    "label": "Master of Fine Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/creative-writing/mfa-creative-writing/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Credential Programs",
+  "offerings": [
+   {
+    "label": "Teaching & Educational Services",
+    "url": "https://bulletin.sfsu.edu/colleges/education/credentials/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Criminal Justice Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/criminal-justice-studies/ba-criminal-justice-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "CPaGE Bachelor's Degree Completion",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/ba-criminal-justice-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/criminal-justice-studies/minor-criminal-justice-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Critical Mixed Race Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/critical-mixed-race-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Critical Pacific Islands & Oceania Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/minor-critical-pacific-islands-oceania-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Critical Social Thought",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/minor-critical-social-thought/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Curriculum and Instruction",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elementary-education/ma-curriculum-instruction/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cybersecurity",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/certificate-cybersecurity/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cybersecurity, Enterprise",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/gct-enterprise-cybersecurity/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Cybersecurity for Managers",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/certificate-cybersecurity-management/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Dance",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/ba-dance/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/minor-dance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Data Science and Artificial Intelligence",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/ms-data-science-artificial-intelligence/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Data Science and Machine Learning for Biotechnology",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/ct-data-science-machine-learning-for-biotechnology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Data Science for Biology and Chemistry",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/gct-data-science-biology-chemistry/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Data Science, Statistical",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ms-statistical-data/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Data Science for Psychology",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ct-data-science-psychology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Deaf Studies and American Sign Language",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/minor-deaf-studies-asl/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Decision Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/decision-sciences/bs-business-administration-concentration-decision-sciences/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/decision-sciences/minor-decision-sciences/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/decision-sciences/graduate-certificate-decision-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Design",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/ma-design/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/minor-industrial-arts/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Design & Industry",
+  "offerings": [
+   {
+    "label": "Design",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/ma-design/",
+    "status": "Active"
+   },
+   {
+    "label": "ndustrial Design",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/bs-industrial-design-concentration-product-design-development/",
+    "status": "Active"
+   },
+   {
+    "label": "Visual Communication Design",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/bs-visual-communication-design/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Dietetics",
+  "offerings": [
+   {
+    "label": "Nutrition and Dietetics",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/",
+    "status": "Active",
+    "anchor": "undergraduatetext"
+   }
+  ]
+ },
+ {
+  "name": "Digital Marketing",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/digital-marketing-certificate/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Digital Learning Design",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elsit/certificate-training-systems-development/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Disability Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/women-gender-studies/minor-disability-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Drama",
+  "offerings": [
+   {
+    "label": "Theatre Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/ba-theatre-arts/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Development",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/minor-early-childhood-development/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Education",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elementary-education/ma-early-childhood-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Education Specialist Instruction, PK-3",
+  "offerings": [
+   {
+    "label": "Credential",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elementary-education/ece-specialist-instruction-credential/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Studies, Care and Education",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-care-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Studies, PK-3 Integrated Teacher Education Program",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Studies, Pre-K to 3rd Grade",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Early Childhood Studies, Special Education Integrated Teacher Education Program",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-special-education-itep/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Earth and Environmental Sciences",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ms-earth-and-environment/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Earth Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor of Science",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/minor-earth-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Economics",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/economics/ba-economics/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/economics/minor-economics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/economics/ma-economics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Education",
+  "offerings": [
+   {
+    "label": "Doctoral Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/doctoral-program/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Education",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/education/minor-program/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Education, Special Interest Area",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elsit/ma-education-concentration-special-interest-area/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Educational Administration and Leadership",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elsit/ma-educational-administration-leadership/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Educational Leadership",
+  "offerings": [
+   {
+    "label": "Doctoral Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/doctoral-program/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Educational Technology",
+  "offerings": [
+   {
+    "label": "Instructional Design and Technology",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elsit/ma-instructional-design-technology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Empowerment Self-Defense",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/minor-empowerment-self-defense/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Engineering, Civil Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-civil-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-civil-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": ",",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-civil-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/ms-civil-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Engineering, Computer Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-computer-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-computer-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Engineering, Electrical and Computer Engineering",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/ms-electrical-computer-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Engineering, Electrical Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-electrical-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-electrical-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Engineering, Mechanical Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-mechanical-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-mechanical-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/ms-mechanical-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Composition",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-concentration-composition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, English, and American Literature",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-english-american-literature/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, English Education",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-english-education-/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Immigrant Literacies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-immigrant-literacies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Linguistics",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-linguistics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-concentration-linguistics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Literature",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English Literatures",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-literatures/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Professional Writing and Rhetoric",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Teaching Composition",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-teaching-of-composition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Teaching English to Speakers of Other Languages",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-special-study-tesol/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-concentration-teaching-english-to-speakers-of-other-languages/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Teaching English to Speakers of Other Languages Graduate Pathway Program",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/american-language-institute/tesol-graduate-pathway-program/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "English, Teaching Post-Secondary Reading",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-teaching-post-secondary-reading/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Enterprise Cybersecurity",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/gct-enterprise-cybersecurity/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Enterprise Information Systems",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/certificate-enterprise-information-systems/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Entrepreneurship",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/minor-entrepreneurship/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Environmental Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-environmental-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Environmental Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-environmental-science-concentration-natural-resource-management-conservation/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Environmental Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ba-environmental-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Equity and Social Justice Education",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elsit/ma-equity-social-justice-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Ethical Artificial Intelligence",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/certificate-ethical-artificial-intelligence/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Ethnic Studies",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/ethnic-studies/certificate-ethnic-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/ethnic-studies/ma-ethnic-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Ethnography",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/anthropology/certificate-ethnography/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "European Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-european-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Exercise & Movement Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Exercise Physiology",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/ct-exercise-physiology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Family & Community Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/ba-family-community-sciences/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Family & Consumer Sciences",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/ma-family-consumer-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Family Nurse Practitioner",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/msn-concentration-family-nurse-practitioner/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/family-nurse-practitioner-certificate/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Feminist Health Justice",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/women-gender-studies/minor-womens-health-issues/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Film",
+  "offerings": []
+ },
+ {
+  "name": "Finance",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/bs-business-administration-concentration-finance/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/minor-finance/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/graduate-certificate-finance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Financial Analytics",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/certificate-financial-analytics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Fintech",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/certificate-fintech/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Flagship Chinese Language",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-chinese/ba-chinese-concentration-flagship-chinese-language/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "French",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-french/ba-french/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-french/minor-french/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree -",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-french/ma-french/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Generative Artificial Intelligence (GenAI) for Computer Scientists",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/ct-generative-artificial-intelligence-for-computer-scientists/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Geographic Information Science",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ms-geographic-information-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Geography",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ba-geography/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/minor-geography/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ma-geography/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Geography, Resource Management, and Environmental Planning",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ma-geography-resource-management-environmental-planning/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Geology",
+  "offerings": []
+ },
+ {
+  "name": "Geosciences",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ms-geosciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "German",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-german/minor-german/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Gerontology",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/gerontology/ma-gerontology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Global Health",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/cert-global-health/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Global Music & Dance",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/minor-world-music-dance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Global Peace, Human Rights & Justice Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-global-peace-studies",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Historical Research",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/history/certificate-historical-research/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "History",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/history/ba-history/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/history/minor-history/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/history/ma-history/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "History Education",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/history/graduate-certificate-history-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Holistic Health",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/recreation-parks-tourism/minor-holistic-health-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/recreation-parks-tourism/certificate-holistic-health-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Hospitality, Tourism, and Event Management",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/hospitality-tourism-management/bs-hospitality-tourism-management/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/hospitality-tourism-management/minor-hospitality-tourism-management/",
+    "status": "Active"
+   },
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/hospitality-management/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Human Resource Management",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/management/minor-human-resource-management/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Human Sexuality Studies",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sexuality-studies/ma-human-sexuality-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Humanities",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ba-humanities/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/minor-humanities/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ma-humanities/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Immigrant Literacies",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-immigrant-literacies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Inclusive Early Childhood",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/certificate-inclusive-early-childhood-practices/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Industrial Design, Product Design & Development",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/bs-industrial-design-concentration-product-design-development/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Industrial Organizational Psychology",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ms-industrial-organizational-psychology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Information Systems",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/bs-business-administration-concentration-information-systems/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/minor-information-systems/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/certificate-enterprise-information-systems/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Information Technology Auditing",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/information-systems/certificate-information-technology-auditing/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Instructional Design and Technology",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elsit/ma-instructional-design-technology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Integrative Biology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biology-concentration-eecb/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Interior Design and Architecture",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/bs-interior-design-architecture/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "International Business",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/international-business/bs-business-administration-concentration-international-business/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/international-business/minor-international-business/",
+    "status": "Active"
+   },
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/international-business/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "International Business and Global Leadership",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/international-business/graduate-certificate-IBaGL/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "International Relations",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/ba-international-relations/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-international-relations/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/ma-international-relations/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "International Relations Graduate Pathway Program",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/international-relations-graduate-pathway/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "International Risk Analysis",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/cert-international-risk-analysis/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Italian",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-italian/minor-italian/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Japanese",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-japanese/ba-japanese/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-japanese/minor-japanese/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Jewish Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/jewish-studies/ba-modern-jewish-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/jewish-studies/minor-jewish-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Journalism",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/ba-journalism",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/minor-journalism/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Journalism, Bilingual Spanish",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/ba-bilingual-spanish-journalism/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Journalism, Photojournalism, and Documentary Photography",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/journalism/ba-journalism-concentration-photojournalism-documentary-photography/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Juvenile Justice",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/criminal-justice-studies/minor-juvenile-justice/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Kinesiology",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/ms-kinesiology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Kinesiology, Exercise and Movement Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-exercise-movement-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Kinesiology, Integrated Teacher Education Program (ITEP) in Physical Education",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-physical-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Labor & Employment Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/business/labor-employment-studies/ba-labor-employment-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/labor-employment-studies/minor-labor-employment-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Latin American Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-latin-american-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Latina/Latino Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/latina-latino-studies/ba-latina-latino-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/latina-latino-studies/minor-latina-latino-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Liberal and Creative Arts",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/ct-liberal-creative-arts/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Liberal Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/liberal-studies/ba-liberal-studies/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Liberal Studies Integrated Teacher Preparation",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/liberal-studies/ba-liberal-studies-itp/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Linguistics",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-linguistics/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-linguistics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-concentration-linguistics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Literature",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-literature/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Literature in English",
+  "offerings": [
+   {
+    "label": ":",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-english-american-literature/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-english-american-literature/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Management",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/management/bs-business-administration-concentration-management/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/management/minor-management/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Marine Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-marine-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Marketing",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/business/marketing/bs-business-administration-concentration-marketing/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/marketing/minor-marketing/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Marketing, Digital",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/digital-marketing-certificate/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Marketing in the Digital Economy",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/marketing/graduate-certificate-marketing-digital-economy/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Marriage, Family & Child Counseling",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-counseling-concentration-marriage-famiyl-child-counseling/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Mathematics",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/minor-mathematics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ma-mathematics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Mathematics, Advanced Study",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ba-mathematics-concentration-mathematics-for-advanced-study/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Mathematics, Applied",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-applied-mathematics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Mathematics, Liberal Arts",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ba-mathematics-concentration-liberal-arts/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Mathematics, Teaching",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ba-mathematics-concentration-teaching/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Mechanical Engineering",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/bs-mechanical-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/minor-mechanical-engineering/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/engineering/ms-mechanical-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Media Literacy",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/broadcast-electronic-communication-arts/minor-media-literacy/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Medical Technology",
+  "offerings": [
+   {
+    "label": "Clinical Laboratory Science",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/physical-therapy-clinical-laboratory-science/graduate-certificate-clinical-laboratory-science/",
+    "status": "Active"
+   },
+   {
+    "label": "Biomedical Science",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/",
+    "status": "Active",
+    "anchor": "graduateprogramstext"
+   }
+  ]
+ },
+ {
+  "name": "Mental Health Counseling (Clinical)",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/counseling/ms-clinical-rehabilitation-mental-health-counseling",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Meteorology",
+  "offerings": [
+   {
+    "label": "Earth Sciences",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Microbiology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-microbiology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Middle East & Islamic Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-middle-east-islamic-studies",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Migration and Refugee Studies",
+  "offerings": [
+   {
+    "label": "Undergraduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/cert-migration-refugee-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Modern Greek Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/classics/minor-modern-greek-studies/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "Modern Language Learning and Teaching",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/certificate-modern-language-learning-teaching/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Modern Languages & Literatures",
+  "offerings": [
+   {
+    "label": "Individual Languages",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/",
+    "status": "Active",
+    "anchor": "programstext"
+   }
+  ]
+ },
+ {
+  "name": "Movement Science",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/ct-movement-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Multilingual and International Business Competencies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/certificate-multilingual-international-business-competencies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Multilingual and International Tourism Competencies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/certificate-multilingual-international-tourism-competencies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Multilingual and Psychology Competencies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ct-multilingual-psych-competencies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Multilingual and Public Health Competencies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-health/ct-multilingual-public-health/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Museum Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/museum-studies/minor-museum-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/museum-studies/ma-museum-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music",
+  "offerings": [
+   {
+    "label": "Bachelor of Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/ba-music/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/minor-music/",
+    "status": "Active"
+   },
+   {
+    "label": "Master of Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/ma-music/",
+    "status": "Active"
+   },
+   {
+    "label": "Master of Music",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/mm/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music - Composition",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/bm-conc-composition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music - Instrumental Performance",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/bm-conc-instrumental-performance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music - Jazz/Ethnomusicology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/bm-conc-jazz-ethnomusicology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music - Music Production",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/bm-conc-music-production/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music - Music Teacher Preparation",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/concentration-music-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music - Vocal Performance",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/bm-conc-vocal-performance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Music and Recording Industry",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/broadcast-electronic-communication-arts/certificate-music-recording-industry/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Natural Resource Management & Conservation",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-environmental-studies-concentration-natural-resource-management-conservation/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Nursing",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/bsn/",
+    "status": "Active"
+   },
+   {
+    "label": "ADN-BSN",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/bs-rns/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/msn/",
+    "status": "Active"
+   },
+   {
+    "label": "School Nurse Credential",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/school-nurse-credential/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Nursing, Family Nurse Practitioner",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/msn-concentration-family-nurse-practitioner/",
+    "status": "Active"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/nursing/family-nurse-practitioner-certificate/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Nutrition and Dietetics",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/",
+    "status": "Active",
+    "anchor": "undergraduatetext"
+   },
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/certificate-dietetics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Nutrition and Dietetics, Dietetics and Nutrition Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/bs-dietetics-conc-nutrition-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Nutrition and Dietetics, Foods and Community Nutrition",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/consumer-family-studies-dietetics/bs-dietetics-conc-foods-community-nutrition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Oceanography",
+  "offerings": [
+   {
+    "label": "Earth Sciences",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/bs-earth-sciences/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Pacific Asian Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-pacific-asian-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Paralegal Studies",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/paralegal-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Persian & Iranian Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-persian/",
+    "status": "Active",
+    "anchor": "undergraduatetext"
+   }
+  ]
+ },
+ {
+  "name": "Philosophy",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ba-philosophy/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/minor-philosophy/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ma-philosophy/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Philosophy and Law",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ba-philosophy-concentration-philosophy-law/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Philosophy & Religion",
+  "offerings": [
+   {
+    "label": ":",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ba-philosophy-religion/",
+    "status": "Active"
+   },
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/ba-philosophy-religion/",
+    "status": "Temporarily Suspended"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/philosphy/minor-philosoph-religion/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physical Activity",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/ct-physical-activity-social-scientific-perspectives/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physical Education (Integrated Teacher Education Program in)",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/kinesiology/bs-kinesiology-concentration-physical-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physical Therapy",
+  "offerings": [
+   {
+    "label": "Doctoral Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/physical-therapy-clinical-laboratory-science/doctor-of-physical-therapy/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physics",
+  "offerings": [
+   {
+    "label": "Bachelor of Arts",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/ba-physics/",
+    "status": "Active"
+   },
+   {
+    "label": "Bachelor of Science",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics/",
+    "status": "Active"
+   },
+   {
+    "label": ", Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/minor-physics/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/ms-physics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physics for Teaching",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/physics-astronomy/bs-physics-concentration-physics-for-teaching/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physiology",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/bs-biology-concentration-physiology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Physiology & Behavioral Biology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/biology/ms-biology-concentration-physiology-behavioral-biology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "PK-3 Early Childhood Education Specialist Instruction",
+  "offerings": [
+   {
+    "label": "Credential",
+    "url": "https://bulletin.sfsu.edu/colleges/education/elementary-education/ece-specialist-instruction-credential/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "PK-3 Integrated Teacher Education Program, Early Childhood Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-pk3-itep/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Political Science",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/ba-political-science/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/minor-political-science/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/ma-political-science/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Pre-K to 3rd Grade, Early Childhood Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-prek-3rd-grade/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Pre-health Professions",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/pre-health-professions/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Pre-law",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/political-science/certificate-pre-law/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Pre-nursing",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/pre-nursing/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Prison Reentry Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/criminal-justice-studies/minor-prison-reentry-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Product Design & Development",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/bs-industrial-design-concentration-product-design-development/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Professional Writing and Rhetoric",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ba-english-concentration-professional-writing-rhetoric/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/minor-technical-professional-writing/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Psychological Science",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/",
+    "status": "Active",
+    "anchor": "graduatetext"
+   }
+  ]
+ },
+ {
+  "name": "Psychology",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ba-psychology/",
+    "status": "Active"
+   },
+   {
+    "label": "CPaGE Bachelor's Degree Completion",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/ba-psychology/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/",
+    "status": "Temporarily Suspended",
+    "anchor": "undergraduatetext"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/",
+    "status": "Active",
+    "anchor": "graduatetext"
+   }
+  ]
+ },
+ {
+  "name": "Public Administration",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-administration/mpa/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Public Health",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-health/bs-public-health/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-health/mph/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/public-health/minor-health-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Queer and Trans Ethnic Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/minor-queer-ethnic-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Queer and Trans Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sexuality-studies/minor-lesbian-gay-bisexual-transgender-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Race & Resistance Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/ba-race-resistance",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/race-resistance-studies/minor-race-resistance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Race, Ethnicity, and Health",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/ethnic-studies/ba-race-ethnicity-health/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Reading, Elementary",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/education/credentials/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Reading, Post-Secondary",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-teaching-post-secondary-reading/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Real Estate",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/finance/certificate-real-estate/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Recreation, Parks, and Tourism",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/recreation-parks-tourism/minor-recreation/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Recreation, Parks & Tourism Administration",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/recreation-parks-tourism/ba-recreation-parks-tourism-administration/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Refugee Studies, Migration, and",
+  "offerings": [
+   {
+    "label": "Undergraduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/cert-migration-refugee-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Religious Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/religious-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Resource Management and Environmental Planning",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/ma-geography-concentration-resource-management-environmental-planning/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Risk Analysis, International",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/cert-international-risk-analysis/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Russian",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-and-literatures-russian/",
+    "status": "Active",
+    "anchor": "undergraduatetext"
+   }
+  ]
+ },
+ {
+  "name": "School Nurse",
+  "offerings": [
+   {
+    "label": "Credential",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/school-nurse-credential/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "School Psychology",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/psychology/ms-psychology-concentration-school-psychology/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Secondary Teaching and Learning",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/secondary-education/ma-secondary-teaching/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Sexuality Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sexuality-studies/minor-human-sexuality-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Sexuality Studies, Human",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sexuality-studies/ma-human-sexuality-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Social Work",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/ba-social-work/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/msw/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Sociology",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/ba-sociology/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/sociology/minor-sociology",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Software Engineering",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/computer-science/certificate-software-engineering/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "South Asian Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/international-relations/minor-south-asian-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Spanish",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/minor-spanish/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/foreign-language/foreign-languages-literatures-spanish/ma-spanish/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Special Education",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/minor-special-education/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/ma-special-education/",
+    "status": "Active"
+   },
+   {
+    "label": "Doctoral Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/education/special-education/doctor-of-philosophy-education-concentration-special-education/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Special Education Integrated Teacher Education Program, Early Childhood Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/child-adolescent-development/ba-early-childhood-studies-conc-special-education-itep/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Special Major",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/all-university/special-major/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Specialist in Blood Bank Technology",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/blood-bank-tech-cert/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Speech, Language, and Hearing Sciences",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/speech-language-hearing-sciences/bs-speech-language-hearing/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/education/speech-language-hearing-sciences/ms-speech-language-hearing-disorders/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Statistical Data Science",
+  "offerings": [
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/ms-statistical-data/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Statistics",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/mathematics/bs-statistics/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Studio Art",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/ba-studio-art/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/art/minor-art/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Sustainable Business",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/business/management/certificate-sustainable-business/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Teaching English to Speakers of Other Languages",
+  "offerings": [
+   {
+    "label": "Master's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/ma-english-concentration-teaching-english-to-speakers-of-other-languages/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Teaching of Composition",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-teaching-of-composition/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Teaching English to Speakers of Other Languages",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/graduate-certificate-tesol/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Teaching English to Speakers of Other Languages Graduate Pathway Program",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/extended-learning/american-language-institute/tesol-graduate-pathway-program/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Teaching Post-secondary Reading",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-teaching-post-secondary-reading/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Technical & Professional Writing",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/english/certificate-technical-professional-writing/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Theatre Arts",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/ba-theatre-arts/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/minor-theatre-arts/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/theatre-arts/ma-theatre-arts/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Trauma-Informed Social Work Practice with Children & Families",
+  "offerings": [
+   {
+    "label": "Graduate Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/social-work/gct-trauma-sw/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Urban Studies & Planning",
+  "offerings": [
+   {
+    "label": ":",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/urban-studies-planning/",
+    "status": "Active"
+   },
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/urban-studies-planning/ba-urban-studies-planning/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/health-social-sciences/urban-studies-planning/minor-urban-studies-planning/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Video Game Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/ba-video-game-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/humanities-cwl/minor-video-game-studies/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Visual Communication Design",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/design-industry/bs-visual-communication-design/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Vocal Performance",
+  "offerings": [
+   {
+    "label": "Bachelor's Concentration",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/music/bm-conc-vocal-performance/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Weather Study",
+  "offerings": [
+   {
+    "label": "Certificate",
+    "url": "https://bulletin.sfsu.edu/colleges/science-engineering/environment/certificate-weather-study/",
+    "status": "Active"
+   }
+  ]
+ },
+ {
+  "name": "Women & Gender Studies",
+  "offerings": [
+   {
+    "label": "Bachelor's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/women-gender-studies/ba-women-gender-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/women-gender-studies/minor-women-gender-studies/",
+    "status": "Active"
+   },
+   {
+    "label": "Master's Degree",
+    "url": "https://bulletin.sfsu.edu/colleges/liberal-creative-arts/women-gender-studies/ma-women-gender-studies/",
+    "status": "Temporarily Suspended"
+   }
+  ]
+ },
+ {
+  "name": "World Development Studies",
+  "offerings": [
+   {
+    "label": "Minor",
+    "url": "https://bulletin.sfsu.edu/colleges/business/world-development-studies/",
+    "status": "Active",
+    "anchor": "text"
+   }
+  ]
+ }
+]
