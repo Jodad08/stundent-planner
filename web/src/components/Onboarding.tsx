@@ -87,7 +87,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
       }
       case "courses": {
         const codes = parseCodes(t)
-        const ok = codes.filter(c => dag.nodes[c] && !a.taken.flat().includes(c)), bad = codes.filter(c => !dag.nodes[c])
+        const ok = [...new Set(codes)].filter(c => dag.nodes[c] && !a.taken.flat().includes(c)), bad = [...new Set(codes)].filter(c => !dag.nodes[c])
         if (!codes.length && !/none|nothing|no\b|ge only|skip/.test(s)) return say(['I didn\'t see any course codes. Type them like "CSC 101, MATH 226", or "none".'])
         a.taken[a.sem] = [...a.taken[a.sem], ...ok]
         const lines = [ok.length ? `Added ${ok.join(", ")} to ${termName(dag, a.sem + 1)}.` : `Nothing added for ${termName(dag, a.sem + 1)}.`]

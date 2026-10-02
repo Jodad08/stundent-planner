@@ -2,7 +2,7 @@
 // trusted state -> prompt -> adapter -> parse -> sanitize -> engine -> repair (max 2) -> fallback -> saved run
 import { Router } from "express"
 import { careers, dag, policies } from "../../shared/data"
-import { connections, DEFAULT_PROFILE, evaluatePlan, fillPlaceholders, isPlaceholder, leaves, pickElectives, sanitizeSemesters } from "../../shared/engine"
+import { connections, uniqueCourses, DEFAULT_PROFILE, evaluatePlan, fillPlaceholders, isPlaceholder, leaves, pickElectives, sanitizeSemesters } from "../../shared/engine"
 import { buildFallbackPlan } from "../../shared/fallbackPlanner"
 import { directionScores, guessTrack } from "../../shared/directionScores"
 import type { EngineReport, Plan, PlanRequest, PlanResponse } from "../../shared/types"
@@ -167,6 +167,7 @@ export async function generatePlan(req: PlanRequest): Promise<PlanResponse> {
       : "The model was unavailable (busy or timed out), so this plan comes from the deterministic planner.",
       electiveChoices: [], attempts, runId: run.rec.run_id }
   }
+  resp = { ...resp, plan: uniqueCourses(resp.plan) } // never return a course twice (D-035)
   run.rec.final_state = resp
   run.rec.scores = { accepted, attempts, source: resp.plan.source, errors: resp.report.issues.filter(i => i.severity === "error").length,
     graduationReady: resp.report.graduationReady, directions: directionScores(resp.plan, careers).slice(0, 2) }

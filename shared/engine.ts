@@ -576,3 +576,9 @@ export function connections(p: Plan, dag: Dag) {
   const critical = Object.entries(crit).filter(([, c]) => c.slack <= 0).map(([id]) => id)
   return { links, longestChain, critical }
 }
+
+/** No course twice in a plan (D-035): keep each course's first (earliest-semester) appearance. Placeholders are unique by ID already. */
+export function uniqueCourses(p: Plan): Plan {
+  const seen = new Set<CourseId>()
+  return { ...p, semesters: p.semesters.map(s => ({ ...s, courseIds: s.courseIds.filter(c => (seen.has(c) ? false : (seen.add(c), true))) })) }
+}

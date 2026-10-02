@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { emptySemesters } from "../../shared/engine"
+import { emptySemesters, uniqueCourses } from "../../shared/engine"
 import type { CareerDirection, CourseId, Dag, EvaluateResponse, Plan, Policies } from "../../shared/types"
 import type { Health } from "./api"
 
@@ -66,7 +66,7 @@ function isPlan(x: unknown): x is Plan {
 function load(): { plans: Plan[]; activePlanId: string | null } {
   try {
     const raw = JSON.parse(localStorage.getItem(KEY) ?? "null")
-    const plans = Array.isArray(raw?.plans) ? raw.plans.filter(isPlan) : []
+    const plans = Array.isArray(raw?.plans) ? raw.plans.filter(isPlan).map(uniqueCourses) : []
     if (plans.length) return { plans, activePlanId: plans.some((p: Plan) => p.id === raw.activePlanId) ? raw.activePlanId : plans[0].id }
   } catch { /* invalid storage: start fresh */ }
   const p = blankPlan()
@@ -93,7 +93,7 @@ export const useStore = create<Store>((set, get) => ({
   moveCourse: (courseId, to) => set(s => edit(s, p => ({ ...p, semesters: p.semesters.map(x => ({
     ...x, courseIds: x.index === to ? [...x.courseIds.filter(c => c !== courseId), courseId] : x.courseIds.filter(c => c !== courseId) })) }))),
   unplaceCourse: courseId => set(s => edit(s, p => ({ ...p, semesters: p.semesters.map(x => ({ ...x, courseIds: x.courseIds.filter(c => c !== courseId) })) }))),
-  addPlan: plan => set(s => ({ plans: [...s.plans, plan], activePlanId: plan.id, evaluation: null, selectedCourseId: null })),
+  addPlan: plan => set(s => ({ plans: [...s.plans, uniqueCourses(plan)], activePlanId: plan.id, evaluation: null, selectedCourseId: null })),
   newPlan: () => get().addPlan(blankPlan(`Plan ${get().plans.length + 1}`)),
   duplicatePlan: id => {
     const p = get().plans.find(x => x.id === id)
@@ -120,6 +120,13 @@ export const useStore = create<Store>((set, get) => ({
   setView: view => set({ view }),
   reset: () => { const p = blankPlan(); set({ plans: [p], activePlanId: p.id, evaluation: null, selectedCourseId: null }) },
 }))
+
+// every write path (actions and direct setState from onboarding / Auto Plan) ends up deduplicated here
+useStore.subscribe((s, prev) => {
+  if (s.plans === prev.plans) return
+  const fixed = s.plans.map(p => (p.semesters.flatMap(x => x.courseIds).length === new Set(p.semesters.flatMap(x => x.courseIds)).size ? p : uniqueCourses(p)))
+  if (fixed.some((p, i) => p !== s.plans[i])) useStore.setState({ plans: fixed })
+})
 
 let timer: ReturnType<typeof setTimeout> | undefined
 useStore.subscribe(s => {

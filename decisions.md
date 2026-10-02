@@ -353,3 +353,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: `web/src/lib/parse.test.ts` (4 tests); browser run (shehryar → Shehryar; "csc101, math226, CSC 999" → 2 added, CSC 999 named and skipped; plan built with 2 locked semesters)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-035: No course twice in a plan
+- Step: 10 (human request)
+- Decision: `uniqueCourses(plan)` (shared/engine.ts) keeps each course's earliest appearance. Applied to: plans loaded from localStorage, `addPlan`, a store subscriber that fixes any direct `setState` write (onboarding, Auto Plan), and every `/api/plan` response. Onboarding de-duplicates codes typed twice in one message. Existing guards stay (placeCourse blocks a placed course; moveCourse removes it everywhere first; the AI harness drops repeated IDs; the engine still reports DUPLICATE_COURSE as a safety net).
+- Why: human request 2026-10-02 ~15:42.
+- Evidence: `shared/engine.test.ts` "uniqueCourses keeps only the earliest copy"; browser check (CSC 101 in Fall 2026 and twice in Fall 2028 → only Fall 2026 after reload)
+- Critic: PASS (scan) [critic: mock]
+- Status: active

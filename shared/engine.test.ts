@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, it } from "vitest"
 import { dag, policies } from "./data"
-import { bottlenecks, criticalCourses, evaluatePlan, placeholderId, plan, semesterStatus, type Profile } from "./engine"
+import { bottlenecks, criticalCourses, evaluatePlan, placeholderId, plan, semesterStatus, uniqueCourses, type Profile } from "./engine"
 import { buildFallbackPlan } from "./fallbackPlanner"
 import type { Plan } from "./types"
 import transcript from "./fixtures/midDegreeTranscript.json"
@@ -96,6 +96,13 @@ describe("evaluatePlan", () => {
     const p = clone(valid); p.semesters[0].courseIds.push("FAKE-101"); p.semesters[1].courseIds.push(p.semesters[0].courseIds[0])
     expect(codes(p, "UNKNOWN_COURSE")).toHaveLength(1)
     expect(codes(p, "DUPLICATE_COURSE")).toHaveLength(1)
+  })
+  it("uniqueCourses keeps only the earliest copy of a course", () => {
+    const p = clone(valid); p.semesters[5].courseIds.push("CSC 101", "CSC 101")
+    const u = uniqueCourses(p)
+    expect(u.semesters.flatMap(s => s.courseIds).filter(c => c === "CSC 101")).toHaveLength(1)
+    expect(u.semesters[0].courseIds).toContain("CSC 101")
+    expect(codes(u, "DUPLICATE_COURSE")).toHaveLength(0)
   })
   it("empty plan is not graduation-ready", () => {
     const p = clone(valid); p.semesters.forEach(s => { s.courseIds = [] })
