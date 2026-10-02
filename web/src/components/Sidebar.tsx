@@ -43,7 +43,7 @@ export function Sidebar() {
                 className={`rounded-full px-2.5 py-0.5 ${showAll === v ? "bg-zinc-800 text-white" : "text-zinc-500 hover:text-zinc-800"}`}>{l as string}</button>))}
           </div>
         )}
-        {student && !showAll && <div className="mt-1 text-[10px] text-zinc-500">Electives picked for: {dag.tracks[student.trackId]?.label}</div>}
+        {student && !showAll && <div className="mt-1 text-[10px] text-zinc-500">For {dag.tracks[student.trackId]?.label}</div>}
       </div>
       <div className="flex-1 space-y-4 overflow-y-auto px-3 pb-4">
         {dag.requirements.map(r => {

@@ -8,10 +8,10 @@ type Q = { ask: (a: Answers) => string; chips: (a: Answers) => string[]; react: 
 type Answers = { goal: string; focus: string; place: string; path: string; load: string }
 
 const FOLLOW_UP: Record<string, { q: string; chips: string[] }> = {
-  ai: { q: "Do you see yourself building ML systems, or digging into data for insights?", chips: ["Building ML systems", "Analyzing data", "Not sure yet"] },
-  systems: { q: "Would you rather defend systems or build them?", chips: ["Security", "Infrastructure & cloud", "Not sure yet"] },
-  web: { q: "Which part of an app excites you most?", chips: ["Front-end", "Back-end", "Mobile", "Not sure yet"] },
-  theory: { q: "Which pulls you in more?", chips: ["Graphics & games", "Quantum computing", "Theory & research"] },
+  ai: { q: "Build ML systems, or dig into data? 🤖", chips: ["Building ML systems", "Analyzing data", "Not sure yet"] },
+  systems: { q: "Defend systems, or build them? 🛡️", chips: ["Security", "Infrastructure & cloud", "Not sure yet"] },
+  web: { q: "Front-end, back-end, or mobile? 📱", chips: ["Front-end", "Back-end", "Mobile", "Not sure yet"] },
+  theory: { q: "Graphics, quantum, or theory? ✨", chips: ["Graphics & games", "Quantum computing", "Theory & research"] },
 }
 
 /**
@@ -35,22 +35,20 @@ export function Interview({ name, initialGoal, knownGoal, coursesPerSemester, on
   const label = (x: Answers) => dag.tracks[track(x)].label
 
   const Qs: Q[] = [
-    { key: "goal", ask: () => `Hi ${name}! I'll ask a few quick questions so your plan fits you. First: what do you picture yourself doing after you graduate?`,
+    { key: "goal", ask: () => `Hi ${name}! Dream job? 🚀`,
       chips: () => [...(initialGoal ? [initialGoal] : []), ...careers.map(c => c.label)].slice(0, 5),
-      react: (ans, x) => `"${ans}" sounds like the ${label({ ...x, goal: ans })} side of computer science. I'll prioritize that track's electives.` },
+      react: (ans, x) => `${label({ ...x, goal: ans })} track it is 👍` },
     { key: "focus", ask: x => FOLLOW_UP[track(x)].q, chips: x => FOLLOW_UP[track(x)].chips,
-      react: ans => /not sure/i.test(ans) ? "That's fine. I'll keep your electives broad inside the track so you can explore." : `Got it: ${ans}. I'll lean your upper-division electives that way.` },
-    { key: "place", ask: () => `${name}, where do you want to work after graduating: here in the Bay Area, somewhere else in the US, or back home?`,
+      react: ans => /not sure/i.test(ans) ? "I'll keep it broad 👌" : `${ans}, nice 👌` },
+    { key: "place", ask: () => `Where do you want to work, ${name}? 🌍`,
       chips: () => ["San Francisco / Bay Area", "Elsewhere in the US", "Back home / abroad", "Not sure yet"],
-      react: ans => /bay|sf|san francisco/i.test(ans)
-        ? `The Bay Area hires a lot of ${label(a)} roles, so internships during your junior and senior years will matter. I'll keep those semesters at a normal load.`
-        : /not sure/i.test(ans) ? "No problem. Your SFSU courses travel well, so I'll focus on skills, not a city."
-        : `${ans.trim()}, nice. Your degree and these courses carry over, so I'll keep the plan focused on skills employers there look for.` },
-    { key: "path", ask: () => "Right after graduating: straight into industry, or grad school first?", chips: () => ["Industry", "Grad school", "Undecided"],
-      react: ans => /grad/i.test(ans) ? "Then I'll favor electives with more math and theory, which grad programs look for." : /industry/i.test(ans) ? "Then I'll favor hands-on electives you can point to in interviews." : "I'll keep a balance of hands-on and theory electives." },
-    { key: "load", ask: () => `You said about ${coursesPerSemester} courses a semester. Keep that, or go lighter so you can work part-time?`,
+      react: ans => /bay|sf|san francisco/i.test(ans) ? "Bay Area 🌉 I'll leave room for internships."
+        : /not sure/i.test(ans) ? "Open to anywhere 🌎" : `${ans.trim()} 🌍 Skills first, then.` },
+    { key: "path", ask: () => "Industry or grad school? 🎓", chips: () => ["Industry", "Grad school", "Undecided"],
+      react: ans => /grad/i.test(ans) ? "More theory, then 📐" : /industry/i.test(ans) ? "Hands-on electives, then 🛠️" : "A balanced mix ⚖️" },
+    { key: "load", ask: () => `Keep ${coursesPerSemester} courses a semester?`,
       chips: () => ["Keep it", "Lighter (4 courses)", "Heavier (6 courses)"],
-      react: ans => /light/i.test(ans) ? "Lighter it is. That may stretch some chains, and the rules engine will tell us if graduation slips." : /heav/i.test(ans) ? "Heavier works, but I'll stay under SFSU's priority-registration cap." : "Keeping your load as is." },
+      react: ans => /light/i.test(ans) ? "Lighter it is 🌿" : /heav/i.test(ans) ? "Full speed 🏃" : "Keeping it 👍" },
   ]
 
   // the AI "types" its next question
@@ -58,7 +56,7 @@ export function Interview({ name, initialGoal, knownGoal, coursesPerSemester, on
     if (i >= Qs.length) return
     setTyping(true)
     const intro = knownGoal && i === 1 && msgs.length === 0
-      ? [`${name}, you said "${knownGoal}". That sounds like the ${dag.tracks[guessTrack(knownGoal)].label} side of computer science. A few quick questions to fit the plan to you.`] : []
+      ? [`${dag.tracks[guessTrack(knownGoal)].label} track 👍 A few quick ones!`] : []
     const t = setTimeout(() => { setMsgs(m => [...m, ...intro.map(text => ({ from: "ai" as const, text })), { from: "ai", text: Qs[i].ask(a) }]); setTyping(false) }, 900)
     return () => clearTimeout(t)
   }, [i]) // eslint-disable-line react-hooks/exhaustive-deps
@@ -77,7 +75,7 @@ export function Interview({ name, initialGoal, knownGoal, coursesPerSemester, on
       if (i + 1 < Qs.length) setI(i + 1)
       else {
         const cps = /light/i.test(next.load) ? 4 : /heav/i.test(next.load) ? 6 : coursesPerSemester
-        const summary = `Here's what I heard: ${next.goal}, focusing on ${/not sure/i.test(next.focus) ? "a broad mix" : next.focus}, working ${/not sure/i.test(next.place) ? "wherever fits" : `in ${next.place}`}, then ${/grad/i.test(next.path) ? "grad school" : /industry/i.test(next.path) ? "industry" : "you'll decide"}, about ${cps} courses a semester. Building your plan now.`
+        const summary = "Got everything ✨ Building your plan…"
         setTimeout(() => {
           setMsgs(m => [...m, { from: "ai", text: summary }]); setTyping(false)
           const goalText = `${label(next)}: ${next.goal}. Focus: ${next.focus}. Wants to work: ${next.place}. After graduating: ${next.path}.`
@@ -88,7 +86,7 @@ export function Interview({ name, initialGoal, knownGoal, coursesPerSemester, on
   }
 
   const q = Qs[Math.min(i, Qs.length - 1)]
-  const done = msgs.length > 0 && msgs[msgs.length - 1].text.startsWith("Here's what I heard")
+  const done = msgs.length > 0 && msgs[msgs.length - 1].text.startsWith("Got everything")
   return (
     <div className="fixed inset-0 z-[95] flex items-center justify-center bg-black/70 backdrop-blur-sm">
       <div className="flex h-[560px] w-[520px] flex-col rounded-2xl border border-white/10 bg-zinc-950 shadow-2xl">

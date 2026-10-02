@@ -47,29 +47,14 @@ export function Columns() {
 
   return (
     <div className="relative h-full overflow-x-auto overflow-y-hidden bg-[#e7e7ea] text-zinc-800">
-      <div className="sticky left-0 top-0 z-10 flex gap-2 px-4 pt-3">
-        <div className="rounded-lg bg-zinc-600/90 px-3 py-1.5 text-[11px] text-white shadow">
-          <div className="font-semibold">Program</div>
-          <div className="mt-0.5 rounded bg-white/15 px-2 py-0.5">{dag.program.name.replace("Bachelor of Science in ", "")} (B.S.)</div>
-        </div>
-        <div className="rounded-lg bg-white/80 px-3 py-1.5 text-[11px] text-zinc-700 shadow">
-          <div className="font-semibold text-zinc-900">Colors</div>
-          <div className="mt-0.5 flex flex-wrap items-center gap-1">
-            {(["core", "math", "elective"] as const).map(k => <span key={k} className={`rounded px-2 py-0.5 ${TYPE[k].bg}`}>{TYPE[k].label}</span>)}
-            <span className="rounded bg-zinc-300 px-2 py-0.5">Taken</span>
-            <span className="rounded px-2 py-0.5 ring-2 ring-inset ring-red-500">Breaks a rule</span>
-          </div>
-        </div>
-        <div className="rounded-lg bg-zinc-600/90 px-3 py-1.5 text-[11px] text-white shadow">
-          <div className="font-semibold">Plan Stats</div>
-          <div className="mt-0.5 flex flex-wrap gap-1">
-            {[`Courses: ${stats.courses} (${stats.units} cr)`, `Taken: ${stats.taken}`, `Semesters: ${stats.semesters}`,
-              report.graduationReady ? "✓ Graduation-ready" : `${report.issues.filter(i => i.severity === "error").length} rule errors`].map(t =>
-              <span key={t} className="rounded bg-white/15 px-2 py-0.5">{t}</span>)}
-          </div>
-        </div>
+      <div className="sticky left-0 top-0 z-10 flex items-center justify-between px-5 pt-3 text-[12px] text-zinc-500">
+        <span>{stats.courses} courses · {stats.units} credits{stats.taken ? ` · ${stats.taken} taken` : ""}</span>
+        <span className="flex items-center gap-3">
+          {(["core", "math", "elective"] as const).map(k => <span key={k} className="flex items-center gap-1.5"><span className={`h-2.5 w-2.5 rounded-sm ${TYPE[k].bg}`} />{TYPE[k].label}</span>)}
+          <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm ring-2 ring-inset ring-red-500" />Breaks a rule</span>
+        </span>
       </div>
-      <div className="flex h-[calc(100%-64px)] gap-3 px-4 pb-3 pt-3">
+      <div className="flex h-[calc(100%-36px)] gap-3 px-4 pb-3 pt-2">
         {plan.semesters.map(s => {
           const stat = report.semesterStats.find(x => x.index === s.index)!
           const isDone = s.index <= done
@@ -139,7 +124,7 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first, fix, 
   const ring = status === "error" ? "ring-[3px] ring-red-500" : status === "warning" ? "ring-[3px] ring-amber-500" : ""
   return (
     <div data-tour={first ? "card" : undefined} draggable onDragStart={e => { e.dataTransfer.setData("application/gatorgraph", id); e.dataTransfer.effectAllowed = "move" }}
-      className={`cursor-grab rounded-xl ${tone} ${ring} p-2 shadow-sm`}>
+      className={`group cursor-grab rounded-xl ${tone} ${ring} p-2 shadow-sm`}>
       {status && <div className={`-mx-2 -mt-2 mb-1.5 rounded-t-xl px-3 py-0.5 text-[10px] font-semibold text-white ${status === "error" ? "bg-red-500" : "bg-amber-500"}`}>{status === "error" ? "Breaks a rule" : "Warning"}</div>}
       <div className="flex items-start justify-between px-1">
         <div className="min-w-0">
@@ -147,14 +132,14 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first, fix, 
           <div className="text-lg font-bold leading-tight text-zinc-900">{id}</div>
         </div>
         <div className="flex flex-col items-end gap-1">
-          <div className="flex gap-1 text-zinc-800/70">
+          <div className="flex gap-1 text-zinc-800/70 opacity-0 transition group-hover:opacity-100">
             <button title={open ? "Hide details" : "Show description and Bulletin text"} onClick={() => setOpen(!open)} className="text-xs hover:text-black">{open ? "︿" : "﹀"}</button>
             <button title="Remove" onClick={onRemove} className="text-sm leading-none hover:text-black">×</button>
           </div>
           <span className="rounded bg-zinc-800/80 px-1.5 text-xs font-bold text-white">{n?.units ?? 0}</span>
         </div>
       </div>
-      {n && issue && <div className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{issue}
+      {n && issue && <div title={issue} className="mt-1.5 rounded-lg bg-white/85 px-2 py-1.5 text-[11px] font-medium text-red-700">{shortIssue(issue)}
         {status === "error" && (fix
           ? <button onClick={() => onFix(fix)} className="mt-1.5 block w-full rounded-md bg-zinc-900 px-2 py-1 text-[11px] font-semibold text-white hover:bg-zinc-700">Move it to {termName(dag, fix)} →</button>
           : fix === null && <div className="mt-1 text-[10.5px] text-zinc-600">Moving it alone won't fix this. Add the missing prerequisite to an earlier semester first.</div>)}
@@ -164,9 +149,9 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first, fix, 
         const count = new Set(leaves(n.prereq).map(l => l.code)).size
         const met = !issue || !/must come|Missing from the plan/.test(issue)
         return (
-          <div className="mt-1.5 rounded-lg bg-white/70">
-            <button onClick={() => setNeedsOpen(!needsOpen)} className="flex w-full items-center justify-between px-2 py-1 text-[10.5px] font-semibold text-zinc-700">
-              <span>Prerequisites ({count}) <span className={met ? "text-lime-700" : "text-red-600"}>· {met ? "met ✓" : "not met"}</span></span>
+          <div className={`mt-1 rounded-lg ${needsOpen || !met ? "bg-white/70" : ""}`}>
+            <button onClick={() => setNeedsOpen(!needsOpen)} className="flex w-full items-center justify-between px-1.5 py-0.5 text-[10.5px] text-zinc-600">
+              <span className={met ? "" : "font-semibold text-red-600"}>{met ? `✓ Prereqs met (${count})` : `Prereqs not met (${count})`}</span>
               <span className="text-zinc-500">{needsOpen ? "▴" : "▾"}</span>
             </button>
             {needsOpen && <div className="flex flex-wrap items-center gap-1 px-2 pb-1.5"><Expr e={n.prereq} sem={sem} semOf={semOf} /></div>}
@@ -179,6 +164,17 @@ function Card({ dag, id, sem, semOf, status, issue, done, onRemove, first, fix, 
       </>}
     </div>
   )
+}
+
+/** One short line for a card; the full engine message stays in the tooltip. */
+function shortIssue(m: string): string {
+  const order = /but (.+?) must come/.exec(m)
+  if (order) return `Needs ${order[1].replace(/ \([^)]*\)/g, "")} first`
+  const missing = /Missing from the plan: (.+?)\./.exec(m)
+  if (missing) return `Missing prerequisite: ${missing[1]}`
+  const standing = /needs (upper-division|senior) standing \((\d+)\+ units\)/.exec(m)
+  if (standing) return `Needs ${standing[1]} standing (${standing[2]}+ units)`
+  return m.split(". ")[0]
 }
 
 /** Card colors by course type (D-030), matching the graph's dot colors. */

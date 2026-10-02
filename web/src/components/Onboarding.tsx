@@ -53,12 +53,12 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
     }, 650 * (k + 1)))
   }
   useEffect(() => {
-    if (saved) say([`Welcome back, ${saved.name}! Want to jump to your plan, or update your answers?`])
-    else say(["Hi! I'm PlanEd. I'll map your SFSU degree semester by semester.", "First, what's your name?"])
+    if (saved) say([`Welcome back, ${saved.name}! 👋`, "Jump to your plan, or update?"])
+    else say(["Hey! I'm PlanEd 👋", "What's your name?"])
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   const a = A.current
-  const askCourses = (k: number) => say([`Which major courses did you take in ${termName(dag, k + 1)}? Add them one by one with +, then press Done.`], "courses")
+  const askCourses = (k: number) => say([`What did you take in ${termName(dag, k + 1)}? 📚`], "courses")
   const units = () => Math.min(policies.maxUnitsWithoutPermission.value, Math.max(policies.minUnitsFullTime.value, a.cps * 3))
 
   function reply(raw: string) {
@@ -69,58 +69,56 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
     switch (step) {
       case "back":
         if (/plan|jump|go|skip/.test(s) && onSkip) { onSkip(); return }
-        return say([`Great, let's update. How many semesters are you done with now, ${a.name}? Or are you just starting?`], "sems")
+        return say(["Let's update ✏️", "Semesters done?"], "sems")
       case "name": {
         const n = parseName(t)
-        if (!n) return say(["Sorry, I didn't catch your name. What should I call you?"])
+        if (!n) return say(["Hmm, what should I call you? 🙂"])
         a.name = n
-        return say([`${n}, welcome!`, "What's your major?"], "major")
+        return say([`Hey ${n}! 🎉`, "Your major?"], "major")
       }
       case "major":
-        if (/comput|\bcs\b|\bcsc\b/.test(s)) return say(["Computer Science, great. Its full prerequisite map is ready.", "How many semesters are you done with, or are you just starting?"], "sems")
-        return say([`PlanEd has mapped Computer Science so far${majors ? `; ${majors - 1} more SFSU majors are listed and coming soon` : ""}. I'll set you up with Computer Science for now.`,
-          "How many semesters are you done with, or are you just starting?"], "sems")
+        if (/comput|\bcs\b|\bcsc\b/.test(s)) return say(["CS, nice! 💻", "Semesters done?"], "sems")
+        return say([`Only CS is mapped so far${majors ? ` (${majors - 1} more coming)` : ""}. Using CS for now 💻`, "Semesters done?"], "sems")
       case "sems": {
         const n = parseSemesters(t)
-        if (n == null) return say(['Sorry, I didn\'t get that. Type a number like "2", or "just starting".'])
+        if (n == null) return say(['Try a number, like "2" 🙂'])
         a.sems = n; a.sem = 0; a.taken = Array.from({ length: 7 }, () => [])
-        if (n === 0) return say(["A fresh start, nice. You'll begin in Fall 2026.", "Roughly how many units do you already have, like AP or transfer credit? Type 0 if none."], "units")
-        say([`Got it: ${n} semester${n > 1 ? "s" : ""} done, through ${termName(dag, n)}.`])
+        if (n === 0) return say(["Fresh start! 🌱", "Any AP or transfer units?"], "units")
+        say([`${n} down ✅`])
         return setTimeout(() => askCourses(0), 700)
       }
       case "courses": {
         const codes = parseCodes(t)
         const ok = [...new Set(codes)].filter(c => dag.nodes[c] && !a.taken.flat().includes(c)), bad = [...new Set(codes)].filter(c => !dag.nodes[c])
-        if (!codes.length && !/none|nothing|no\b|ge only|skip/.test(s)) return say(['I didn\'t see any course codes. Type them like "CSC 101, MATH 226", or "none".'])
+        if (!codes.length && !/none|nothing|no\b|ge only|skip/.test(s)) return say(['Add a course with + 🙂'])
         a.taken[a.sem] = [...a.taken[a.sem], ...ok]
-        const lines = [ok.length ? `Added ${ok.join(", ")} to ${termName(dag, a.sem + 1)}.` : `Nothing added for ${termName(dag, a.sem + 1)}.`]
-        if (bad.length) lines.push(`I don't recognize ${bad.join(", ")} as a Computer Science major course in the 2026-27 Bulletin, so I skipped ${bad.length > 1 ? "them" : "it"}.`)
+        const lines = [ok.length ? `${ok.join(", ")} ✅` : "No major courses, got it 👍"]
+        if (bad.length) lines.push(`Skipped ${bad.join(", ")} (not a CS course) 🤔`)
         a.sem++
         if (a.sem < a.sems) { say(lines); return setTimeout(() => askCourses(a.sem), 650 * (lines.length + 1)) }
         const est = a.sems * 15
-        return say([...lines, `Roughly how many units have you completed in total, GE included? If you're not sure, I'll assume about ${est}.`], "units")
+        return say([...lines, `Total units so far? (~${est} if unsure)`], "units")
       }
       case "units": {
         const n = firstNumber(s)
         a.units = n != null ? Math.min(200, n) : a.sems * 15
-        return say([n != null ? `${a.units} units, noted.` : `I'll go with about ${a.units} units.`,
-          `When do you expect to graduate? For example "Spring 2030".`], "grad")
+        return say([`${a.units} units 👍`, "Graduating when? 🎓"], "grad")
       }
       case "grad": {
         const m = /(fall|spring)\s*(\d{4})/i.exec(t), y = /(\d{4})/.exec(t)
         const want = m ? `${m[1][0].toUpperCase()}${m[1].slice(1).toLowerCase()} ${m[2]}` : y ? `Spring ${y[1]}` : ""
         const idx = Array.from({ length: 8 }, (_, i) => i + 1).find(i => termName(dag, i) === want) ?? 8
         a.grad = Math.max(a.sems + 1, idx)
-        return say([`${termName(dag, a.grad)} it is.`, "How many courses do you want to take each semester? Most students take 4 to 6."], "cps")
+        return say([`${termName(dag, a.grad)} 🎓`, "Courses per semester?"], "cps")
       }
       case "cps": {
         const n = firstNumber(s)
         a.cps = n != null ? Math.min(6, Math.max(4, n)) : /light|part/.test(s) ? 4 : 5
-        return say([`${a.cps} courses, about ${units()} units a semester.`, "Last one: what do you want to do after you graduate?"], "goal")
+        return say([`${a.cps} it is (~${units()} units) 👌`, "Dream job? 🚀"], "goal")
       }
       case "goal":
         a.goal = t
-        return say([`"${t}". I can work with that.`, "Want me to plan the rest of your degree for you, or would you rather plan it yourself?"], "how")
+        return say(["Love it 🚀", "Plan it for you, or DIY?"], "how")
       case "how":
         if (/myself|manual|by hand|\bi'?ll\b|\bi will\b/.test(s) && !/for me/.test(s)) return finishManual()
         setStep("done"); setInterview(true)
@@ -138,9 +136,9 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
   }
 
   const chips: Record<Step, string[]> = {
-    back: ["Go to my plan", "Update my answers"], name: [], major: ["Computer Science"],
+    back: ["Go to my plan", "Update"], name: [], major: ["Computer Science"],
     sems: ["Just starting", "1", "2", "4"], courses: ["None"], units: ["0", "Not sure"], grad: ["Spring 2030", "Fall 2029"],
-    cps: ["4", "5", "6"], goal: careers.map(c => c.label), how: ["✦ Plan it for me", "I'll plan it myself"], done: [],
+    cps: ["4", "5", "6"], goal: careers.map(c => c.label), how: ["✦ Plan it for me", "I'll do it myself"], done: [],
   }
 
   async function build(goalText: string, cps: number, trackId: string) {
@@ -204,10 +202,10 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
           </div>
           {step === "courses" && !typing && (
             <div className="border-t border-white/10 p-3">
-              <div className="mb-2 text-[11px] text-zinc-400">Courses you took in {termName(dag, a.sem + 1)}</div>
+              <div className="mb-2 text-[11px] text-zinc-400">{termName(dag, a.sem + 1)}</div>
               <div className="flex gap-2">
                 <input autoFocus list="pe-codes" value={draft} onChange={e => { setDraft(e.target.value); setPickWarn(null) }}
-                  onKeyDown={e => { if (e.key === "Enter") addPick() }} placeholder="Start typing, e.g. CSC 101"
+                  onKeyDown={e => { if (e.key === "Enter") addPick() }} placeholder="e.g. CSC 101"
                   className="flex-1 rounded-full border border-white/10 bg-transparent px-4 py-2 font-mono text-sm text-white outline-none placeholder:font-sans placeholder:text-zinc-600 focus:border-lime-300/60" />
                 <button onClick={addPick} disabled={!draft.trim()} title="Add this course"
                   className="w-10 rounded-full border border-lime-300/50 text-lg text-lime-300 hover:bg-lime-300/10 disabled:opacity-30">+</button>
@@ -222,7 +220,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
               </div>
               <button onClick={() => { const list = picked.join(", "); setPicked([]); setDraft(""); reply(list || "none") }}
                 className="mt-2 w-full rounded-full bg-lime-300 py-2 text-sm font-medium text-zinc-900">
-                {picked.length ? `Done with ${termName(dag, a.sem + 1)}` : `I didn't take any major courses in ${termName(dag, a.sem + 1)}`}
+                {picked.length ? "Done ✓" : "None this semester"}
               </button>
               <datalist id="pe-codes">{Object.keys(dag.nodes).sort().filter(c => !picked.includes(c) && !a.taken.flat().includes(c)).map(c => <option key={c} value={c}>{dag.nodes[c].title}</option>)}</datalist>
             </div>
@@ -240,7 +238,7 @@ export function Onboarding({ onDone, onSkip }: { onDone: () => void; onSkip?: ()
             </div>
           )}
         </div>
-        <div className="mt-2 text-center text-[10px] text-zinc-600">PlanEd reads your answers with simple rules. Nothing is sent anywhere until you ask for a plan.</div>
+        <div className="mt-2 text-center text-[10px] text-zinc-600">Your answers stay in this browser.</div>
       </div>
       {interview && <Interview name={a.name || "there"} initialGoal={a.goal} knownGoal={a.goal} coursesPerSemester={a.cps}
         onCancel={() => { setInterview(false); setStep("how") }}
