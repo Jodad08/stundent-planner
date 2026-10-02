@@ -21,11 +21,15 @@ python3 web/make_data.py                                                # web/da
 python3 web/bundle.py                                                   # web/dist/gatorgraph.html
 ```
 
-## Using the board
+## Using the canvas
 
-- **Move a course:** click it, then click a semester (or its "Move … here" button). Or use the ⋯ menu on the card.
-- **Add a course:** click it in the left list, then click a semester.
-- **Lines:** grey for prerequisites, dashed for "one of", dotted for same-term and corequisites. Red animated with a "!"
+- **Move a course:** drag it to another semester. Or click it, then click a semester (or its "Move … here" button). Or use
+  the ⋯ menu on the card.
+- **Add / remove:** drag a course from the left list onto a semester; drag a card back onto the list to remove it.
+- **Navigate:** drag empty space to pan (or use a trackpad / Shift+wheel). Ctrl/⌘+wheel or pinch zooms. Fit shows every
+  semester; the minimap jumps to a spot.
+- **Trace:** hover a course to light up its direct prerequisites and the courses it unlocks. Click it to show the whole chain.
+- **Arrows:** grey for prerequisites, dashed for "one of", dotted for same-term and corequisites. Red animated with a "!"
   marker means the prerequisite isn't in an earlier semester.
 - **Semester colours:** green is fine, amber is above the normal load, red is below full time or above the
   registration maximum. The numbers come from `data/policies.json`.

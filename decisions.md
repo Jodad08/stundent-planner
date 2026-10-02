@@ -224,7 +224,7 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - Evidence: human message 2026-10-02 ("Click-to-move: a 'Move to…' menu, or select a course and then click a semester")
 - Risk / undo: none.
 - Critic: PASS (0015-check) [critic: mock]
-- Status: active
+- Status: superseded in part by D-029 (drag added; click-to-move kept)
 
 ### Step 3 summary
 - What changed: `scraper/build_contracts.py` generates `data/catalog.json`, `data/programs/bs-computer-science.json`, `data/policies.json`, `data/career_tags.json`; `scripts/validate_catalog.py` validates them; the CS DAG reads its thresholds from `academic_rules.json`; `architecture.md` §3/§4/§5/§6/§8/§16 minimal edits.
@@ -322,7 +322,7 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - Evidence: headless-browser run at 1440×900 and 390×844 (no page errors, no horizontal page scroll): move CSC 340 into Fall 2026 → 2 red broken lines and "Fix 2 errors first"; move back → "Valid plan"; AI Plan (mock) → new tab via fallback with the steps listed; Evaluate → engine sections plus labelled mock explanation; reload keeps tabs.
 - Risk / undo: SFSU colours (#231161, #e3b53c) are taken from `plan.md` §10.9 and were not checked against the SFSU brand page. `git revert` the board commit to restore the old page.
 - Critic: PASS (0023-check) [critic: mock]
-- Status: active
+- Status: amended by D-029 (board layout becomes a canvas)
 
 ## D-028: Saved runs stay local
 - Step: 4
@@ -332,4 +332,23 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - Evidence: `server/runs.js` `saveRun` (stores `input`); `.gitignore`
 - Risk / undo: demo runs must be re-created on the demo machine; commit a made-up run by hand if needed.
 - Critic: PASS (0024-check) [critic: mock]
+- Status: active
+
+## D-029: The board becomes a canvas, with drag
+- Step: 4 (human feedback)
+- Decision: The semester board is now a pan/zoom canvas modelled on Obsidian Canvas:
+  - **Canvas:** a dot-grid background. Each semester is a labelled group with a status colour. Course cards are wider, show two lines of the name, and are coloured by category (CS core, math & physics, elective, GE/free, done).
+  - **Arrows:** curved, running from the right side of one card to the left side of the next. Cards in each semester are ordered by where their prerequisites sit, so fewer arrows cross.
+  - **Tracing:** hovering a card lights up its direct neighbours and fades the rest. Clicking a card shows its full chain.
+  - **Navigation:** pan by dragging empty space, with a trackpad, or with Shift+wheel. Zoom with Ctrl/⌘+wheel, pinch, or the +/− buttons. Fit shows everything. A minimap jumps to any spot. The first view is zoomed for reading (≥75%), not fit-all.
+  - **Drag:** drag a card to another semester (its arrows follow it while dragging), drag a course from the list onto a semester, or drag a card back to the list to remove it.
+  - Click-to-move and the ⋯ menu stay.
+  - Finished courses show as one-line cards. Arrows between two finished courses are hidden.
+  - Changing the student removes finished courses from saved plans.
+  - The course inspector sits above the canvas so it never covers cards.
+- Alternatives: keep the scrolling column board (D-027); a separate force-directed graph view (human chose the semester canvas only).
+- Why: Human feedback 2026-10-02: "graph needs to be more intuitive. take graphiphy/ obsidian's canvas mode for inspiration". On drag, the human asked "how long will it take to add drag? can you do it quick?", and it is quick on a canvas that already handles pointer input.
+- Evidence: headless-browser run at 1440×900 and 390×844, no page errors. Hover CSC 340 lights CSC 220, CSC 230, CSC 510 and CSC 415. Dragging CSC 340 into Fall 2026 highlights the drop target, then shows "Fix 2 errors first" with 2 red arrows. Dragging it back gives "Valid plan". Dragging a course from the list adds it; dragging it to the list removes it. Pan, Ctrl+wheel zoom and Fit work. The offline bundle passes the same checks.
+- Risk / undo: wheel handling: a vertical wheel scrolls the page unless the canvas is taller than its frame. Touch pinch is basic. Revert the canvas commit to get the D-027 board back.
+- Critic: PASS (0025-check) [critic: mock]
 - Status: active

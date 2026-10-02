@@ -18,7 +18,7 @@
   --ip: #1d7484; --ip-soft: #def0f2;
   --bad: #c62f2f; --bad-soft: #fde9e7;
   --warn: #a8690f; --warn-soft: #fbf0dc;
-  --edge: #8a88a0; --coreq: #2f6fd6;
+  --edge: #8a88a0; --coreq: #2f6fd6; --cyan: #0e7f9a; --orange: #c2620a; --canvas: #f7f7fa; --dot: #c9c8d6;
   --shadow: 0 1px 2px rgba(24, 23, 42, .06), 0 3px 10px rgba(24, 23, 42, .05);
   --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
@@ -28,14 +28,14 @@
     --paper: #121119; --card: #1c1b26; --ink: #ebeaf3; --muted: #a3a1b8; --line: #302e40;
     --accent: #a597ff; --accent-soft: #272340; --ok: #5cc194; --ok-soft: #16302a; --ok-line: #3f8a68;
     --ip: #55bccc; --ip-soft: #15303a; --bad: #ff7b6e; --bad-soft: #3b1c1b; --warn: #e3b24f; --warn-soft: #362a14;
-    --edge: #8d8aa6; --coreq: #6ea3ff; --shadow: 0 1px 2px rgba(0, 0, 0, .35); color-scheme: dark;
+    --edge: #8d8aa6; --coreq: #6ea3ff; --cyan: #4cc3df; --orange: #f0a35e; --canvas: #16151f; --dot: #34324a; --shadow: 0 1px 2px rgba(0, 0, 0, .35); color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #121119; --card: #1c1b26; --ink: #ebeaf3; --muted: #a3a1b8; --line: #302e40;
   --accent: #a597ff; --accent-soft: #272340; --ok: #5cc194; --ok-soft: #16302a; --ok-line: #3f8a68;
   --ip: #55bccc; --ip-soft: #15303a; --bad: #ff7b6e; --bad-soft: #3b1c1b; --warn: #e3b24f; --warn-soft: #362a14;
-  --edge: #8d8aa6; --coreq: #6ea3ff; --shadow: 0 1px 2px rgba(0, 0, 0, .35); color-scheme: dark;
+  --edge: #8d8aa6; --coreq: #6ea3ff; --cyan: #4cc3df; --orange: #f0a35e; --canvas: #16151f; --dot: #34324a; --shadow: 0 1px 2px rgba(0, 0, 0, .35); color-scheme: dark;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -138,55 +138,62 @@ a { color: var(--accent); }
 .item.placed .c, .item.placed .n { opacity: .55; }
 .item[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
 
-/* board */
+/* canvas (inspired by Obsidian Canvas): a pan/zoom world on a dot grid. Each semester is a labelled group,
+   courses are cards inside it, prerequisites are curved arrows that flow left to right in time. */
 .board-h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: baseline; margin-bottom: 8px; }
 .board-h h2 { font-size: 18px; }
-.inspector { background: var(--card); border: 1px solid var(--accent); border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; display: grid; gap: 6px; box-shadow: var(--shadow); }
-.inspector .row { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; }
-.inspector h3 { font-size: 16px; }
-.inspector .acts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
-.inspector select { padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
 .quote { font-size: 12.5px; color: var(--muted); border-left: 3px solid var(--line); padding-left: 8px; margin: 0; }
-.board { position: relative; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(124px, 1fr); gap: 10px; overflow-x: auto; padding: 4px 4px 10px; align-items: stretch; }
-.board.has-done { grid-template-columns: minmax(118px, .85fr); }
-.sem { border: 2px dashed var(--line); border-radius: 12px; padding: 6px; display: flex; flex-direction: column; gap: 6px; min-height: 300px; min-width: 0;
-  background: color-mix(in srgb, var(--card) 40%, transparent); transition: border-color .2s, background-color .2s; }
-.sem.s-ok { border-color: var(--ok-line); background: color-mix(in srgb, var(--ok-soft) 55%, transparent); }
-.sem.s-under { border-color: var(--bad); background: color-mix(in srgb, var(--bad-soft) 60%, transparent); }
-.sem.s-heavy { border-color: var(--warn); background: color-mix(in srgb, var(--warn-soft) 55%, transparent); }
-.sem.s-over { border: 2px solid var(--bad); background: var(--bad-soft); }
-.sem.target { cursor: copy; }
-.sem.done-col { border-style: solid; border-color: var(--line); background: transparent; }
-.sem-h { display: grid; gap: 1px; padding: 0 2px 6px; border-bottom: 1px solid var(--line); }
-.sem-h .r { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 6px; align-items: baseline; }
-.sem-h b { font-size: 14px; }
-.sem-h .u { font-family: var(--f-mono); font-size: 12px; color: var(--muted); }
+.canvas { position: relative; height: 560px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+  background-color: var(--canvas); background-image: radial-gradient(circle, var(--dot) 1.2px, transparent 1.4px); background-size: 22px 22px;
+  touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.canvas.panning { cursor: grabbing; }
+.world { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.world.hovering .cc:not(.hl) { opacity: .28; }
+.world.hovering .e:not(.hl) { opacity: .07; }
+.world.hovering .ewarn:not(.hl) { opacity: .2; }
+.sg { position: absolute; border: 2px dashed var(--line); border-radius: 16px; background: color-mix(in srgb, var(--card) 30%, transparent); transition: border-color .2s, background-color .2s, box-shadow .15s; }
+.sg.s-ok { border: 2px solid var(--ok-line); background: color-mix(in srgb, var(--ok-soft) 45%, transparent); }
+.sg.s-under { border: 2px solid var(--bad); background: color-mix(in srgb, var(--bad-soft) 55%, transparent); }
+.sg.s-heavy { border: 2px solid var(--warn); background: color-mix(in srgb, var(--warn-soft) 50%, transparent); }
+.sg.s-over { border: 3px solid var(--bad); background: var(--bad-soft); }
+.sg.done { border: 2px solid var(--line); background: color-mix(in srgb, var(--ok-soft) 25%, transparent); }
+.sg.target { cursor: copy; }
+.sg.drop-on { border-color: var(--accent); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 30%, transparent); }
+.sg-label { position: absolute; left: 2px; bottom: calc(100% + 8px); display: flex; gap: 8px; align-items: baseline; white-space: nowrap; }
+.sg-label b { font-size: 17px; }
+.sg-label .yr { font-size: 11px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.sg-label .u { font-family: var(--f-mono); font-size: 12.5px; color: var(--muted); }
+.sg .empty-hint { position: absolute; inset: 60px 14px auto; text-align: center; color: var(--muted); font-size: 13px; }
+.sg .sg-more { position: absolute; left: 14px; right: 14px; bottom: 12px; font-size: 12.5px; color: var(--muted); }
 .stchip { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
 .stchip.under, .stchip.over { background: var(--bad); color: #fff; }
 .stchip.heavy { background: var(--warn); color: #fff; }
 .stchip.ok { background: var(--ok-soft); color: var(--ok); }
 .stchip.ip { background: var(--ip-soft); color: var(--ip); }
-.cc { position: relative; z-index: 1; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--edge); border-radius: 8px;
-  padding: 5px 7px; display: grid; gap: 1px; box-shadow: var(--shadow); cursor: pointer; transition: opacity .15s, border-color .15s; }
-.cc:hover { border-color: var(--accent); }
-.cc .r1 { display: flex; justify-content: space-between; align-items: baseline; gap: 4px; }
-.cc .code { font-family: var(--f-mono); font-weight: 600; font-size: 12.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.cc { position: absolute; z-index: 1; --c: var(--edge); background: color-mix(in srgb, var(--c) 7%, var(--card)); border: 1.5px solid color-mix(in srgb, var(--c) 55%, var(--line));
+  border-radius: 10px; padding: 7px 10px; display: grid; grid-template-columns: minmax(0, 1fr); align-content: start; gap: 2px; box-shadow: var(--shadow); cursor: grab; transition: opacity .15s, box-shadow .15s; }
+.cc:hover { box-shadow: 0 0 0 2px color-mix(in srgb, var(--c) 45%, transparent), var(--shadow); }
+.cc .r1 { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.cc .code { font-family: var(--f-mono); font-weight: 600; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; color: color-mix(in srgb, var(--c) 70%, var(--ink)); }
 .cc .u { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); }
-.cc .nm { font-size: 11.5px; line-height: 1.3; padding-right: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
-.cc.k-major { border-left-color: var(--accent); }
-.cc.k-math { border-left-color: #8e44ad; }
-.cc.k-elective { border-left-color: var(--gold); }
-.cc.k-ge, .cc.k-free { border-style: dashed; border-left-style: solid; border-left-color: var(--line); background: color-mix(in srgb, var(--card) 70%, transparent); box-shadow: none; }
-.cc.k-done { background: var(--ok-soft); border-color: transparent; border-left-color: var(--ok); box-shadow: none; }
-.cc.k-ip { background: var(--ip-soft); border-color: transparent; border-left-color: var(--ip); box-shadow: none; }
-.cc.sel { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
-.cc.dim { opacity: .25; }
-.cc .err { position: absolute; top: -4px; right: -4px; width: 11px; height: 11px; border-radius: 50%; background: var(--bad); border: 2px solid var(--card); }
-.cc .badges { display: flex; flex-wrap: wrap; gap: 3px; margin-top: 2px; }
-.ghost { border: 1px dashed var(--bad); background: var(--card); color: var(--bad); border-radius: 4px; font-size: 10.5px; font-weight: 600; padding: 0 5px; }
+.cc .nm { font-size: 12px; line-height: 1.25; padding-right: 18px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; color: var(--ink); opacity: .8; }
+.cc.compact { padding: 5px 10px; align-content: center; }
+.cc.compact .nmi { flex: 1; min-width: 0; font-size: 11.5px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc.k-major { --c: var(--accent); }
+.cc.k-math { --c: var(--cyan); }
+.cc.k-elective { --c: var(--orange); }
+.cc.k-ge, .cc.k-free { --c: var(--muted); border-style: dashed; box-shadow: none; background: color-mix(in srgb, var(--card) 75%, transparent); }
+.cc.k-done { --c: var(--ok); box-shadow: none; }
+.cc.k-ip { --c: var(--ip); box-shadow: none; }
+.cc.sel { box-shadow: 0 0 0 3px var(--accent), var(--shadow); }
+.cc.dim { opacity: .22; }
+.cc.dragging { z-index: 20; cursor: grabbing; pointer-events: none; box-shadow: 0 16px 36px rgba(0, 0, 0, .28); rotate: 1.5deg; transition: none; }
+.cc .err { position: absolute; top: -5px; right: -5px; width: 12px; height: 12px; border-radius: 50%; background: var(--bad); border: 2px solid var(--card); }
+.cc .badges { display: flex; flex-wrap: nowrap; gap: 3px; margin-top: 3px; overflow: hidden; }
+.ghost { border: 1px dashed var(--bad); background: var(--card); color: var(--bad); border-radius: 4px; font-size: 10.5px; font-weight: 600; padding: 0 5px; white-space: nowrap; }
 .ghost:hover { background: var(--bad-soft); }
-.badge { font-size: 10.5px; font-weight: 600; padding: 0 5px; border-radius: 4px; background: var(--warn-soft); color: var(--warn); }
-.dots { position: absolute; right: 4px; bottom: 3px; border: 0; background: none; color: var(--muted); font-weight: 700; padding: 0 4px; border-radius: 4px; line-height: 1.2; }
+.badge { font-size: 10.5px; font-weight: 600; padding: 0 5px; border-radius: 4px; background: var(--warn-soft); color: var(--warn); white-space: nowrap; }
+.dots { position: absolute; right: 5px; bottom: 5px; border: 0; background: none; color: var(--muted); font-weight: 700; padding: 0 5px; border-radius: 4px; line-height: 1.3; }
 .dots:hover { background: var(--paper); color: var(--ink); }
 .menu { position: fixed; z-index: 25; min-width: 200px; background: var(--card); border: 1px solid var(--accent); border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, .18); padding: 5px; display: grid; gap: 1px; cursor: default; }
@@ -195,25 +202,44 @@ a { color: var(--accent); }
 .menu button:hover { background: var(--accent-soft); }
 .menu button[disabled] { opacity: .45; cursor: default; background: none; }
 .menu .rm { color: var(--bad); border-top: 1px solid var(--line); border-radius: 0 0 5px 5px; margin-top: 3px; }
-.drop { margin-top: auto; border: 1.5px dashed var(--accent); background: var(--accent-soft); color: var(--accent); border-radius: 8px; padding: 8px; font-weight: 600; font-size: 12.5px; }
-.morecourses { font-size: 12px; color: var(--muted); padding: 2px; }
-.sem-f { margin-top: auto; font-size: 11.5px; color: var(--muted); text-align: right; }
+.drop { position: absolute; left: 12px; right: 12px; bottom: 10px; border: 1.5px dashed var(--accent); background: var(--accent-soft); color: var(--accent); border-radius: 10px; padding: 8px; font-weight: 600; font-size: 13px; }
 svg.edges { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
 svg.edges.under { z-index: 0; }
-svg.edges.over { z-index: 2; }
-.e { fill: none; stroke: var(--edge); stroke-width: 1.4; opacity: .55; }
-.e.or { stroke-dasharray: 6 4; }
-.e.conc { stroke-dasharray: 2 3; }
-.e.coreq { stroke: var(--coreq); stroke-dasharray: 2 3; opacity: .8; }
-.e.chain { stroke: var(--accent); opacity: 1; stroke-width: 2; }
-.e.faint { opacity: .12; }
-.e.broken { stroke: var(--bad); stroke-width: 3; opacity: 1; stroke-dasharray: 8 5; animation: dash 1s linear infinite; }
-@keyframes dash { to { stroke-dashoffset: -26; } }
+svg.edges.over { z-index: 3; }
+.e { fill: none; stroke: var(--edge); stroke-width: 1.8; opacity: .65; transition: opacity .15s; }
+.e.or { stroke-dasharray: 7 5; }
+.e.conc { stroke-dasharray: 2 4; }
+.e.coreq { stroke: var(--coreq); stroke-dasharray: 2 4; opacity: .85; }
+.e.hl { opacity: 1; stroke: var(--accent); stroke-width: 2.6; }
+.e.chain { stroke: var(--accent); opacity: 1; stroke-width: 2.6; }
+.e.faint { opacity: .08; }
+.e.broken, .e.broken.hl { stroke: var(--bad); stroke-width: 3.4; opacity: 1; stroke-dasharray: 9 6; animation: dash 1s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -30; } }
 @media (prefers-reduced-motion: reduce) { .e.broken { animation: none; } }
-.ewarn circle { fill: var(--bad); } .ewarn text { fill: #fff; font: 700 11px var(--f-body); }
+.ewarn circle { fill: var(--bad); stroke: var(--card); stroke-width: 2; } .ewarn text { fill: #fff; font: 700 12px var(--f-body); }
+.inspector { margin-bottom: 8px; background: var(--card); border: 1px solid var(--accent); border-radius: 12px; padding: 10px 14px; display: grid; gap: 6px; box-shadow: var(--shadow); }
+.inspector .row { display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: baseline; }
+.inspector h3 { font-size: 16px; }
+.inspector .acts { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.inspector select { padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--card); }
+.cv-ctl { position: absolute; right: 12px; bottom: 12px; z-index: 6; display: flex; gap: 2px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 3px; box-shadow: var(--shadow); cursor: default; }
+.cv-ctl button { border: 0; background: none; min-width: 32px; height: 30px; border-radius: 7px; font-weight: 600; padding: 0 8px; }
+.cv-ctl button:hover { background: var(--accent-soft); color: var(--accent); }
+.cv-ctl .pct { font-family: var(--f-mono); font-size: 12px; min-width: 46px; text-align: center; color: var(--muted); }
+.cv-hint { position: absolute; left: 12px; bottom: 14px; z-index: 5; font-size: 12px; color: var(--muted); background: color-mix(in srgb, var(--canvas) 85%, transparent); padding: 2px 8px; border-radius: 6px; pointer-events: none; }
+.minimap { position: absolute; right: 12px; bottom: 56px; z-index: 6; width: 190px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); cursor: pointer; overflow: hidden; }
+.minimap svg { display: block; width: 100%; height: auto; }
+.minimap .mm-g { fill: var(--paper); stroke: var(--line); }
+.minimap .mm-g.s-ok { stroke: var(--ok-line); } .minimap .mm-g.s-heavy { stroke: var(--warn); } .minimap .mm-g.s-under, .minimap .mm-g.s-over { stroke: var(--bad); fill: var(--bad-soft); }
+.minimap .mm-c { fill: var(--accent); opacity: .55; } .minimap .mm-c.bad { fill: var(--bad); opacity: 1; }
+.minimap .mm-v { fill: color-mix(in srgb, var(--accent) 12%, transparent); stroke: var(--accent); stroke-width: 2; }
+.side.drop-remove { box-shadow: 0 0 0 4px color-mix(in srgb, var(--bad) 35%, transparent); border-color: var(--bad); }
+.dragghost { position: fixed; z-index: 60; pointer-events: none; background: var(--card); border: 1.5px solid var(--accent); border-radius: 10px; padding: 6px 10px; font-family: var(--f-mono); font-weight: 600; box-shadow: 0 12px 30px rgba(0, 0, 0, .25); }
+.item { cursor: grab; }
 .legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--muted); margin-top: 8px; align-items: center; }
 .legend svg { vertical-align: middle; margin-right: 5px; }
-.legend .box { display: inline-block; width: 14px; height: 11px; border: 2px dashed; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+.legend .box { display: inline-block; width: 14px; height: 11px; border: 2px solid; border-radius: 3px; vertical-align: -1px; margin-right: 5px; }
+.legend .sw { display: inline-block; width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid; vertical-align: -1px; margin-right: 5px; }
 
 /* hover card */
 .hover { position: fixed; z-index: 20; width: 290px; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
@@ -339,18 +365,28 @@ td select { padding: 2px 4px; border: 1px solid var(--line); border-radius: 4px;
 
     <section aria-labelledby="board-h">
       <div class="board-h">
-        <h2 id="board-h">Semester board</h2>
-        <span class="small" id="board-hint">Click a course to see its chain. Then click a semester to move it there, or use ⋯</span>
-        <label class="check"><input type="checkbox" id="show-all" checked> All prerequisite lines</label>
+        <h2 id="board-h">Semester canvas</h2>
+        <label class="check"><input type="checkbox" id="show-all" checked> All prerequisite arrows</label>
       </div>
       <div class="inspector" id="inspector" hidden></div>
-      <div class="board" id="board"></div>
+      <div class="canvas" id="canvas" aria-label="Semester canvas. Drag courses between semesters; drag empty space to pan.">
+        <div class="world" id="world"></div>
+        <div class="minimap" id="minimap" title="Click to jump"></div>
+        <div class="cv-ctl" role="group" aria-label="Zoom">
+          <button type="button" data-zoom="out" aria-label="Zoom out">−</button><span class="pct" id="zoom-pct">100%</span><button type="button" data-zoom="in" aria-label="Zoom in">+</button><button type="button" data-zoom="fit">Fit</button>
+        </div>
+        <div class="cv-hint">Drag a course to another semester · drag empty space to pan · Ctrl/⌘ + scroll or pinch to zoom · hover a course to trace it</div>
+      </div>
       <div class="legend">
-        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.6" fill="none"/></svg>prerequisite</span>
-        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.6" stroke-dasharray="6 4" fill="none"/></svg>one of several options</span>
-        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.6" stroke-dasharray="2 3" fill="none"/></svg>same term allowed</span>
-        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--coreq)" stroke-width="1.6" stroke-dasharray="2 3" fill="none"/></svg>corequisite (same term)</span>
-        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--bad)" stroke-width="3" stroke-dasharray="8 5" fill="none"/></svg>broken: prerequisite not earlier</span>
+        <span><i class="sw" style="border-color:var(--accent);background:var(--accent-soft)"></i>CS core</span>
+        <span><i class="sw" style="border-color:var(--cyan)"></i>Math &amp; physics</span>
+        <span><i class="sw" style="border-color:var(--orange)"></i>Elective</span>
+        <span><i class="sw" style="border-color:var(--muted);border-style:dashed"></i>GE / free elective</span>
+        <span><i class="sw" style="border-color:var(--ok);background:var(--ok-soft)"></i>Done</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.8" fill="none"/></svg>prerequisite</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--edge)" stroke-width="1.8" stroke-dasharray="7 5" fill="none"/></svg>one of several</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--coreq)" stroke-width="1.8" stroke-dasharray="2 4" fill="none"/></svg>same term</span>
+        <span><svg width="34" height="10"><path d="M2 5 H30" stroke="var(--bad)" stroke-width="3" stroke-dasharray="8 5" fill="none"/></svg>broken: not earlier</span>
         <span><i class="box" style="border-color:var(--ok-line)"></i>units OK</span>
         <span><i class="box" style="border-color:var(--warn)"></i>heavy (over <span class="mono" id="lg-heavy"></span>)</span>
         <span><i class="box" style="border-color:var(--bad)"></i>below <span class="mono" id="lg-min"></span> or over <span class="mono" id="lg-max"></span></span>
@@ -1609,10 +1645,13 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
   }
 
   // ------------------------------------------------------------------ render: board
-  function cardHtml(id, opts) {
-    const kind = opts.kind || kindOf(id);
+  // ------------------------------------------------------------------ canvas: layout, cards, arrows
+  // World coordinates are laid out from data (no DOM measuring), so arrows, drag and the minimap share one geometry.
+  const L = { GW: 236, PAD: 12, GX: 96, TOP: 56, HEAD: 14, CH: 66, CHD: 30, BADGE: 22, GAP: 10, FOOT: 58, MARGIN: 44 };
+  const badgeCache = new Map();
+  function badgesFor(id) {
+    if (badgeCache.has(id)) return badgeCache.get(id);
     const issues = R.byCourse[id] || [];
-    const errs = issues.filter(i => i.severity === "error");
     const badges = [];
     issues.filter(i => i.code === "PREREQ_MISSING").forEach(i => {
       const opt = i.courseIds.slice(1).filter(c => CATI.has(c));
@@ -1625,79 +1664,76 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
     if (issues.some(i => i.code === "ALREADY_SATISFIED")) badges.push(`<span class="badge">already covered</span>`);
     if (issues.some(i => i.code === "TERM_NOT_OFFERED")) badges.push(`<span class="badge">${esc((C(id).typicalTerms || []).join("/"))} only</span>`);
     if (issues.some(i => i.code === "DUPLICATE_COURSE")) badges.push(`<span class="badge">duplicate</span>`);
+    badgeCache.set(id, badges);
+    return badges;
+  }
+
+  function cardHtml(id, box, opts) {
+    const kind = opts.kind || kindOf(id);
+    const errs = (R.byCourse[id] || []).filter(i => i.severity === "error");
+    const badges = badgesFor(id);
     const sel = state.sel === id;
     const dim = R.chain && !R.chain.has(id);
-    const movable = opts.movable;
-    return `<div class="cc k-${kind}${sel ? " sel" : ""}${dim ? " dim" : ""}" data-card="${esc(id)}" data-sel="${esc(id)}" tabindex="0" role="button" aria-pressed="${sel}" aria-label="${esc(id)} ${esc(nameOf(id))}">
+    if (opts.compact) {
+      return `<div class="cc compact k-${kind}${sel ? " sel" : ""}${dim ? " dim" : ""}" data-card="${esc(id)}" data-sel="${esc(id)}"
+        style="left:${box.l}px;top:${box.t}px;width:${box.r - box.l}px;height:${box.b - box.t}px" tabindex="0" role="button" aria-pressed="${sel}" aria-label="${esc(id)} ${esc(nameOf(id))}">
+        <span class="r1"><span class="code">${esc(id)}</span><span class="nmi">${esc(nameOf(id))}</span><span class="u">${unitsOf(id)}u</span></span></div>`;
+    }
+    return `<div class="cc k-${kind}${sel ? " sel" : ""}${dim ? " dim" : ""}" data-card="${esc(id)}" data-sel="${esc(id)}"${opts.sem ? ` data-in="${opts.sem}" data-movable="1"` : ""}
+      style="left:${box.l}px;top:${box.t}px;width:${box.r - box.l}px;height:${box.b - box.t}px" tabindex="0" role="button" aria-pressed="${sel}" aria-label="${esc(id)} ${esc(nameOf(id))}">
       ${errs.length ? '<span class="err" title="Has an error"></span>' : ""}
       <span class="r1"><span class="code">${esc(id)}</span><span class="u">${unitsOf(id)}u</span></span>
       <span class="nm">${esc(nameOf(id))}</span>
       ${badges.length ? `<span class="badges">${badges.join("")}</span>` : ""}
-      ${movable ? `<button type="button" class="dots" data-menu="${esc(id)}" aria-label="Move ${esc(id)}" aria-expanded="${state.menu === id}">⋯</button>` : ""}</div>`;
+      ${opts.sem ? `<button type="button" class="dots" data-menu="${esc(id)}" aria-label="Move ${esc(id)}" aria-expanded="${state.menu === id}">⋯</button>` : ""}</div>`;
   }
 
-  function renderBoard() {
-    const cols = [];
+  function layout() {
     const di = R.doneInfo;
+    const cols = [];
     const doneProgram = [...di.done].filter(c => CATI.has(c) && (groupOf[c] || DAG.nodes[c]) && !R.pos.has(c));
-    const otherDone = [...di.done].filter(c => !doneProgram.includes(c) && !R.pos.has(c));
-    const board = document.getElementById("board");
-    board.classList.toggle("has-done", di.done.size > 0);
     if (di.done.size) {
       const order = c => (di.inProgress.has(c) ? 1 : 0);
-      cols.push(`<div class="sem done-col"><div class="sem-h"><span class="eyebrow">Transcript</span><div class="r"><b>Done</b><span class="stchip ip">${di.inProgress.size ? "incl. in progress" : "finished"}</span></div></div>
-        ${doneProgram.sort((a, b) => order(a) - order(b) || (a < b ? -1 : 1)).map(c => cardHtml(c, { kind: di.inProgress.has(c) ? "ip" : "done" })).join("")}
-        ${otherDone.length ? `<div class="morecourses">+ ${otherDone.length} other course${otherDone.length > 1 ? "s" : ""} (GE, transfer)</div>` : ""}
-        <div class="sem-f"><span class="mono">${di.units}</span> units</div></div>`);
+      cols.push({ key: "done", ids: doneProgram.sort((a, b) => order(a) - order(b) || (a < b ? -1 : 1)),
+        other: [...di.done].filter(c => !doneProgram.includes(c) && !R.pos.has(c)).length });
     }
-    const lo = pol("minUnitsFullTime"), hi = pol("heavyLoadUnits"), max = pol("maxUnitsWithoutPermission");
-    const chipText = { under: `Below ${lo}`, heavy: `Heavy`, over: `Over ${max}`, ok: "OK", empty: "" };
-    R.plan.semesters.forEach((s, i) => {
-      const stat = R.report.semesterStats[i];
-      const target = state.sel && R.pos.get(state.sel) !== s.index && !(di.done.has(state.sel) && !R.pos.has(state.sel));
-      const verb = R.pos.has(state.sel) ? "Move" : "Add";
-      cols.push(`<div class="sem s-${stat.status}${target ? " target" : ""}" data-sem="${s.index}">
-        <div class="sem-h"><span class="eyebrow">Year ${Math.floor(i / 2) + 1}</span><div class="r"><b>${esc(s.label)}</b>${stat.status !== "empty" ? `<span class="stchip ${stat.status}">${chipText[stat.status]}</span>` : ""}</div>
-          <div class="r"><span class="u">${stat.units} units</span>${stat.status === "heavy" ? `<span class="small">over ${hi}</span>` : ""}</div></div>
-        ${s.courseIds.map(c => cardHtml(c, { movable: true })).join("")}
-        ${target ? `<button type="button" class="drop" data-move="${esc(state.sel)}" data-to="${s.index}">${verb} ${esc(state.sel)} here</button>` : ""}
-      </div>`);
+    R.plan.semesters.forEach(s => cols.push({ key: s.index, sem: s, ids: s.courseIds.slice() }));
+    const yMid = {}, boxes = {};
+    const prereqsOf = id => edgeLeaves((C(id) || {}).prereq).map(l => l.code);
+    cols.forEach((col, ci) => {
+      const x = L.MARGIN + ci * (L.GW + L.GX);
+      if (col.key !== "done") {
+        // order cards by the height of their prerequisites in earlier semesters, so arrows cross less
+        col.ids = col.ids.map((id, i) => {
+          const ys = prereqsOf(id).filter(p => yMid[p] != null).map(p => yMid[p]);
+          const ph = C(id) && C(id).isPlaceholder;
+          return [id, ph ? 1e6 + i : ys.length ? ys.reduce((a, b) => a + b, 0) / ys.length : -1e4 + i];
+        }).sort((a, b) => a[1] - b[1]).map(p => p[0]);
+      }
+      let y = L.TOP + L.HEAD;
+      const done = col.key === "done";  // finished courses are history: one compact line each
+      col.ids.forEach(id => {
+        const h = done ? L.CHD : L.CH + (badgesFor(id).length ? L.BADGE : 0);
+        boxes[id] = { l: x + L.PAD, r: x + L.GW - L.PAD, t: y, b: y + h, col: ci };
+        yMid[id] = y + h / 2;
+        y += h + (done ? 6 : L.GAP);
+      });
+      col.x = x;
+      col.bottom = y;
     });
-    board.innerHTML = `<svg class="edges under" id="edges-under" aria-hidden="true"></svg><svg class="edges over" id="edges-over" aria-hidden="true"></svg>` + cols.join("");
-    requestAnimationFrame(drawEdges);
-    renderMenu();
+    const bottom = Math.max(L.TOP + 360, ...cols.map(c => c.bottom + L.FOOT));
+    return { cols, boxes, W: L.MARGIN * 2 + cols.length * L.GW + (cols.length - 1) * L.GX, H: bottom + L.MARGIN, top: L.TOP, h: bottom - L.TOP };
   }
 
-  // "Move to…" popover, outside the scrolling board so it is never clipped
-  function renderMenu() {
-    const m = document.getElementById("menu");
-    const id = state.menu;
-    const card = id && document.querySelector(`#board [data-card="${CSS.escape(id)}"]`);
-    if (!card) { m.hidden = true; m.innerHTML = ""; return; }
-    const cur = R.pos.get(id);
-    m.innerHTML = `<div class="mh">Move ${esc(id)} to</div>` +
-      R.plan.semesters.map(s => `<button type="button" role="menuitem" data-move="${esc(id)}" data-to="${s.index}"${s.index === cur ? " disabled" : ""}><span>${esc(s.label)}${s.index === cur ? " (now)" : ""}</span><span class="mono small">${R.report.semesterStats[s.index - 1].units}u</span></button>`).join("") +
-      `<button type="button" role="menuitem" class="rm" data-remove="${esc(id)}"><span>Remove from plan</span></button>`;
-    m.hidden = false;
-    clearTimeout(hoverTimer);
-    hideHover();
-    const r = card.getBoundingClientRect();
-    m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.left)) + "px";
-    m.style.top = (r.bottom + 4 + m.offsetHeight < window.innerHeight ? r.bottom + 4 : Math.max(8, r.top - m.offsetHeight - 4)) + "px";
-    const first = m.querySelector("button:not([disabled])");
-    if (first && document.activeElement && document.activeElement.dataset && document.activeElement.dataset.menu === id) first.focus();
-  }
-
-  // edges among cards on the board; broken ones come from the engine's PREREQ_ORDER / COREQ_ORDER issues
-  function boardEdges() {
-    const ids = [...document.querySelectorAll("#board [data-card]")].map(e => e.dataset.card);
-    const on = new Set(ids);
+  // arrows between cards on the canvas; broken ones come from the engine's PREREQ_ORDER / COREQ_ORDER issues
+  function edgeList(boxes) {
     const edges = new Map();
-    ids.forEach(c => {
+    Object.keys(boxes).forEach(c => {
       const course = C(c);
       if (!course) return;
+      const finished = x => !R.pos.has(x);
       edgeLeaves(course.prereq).forEach(l => {
-        if (!on.has(l.code) || l.code === c) return;
+        if (!boxes[l.code] || l.code === c || (finished(c) && finished(l.code))) return;
         if (l.kind === "coreq" && edges.has(c + ">" + l.code)) return;
         edges.set(l.code + ">" + c, { from: l.code, to: c, kind: l.kind, broken: false });
       });
@@ -1705,7 +1741,7 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
     R.report.issues.filter(i => i.code === "PREREQ_ORDER" || i.code === "COREQ_ORDER").forEach(i => {
       const c = i.courseIds[0];
       i.courseIds.slice(1).forEach(p => {
-        if (!on.has(p) || !on.has(c)) return;
+        if (!boxes[p] || !boxes[c]) return;
         const k = edges.has(p + ">" + c) ? p + ">" + c : edges.has(c + ">" + p) ? c + ">" + p : p + ">" + c;
         const e = edges.get(k) || { from: p, to: c, kind: i.code === "COREQ_ORDER" ? "coreq" : "req" };
         e.broken = true;
@@ -1725,42 +1761,289 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
     return seen;
   }
 
-  function drawEdges() {
-    const board = document.getElementById("board");
-    const under = document.getElementById("edges-under"), over = document.getElementById("edges-over");
-    if (!board || !under) return;
-    const edges = boardEdges();
-    const chain = state.sel && document.querySelector(`#board [data-card="${CSS.escape(state.sel)}"]`) ? chainOf(state.sel, edges) : null;
-    if (chain && !R.chain) { R.chain = chain; renderBoard(); return; }  // re-render once to dim cards outside the chain
-    const br = board.getBoundingClientRect();
-    const box = el => { const r = el.getBoundingClientRect(); return { l: r.left - br.left + board.scrollLeft, r: r.right - br.left + board.scrollLeft, t: r.top - br.top + board.scrollTop, b: r.bottom - br.top + board.scrollTop }; };
-    const W = board.scrollWidth, H = board.scrollHeight;
-    [under, over].forEach(s => { s.setAttribute("width", W); s.setAttribute("height", H); s.setAttribute("viewBox", `0 0 ${W} ${H}`); });
-    const defs = `<defs>${[["a-edge", "var(--edge)"], ["a-bad", "var(--bad)"], ["a-chain", "var(--accent)"], ["a-coreq", "var(--coreq)"]].map(([id, col]) =>
-      `<marker id="${id}" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="${col}"/></marker>`).join("")}</defs>`;
-    let u = defs, o = defs;
+  // side-to-side bezier: forward arrows leave the right edge and enter the left edge (Obsidian style)
+  function edgeGeom(A, Z) {
+    const ya = (A.t + A.b) / 2, yz = (Z.t + Z.b) / 2;
+    let p;
+    if (A.r <= Z.l + 1) { const dx = Math.max(36, (Z.l - A.r) * 0.5); p = [[A.r, ya], [A.r + dx, ya], [Z.l - dx, yz], [Z.l, yz]]; }
+    else if (Math.abs(A.l - Z.l) < 8) { p = [[A.r, ya], [A.r + 46, ya], [Z.r + 46, yz], [Z.r, yz]]; }
+    else { const dx = Math.max(46, (A.l - Z.r) * 0.5); p = [[A.l, ya], [A.l - dx, ya], [Z.r + dx, yz], [Z.r, yz]]; }
+    return { d: `M${p[0]} C${p[1]} ${p[2]} ${p[3]}`, mx: (p[0][0] + 3 * p[1][0] + 3 * p[2][0] + p[3][0]) / 8, my: (p[0][1] + 3 * p[1][1] + 3 * p[2][1] + p[3][1]) / 8 };
+  }
+
+  function renderBoard() {
+    badgeCache.clear();
+    const lay = layout();
+    const edges = edgeList(lay.boxes);
+    R.lay = lay;
+    R.edges = edges;
+    R.chain = state.sel && lay.boxes[state.sel] ? chainOf(state.sel, edges) : null;
+    const di = R.doneInfo;
+    const lo = pol("minUnitsFullTime"), max = pol("maxUnitsWithoutPermission");
+    const chipText = { under: `Below ${lo}`, heavy: "Heavy", over: `Over ${max}`, ok: "OK", empty: "" };
+    const groups = [], cards = [];
+    lay.cols.forEach(col => {
+      const style = `left:${col.x}px;top:${lay.top}px;width:${L.GW}px;height:${lay.h}px`;
+      if (col.key === "done") {
+        groups.push(`<div class="sg done" style="${style}"><div class="sg-label"><b>Done</b><span class="yr">Transcript</span><span class="u">${di.units} u</span>${di.inProgress.size ? '<span class="stchip ip">incl. in progress</span>' : ""}</div>
+          ${col.other ? `<div class="sg-more">+ ${col.other} other course${col.other > 1 ? "s" : ""} (GE, transfer)</div>` : ""}</div>`);
+        col.ids.forEach(c => cards.push(cardHtml(c, lay.boxes[c], { kind: di.inProgress.has(c) ? "ip" : "done", compact: true })));
+        return;
+      }
+      const s = col.sem, stat = R.report.semesterStats[s.index - 1];
+      const target = state.sel && R.pos.get(state.sel) !== s.index && !(di.done.has(state.sel) && !R.pos.has(state.sel));
+      groups.push(`<div class="sg s-${stat.status}${target ? " target" : ""}" data-sem="${s.index}" style="${style}">
+        <div class="sg-label"><b>${esc(s.label)}</b><span class="yr">Year ${Math.floor((s.index - 1) / 2) + 1}</span><span class="u">${stat.units} u</span>${stat.status !== "empty" ? `<span class="stchip ${stat.status}">${chipText[stat.status]}</span>` : ""}</div>
+        ${s.courseIds.length ? "" : '<div class="empty-hint">Drag courses here</div>'}
+        ${target ? `<button type="button" class="drop" data-move="${esc(state.sel)}" data-to="${s.index}">${R.pos.has(state.sel) ? "Move" : "Add"} ${esc(state.sel)} here</button>` : ""}</div>`);
+      col.ids.forEach(c => cards.push(cardHtml(c, lay.boxes[c], { sem: s.index })));
+    });
+    const marker = (id, col) => `<marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="${col}"/></marker>`;
+    const defs = `<defs>${marker("a-edge", "var(--edge)")}${marker("a-bad", "var(--bad)")}${marker("a-hl", "var(--accent)")}${marker("a-coreq", "var(--coreq)")}</defs>`;
+    let under = "", over = "";
     edges.forEach(e => {
-      const a = document.querySelector(`#board [data-card="${CSS.escape(e.from)}"]`), z = document.querySelector(`#board [data-card="${CSS.escape(e.to)}"]`);
-      if (!a || !z) return;
-      const A = box(a), Z = box(z);
-      const ya = (A.t + A.b) / 2, yz = (Z.t + Z.b) / 2;
-      let pts;
-      if (A.r <= Z.l + 1) { const dx = Math.max(24, (Z.l - A.r) / 2); pts = [[A.r, ya], [A.r + dx, ya], [Z.l - dx, yz], [Z.l, yz]]; }
-      else if (Math.abs(A.l - Z.l) < 8) { pts = [[A.r, ya], [A.r + 34, ya], [Z.r + 34, yz], [Z.r, yz]]; }
-      else { const dx = Math.max(30, (A.l - Z.r) / 2); pts = [[A.l, ya], [A.l - dx, ya], [Z.r + dx, yz], [Z.r, yz]]; }
-      const d = `M${pts[0]} C${pts[1]} ${pts[2]} ${pts[3]}`;
-      const inChain = chain && chain.has(e.from) && chain.has(e.to);
+      const g = edgeGeom(lay.boxes[e.from], lay.boxes[e.to]);
+      const ab = `data-a="${esc(e.from)}" data-b="${esc(e.to)}"`;
+      const inChain = R.chain && R.chain.has(e.from) && R.chain.has(e.to);
       if (e.broken) {
-        const mx = (pts[0][0] + 3 * pts[1][0] + 3 * pts[2][0] + pts[3][0]) / 8, my = (pts[0][1] + 3 * pts[1][1] + 3 * pts[2][1] + pts[3][1]) / 8;
-        o += `<path class="e broken" d="${d}" marker-end="url(#a-bad)"/><g class="ewarn"><circle cx="${mx}" cy="${my}" r="8"/><text x="${mx}" y="${my + 4}" text-anchor="middle">!</text></g>`;
+        over += `<path class="e broken" ${ab} d="${g.d}" marker-end="url(#a-bad)"/><g class="ewarn" ${ab}><circle cx="${g.mx}" cy="${g.my}" r="10"/><text x="${g.mx}" y="${g.my + 4}" text-anchor="middle">!</text></g>`;
       } else if (inChain) {
-        o += `<path class="e chain${e.kind === "or" ? " or" : ""}" d="${d}" marker-end="url(#a-chain)"/>`;
+        over += `<path class="e chain${e.kind === "or" ? " or" : ""}" ${ab} d="${g.d}" marker-end="url(#a-hl)"/>`;
       } else if (state.showAll || e.kind === "coreq") {
-        u += `<path class="e ${e.kind}${chain ? " faint" : ""}" d="${d}" marker-end="url(#${e.kind === "coreq" ? "a-coreq" : "a-edge"})"/>`;
+        under += `<path class="e ${e.kind}${R.chain ? " faint" : ""}" ${ab} d="${g.d}" marker-end="url(#${e.kind === "coreq" ? "a-coreq" : "a-edge"})"/>`;
       }
     });
-    under.innerHTML = u;
-    over.innerHTML = o;
+    const svg = (cls, body) => `<svg class="edges ${cls}" width="${lay.W}" height="${lay.H}" viewBox="0 0 ${lay.W} ${lay.H}" aria-hidden="true">${defs}${body}</svg>`;
+    const world = document.getElementById("world");
+    document.getElementById("canvas").style.height = Math.round(clamp(lay.H * 0.85 + 70, 440, Math.max(440, window.innerHeight - 120))) + "px";
+    world.style.width = lay.W + "px";
+    world.style.height = lay.H + "px";
+    world.innerHTML = groups.join("") + svg("under", under) + cards.join("") + svg("over", over);
+    const fitKey = state.activeId + "|" + state.profileId + "|" + (di.done.size > 0);
+    if (!state.cam || state.fitKey !== fitKey) { state.fitKey = fitKey; requestAnimationFrame(() => fitView(true)); }
+    else applyCam();
+    renderMenu();
+  }
+
+  // ------------------------------------------------------------------ camera: pan, zoom, fit, minimap
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  function canvasRect() { return document.getElementById("canvas").getBoundingClientRect(); }
+  function applyCam() {
+    const c = state.cam, cv = document.getElementById("canvas");
+    if (!c || !R.lay) return;
+    const r = canvasRect();
+    // keep some of the world on screen
+    c.x = clamp(c.x, 120 - R.lay.W * c.k, r.width - 120);
+    c.y = clamp(c.y, 120 - R.lay.H * c.k, r.height - 120);
+    document.getElementById("world").style.transform = `translate(${c.x}px, ${c.y}px) scale(${c.k})`;
+    cv.style.backgroundSize = `${22 * c.k}px ${22 * c.k}px`;
+    cv.style.backgroundPosition = `${c.x}px ${c.y}px`;
+    document.getElementById("zoom-pct").textContent = Math.round(c.k * 100) + "%";
+    renderMinimap();
+  }
+  // first view: readable zoom (never below 70%), starting at the left; "Fit" shows everything
+  function fitView(readable) {
+    if (!R.lay) return;
+    const r = canvasRect();
+    const fitK = Math.min((r.width - 24) / R.lay.W, (r.height - 24) / R.lay.H);
+    const k = readable ? clamp(fitK, 0.75, 1) : clamp(fitK, 0.2, 1.2);
+    state.cam = { k, x: R.lay.W * k < r.width ? (r.width - R.lay.W * k) / 2 : 12, y: R.lay.H * k < r.height ? Math.max(8, (r.height - R.lay.H * k) / 2) : 8 };
+    applyCam();
+  }
+  function zoomAt(f, cx, cy) {
+    const c = state.cam;
+    const k = clamp(c.k * f, 0.2, 2);
+    c.x = cx - (cx - c.x) * (k / c.k);
+    c.y = cy - (cy - c.y) * (k / c.k);
+    c.k = k;
+    applyCam();
+  }
+  function renderMinimap() {
+    const mm = document.getElementById("minimap");
+    if (!R.lay || !state.cam) return;
+    const lay = R.lay, r = canvasRect(), c = state.cam;
+    const s = 190 / lay.W, h = Math.round(lay.H * s);
+    const groups = lay.cols.map(col => `<rect class="mm-g ${col.key === "done" ? "" : "s-" + R.report.semesterStats[col.key - 1].status}" x="${col.x}" y="${lay.top}" width="${L.GW}" height="${lay.h}" rx="16"/>`).join("");
+    const errIds = new Set(R.report.issues.filter(i => i.severity === "error").map(i => i.courseIds[0]));
+    const cards = Object.entries(lay.boxes).map(([id, b]) => `<rect class="mm-c${errIds.has(id) ? " bad" : ""}" x="${b.l}" y="${b.t}" width="${b.r - b.l}" height="${b.b - b.t}" rx="8"/>`).join("");
+    const view = `<rect class="mm-v" x="${-c.x / c.k}" y="${-c.y / c.k}" width="${r.width / c.k}" height="${r.height / c.k}" rx="12"/>`;
+    mm.innerHTML = `<svg viewBox="0 0 ${lay.W} ${lay.H}" width="190" height="${h}" aria-hidden="true">${groups}${cards}${view}</svg>`;
+  }
+  function minimapJump(e) {
+    const mm = document.getElementById("minimap").getBoundingClientRect(), r = canvasRect(), c = state.cam;
+    const wx = (e.clientX - mm.left) / mm.width * R.lay.W, wy = (e.clientY - mm.top) / mm.height * R.lay.H;
+    c.x = r.width / 2 - wx * c.k;
+    c.y = r.height / 2 - wy * c.k;
+    applyCam();
+  }
+
+  // ------------------------------------------------------------------ hover tracing (graph-view style)
+  function traceOn(id) {
+    if (state.sel || drag) return;
+    const world = document.getElementById("world");
+    world.classList.add("hovering");
+    const near = new Set([id]);
+    world.querySelectorAll(".e, .ewarn").forEach(p => {
+      if (p.dataset.a === id || p.dataset.b === id) { p.classList.add("hl"); near.add(p.dataset.a); near.add(p.dataset.b); }
+    });
+    // arrows hidden by "All prerequisite arrows" off still show their neighbours
+    if (!state.showAll) R.edges.forEach(e => { if (e.from === id || e.to === id) { near.add(e.from); near.add(e.to); } });
+    near.forEach(c => { const el = world.querySelector(`[data-card="${CSS.escape(c)}"]`); if (el) el.classList.add("hl"); });
+  }
+  function traceOff() {
+    const world = document.getElementById("world");
+    world.classList.remove("hovering");
+    world.querySelectorAll(".hl").forEach(el => el.classList.remove("hl"));
+  }
+
+  // ------------------------------------------------------------------ dragging: cards, sidebar items, panning, pinch
+  let drag = null, suppressClick = false;
+  const pointers = new Map();
+  function dropTargetAt(x, y) {
+    const el = document.elementFromPoint(x, y);
+    if (!el) return null;
+    if (el.closest(".side")) return { remove: true };
+    const g = el.closest("[data-sem]");
+    if (g) return { sem: Number(g.dataset.sem) };
+    const c = el.closest(".cc[data-in]");
+    if (c) return { sem: Number(c.dataset.in) };
+    return null;
+  }
+  function markDrop(t) {
+    document.querySelectorAll(".sg.drop-on").forEach(g => g.classList.remove("drop-on"));
+    document.querySelector(".side").classList.toggle("drop-remove", !!(t && t.remove && drag && drag.kind === "card"));
+    if (t && t.sem) { const g = document.querySelector(`.sg[data-sem="${t.sem}"]`); if (g) g.classList.add("drop-on"); }
+  }
+  function moveCardTo(id, l, t) {
+    const b0 = R.lay.boxes[id];
+    const box = { l, t, r: l + (b0.r - b0.l), b: t + (b0.b - b0.t) };
+    const world = document.getElementById("world");
+    world.querySelectorAll(`[data-a="${CSS.escape(id)}"], [data-b="${CSS.escape(id)}"]`).forEach(p => {
+      if (p.tagName === "g") { p.style.display = "none"; return; }
+      const a = p.dataset.a === id ? box : R.lay.boxes[p.dataset.a], z = p.dataset.b === id ? box : R.lay.boxes[p.dataset.b];
+      p.setAttribute("d", edgeGeom(a, z).d);
+    });
+  }
+  document.addEventListener("pointerdown", e => {
+    if (e.pointerType === "mouse" && e.button !== 0 && e.button !== 1) return;
+    const canvas = document.getElementById("canvas");
+    const inCanvas = canvas.contains(e.target);
+    const item = e.target.closest(".side .item");
+    if (item) { if (e.pointerType === "mouse") e.preventDefault(); drag = { kind: "side", id: item.dataset.sel, sx: e.clientX, sy: e.clientY, pid: e.pointerId, started: false }; return; }
+    if (!inCanvas || e.target.closest(".inspector, .cv-ctl, .minimap, button, a, select, input")) {
+      if (e.target.closest(".minimap")) { minimapJump(e); drag = { kind: "mini", pid: e.pointerId, started: true }; }
+      return;
+    }
+    if (!state.cam) return;
+    e.preventDefault();  // no text selection while dragging on the canvas
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 2) {
+      const [p1, p2] = [...pointers.values()];
+      drag = { kind: "pinch", d0: Math.hypot(p1.x - p2.x, p1.y - p2.y), k0: state.cam.k, started: true };
+      return;
+    }
+    const card = e.target.closest(".cc");
+    if (card && card.dataset.movable && e.button === 0) {
+      drag = { kind: "card", id: card.dataset.card, el: card, sx: e.clientX, sy: e.clientY, pid: e.pointerId, started: false, box: R.lay.boxes[card.dataset.card] };
+      return;
+    }
+    drag = { kind: "pan", sx: e.clientX, sy: e.clientY, cx: state.cam.x, cy: state.cam.y, pid: e.pointerId, started: false };
+  });
+  window.addEventListener("pointermove", e => {
+    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (!drag) return;
+    if (drag.kind === "pinch") {
+      if (pointers.size < 2) return;
+      const [p1, p2] = [...pointers.values()], r = canvasRect();
+      const k = clamp(drag.k0 * Math.hypot(p1.x - p2.x, p1.y - p2.y) / drag.d0, 0.2, 2);
+      zoomAt(k / state.cam.k, (p1.x + p2.x) / 2 - r.left, (p1.y + p2.y) / 2 - r.top);
+      return;
+    }
+    if (drag.kind === "mini") { minimapJump(e); return; }
+    if (e.pointerId !== drag.pid) return;
+    const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
+    if (!drag.started) {
+      if (Math.hypot(dx, dy) < 5) return;
+      drag.started = true;
+      hideHover(); traceOff();
+      state.menu = null; renderMenu();
+      if (drag.kind === "card") { drag.el.classList.add("dragging"); }
+      if (drag.kind === "pan") document.getElementById("canvas").classList.add("panning");
+      if (drag.kind === "side") {
+        drag.ghost = document.createElement("div");
+        drag.ghost.className = "dragghost";
+        drag.ghost.textContent = drag.id;
+        document.body.appendChild(drag.ghost);
+      }
+    }
+    if (drag.kind === "pan") { state.cam.x = drag.cx + dx; state.cam.y = drag.cy + dy; applyCam(); return; }
+    if (drag.kind === "card") {
+      const k = state.cam.k, l = drag.box.l + dx / k, t = drag.box.t + dy / k;
+      drag.el.style.left = l + "px";
+      drag.el.style.top = t + "px";
+      moveCardTo(drag.id, l, t);
+    }
+    if (drag.kind === "side") { drag.ghost.style.left = e.clientX + 12 + "px"; drag.ghost.style.top = e.clientY + 8 + "px"; }
+    drag.target = dropTargetAt(e.clientX, e.clientY);
+    markDrop(drag.target);
+  });
+  function endDrag(e) {
+    pointers.delete(e.pointerId);
+    if (!drag || (drag.pid != null && e.pointerId !== drag.pid && drag.kind !== "pinch")) return;
+    const d = drag;
+    drag = null;
+    document.getElementById("canvas").classList.remove("panning");
+    if (d.ghost) d.ghost.remove();
+    markDrop(null);
+    if (!d.started) return;
+    suppressClick = d.kind !== "mini";
+    setTimeout(() => { suppressClick = false; }, 0);
+    if (d.kind === "card") {
+      const t = d.target;
+      if (t && t.remove) removeCourse(d.id);
+      else if (t && t.sem && t.sem !== R.pos.get(d.id)) moveTo(d.id, t.sem);
+      else renderBoard();  // dropped outside a semester: snap back
+    } else if (d.kind === "side") {
+      const t = d.target;
+      const done = R.doneInfo.done.has(d.id) && !R.pos.has(d.id);
+      if (t && t.sem && !done) moveTo(d.id, t.sem);
+    }
+  }
+  window.addEventListener("pointerup", endDrag);
+  window.addEventListener("pointercancel", endDrag);
+  document.addEventListener("click", e => { if (suppressClick) { suppressClick = false; e.stopPropagation(); e.preventDefault(); } }, true);
+  document.getElementById("canvas").addEventListener("wheel", e => {
+    if (!state.cam) return;
+    const r = canvasRect();
+    if (e.ctrlKey || e.metaKey) { e.preventDefault(); zoomAt(Math.exp(-e.deltaY * 0.0022), e.clientX - r.left, e.clientY - r.top); return; }
+    const dx = e.shiftKey ? e.deltaY : e.deltaX, dy = e.shiftKey ? 0 : e.deltaY;
+    const tall = R.lay.H * state.cam.k > r.height;
+    if (Math.abs(dx) > 0.5 || tall) {
+      e.preventDefault();
+      state.cam.x -= dx;
+      if (tall) state.cam.y -= dy;
+      applyCam();
+    }  // otherwise a vertical wheel scrolls the page
+  }, { passive: false });
+
+  // "Move to…" popover, outside the canvas so it is never clipped
+  function renderMenu() {
+    const m = document.getElementById("menu");
+    const id = state.menu;
+    const card = id && document.querySelector(`#world [data-card="${CSS.escape(id)}"]`);
+    if (!card) { m.hidden = true; m.innerHTML = ""; return; }
+    const cur = R.pos.get(id);
+    m.innerHTML = `<div class="mh">Move ${esc(id)} to</div>` +
+      R.plan.semesters.map(s => `<button type="button" role="menuitem" data-move="${esc(id)}" data-to="${s.index}"${s.index === cur ? " disabled" : ""}><span>${esc(s.label)}${s.index === cur ? " (now)" : ""}</span><span class="mono small">${R.report.semesterStats[s.index - 1].units}u</span></button>`).join("") +
+      `<button type="button" role="menuitem" class="rm" data-remove="${esc(id)}"><span>Remove from plan</span></button>`;
+    m.hidden = false;
+    clearTimeout(hoverTimer);
+    hideHover();
+    const r = card.getBoundingClientRect();
+    m.style.left = Math.max(8, Math.min(window.innerWidth - m.offsetWidth - 8, r.left)) + "px";
+    m.style.top = (r.bottom + 4 + m.offsetHeight < window.innerHeight ? r.bottom + 4 : Math.max(8, r.top - m.offsetHeight - 4)) + "px";
+    const first = m.querySelector("button:not([disabled])");
+    if (first && document.activeElement && document.activeElement.dataset && document.activeElement.dataset.menu === id) first.focus();
   }
 
   // ------------------------------------------------------------------ render: inspector
@@ -2016,7 +2299,6 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
   // ------------------------------------------------------------------ orchestration
   function render() {
     compute();
-    R.chain = null;
     renderTabs();
     renderProfile();
     renderSummary();
@@ -2038,6 +2320,12 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
     ];
     state.activeId = state.plans[0].id;
   }
+  // a new transcript makes finished courses duplicates in every saved plan: take them out
+  function dropCompleted() {
+    buildCatalog();
+    const di = doneInfo(profile());
+    state.plans.forEach(p => { p.semesters = p.semesters.map(ids => ids.filter(c => !(di.done.has(c) && !(C(c) || {}).isPlaceholder))); });
+  }
   function rebuildAuto() {
     buildCatalog();
     const prof = profile();
@@ -2046,7 +2334,14 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
 
   document.addEventListener("click", e => {
     const t = e.target.closest("[data-act],[data-tab],[data-close-tab],[data-sel],[data-menu],[data-move],[data-remove],[data-fix],[data-filter],[data-chip],[data-apply],[data-replay]");
+    const z = e.target.closest("[data-zoom]");
+    if (z) {
+      const r = canvasRect();
+      if (z.dataset.zoom === "fit") fitView(false); else zoomAt(z.dataset.zoom === "in" ? 1.2 : 1 / 1.2, r.width / 2, r.height / 2);
+      return;
+    }
     if (!t) {
+      if (state.sel && e.target.closest("#canvas") && !e.target.closest(".sg, .cc, .inspector, .cv-ctl, .minimap")) { state.sel = null; render(); return; }
       const sem = e.target.closest("[data-sem]");
       if (sem && state.sel && sem.classList.contains("target")) { moveTo(state.sel, Number(sem.dataset.sem)); return; }
       if (state.menu && !e.target.closest(".menu")) { state.menu = null; renderMenu(); }
@@ -2110,7 +2405,13 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
       if (state.evalOpen) { state.evalOpen = false; renderEval(); }
       return;
     }
-    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches(".cc")) { e.preventDefault(); select(e.target.dataset.card); }
+    if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches(".cc")) { e.preventDefault(); select(e.target.dataset.card); return; }
+    if (state.cam && !e.target.closest("input, textarea, select") && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      const r = canvasRect();
+      if (e.key === "+" || e.key === "=") zoomAt(1.2, r.width / 2, r.height / 2);
+      else if (e.key === "-") zoomAt(1 / 1.2, r.width / 2, r.height / 2);
+      else if (e.key === "0") fitView(false);
+    }
   });
   document.addEventListener("input", e => {
     if (e.target.id === "side-q") { state.sideQuery = e.target.value; renderSide(); }
@@ -2118,13 +2419,13 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
   document.addEventListener("change", e => {
     const t = e.target;
     if (t.id === "max-units") { state.maxUnits = Number(t.value); rebuildAuto(); }
-    else if (t.id === "show-all") { state.showAll = t.checked; drawEdges(); return; }
+    else if (t.id === "show-all") { state.showAll = t.checked; renderBoard(); return; }
     else if (t.id === "start-select") { const [season, year] = t.value.split(" "); state.transcript.start = { season, year: Number(year) }; rebuildAuto(); }
     else if (t.id === "placement") { state.transcript.placement = { calculus: t.checked }; rebuildAuto(); }
     else if (t.id === "profile-select") {
       if (t.value === "sample") { state.profileId = "sample"; state.transcript = clone(window.SAMPLE_TRANSCRIPT); }
       else if (t.value === "freshman") { state.profileId = "freshman"; state.transcript = freshman(); }
-      state.sel = null; rebuildAuto();
+      state.sel = null; dropCompleted(); rebuildAuto();
     }
     else if (t.dataset.offer) { if (t.value === "both") delete state.offerings[t.dataset.offer]; else state.offerings[t.dataset.offer] = [t.value]; }
     else if (t.dataset.use != null) { state.transcript.courses[t.dataset.use].include = t.checked; }
@@ -2143,7 +2444,7 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
           const sel = document.getElementById("profile-select");
           sel.querySelector('option[value="upload"]').disabled = false;
           msg.textContent = `Loaded ${courses.length} courses from ${file.name}. It stays in this browser tab only.`;
-          rebuildAuto(); render();
+          dropCompleted(); rebuildAuto(); render();
         } catch (err) { msg.textContent = "Couldn't read that file: " + err.message + "."; }
       };
       reader.readAsText(file);
@@ -2153,19 +2454,23 @@ window.GG = {"catalog":[{"id":"CSC 101","dept":"CSC","number":"101","name":"Intr
     save(); render();
   });
   document.addEventListener("mouseover", e => {
-    const card = e.target.closest && e.target.closest(".cc");
-    if (e.target.closest && e.target.closest("#hover")) { clearTimeout(hideTimer); return; }
-    if (!card || state.menu) return;
+    if (!e.target.closest) return;
+    if (e.target.closest("#hover")) { clearTimeout(hideTimer); return; }
+    const card = e.target.closest(".cc");
+    if (!card || state.menu || drag) return;
+    if (e.relatedTarget && card.contains(e.relatedTarget)) return;
+    traceOn(card.dataset.card);
     clearTimeout(hideTimer); clearTimeout(hoverTimer);
-    hoverTimer = setTimeout(() => showHover(card), 150);
+    hoverTimer = setTimeout(() => showHover(card), 450);
   });
   document.addEventListener("mouseout", e => {
-    if (e.target.closest && (e.target.closest(".cc") || e.target.closest("#hover"))) {
-      clearTimeout(hoverTimer);
-      hideTimer = setTimeout(hideHover, 160);
-    }
+    if (!e.target.closest) return;
+    const card = e.target.closest(".cc");
+    if (card && e.relatedTarget && card.contains(e.relatedTarget)) return;
+    if (card) traceOff();
+    if (card || e.target.closest("#hover")) { clearTimeout(hoverTimer); hideTimer = setTimeout(hideHover, 160); }
   });
-  window.addEventListener("resize", () => requestAnimationFrame(drawEdges));
+  window.addEventListener("resize", () => { if (state.cam) applyCam(); });
   document.addEventListener("scroll", () => { hideHover(); if (state.menu) { state.menu = null; renderMenu(); } }, true);
 
   // ------------------------------------------------------------------ boot
