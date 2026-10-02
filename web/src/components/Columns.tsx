@@ -69,11 +69,15 @@ export function Columns() {
           const isDone = s.index <= done
           const ge = s.courseIds.filter(c => isPlaceholder(c) && !isElectiveSlot(c))
           const slots = s.courseIds.filter(isElectiveSlot)
-          const footer = stat.status === "over" || stat.status === "under" ? "bg-red-200 text-red-800" : stat.status === "heavy" ? "bg-amber-200 text-amber-900" : "bg-zinc-300/70 text-zinc-700"
+          // load status from policies.json colors the whole semester (D-046); the next semester is red even when empty
+          const low = !isDone && (stat.status === "under" || (stat.status === "empty" && s.index === nextSemester(plan)))
+          const box = stat.status === "over" ? "bg-red-200/80 ring-[3px] ring-red-500" : low ? "bg-red-100/80 ring-2 ring-red-400"
+            : stat.status === "heavy" ? "bg-amber-100/80 ring-2 ring-amber-400" : "bg-zinc-300/60"
+          const footer = stat.status === "over" || low ? "bg-red-200 text-red-800" : stat.status === "heavy" ? "bg-amber-200 text-amber-900" : "bg-zinc-300/70 text-zinc-700"
           return (
             <div key={s.index} data-tour={s.index === 1 ? "semester" : undefined}
               onDragOver={e => { e.preventDefault(); setOver(s.index) }} onDragLeave={() => setOver(null)} onDrop={drop(s.index)}
-              className={`flex w-[218px] max-w-[440px] flex-1 shrink-0 flex-col rounded-2xl bg-zinc-300/60 transition ${over === s.index ? "ring-4 ring-lime-400/70" : ""}`}>
+              className={`flex w-[218px] max-w-[440px] flex-1 shrink-0 flex-col rounded-2xl transition ${over === s.index ? "bg-zinc-300/60 ring-4 ring-lime-400/70" : box}`}>
               <div className="flex justify-center py-2">
                 <button className="cursor-default rounded-full bg-zinc-500 px-4 py-1 text-sm font-semibold text-white shadow">
                   {termName(dag, s.index)}{isDone && " ✓"}{s.index === nextSemester(plan) && " · next"}
@@ -111,7 +115,7 @@ export function Columns() {
                 {!s.courseIds.length && <div className="rounded-xl border-2 border-dashed border-zinc-400/60 p-6 text-center text-xs text-zinc-500">Drag courses here</div>}
               </div>
               <div className={`rounded-b-2xl py-2 text-center text-sm font-medium ${footer}`}>
-                {stat.units} Credits{stat.status === "heavy" ? ` · above ${policies.heavyLoadUnits.value}` : stat.status === "over" ? ` · over ${policies.maxUnitsWithoutPermission.value}` : stat.status === "under" ? ` · below ${policies.minUnitsFullTime.value}` : ""}
+                {stat.units} Credits{stat.status === "heavy" ? ` · above the normal ${policies.heavyLoadUnits.value}` : stat.status === "over" ? ` · over the ${policies.maxUnitsWithoutPermission.value} max` : low ? ` · add ${policies.minUnitsFullTime.value - stat.units}+ for full time` : ""}
               </div>
             </div>
           )

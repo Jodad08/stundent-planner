@@ -436,3 +436,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser (Core tab 2/12 lists core and advanced CS only)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-046: Semester boxes colored by the unit-load policies
+- Step: 10 (human request)
+- Decision: Card-view semester boxes take their color from `data/policies.json`: red tint + ring when under full time (12, `fa_enrollment_status`), amber above the normal load (15, `normal_load`), strong red over the priority-registration maximum (19). The next semester is red even when empty; later empty semesters stay neutral (avoids a wall of red); completed semesters are never flagged. Footer says what to do ("6 Credits · add 6+ for full time").
+- Why: human request 2026-10-02 ~16:12.
+- Evidence: browser (next semester 6 units → red box, footer "add 6+ for full time"; empty Spring 2028 neutral)
+- Critic: PASS (scan) [critic: mock]
+- Status: active
