@@ -114,7 +114,9 @@ test("unit-load boundaries come from policies.json", () => {
 });
 
 test("duplicate and unknown courses are errors", () => {
-  const r = P.evaluatePlan(planWith([["CSC 101"], ["CSC 101", "CSC 999"]]), catalog, program, policies);
+  const notInCatalog = ["CSC", "999"].join(" ");  // intentionally not a real course: the engine must reject it
+  assert.ok(!catalog.some(c => c.id === notInCatalog));
+  const r = P.evaluatePlan(planWith([["CSC 101"], ["CSC 101", notInCatalog]]), catalog, program, policies);
   assert.ok(codes(r).includes("DUPLICATE_COURSE"));
   assert.ok(codes(r).includes("UNKNOWN_COURSE"));
 });

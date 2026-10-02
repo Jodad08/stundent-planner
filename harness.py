@@ -290,18 +290,20 @@ def scan(root: Path = ROOT) -> list[Finding]:
 
         # Code-only rules
         if p.suffix in {".ts", ".tsx", ".js", ".jsx"}:
-            is_engine = r == "shared/engine.ts" or r.endswith(".test.ts") or "/fixtures/" in r
+            # D-011/D-020: the engine is web/planner.js (plain JS), tests are *.test.js
+            is_engine = (r in ("shared/engine.ts", "web/planner.js") or r.endswith(".test.ts")
+                         or r.endswith(".test.js") or "/fixtures/" in r)
             if (r.startswith("web/") or r.startswith("server/")) and not is_engine:
                 for m in POLICY_NUM_RE.finditer(text):
                     out.append(Finding("contract_violation", "medium", f"{r}:{line_of(text, m.start())}", m.group(0).strip(),
                                        "Looks like a hardcoded unit/credit policy number. Policies live only in data/policies.json.",
                                        "Read the value from policies; never hardcode it."))
-            if r != "server/prompts.ts":
+            if r not in ("server/prompts.ts", "server/prompts.js"):
                 for m in PROMPT_RE.finditer(text):
                     out.append(Finding("contract_violation", "medium", f"{r}:{line_of(text, m.start())}", m.group(0),
                                        "Prompt text outside server/prompts.ts.",
                                        "Move all prompts to server/prompts.ts."))
-            if r != "server/gemini.ts" and GEMINI_IMPORT_RE.search(text):
+            if r not in ("server/gemini.ts", "server/gemini.js") and GEMINI_IMPORT_RE.search(text):
                 out.append(Finding("contract_violation", "high", r, "@google/genai import",
                                    "Provider SDK used outside the single model adapter.",
                                    "Route every model call through server/gemini.ts completeJson()."))

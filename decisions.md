@@ -231,3 +231,13 @@ Human instruction for this session: skip the TypeScript port unless it is fully 
 - How to run: `python3 scraper/build_cs_dag.py && python3 scraper/build_contracts.py && python3 scripts/validate_catalog.py`
 - What proves it works: validator OK (0 errors); harness scan clean; CS groups add up to 120 units.
 - What can still fail: only the 59 CS courses have encoded prerequisites; the other courses carry Bulletin text in `prereqNotes`. Nothing is human-verified yet.
+
+## D-020: Harness file-name rules follow the JavaScript engine (D-011)
+- Step: 4
+- Decision: `harness.py` treats `web/planner.js` and `*.test.js` like `shared/engine.ts`/`*.test.ts` (exempt from the hardcoded-number check), accepts prompts in `server/prompts.js` and the model SDK in `server/gemini.js`. All other checks unchanged; `harness.py selftest` passes.
+- Alternatives: rename the engine and tests to .ts without a TypeScript build; keep the rules and suppress findings by hand.
+- Why: D-011 keeps the engine in plain JS, so the TypeScript-only file names would flag the engine's own tests and the server's single prompt file. The unknown-course test now builds its fake ID at runtime so the scan still catches real hallucinated IDs elsewhere.
+- Evidence: `python3 harness.py selftest` (passed); `python3 harness.py scan` (clean) after the change
+- Risk / undo: a policy number hardcoded in `web/planner.js` would no longer be flagged; the engine reads every threshold from `policies.json` (tests use `POL(...)`). Revert the three lines in `harness.py`.
+- Critic: PASS (0016-check) [critic: mock]
+- Status: active
