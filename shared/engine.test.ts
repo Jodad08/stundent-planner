@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs"
 import { describe, expect, it } from "vitest"
 import { dag, policies } from "./data"
-import { bottlenecks, criticalCourses, evaluatePlan, placeholderId, plan, semesterStatus, suggestSemester, uniqueCourses, type Profile } from "./engine"
+import { bottlenecks, criticalCourses, evaluatePlan, placeholderId, plan, semesterStatus, suggestSemester, uniqueCourses, nextCourses, emptySemesters, type Profile } from "./engine"
 import { buildFallbackPlan } from "./fallbackPlanner"
 import type { Plan } from "./types"
 import transcript from "./fixtures/midDegreeTranscript.json"
@@ -109,6 +109,14 @@ describe("evaluatePlan", () => {
     expect(suggestSemester(broken, dag, policies, "CSC 340")).toBe(4)
     const missing = clone(valid); missing.semesters.forEach(s => { s.courseIds = s.courseIds.filter(c => c !== "CSC 220") })
     expect(suggestSemester(missing, dag, policies, "CSC 340")).toBeNull() // no move can fix a missing prerequisite
+  })
+  it("nextCourses: year 1 suggests only required courses whose prerequisites are done", () => {
+    const fresh: Plan = { ...clone(valid), semesters: emptySemesters() }
+    const s1 = nextCourses(fresh, dag, 1, "ai")
+    expect(s1).toContain("CSC 101")
+    expect(s1).not.toContain("CSC 340") // needs CSC 220 + 230 first
+    expect(s1).not.toContain("CSC 300GW") // needs upper-division standing
+    expect(s1.some(c => dag.requirements.some(r => r.type === "choose_units" && r.courses.includes(c)))).toBe(false) // no electives in year 1
   })
   it("empty plan is not graduation-ready", () => {
     const p = clone(valid); p.semesters.forEach(s => { s.courseIds = [] })

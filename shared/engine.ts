@@ -600,3 +600,23 @@ export function suggestSemester(p: Plan, dag: Dag, policies: Policies, id: Cours
   }
   return null
 }
+
+/**
+ * Courses the student can take in `sem`: not planned yet, prerequisites done before it. Years 1-2 get only
+ * required courses (no electives yet); later years add the goal track's electives first (D-042).
+ */
+export function nextCourses(p: Plan, dag: Dag, sem: number, trackId?: string): CourseId[] {
+  const before = new Set(p.semesters.filter(s => s.index < sem).flatMap(s => s.courseIds))
+  const planned = new Set(p.semesters.flatMap(s => s.courseIds))
+  const required = dag.requirements.filter(r => r.type === "all").flatMap(r => r.courses)
+  const electives = sem > 4 ? [...(trackId ? dag.tracks[trackId]?.courses ?? [] : []), ...dag.requirements.filter(r => r.type === "choose_units").flatMap(r => r.courses)] : []
+  const unlocks = (c: CourseId) => Object.values(dag.nodes).filter(n => leaves(n.prereq).some(l => l.code === c)).length
+  // units earned before `sem` decide upper-division (60+) / senior (90+) standing
+  const cum = p.semesters.filter(s => s.index < sem).reduce((a, s) => a + s.courseIds.reduce((b, c) => b + unitsOf(dag, c), 0), 0)
+  const standing = (c: CourseId) => dag.nodes[c].conditions.every(cond =>
+    !(UD.test(cond) && cum < dag.university.upper_division_standing_units) && !(SENIOR.test(cond) && cum < dag.university.senior_standing_units))
+  const ok = (c: CourseId) => dag.nodes[c] && !planned.has(c) && standing(c) && evaluate(dag.nodes[c].prereq, { before, now: new Set(), placement: { calculus: true } })
+  const req = [...new Set(required)].filter(ok).sort((a, b) => unlocks(b) - unlocks(a))
+  return [...req, ...[...new Set(electives)].filter(c => ok(c) && !req.includes(c))]
+}
+

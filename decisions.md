@@ -403,3 +403,11 @@ Critic note: no `ANTHROPIC_API_KEY` on this machine, so every `harness.py` run b
 - Evidence: browser checks (2 done → graph shows Fall 2027, Spring 2028; slider 4 → through Spring 2029)
 - Critic: PASS (scan) [critic: mock]
 - Status: active
+
+## D-042: Next-semester focus: year tabs, gator tips, export for SFSU
+- Step: 10 (human request)
+- Decision: Card view shows one year (2 semesters) at a time, opening on the year of the next semester (first after the completed ones, marked "· next"). A gator (🐊) shows one tip at a time: fix a broken course in the next semester (with "Move it to…"), otherwise "Take <course>" with "Add it", from `nextCourses()` (engine): not yet planned, prerequisites done before that semester, standing reached; years 1-2 suggest only required courses, later years add the goal track's electives first; ranked by how many courses each unlocks. When the semester is full: "Export for SFSU", which downloads a one-page HTML plan (courses, titles, units, total, rules-engine note, "confirm with your advisor"); also a "⬇ Export <term>" button by the year tabs.
+- Why: human request 2026-10-02 ~16:01 (students submit next semester; minimize information).
+- Evidence: `shared/engine.test.ts` (year-1 suggestions: CSC 101 yes; CSC 340, CSC 300GW, electives no); browser (Year 2 opens; Add it ×4 → "Fall 2027 looks good: 15 units ✅ Export for SFSU")
+- Critic: PASS (scan) [critic: mock]
+- Status: active

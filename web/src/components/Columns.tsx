@@ -3,6 +3,7 @@ import { isElectiveSlot, isPlaceholder, leaves, placeholderUnits, suggestSemeste
 import type { CourseId, Dag, PrereqExpr } from "../../../shared/types"
 import { category, termName } from "../lib/derive"
 import { useActivePlan, useStore } from "../store"
+import { exportSemester, nextSemester } from "./Pet"
 import { useReport } from "./Board"
 
 /**
@@ -16,6 +17,9 @@ export function Columns() {
   const report = useReport()!
   const st = useStore.getState()
   const [over, setOver] = useState<number | null>(null)
+  // one year at a time, opening on the year of the next semester (D-042)
+  const [year, setYear] = useState(() => Math.ceil(nextSemester(plan) / 2))
+  const student = useStore(s => s.student)
   const semOf = useMemo(() => { const m = new Map<CourseId, number>(); plan.semesters.forEach(s => s.courseIds.forEach(c => m.set(c, s.index))); return m }, [plan])
   const status = useMemo(() => {
     const m = new Map<CourseId, "error" | "warning">()
@@ -46,16 +50,21 @@ export function Columns() {
   }
 
   return (
-    <div className="relative h-full overflow-x-auto overflow-y-hidden bg-[#e7e7ea] text-zinc-800">
+    <div className="relative h-full overflow-hidden bg-[#e7e7ea] text-zinc-800">
       <div className="sticky left-0 top-0 z-10 flex items-center justify-between px-5 pt-3 text-[12px] text-zinc-500">
-        <span>{stats.courses} courses · {stats.units} credits{stats.taken ? ` · ${stats.taken} taken` : ""}</span>
+        <span className="flex items-center gap-1">
+          {[1, 2, 3, 4].map(y => <button key={y} onClick={() => setYear(y)}
+            className={`rounded-full px-3 py-1 text-[13px] ${year === y ? "bg-zinc-800 font-semibold text-white" : "text-zinc-600 hover:bg-zinc-200"}`}>Year {y}</button>)}
+          <button onClick={() => exportSemester(plan, dag, nextSemester(plan), student?.name ?? "Student")}
+            className="ml-3 rounded-full border border-zinc-300 bg-white px-3 py-1 text-[12px] text-zinc-700 hover:border-zinc-500">⬇ Export {termName(dag, nextSemester(plan))}</button>
+        </span>
         <span className="flex items-center gap-3">
           {(["core", "math", "elective"] as const).map(k => <span key={k} className="flex items-center gap-1.5"><span className={`h-2.5 w-2.5 rounded-sm ${TYPE[k].bg}`} />{TYPE[k].label}</span>)}
           <span className="flex items-center gap-1.5"><span className="h-2.5 w-2.5 rounded-sm ring-2 ring-inset ring-red-500" />Breaks a rule</span>
         </span>
       </div>
       <div className="flex h-[calc(100%-36px)] gap-3 px-4 pb-3 pt-2">
-        {plan.semesters.map(s => {
+        {plan.semesters.filter(s => Math.ceil(s.index / 2) === year).map(s => {
           const stat = report.semesterStats.find(x => x.index === s.index)!
           const isDone = s.index <= done
           const ge = s.courseIds.filter(c => isPlaceholder(c) && !isElectiveSlot(c))
@@ -64,10 +73,10 @@ export function Columns() {
           return (
             <div key={s.index} data-tour={s.index === 1 ? "semester" : undefined}
               onDragOver={e => { e.preventDefault(); setOver(s.index) }} onDragLeave={() => setOver(null)} onDrop={drop(s.index)}
-              className={`flex w-[218px] shrink-0 flex-col rounded-2xl bg-zinc-300/60 transition ${over === s.index ? "ring-4 ring-lime-400/70" : ""}`}>
+              className={`flex w-[218px] max-w-[440px] flex-1 shrink-0 flex-col rounded-2xl bg-zinc-300/60 transition ${over === s.index ? "ring-4 ring-lime-400/70" : ""}`}>
               <div className="flex justify-center py-2">
                 <button className="cursor-default rounded-full bg-zinc-500 px-4 py-1 text-sm font-semibold text-white shadow">
-                  {termName(dag, s.index)}{isDone && " ✓"}
+                  {termName(dag, s.index)}{isDone && " ✓"}{s.index === nextSemester(plan) && " · next"}
                 </button>
               </div>
               <div className="flex-1 space-y-2.5 overflow-y-auto px-2 pb-2">

@@ -4,6 +4,7 @@ import { api } from "./api"
 import { useStore } from "./store"
 import { Board } from "./components/Board"
 import { Columns } from "./components/Columns"
+import { Pet } from "./components/Pet"
 import { Sidebar } from "./components/Sidebar"
 import { Toolbar } from "./components/Toolbar"
 import { PlanModal } from "./components/PlanModal"
@@ -44,7 +45,7 @@ export function App() {
         <Toolbar onTour={() => setTour(true)} />
         <div className="flex min-h-0 flex-1">
           <Sidebar />
-          <main data-tour="board" className="relative min-w-0 flex-1">{view === "cards" ? <Columns /> : <Board />}</main>
+          <main data-tour="board" className="relative min-w-0 flex-1">{view === "cards" ? <Columns /> : <Board />}<Pet /></main>
           {panel === "evaluate" && <EvaluatePanel />}
           {panel === "proof" && <ProofPanel />}
           {panel === "runs" && <RunsPanel />}
