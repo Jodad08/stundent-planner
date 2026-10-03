@@ -1,4 +1,4 @@
-# GatorGraph
+# PlanEd
 
 A degree planner for SF State's B.S. Computer Science, built on the 2026–27 Bulletin. You lay out 8 semesters on a
 board. A rules engine checks every move: prerequisite order, corequisites, units per semester, standing and requirement
@@ -30,7 +30,7 @@ GEMINI_API_KEY=your-key GEMINI_MODEL=<current Gemini model ID> npm start
 
 The key stays on the server and is never sent to the browser.
 
-No server needed: open `web/dist/gatorgraph.html` in a browser. Everything works except the AI calls; AI Plan then uses
+No server needed: open `web/dist/PlanEd.html` in a browser. Everything works except the AI calls; AI Plan then uses
 the deterministic planner.
 
 ## Check it
